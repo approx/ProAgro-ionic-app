@@ -14,3 +14,33 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.scroll-content{
+  overflow: auto;
+}
+
+ion-col.side-menu{
+    background-color: (map-get($colors, dark));
+    border-right: solid 2px (map-get($colors, primary));
+    height: 100%;
+    padding: 0px!important;
+}
+
+ion-col.side-menu .imgWraper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border-bottom: solid 2px (map-get($colors, primary));
+}
+
+ion-grid.container,ion-grid.container ion-row{
+  height: 100%;
+}
+
+ion-nav{
+  top:82px;
+  bottom: 0px;
+  height: auto;
+  background-color: #ebe8e8;
+}

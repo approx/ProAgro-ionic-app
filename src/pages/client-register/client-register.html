@@ -1,0 +1,99 @@
+<!--
+  Generated template for the ClientRegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+  <h1>Cadastrar Cliente</h1>
+  <form (ngSubmit)="Register()" #ClientForm="ngForm">
+    <ion-grid padding-right>
+      <ion-row>
+        <ion-col col-12 col-md-4 col-lg-5>
+          <ion-item>
+            <ion-label floating>Nome*</ion-label>
+            <ion-input type="text" required maxlength="45" #name="ngModel" [(ngModel)]="client.name" name="name" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-2>
+          <ion-item>
+            <ion-label floating>CPF/CNPJ*</ion-label>
+            <ion-input type="text" required maxlength="15" [(ngModel)]="client.cpf_cnpj" name="cpf_cnpj" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-5>
+          <ion-item>
+            <ion-label floating>Telefone*</ion-label>
+            <ion-input type="text" required maxlength="11" [(ngModel)]="client.phone" name="phone" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-md-8 col-lg-7>
+          <ion-item>
+            <ion-label floating>Numero de Inscrição*</ion-label>
+            <ion-input type="text" required maxlength="30" [(ngModel)]="client.inscription_number" name="inscription_number" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-5>
+          <ion-item>
+            <ion-label floating>Telefone Alternativo</ion-label>
+            <ion-input type="text" maxlength="11" [(ngModel)]="client.phone2" name="phone2" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>E-mail</ion-label>
+            <ion-input type="text" maxlength="50" [(ngModel)]="client.email" name="email" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="address" padding-bottom padding-right margin-left margin-bottom margin-top>
+        <label>Endereço</label>
+        <ion-col col-12 col-md-4 col-lg-3>
+          <ion-item>
+            <ion-label floating>CEP*</ion-label>
+            <ion-input type="text" required maxlength="8" [(ngModel)]="address.CEP" name="cep" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-6>
+          <ion-item>
+            <ion-label floating>Rua*</ion-label>
+            <ion-input type="text" required [(ngModel)]="address.street_name" name="street_name" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-3>
+          <ion-item>
+            <ion-label floating>Numero*</ion-label>
+            <ion-input type="text" required maxlength="11" [(ngModel)]="address.street_number" name="street_number" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label>Estado*</ion-label>
+            <ion-select [(ngModel)]="address.state_id" required name="state">
+              <ion-option *ngFor="let state of states" value="{{state.id}}">{{state.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label>Cidade*</ion-label>
+            <ion-select required [(ngModel)]="address.city_id" name="city">
+              <ion-option *ngFor="let city of cities | filter:'state_id':address.state_id" value="{{city.id}}">{{city.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger"> ... </div>
+      </ion-row>
+      <ion-row class="center" margin-bottom>
+        <button type="submit" [disabled]="!ClientForm.form.valid" ion-button col-12 col-md-3>Cadastrar</button>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

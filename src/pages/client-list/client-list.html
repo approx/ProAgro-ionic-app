@@ -1,0 +1,76 @@
+<!--
+  Generated template for the ClientListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+  <h1>Lista de Clientes</h1>
+  <ion-grid>
+    <ion-row style="display:flex;align-items:center;background-color:white">
+      <ion-col col-11>
+        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+      </ion-col>
+      <ion-col col-1 >
+        <button style="background-color:transparent"> <ion-icon name="person-add" style="font-size:30px;"></ion-icon></button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 col-md-2 bold>
+        Nome
+      </ion-col>
+      <ion-col col-2 class="onlyDesktop" bold>
+        E-mail
+      </ion-col>
+      <ion-col col-1 class="onlyDesktop" bold>
+        Telefone
+      </ion-col>
+      <ion-col col-1 class="onlyDesktop" bold>
+        Telefone 2
+      </ion-col>
+      <ion-col col-2 class="onlyDesktop" bold>
+        Numero de Inscrição
+      </ion-col>
+      <ion-col col-6 col-md-2 bold>
+        Fazenda(s)
+      </ion-col>
+      <ion-col col-2 class="onlyDesktop" bold>
+        CPF/CNPJ
+      </ion-col>
+    </ion-row>
+    <ng-container *ngIf="clients">
+      <ng-container *ngIf="clients.length>0">
+        <ion-row class="client" *ngFor="let client of clients">
+          <ion-col col-6 col-md-2>
+            {{client.name}}
+          </ion-col>
+          <ion-col col-2 class="onlyDesktop">
+            {{client.email}}
+          </ion-col>
+          <ion-col col-md-1 class="onlyDesktop">
+            {{client.phone}}
+          </ion-col>
+          <ion-col col-md-1 class="onlyDesktop">
+            {{client.phone2}}
+          </ion-col>
+          <ion-col col-2 class="onlyDesktop">
+            {{client.inscription_number}}
+          </ion-col>
+          <ion-col col-6 col-md-2>
+            {{client.farms}}
+          </ion-col>
+          <ion-col col-2 class="onlyDesktop">
+            {{client.cpf_cnpj}}
+          </ion-col>
+        </ion-row>
+      </ng-container>
+    </ng-container >
+    <ng-container *ngIf="!clients||clients.length<=0">
+      <ion-row>
+        <ion-col text-center padding>
+          Nem um cliente cadastrado ainda, <a href="" (click)="openRegisterPage($event)">clique aqui</a> para cadastrar um cliente.
+        </ion-col>
+      </ion-row>
+    </ng-container>
+  </ion-grid>
+</ion-content>

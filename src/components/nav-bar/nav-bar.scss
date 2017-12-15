@@ -1,0 +1,77 @@
+$textColor:#b9b9b9;
+$textHoverColor:(map-get($colors, primary));
+
+nav-bar {
+  .item ion-icon,.item > ion-icon:first-child, .item-inner > ion-icon:first-child{
+    font-size: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    margin-right: 10px;
+    color: $textColor;
+  }
+
+  .item-block .item-inner{
+    border-bottom: 1px solid $textHoverColor!important;
+  }
+
+  ion-label{
+    margin: 0!important;
+  }
+
+  .item{
+    background-color: transparent!important;
+  }
+
+  .item:hover ion-icon{
+    color: $textHoverColor!important;
+  }
+
+  ion-item{
+    padding-left: 10px!important;
+  }
+
+  button{
+    align-items: flex-start!important;
+    padding-left: 5px!important;
+    background-color: transparent!important;
+    width: 100%;
+    padding: 13px 8px 13px 0!important;
+  }
+
+  button button{
+    padding: 5px 5px 5px 0!important;
+  }
+
+  .item p{
+    margin-left: 0px!important;
+    color: $textColor;
+  }
+
+  .item:hover p{
+    color: $textHoverColor;
+  }
+
+  .toggleIten{
+    color: $textColor;
+  }
+
+  .toggleIten:hover{
+    color: $textHoverColor;
+  }
+
+  .list-md .item-block .item-inner{
+    border-bottom: 1px solid (map-get($colors, primary));
+  }
+
+  .itens{
+    padding-top: 5px;
+  }
+
+  .toggleIten{
+    background-color: transparent;
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 3px 0px;
+  }
+}

@@ -1,1 +1,18 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-content>
+  <ion-grid no-padding class="container">
+    <ion-row>
+      <ion-col *ngIf="loged" class="side-menu" [attr.col-3]="loged ? true : null" [attr.col-lg-2]="loged ? true : null" [attr.col-xl-2]="loged ? true : null">
+        <ion-list>
+          <div class="imgWraper">
+            <img src="assets/imgs/logo.png" height="50px" alt="">
+          </div>
+          <nav-bar *ngFor="let page of pages" [page]="page" ></nav-bar>
+        </ion-list>
+      </ion-col>
+      <ion-col [attr.col-9]="loged ? true : null" [attr.col-lg-10]="loged ? true : null" [attr.col-xl-10]="loged ? true : null">
+        <user [user]="user" *ngIf="loged"></user>
+        <ion-nav [ngStyle]="loged ? {'top':'82px'}:{'top':'0px'}" [root]="rootPage"></ion-nav>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

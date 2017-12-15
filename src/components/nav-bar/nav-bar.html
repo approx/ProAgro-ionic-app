@@ -1,0 +1,12 @@
+<!-- Generated template for the NavBarComponent component -->
+<ion-item>
+  <button (click)="openPage(page,$event)" (mouseenter)="openPageMenu(page)" (mouseleave)="cloasePageMenu(page)" >
+    <ion-icon no-margin float-left class="primary" name="{{page.icon}}"></ion-icon>
+    <p float-left>{{page.name}}</p>
+    <div *ngIf="page.itensToogle && page.itens" class="itens">
+      <button (click)="openPage(iten,$event)" class="toggleIten" *ngFor="let iten of page.itens">
+        {{iten.name}}
+      </button>
+    </div>
+  </button>
+</ion-item>

@@ -1,0 +1,23 @@
+$textColor:#b9b9b9;
+$textHoverColor:(map-get($colors, primary));
+
+user {
+  display: block;
+  .container{
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 81px;
+      background-color: (map-get($colors, dark));
+      border-bottom: solid 2px (map-get($colors, primary));
+      p{
+        color: $textColor;
+      }
+  }
+
+  ion-icon{
+    color:$textColor;
+    font-size: 50px;
+    margin: 0px 10px;
+  }
+}
