@@ -14,10 +14,17 @@ import { FilterPipe } from '../pipes/filter/filter';
 //Pages
 import { HomePage } from '../pages/home/home';
 import { DashBoardPage } from '../pages/dash-board/dash-board';
+import { DashBoardPageModule } from '../pages/dash-board/dash-board.module';
 import { LoginPage } from '../pages/login/login';
+import { LoginPageModule } from '../pages/login/login.module';
 import { ClientPage } from '../pages/client/client';
+import { ClientPageModule } from '../pages/client/client.module';
 import { ClientListPage } from '../pages/client-list/client-list';
+import { ClientListPageModule } from '../pages/client-list/client-list.module';
 import { ClientRegisterPage } from '../pages/client-register/client-register';
+import { ClientRegisterPageModule } from '../pages/client-register/client-register.module';
+import { ClientDetailPage } from  '../pages/client-detail/client-detail';
+import { ClientDetailPageModule } from  '../pages/client-detail/client-detail.module';
 //Providers
 import { AuthProvider } from '../providers/auth/auth';
 import { CookieProvider } from '../providers/cookie/cookie';
@@ -29,25 +36,38 @@ import { ClientProvider } from '../providers/client/client';
 import { AddressProvider } from '../providers/address/address';
 import { CityProvider } from '../providers/city/city';
 import { StateProvider } from '../providers/state/state';
+import { Deeplinks } from '@ionic-native/deeplinks';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage,
-    DashBoardPage,
     NavBarComponent,
     UserComponent,
-    ClientPage,
-    ClientListPage,
-    ClientRegisterPage,
-    FilterPipe
+    FilterPipe,
+    // LoginPage,
+    // DashBoardPage,
+    // ClientPage,
+    // ClientListPage,
+    // ClientRegisterPage,
+    // ClientDetailPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    IonicModule.forRoot(MyApp)
+    LoginPageModule,
+    DashBoardPageModule,
+    ClientPageModule,
+    ClientListPageModule,
+    ClientRegisterPageModule,
+    ClientDetailPageModule,
+    IonicModule.forRoot(MyApp,{
+      links: [
+        { component: LoginPage, name: 'login', segment: 'login' },
+        { component: ClientListPage, name: 'client-list', segment: 'client/list' }
+      ]
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,7 +79,8 @@ import { StateProvider } from '../providers/state/state';
     UserComponent,
     ClientPage,
     ClientListPage,
-    ClientRegisterPage
+    ClientRegisterPage,
+    ClientDetailPage
   ],
   providers: [
     StatusBar,
@@ -71,7 +92,8 @@ import { StateProvider } from '../providers/state/state';
     ClientProvider,
     AddressProvider,
     CityProvider,
-    StateProvider
+    StateProvider,
+    Deeplinks
   ]
 })
 export class AppModule {}

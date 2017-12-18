@@ -40,7 +40,7 @@
     </ion-row>
     <ng-container *ngIf="clients">
       <ng-container *ngIf="clients.length>0">
-        <ion-row class="client" *ngFor="let client of clients">
+        <ion-row class="client" (click)="openClientPage(client)" *ngFor="let client of clients">
           <ion-col col-6 col-md-2>
             {{client.name}}
           </ion-col>

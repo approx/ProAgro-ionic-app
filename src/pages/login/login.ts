@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthProvider} from '../../providers/auth/auth';
 import { MyApp } from '../../app/app.component';
+import { DashBoardPage } from '../../pages/dash-board/dash-board';
 
 /**
  * Generated class for the LoginPage page.
@@ -24,8 +25,8 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
+    MyApp.instance.loged=false;
     console.log('ionViewDidLoad LoginPage');
-
   }
 
   LogIn():void {

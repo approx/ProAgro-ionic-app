@@ -29,6 +29,21 @@ export class ClientModel{
     public email?:string
   ){}
 
+  public static CreateFromInterface(client:ClientInteface,http:HttpClient):ClientModel{
+    return new ClientModel(
+      client.name,
+      client.phone,
+      client.inscription_number,
+      client.cpf_cnpj,
+      client.user_id,
+      client.address_id,
+      client.id,
+      http,
+      client.phone2,
+      client.email
+    );
+  }
+
   getUser():Observable<any>|null{
     if(this.id){
       return this.http.get(endPoint+'/api/client/'+this.id+'/user');

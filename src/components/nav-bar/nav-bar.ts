@@ -41,7 +41,7 @@ export class NavBarComponent {
     event.stopPropagation();
     event.preventDefault();
     if(MyApp.instance){
-      MyApp.instance.nav.push(page.component);
+      MyApp.instance.nav.push(page.component.name);
     }
   }
 

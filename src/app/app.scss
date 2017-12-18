@@ -19,6 +19,10 @@
   overflow: auto;
 }
 
+h1{
+  font-size: 30px;
+}
+
 ion-col.side-menu{
     background-color: (map-get($colors, dark));
     border-right: solid 2px (map-get($colors, primary));

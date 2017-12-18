@@ -73,6 +73,10 @@ export class ClientRegisterPage {
 
   }
 
+  ionViewCanEnter(): boolean{
+    return MyApp.instance.loged;
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClientRegisterPage');
   }

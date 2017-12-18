@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ClientProvider } from '../../providers/client/client';
-import { ClientInteface } from '../../model/client.model';
+import { ClientInteface,ClientModel } from '../../model/client.model';
 import { ClientRegisterPage } from '../client-register/client-register';
+import { ClientDetailPage } from '../client-detail/client-detail';
+import { HttpClient  } from '@angular/common/http';
+import { MyApp } from '../../app/app.component';
 
 /**
  * Generated class for the ClientListPage page.
@@ -19,8 +22,8 @@ import { ClientRegisterPage } from '../client-register/client-register';
 export class ClientListPage {
   clients:ClientInteface[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private clientsProvider:ClientProvider) {
-    this.clientsProvider.getAll().subscribe((data:any)=>{
+  constructor(public navCtrl: NavController, public navParams: NavParams, private clientsProvider:ClientProvider,private http:HttpClient) {
+    this.clientsProvider.getAll().subscribe((data:ClientInteface[])=>{
         this.clients = data;
     },(err:any) => {
       if (err.error instanceof Error) {
@@ -34,6 +37,10 @@ export class ClientListPage {
     })
   }
 
+  ionViewCanEnter(): boolean{
+    return MyApp.instance.loged;
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClientListPage');
   }
@@ -42,6 +49,11 @@ export class ClientListPage {
     event.preventDefault();
     event.stopPropagation();
     this.navCtrl.push(ClientRegisterPage);
+  }
+
+  openClientPage(client:ClientInteface){
+    console.log(client)
+    // this.navCtrl.push(ClientDetailPage,{client:ClientModel.CreateFromInterface(client,this.http)});
   }
 
 }

@@ -82,7 +82,7 @@
           <ion-item>
             <ion-label>Cidade*</ion-label>
             <ion-select required [(ngModel)]="address.city_id" name="city">
-              <ion-option *ngFor="let city of cities | filter:'state_id':address.state_id" value="{{city.id}}">{{city.name}}</ion-option>
+              <ion-option *ngFor="let city of cities " value="{{city.id}}">{{city.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>

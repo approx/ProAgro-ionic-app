@@ -37,7 +37,14 @@ export class MyApp {
 
   static instance:MyApp;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,public auth:AuthProvider,public http:HttpClient,public cookie:CookieProvider) {
+  constructor(
+    platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen,
+    public auth:AuthProvider,
+    public http:HttpClient,
+    public cookie:CookieProvider
+  ) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -46,15 +53,14 @@ export class MyApp {
       splashScreen.hide();
     });
     MyApp.instance=this;
+
+  }
+
+  ngOnInit(){
     if(this.auth.checkIfLogged()){
-      console.log('redirected');
-      this.loged=true;
-      this.getUserData();
-      // this.rootPage = DashBoardPage;
-      this.rootPage = ClientRegisterPage;
-    }
-    else{
-      console.log('not logged');
+      MyApp.instance.loged=true;
+      this.nav.setRoot(DashBoardPage.name);
+      MyApp.instance.getUserData();
     }
   }
 
@@ -102,4 +108,5 @@ export class MyApp {
       console.log('geted user data')
     }
   }
+
 }
