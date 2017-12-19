@@ -24,8 +24,6 @@ export class AuthInterceptorProvider implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>,next: HttpHandler):Observable<HttpEvent<any>> {
-    console.log('intercepted');
-    console.log(this.cookie.objs.token);
     if(this.cookie.objs.token){
       request = request.clone({
         setHeaders:{

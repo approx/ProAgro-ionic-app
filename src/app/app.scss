@@ -48,3 +48,19 @@ ion-nav{
   height: auto;
   background-color: #ebe8e8;
 }
+
+ion-content{
+  background-color: #ebe8e8!important;
+}
+
+.horizontalLine{
+  border-bottom: solid 2px (map-get($colors, primary));
+  position: relative;
+  margin: 3rem 12px 5px 12px;
+  h2{
+    position: absolute;
+    top: -1.2rem;
+    background-color: (map-get($colors, bg));
+    padding-right: 5px;
+  }
+}

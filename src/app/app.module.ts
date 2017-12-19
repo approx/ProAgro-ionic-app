@@ -28,15 +28,15 @@ import { ClientDetailPageModule } from  '../pages/client-detail/client-detail.mo
 //Providers
 import { AuthProvider } from '../providers/auth/auth';
 import { CookieProvider } from '../providers/cookie/cookie';
-//Components
-import { NavBarComponent } from "../components/nav-bar/nav-bar";
-import { UserComponent } from "../components/user/user";
 import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
 import { ClientProvider } from '../providers/client/client';
 import { AddressProvider } from '../providers/address/address';
 import { CityProvider } from '../providers/city/city';
 import { StateProvider } from '../providers/state/state';
-import { Deeplinks } from '@ionic-native/deeplinks';
+//Components
+import { NavBarComponent } from "../components/nav-bar/nav-bar";
+import { UserComponent } from "../components/user/user";
+import { ContactComponent } from "../components/contact/contact";
 
 @NgModule({
   declarations: [
@@ -62,12 +62,7 @@ import { Deeplinks } from '@ionic-native/deeplinks';
     ClientListPageModule,
     ClientRegisterPageModule,
     ClientDetailPageModule,
-    IonicModule.forRoot(MyApp,{
-      links: [
-        { component: LoginPage, name: 'login', segment: 'login' },
-        { component: ClientListPage, name: 'client-list', segment: 'client/list' }
-      ]
-    })
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -75,7 +70,6 @@ import { Deeplinks } from '@ionic-native/deeplinks';
     HomePage,
     LoginPage,
     DashBoardPage,
-    NavBarComponent,
     UserComponent,
     ClientPage,
     ClientListPage,
@@ -92,8 +86,7 @@ import { Deeplinks } from '@ionic-native/deeplinks';
     ClientProvider,
     AddressProvider,
     CityProvider,
-    StateProvider,
-    Deeplinks
+    StateProvider
   ]
 })
 export class AppModule {}

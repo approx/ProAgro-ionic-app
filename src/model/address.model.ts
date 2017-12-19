@@ -22,7 +22,11 @@ export class AddressModel{
     public id?:number
   ){}
 
-  getCity():Observable<any>|null{
+  public static CreateFromInterface(inter:AddressInterface,http:HttpClient):AddressModel{
+      return new AddressModel(inter.CEP,inter.street_name,inter.street_number,inter.city_id,http,inter.id);
+  }
+
+  public getCity():Observable<any>|null{
     if(this.id){
       return this.http.get(endPoint+'/api/address/'+this.id+'/city');
     }

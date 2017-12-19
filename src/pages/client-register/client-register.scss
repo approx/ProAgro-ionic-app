@@ -8,9 +8,7 @@ page-client-register {
     border-radius: 5px;
     border: solid 2px (map-get($colors, primary));
   }
-  ion-content{
-    background-color: #ebe8e8!important;
-  }
+
   ion-row.address label{
     position: absolute;
     font-size: 20px;

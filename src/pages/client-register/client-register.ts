@@ -17,7 +17,9 @@ import { MyApp } from '../../app/app.component';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment:'client/register'
+})
 @Component({
   selector: 'page-client-register',
   templateUrl: 'client-register.html',

@@ -56,6 +56,10 @@ export class ClientModel{
     } else return null;
   }
 
+  getAddress():Observable<any>{
+    return this.http.get(endPoint+'/api/client/'+this.id+'/address')
+  }
+
   getJson():ClientInteface{
     return {
       name:this.name,

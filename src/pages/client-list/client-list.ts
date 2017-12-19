@@ -14,7 +14,9 @@ import { MyApp } from '../../app/app.component';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment:'client/list'
+})
 @Component({
   selector: 'page-client-list',
   templateUrl: 'client-list.html',
@@ -53,7 +55,8 @@ export class ClientListPage {
 
   openClientPage(client:ClientInteface){
     console.log(client)
-    // this.navCtrl.push(ClientDetailPage,{client:ClientModel.CreateFromInterface(client,this.http)});
+    let c = ClientModel.CreateFromInterface(client,this.http);
+    this.navCtrl.push(ClientDetailPage.name,{client:c,client_id:c.id});
   }
 
 }
