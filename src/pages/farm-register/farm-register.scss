@@ -1,8 +1,4 @@
-page-client-register {
-  h1{
-    font-size: 30px;
-  }
-
+page-farm-register {
   ion-row.address{
     position: relative;
     border-radius: 5px;
@@ -17,17 +13,5 @@ page-client-register {
     left:10px;
     background-color: white;
     padding: 0px 5px;
-  }
-
-  ion-grid{
-    background-color: white;
-    border-radius: 5px;
-    border: solid 2px (map-get($colors, primary));
-  }
-
-  ion-row.center{
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 }

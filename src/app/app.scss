@@ -23,6 +23,99 @@ h1{
   font-size: 30px;
 }
 
+.formContent{
+  background-color: white;
+  border-radius: 5px;
+}
+
+ion-menu{
+  ion-header{
+    border-bottom: solid 2px (map-get($colors, primary));
+    ion-title .toolbar-title-md{
+      color: (map-get($colors, primary))!important;
+    }
+    background-color: (map-get($colors, dark))!important;
+  }
+
+  ion-content{
+    background-color: (map-get($colors, dark))!important;
+    ion-list{
+      ion-item{
+        background-color: transparent!important;
+      }
+      button{
+        background-color: transparent!important;
+        color: #b9b9b9;
+        font-size: inherit;
+        .item-inner{
+          // color:(map-get($colors, primary));
+          color: #b9b9b9;
+        }
+      }
+      ion-list{
+        button{
+          .item-inner{
+            border-bottom: 1px solid #dedede!important;
+          }
+        }
+        button:last-child{
+          .item-inner{
+            border-bottom: 0!important;
+          }
+        }
+      }
+    }
+  }
+}
+
+ion-content{
+  background-color: #ebe8e8!important;
+}
+
+.menuHeader{
+  background-color: #222;
+  border-bottom: solid 2px (map-get($colors, primary));
+  button{
+    background-color: transparent;
+    ion-icon{
+      color: #b9b9b9;
+      font-size: 30px;
+    }
+  }
+}
+
+.logedNav{
+  top:82px;
+  bottom: 0px;
+  height: auto;
+  background-color: #ebe8e8;
+}
+.showOnMobile{
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .app-content{
+    top: 66px;
+    position: absolute;
+    bottom: 0px;
+    height: auto;
+  }
+  .hideOnMobile{
+    display: none;
+  }
+  ion-content{
+    background-color: #ebe8e8!important;
+  }
+  .showOnMobile{
+    display: flex;
+  }
+  .logedNav{
+    top:0px;
+  }
+}
+
+
 ion-col.side-menu{
     background-color: (map-get($colors, dark));
     border-right: solid 2px (map-get($colors, primary));
@@ -42,9 +135,15 @@ ion-grid.container,ion-grid.container ion-row{
   height: 100%;
 }
 
-ion-nav{
-  top:82px;
-  bottom: 0px;
-  height: auto;
-  background-color: #ebe8e8;
+
+.horizontalLine{
+  border-bottom: solid 2px (map-get($colors, primary));
+  position: relative;
+  margin: 3rem 12px 5px 12px;
+  h2{
+    position: absolute;
+    top: -1.2rem;
+    background-color: (map-get($colors, bg));
+    padding-right: 5px;
+  }
 }

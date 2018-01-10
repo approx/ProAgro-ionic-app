@@ -21,6 +21,10 @@ export class ClientProvider {
     return this.http.get(endPoint+'api/clients');
   }
 
+  get(id:number){
+    return this.http.get(endPoint+'api/client/'+id);
+  }
+
   Register(client:ClientInteface):Observable<any>{
     return this.http.post(endPoint+'api/clients',client);
   }

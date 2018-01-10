@@ -1,0 +1,7 @@
+<!-- Generated template for the AddressComponent component -->
+<div padding-left>
+  <h5>Endereço</h5>
+  <p *ngIf="address">{{_address.street_name}} {{_address.street_number}}</p>
+  <p *ngIf="address"></p>
+  <p *ngIf="city && state">{{city.name}}, {{state.name}}</p>
+</div>

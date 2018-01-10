@@ -6,5 +6,34 @@
 -->
 
 <ion-content padding>
-  <h1>{{client.name}}</h1>
+  <h1 *ngIf="client">{{client.name}}</h1>
+  <ion-grid>
+    <ion-row>
+      <ion-col margin-bottom col-12 col-md-6>
+        <contact *ngIf="client" [client]="client"></contact>
+      </ion-col>
+      <ion-col margin-bottom col-12 col-md-6>
+        <address *ngIf="address" [address]="address"></address>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="horizontalLine">
+    <h2>Ações</h2>
+  </div>
+  <ion-grid margin-top padding>
+    <ion-row>
+      <ion-col col-12 col-md-3>
+        <button ion-button full type="button" name="button">Adicionar Fazenda</button>
+      </ion-col>
+      <ion-col col-12 col-md-3>
+        <button ion-button full type="button" name="button">Adicionar Talhão</button>
+      </ion-col>
+      <ion-col col-12 col-md-3>
+        <button ion-button full type="button" name="button">Registrar nova safra</button>
+      </ion-col>
+      <ion-col col-12 col-md-3>
+        <button ion-button full type="button" name="button">Registrar atividade</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
