@@ -1,17 +1,40 @@
-<ion-content>
+<ion-menu [content]="mycontent">
+  <ion-header padding-top padding-bottom>
+    <ion-title>Menu</ion-title>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item *ngFor="let page of pages" (click)="openPage(page.component,$event)">
+        <button type="button" name="button">{{page.name}}</button>
+        <ion-list  margin-left no-margin>
+          <button *ngFor="let subPage of page.itens" ion-item (click)="openPage(subPage.component,$event)">
+            {{subPage.name}}
+          </button>
+        </ion-list>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-col *ngIf="loged" col-12 padding class="menuHeader showOnMobile">
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+</ion-col>
+<ion-content class="app-content">
   <ion-grid no-padding class="container">
-    <ion-row>
-      <ion-col *ngIf="loged" class="side-menu" [attr.col-3]="loged ? true : null" [attr.col-lg-2]="loged ? true : null" [attr.col-xl-2]="loged ? true : null">
-        <ion-list>
-          <div class="imgWraper">
+    <ion-row >
+      <ion-col *ngIf="loged" class="side-menu hideOnMobile" col-3 col-lg-2 col-xl-2>
+        <ion-list >
+          <div class="imgWraper hideOnMobile">
             <img src="assets/imgs/logo.png" height="50px" alt="">
           </div>
           <nav-bar *ngFor="let page of pages" [page]="page" ></nav-bar>
         </ion-list>
       </ion-col>
-      <ion-col [attr.col-9]="loged ? true : null" [attr.col-lg-10]="loged ? true : null" [attr.col-xl-10]="loged ? true : null">
-        <user [user]="user" *ngIf="loged"></user>
-        <ion-nav [ngStyle]="loged ? {'top':'82px'}:{'top':'0px'}" [root]="rootPage"></ion-nav>
+      <ion-col [attr.col-12]="loged ? '':null" [attr.col-md-9]="loged ? '':null" [attr.col-lg-10]="loged ? '':null" [attr.col-xl-10]="loged ? '':null">
+        <user class="hideOnMobile" [user]="user" *ngIf="loged"></user>
+        <ion-nav [ngClass]="(loged) ? 'logedNav' : 'unlogedNav'" #mycontent [root]="rootPage"></ion-nav>
       </ion-col>
     </ion-row>
   </ion-grid>

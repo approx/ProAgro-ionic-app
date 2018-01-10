@@ -25,6 +25,14 @@ import { ClientRegisterPage } from '../pages/client-register/client-register';
 import { ClientRegisterPageModule } from '../pages/client-register/client-register.module';
 import { ClientDetailPage } from  '../pages/client-detail/client-detail';
 import { ClientDetailPageModule } from  '../pages/client-detail/client-detail.module';
+import { FarmPage } from "../pages/farm/farm";
+import { FarmPageModule } from "../pages/farm/farm.module";
+import { FarmListPage } from "../pages/farm-list/farm-list";
+import { FarmListPageModule } from "../pages/farm-list/farm-list.module";
+import { FarmRegisterPage } from "../pages/farm-register/farm-register";
+import { FarmRegisterPageModule } from "../pages/farm-register/farm-register.module";
+import { CulturePage } from "../pages/culture/culture";
+import { CulturePageModule } from "../pages/culture/culture.module";
 //Providers
 import { AuthProvider } from '../providers/auth/auth';
 import { CookieProvider } from '../providers/cookie/cookie';
@@ -37,6 +45,8 @@ import { StateProvider } from '../providers/state/state';
 import { NavBarComponent } from "../components/nav-bar/nav-bar";
 import { UserComponent } from "../components/user/user";
 import { ContactComponent } from "../components/contact/contact";
+import { CultureProvider } from '../providers/culture/culture';
+import { FarmProvider } from '../providers/farm/farm';
 
 @NgModule({
   declarations: [
@@ -44,13 +54,7 @@ import { ContactComponent } from "../components/contact/contact";
     HomePage,
     NavBarComponent,
     UserComponent,
-    FilterPipe,
-    // LoginPage,
-    // DashBoardPage,
-    // ClientPage,
-    // ClientListPage,
-    // ClientRegisterPage,
-    // ClientDetailPage
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -62,6 +66,10 @@ import { ContactComponent } from "../components/contact/contact";
     ClientListPageModule,
     ClientRegisterPageModule,
     ClientDetailPageModule,
+    FarmPageModule,
+    FarmListPageModule,
+    FarmRegisterPageModule,
+    CulturePageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -74,7 +82,11 @@ import { ContactComponent } from "../components/contact/contact";
     ClientPage,
     ClientListPage,
     ClientRegisterPage,
-    ClientDetailPage
+    ClientDetailPage,
+    FarmPage,
+    FarmListPage,
+    FarmRegisterPage,
+    CulturePage
   ],
   providers: [
     StatusBar,
@@ -86,7 +98,9 @@ import { ContactComponent } from "../components/contact/contact";
     ClientProvider,
     AddressProvider,
     CityProvider,
-    StateProvider
+    StateProvider,
+    CultureProvider,
+    FarmProvider
   ]
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { Platform,Nav } from 'ionic-angular';
+import { Platform,Nav,MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -17,6 +17,10 @@ import { CookieProvider } from "../providers/cookie/cookie";
 import { HttpClient  } from '@angular/common/http';
 import { endPoint } from "../Env";
 import { UserModel } from "../model/user.model";
+import { FarmPage } from "../pages/farm/farm";
+import { FarmListPage } from "../pages/farm-list/farm-list";
+import { FarmRegisterPage } from "../pages/farm-register/farm-register";
+import { CulturePage } from "../pages/culture/culture";
 
 @Component({
   templateUrl: 'app.html'
@@ -28,9 +32,53 @@ export class MyApp {
   user:UserModel;
 
   pages:NavBarPageInterface[] = [
-    {name:'Client',icon:'pie',component:ClientPage,itensToogle:false,itens:[{name:'listar',component:ClientListPage,itensToogle:false},{name:'cadastrar',component:ClientRegisterPage,itensToogle:false}]},
-    {name:'DashBoard',icon:'pie',component:DashBoardPage,itensToogle:false}
-
+    {
+      name:'DashBoard',
+      icon:'pie',
+      component:DashBoardPage,
+      itensToogle:false
+    },
+    {
+      name:'Clientes',
+      icon:'people',
+      component:ClientPage,
+      itensToogle:false,
+      itens:[
+        {
+          name:'Listar',
+          component:ClientListPage,
+          itensToogle:false
+        },
+        {
+          name:'Cadastrar',
+          component:ClientRegisterPage,
+          itensToogle:false
+        }
+      ]
+    },
+    {
+      name:'Fazendas',
+      icon:'flag',
+      component:FarmPage,
+      itensToogle:false,
+      itens:[
+        {
+          name:'Listar',
+          component:FarmListPage,
+          itensToogle:false
+        },
+        {
+          name:'Cadastrar',
+          component:FarmRegisterPage,
+          itensToogle:false
+        },
+        {
+          name:'Culturas',
+          component:CulturePage,
+          itensToogle:false
+        }
+      ]
+    }
   ]
 
   @ViewChild(Nav) nav: Nav;
@@ -43,7 +91,8 @@ export class MyApp {
     splashScreen: SplashScreen,
     public auth:AuthProvider,
     public http:HttpClient,
-    public cookie:CookieProvider
+    public cookie:CookieProvider,
+    private menu:MenuController
   ) {
 
     platform.ready().then(() => {
@@ -62,6 +111,14 @@ export class MyApp {
       this.nav.setRoot(DashBoardPage.name);
       MyApp.instance.getUserData();
     }
+  }
+
+  openPage(page,event:MouseEvent){
+    event.stopPropagation();
+    event.preventDefault();
+    console.log(event);
+    this.menu.close();
+    this.nav.push(page.name);
   }
 
   push(page:any,params?:any,opts?:any):Promise<any>{

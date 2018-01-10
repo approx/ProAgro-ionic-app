@@ -134,7 +134,6 @@ export class ClientRegisterPage {
      content: "Registrando..."
    });
    this.loader.present();
-   setTimeout(()=>{this.dismisLoader()},3000);
  }
 
  dismisLoader(){

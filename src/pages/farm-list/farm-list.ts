@@ -8,7 +8,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment:'farm/list'
+})
 @Component({
   selector: 'page-farm-list',
   templateUrl: 'farm-list.html',
