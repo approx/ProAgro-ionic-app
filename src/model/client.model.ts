@@ -1,75 +1,32 @@
-import { HttpClient  } from '@angular/common/http';
-import { endPoint } from "../Env";
 import { Observable } from 'rxjs/Observable';
+import { AddressModel } from './address.model';
+import { FarmModel } from './farm.model';
+import { UserModel } from './user.model';
 
 export interface ClientInteface{
   id?:number;
-  name?:string;
-  phone?:string;
-  inscription_number?:string;
+  name:string;
+  phone:string;
+  inscription_number:string;
   cpf_cnpj:string;
+  user_id?:number
   phone2?:string;
   email?:string;
   address_id?:number;
-  user_id?:number;
 }
 
 export class ClientModel{
 
   constructor(
+    public id:number,
     public name:string,
     public phone:string,
     public inscription_number:string,
     public cpf_cnpj:string,
-    public user_id:number,
-    public address_id:number,
-    public id:number,
-    private http:HttpClient,
+    public address:AddressModel,
+    public farms:FarmModel[],
+    public user:UserModel,
     public phone2?:string,
     public email?:string
   ){}
-
-  public static CreateFromInterface(client:ClientInteface,http:HttpClient):ClientModel{
-    return new ClientModel(
-      client.name,
-      client.phone,
-      client.inscription_number,
-      client.cpf_cnpj,
-      client.user_id,
-      client.address_id,
-      client.id,
-      http,
-      client.phone2,
-      client.email
-    );
-  }
-
-  getUser():Observable<any>|null{
-    if(this.id){
-      return this.http.get(endPoint+'/api/client/'+this.id+'/user');
-    } else return null;
-  }
-
-  getFarms():Observable<any>|null{
-    if(this.id){
-      return this.http.get(endPoint+'/api/client/'+this.id+'/farms');
-    } else return null;
-  }
-
-  getAddress():Observable<any>{
-    return this.http.get(endPoint+'/api/client/'+this.id+'/address')
-  }
-
-  getJson():ClientInteface{
-    return {
-      name:this.name,
-      phone:this.phone,
-      inscription_number:this.inscription_number,
-      cpf_cnpj:this.cpf_cnpj,
-      phone2:this.phone2,
-      email:this.email,
-      address_id:this.address_id,
-      user_id:this.user_id
-    }
-  }
 }

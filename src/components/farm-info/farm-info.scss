@@ -1,0 +1,26 @@
+farm-info {
+  ion-col{
+    background-color: white;
+    transform: scale(0.95);
+    transition: all .3s;
+    box-shadow: 2px 4px 4px 1px #818181;
+    &:hover{
+      cursor: pointer;
+      background-color: (map-get($colors, primary));
+      color: white;
+      transform: scale(1);
+    }
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    .title{
+      float: left;
+    }
+    .text{
+      text-align: center;
+    }
+    .budget{
+      align-self: flex-end;
+    }
+  }
+}

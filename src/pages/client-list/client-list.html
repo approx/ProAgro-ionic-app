@@ -57,7 +57,7 @@
             {{client.inscription_number}}
           </ion-col>
           <ion-col col-6 col-md-2>
-            {{client.farms}}
+            <span *ngFor="let farm of client.farms; let i = index"><span *ngIf="i>0">, </span>{{farm.name}}</span>
           </ion-col>
           <ion-col col-2 class="onlyDesktop">
             {{client.cpf_cnpj}}

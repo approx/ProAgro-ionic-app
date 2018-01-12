@@ -10,10 +10,10 @@
   <ion-grid>
     <ion-row>
       <ion-col margin-bottom col-12 col-md-6>
-        <contact *ngIf="client" [client]="client"></contact>
+        <contact *ngIf="client" [client]="client" [showName]="false" [label]="Contato"></contact>
       </ion-col>
       <ion-col margin-bottom col-12 col-md-6>
-        <address *ngIf="address" [address]="address"></address>
+        <address *ngIf="client" [address]="client.address"></address>
       </ion-col>
     </ion-row>
   </ion-grid>

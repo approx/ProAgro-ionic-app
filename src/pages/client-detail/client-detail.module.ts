@@ -4,16 +4,14 @@ import { ClientDetailPage } from './client-detail';
 
 import { ContactComponent } from "../../components/contact/contact";
 import { AddressComponent } from "../../components/address/address";
-import { PhonePipe } from '../../pipes/phone/phone';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
-    ClientDetailPage,
-    ContactComponent,
-    PhonePipe,
-    AddressComponent
+    ClientDetailPage
   ],
   imports: [
+    ComponentsModule,
     IonicPageModule.forChild(ClientDetailPage),
   ],
 })

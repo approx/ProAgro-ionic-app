@@ -22,10 +22,10 @@ import { MyApp } from '../../app/app.component';
   templateUrl: 'client-list.html',
 })
 export class ClientListPage {
-  clients:ClientInteface[];
+  clients:ClientModel[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private clientsProvider:ClientProvider,private http:HttpClient) {
-    this.clientsProvider.getAll().subscribe((data:ClientInteface[])=>{
+    this.clientsProvider.getAll().subscribe((data:ClientModel[])=>{
         this.clients = data;
     },(err:any) => {
       if (err.error instanceof Error) {
@@ -54,9 +54,7 @@ export class ClientListPage {
   }
 
   openClientPage(client:ClientInteface){
-    console.log(client)
-    let c = ClientModel.CreateFromInterface(client,this.http);
-    this.navCtrl.push(ClientDetailPage.name,{client:c,client_id:c.id});
+    this.navCtrl.push(ClientDetailPage.name,{client:client,client_id:client.id});
   }
 
 }

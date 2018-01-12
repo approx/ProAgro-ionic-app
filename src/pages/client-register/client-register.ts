@@ -34,13 +34,12 @@ export class ClientRegisterPage {
     phone:'',
     inscription_number:'',
     cpf_cnpj:''
-  };
+  }
 
   @Input() address:AddressInterface={
     CEP:'',
     street_name:'',
-    street_number:'',
-    city_id:''
+    street_number:''
   };
 
 

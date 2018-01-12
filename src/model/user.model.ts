@@ -32,17 +32,6 @@ export class UserModel extends User{
     });
   }
 
-  getAddress():Observable<any> | null{
-    if(this.id){
-      return this.http.get(endPoint+'/api/user/'+this.id+'/address');
-    } else return null;
-  };
-
-  getClients():Observable<any> | null{
-    if(this.id){
-      return this.http.get(endPoint+'/api/user/'+this.id+'/clients');
-    } else return null;
-  };
   getJson():any{
     return {
       id:this.id,

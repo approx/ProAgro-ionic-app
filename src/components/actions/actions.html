@@ -1,0 +1,11 @@
+<!-- Generated template for the ActionsComponent component -->
+<div class="horizontalLine">
+  <h2>Ações</h2>
+</div>
+<ion-grid margin-top padding>
+  <ion-row style="justify-content: center;">
+    <ion-col *ngFor="let action of actions" col-12 col-md-3>
+      <button ion-button full (click)="action.down" type="button" name="button">{{action.label}}</button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

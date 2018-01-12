@@ -1,7 +1,16 @@
 <!-- Generated template for the AddressComponent component -->
 <div padding-left>
   <h5>Endereço</h5>
-  <p *ngIf="address">{{_address.street_name}} {{_address.street_number}}</p>
+  <p *ngIf="address">{{address.street_name}} {{address.street_number}}</p>
   <p *ngIf="address"></p>
-  <p *ngIf="city && state">{{city.name}}, {{state.name}}</p>
+  <p *ngIf="address">{{address.city.name}}, {{address.city.state.name}}</p>
+  <iframe
+  margin-right
+  padding-right
+  *ngIf="showMap&&address"
+  width="100%"
+  height="450"
+  frameborder="0" style="border:0"
+  [src]="mapUrl" allowfullscreen>
+  </iframe>
 </div>

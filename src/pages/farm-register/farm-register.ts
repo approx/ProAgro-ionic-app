@@ -42,8 +42,7 @@ export class FarmRegisterPage {
   @Input() address: AddressInterface = {
     CEP: '',
     street_name: '',
-    street_number: '',
-    city_id: ''
+    street_number: ''
   };
 
   constructor(
@@ -88,7 +87,7 @@ export class FarmRegisterPage {
   SuccessAlert() {
     let alert = this.alertCtrl.create({
       title: 'Sucesso!',
-      subTitle: 'Cliente registrado com sucesso!',
+      subTitle: 'Fazenda registrada com sucesso!',
       buttons: ['OK']
     });
     alert.present();
@@ -135,12 +134,13 @@ export class FarmRegisterPage {
 
   showNumber(){
     this.farm.cultures='';
+    let insertIndex=0;
     for (let i = 0; i < this.culturesSelected.length; i++) {
       if(this.culturesSelected[i].selected){
-        this.farm.cultures+= (i==0 ? this.culturesSelected[i].id.toString() : ';'+this.culturesSelected[i].id);
+        this.farm.cultures+= (insertIndex==0 ? this.culturesSelected[i].id.toString() : ';'+this.culturesSelected[i].id);
+        insertIndex++;
       }
     }
-    console.log(this.farm.cultures);
   }
 
   Register() {
@@ -148,14 +148,23 @@ export class FarmRegisterPage {
     this.addressProvider.register(this.address).subscribe((data) => {
       this.farm.address_id=data.id;
       this.farm.cultures='';
+      let insertIndex=0;
       for (let i = 0; i < this.culturesSelected.length; i++) {
         if(this.culturesSelected[i].selected){
-          this.farm.cultures+= (i==0 ? this.culturesSelected[i].id.toString() : ';'+this.culturesSelected[i].id);
+          this.farm.cultures+= (insertIndex==0 ? this.culturesSelected[i].id.toString() : ';'+this.culturesSelected[i].id);
+          insertIndex++;
         }
       }
       this.farmProvider.post(this.farm).subscribe((data)=>{
         this.Done();
+        this.SuccessAlert();
+      },(err)=>{
+        this.Done();
+        this.ErrorAlert();
       })
+    },(err)=>{
+      this.Done();
+      this.ErrorAlert();
     });
   }
 

@@ -1,7 +1,6 @@
-import { HttpClient  } from '@angular/common/http';
-import { endPoint } from "../Env";
-
 import { Observable } from 'rxjs/Observable';
+import { StateModel } from './state.model';
+import { AddressModel } from './address.model';
 
 export interface CityInterface{
   id?:number;
@@ -14,16 +13,8 @@ export class CityModel{
   constructor(
     public id:number,
     public name:string,
-    public state_id:string,
-    private http:HttpClient
+    public state:StateModel,
+    public addresses:AddressModel[]
   ){}
-
-  public static CreateFromInterface(inter:CityInterface,http:HttpClient):CityModel{
-    return new CityModel(inter.id,inter.name,inter.state_id,http);
-  }
-
-  getState():Observable<any>{
-    return this.http.get(endPoint+'api/state/'+this.state_id);
-  }
 
 }

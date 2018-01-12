@@ -13,6 +13,8 @@ import { ClientInteface,ClientModel } from '../../model/client.model';
 })
 export class ContactComponent {
   @Input() client:ClientInteface|ClientModel;
+  @Input() label;
+  @Input() showName:boolean;
 
   constructor() {
     console.log('Hello ContactComponent Component');
