@@ -1,8 +1,6 @@
 import { HttpClient  } from '@angular/common/http';
 import { endPoint } from "../Env";
 
-import { Observable } from 'rxjs/Observable';
-
 export class User{
   id:number;
   name:string;

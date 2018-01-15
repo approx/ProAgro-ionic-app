@@ -3,15 +3,12 @@ import { Platform,Nav,MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
 import { LoginPage } from "../pages/login/login";
 import { DashBoardPage } from "../pages/dash-board/dash-board";
 import { ClientListPage } from '../pages/client-list/client-list';
 import { ClientPage } from '../pages/client/client';
 import { ClientRegisterPage } from '../pages/client-register/client-register';
-import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
 import { NavBarPageInterface} from '../components/nav-bar/nav-bar';
-import { NgStyle,NgClass } from '@angular/common';
 import { AuthProvider} from '../providers/auth/auth';
 import { CookieProvider } from "../providers/cookie/cookie";
 import { HttpClient  } from '@angular/common/http';

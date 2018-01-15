@@ -1,10 +1,5 @@
 import { Component,Input } from '@angular/core';
-import { HttpClient  } from '@angular/common/http';
-import { AddressInterface,AddressModel } from '../../model/address.model';
-import { CityModel,CityInterface } from '../../model/city.model';
-import { List } from 'ionic-angular';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+import { AddressModel } from '../../model/address.model';
 import { DomSanitizer} from '@angular/platform-browser';
 
 /**
@@ -41,7 +36,7 @@ export class AddressComponent {
   @Input() showMap:boolean;
 
   mapUrl;
-  constructor(private http:HttpClient,private sanitizer:DomSanitizer) {
+  constructor(private sanitizer:DomSanitizer) {
     console.log('Hello AddressComponent Component');
   }
 

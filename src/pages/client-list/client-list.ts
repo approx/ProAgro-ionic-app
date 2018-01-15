@@ -4,7 +4,6 @@ import { ClientProvider } from '../../providers/client/client';
 import { ClientInteface,ClientModel } from '../../model/client.model';
 import { ClientRegisterPage } from '../client-register/client-register';
 import { ClientDetailPage } from '../client-detail/client-detail';
-import { HttpClient  } from '@angular/common/http';
 import { MyApp } from '../../app/app.component';
 
 /**
@@ -24,7 +23,11 @@ import { MyApp } from '../../app/app.component';
 export class ClientListPage {
   clients:ClientModel[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private clientsProvider:ClientProvider,private http:HttpClient) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private clientsProvider:ClientProvider
+  ) {
     this.clientsProvider.getAll().subscribe((data:ClientModel[])=>{
         this.clients = data;
     },(err:any) => {

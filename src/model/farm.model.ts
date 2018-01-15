@@ -1,6 +1,3 @@
-import { HttpClient  } from '@angular/common/http';
-import { endPoint } from "../Env";
-import { Observable } from 'rxjs/Observable';
 import { AddressModel } from './address.model';
 import { CultureModel } from './culture.model';
 import { ClientModel } from './client.model';

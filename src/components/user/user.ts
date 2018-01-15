@@ -1,8 +1,4 @@
 import { Component,Input } from '@angular/core';
-import { endPoint } from "../../Env";
-import { HttpClient  } from '@angular/common/http';
-import { CookieProvider } from "../../providers/cookie/cookie";
-import { NavController,IonicPage} from 'ionic-angular';
 import { UserModel } from '../../model/user.model';
 
 /**
@@ -21,7 +17,7 @@ export class UserComponent {
   text: string;
   @Input() user:UserModel;
 
-  constructor(private http:HttpClient,private cookie:CookieProvider) {
+  constructor() {
     console.log('Hello UserComponent Component');
   }
 

@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import { AddressModel } from './address.model';
 import { FarmModel } from './farm.model';
 import { UserModel } from './user.model';

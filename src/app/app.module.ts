@@ -44,7 +44,6 @@ import { StateProvider } from '../providers/state/state';
 //Components
 import { NavBarComponent } from "../components/nav-bar/nav-bar";
 import { UserComponent } from "../components/user/user";
-import { ContactComponent } from "../components/contact/contact";
 import { CultureProvider } from '../providers/culture/culture';
 import { FarmProvider } from '../providers/farm/farm';
 

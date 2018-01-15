@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ClientInteface } from '../../model/client.model';
 import { CityProvider } from '../../providers/city/city';
 import { StateProvider } from '../../providers/state/state';
-import { Observable } from 'rxjs/Observable';
 import { AddressInterface } from '../../model/address.model';
 import { AddressProvider } from '../../providers/address/address';
 import { ClientProvider } from '../../providers/client/client';
