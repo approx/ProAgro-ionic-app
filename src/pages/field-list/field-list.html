@@ -39,7 +39,7 @@
     <div class="hr"></div>
     <ion-row>
       <ion-col *ngFor="let field of filteredFields" col-12 col-md-6 col-lg-4 col-xl-3>
-        <field-info [field]="field"></field-info>
+        <field-info (click)="openField(field)" [field]="field"></field-info>
       </ion-col>
     </ion-row>
   </ion-grid>

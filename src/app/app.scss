@@ -23,6 +23,10 @@ h1{
   font-size: 30px;
 }
 
+.vr-right{
+  border-right: 2px solid (map-get($colors, primary));
+}
+
 
 ion-row.filters{
   background-color: white;
@@ -33,7 +37,7 @@ ion-row.filters{
 }
 
 .hr{
-  height: 1px;
+  height: 2px;
   background-color: (map-get($colors, primary));
 }
 

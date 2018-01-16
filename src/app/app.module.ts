@@ -48,14 +48,14 @@ import { CultureProvider } from '../providers/culture/culture';
 import { FarmProvider } from '../providers/farm/farm';
 import { FieldProvider } from '../providers/field/field';
 import { MessagesProvider } from '../providers/messages/messages';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     NavBarComponent,
-    UserComponent,
-    FilterPipe
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +71,7 @@ import { MessagesProvider } from '../providers/messages/messages';
     FarmListPageModule,
     FarmRegisterPageModule,
     CulturePageModule,
+    PipesModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

@@ -4,6 +4,7 @@ import { FieldModel } from '../../model/field.model';
 import { FarmModel } from '../../model/farm.model';
 import { FieldProvider } from '../../providers/field/field';
 import { FarmProvider } from '../../providers/farm/farm';
+import { FieldDetailPage } from '../../pages/field-detail/field-detail';
 
 /**
  * Generated class for the FieldListPage page.
@@ -18,7 +19,9 @@ import { FarmProvider } from '../../providers/farm/farm';
    IGUAL="Igual"
  }
 
-@IonicPage()
+@IonicPage({
+  segment:'field/list'
+})
 @Component({
   selector: 'page-field-list',
   templateUrl: 'field-list.html',
@@ -78,6 +81,10 @@ export class FieldListPage {
         return false;
       }
     });
+  }
+
+  openField(field:FieldModel){
+    this.navCtrl.push(FieldDetailPage.name,{field:field,field_id:field.id});
   }
 
 }

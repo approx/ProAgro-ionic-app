@@ -14,7 +14,7 @@ import { FarmProvider } from '../../providers/farm/farm';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({segment:'field/register'})
 @Component({
   selector: 'page-field-register',
   templateUrl: 'field-register.html',
