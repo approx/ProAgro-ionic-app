@@ -4,15 +4,43 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>field-list</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
-
+  <h1>Talhões</h1>
+  <ion-grid>
+    <ion-row class="filters">
+      <ion-col col-4>
+        <ion-searchbar no-padding [(ngModel)]="filterText" (ionInput)="Filter()"></ion-searchbar>
+      </ion-col>
+      <ion-col col-3>
+        <ion-item>
+          <ion-label>Operador Area</ion-label>
+          <ion-select [(ngModel)]="operator" (ngModelChange)="Filter()" >
+            <ion-option value="Maior">Maior que</ion-option>
+            <ion-option value="Menor">Menor que</ion-option>
+            <ion-option value="Igual">Igual a</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col col-2>
+        <ion-item>
+          <ion-label no-margin floating>Area</ion-label>
+          <ion-input type="text" name="name" [(ngModel)]="areaFilter" (ngModelChange)="Filter()" value=""></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-3>
+        <ion-item>
+          <ion-label>Fazenda</ion-label>
+          <ion-select [(ngModel)]="farmFilter" (ngModelChange)="Filter()" >
+            <ion-option *ngFor="let farm of farms"  value="{{farm.id}}">{{farm.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <div class="hr"></div>
+    <ion-row>
+      <ion-col *ngFor="let field of filteredFields" col-12 col-md-6 col-lg-4 col-xl-3>
+        <field-info [field]="field"></field-info>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

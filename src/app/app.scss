@@ -23,6 +23,20 @@ h1{
   font-size: 30px;
 }
 
+
+ion-row.filters{
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.hr{
+  height: 1px;
+  background-color: (map-get($colors, primary));
+}
+
 .formContent{
   background-color: white;
   border-radius: 5px;

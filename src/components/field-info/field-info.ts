@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
+import { FieldModel } from '../../model/field.model';
 
 /**
  * Generated class for the FieldInfoComponent component.
@@ -12,11 +13,8 @@ import { Component } from '@angular/core';
 })
 export class FieldInfoComponent {
 
-  text: string;
-
+  @Input() field:FieldModel;
   constructor() {
-    console.log('Hello FieldInfoComponent Component');
-    this.text = 'Hello World';
   }
 
 }

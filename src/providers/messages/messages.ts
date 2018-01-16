@@ -27,11 +27,11 @@ export class MessagesProvider {
     this.loader.dismiss();
   }
 
-  SuccessAlert() {
+  SuccessAlert(text) {
     this.Done();
     let alert = this.alertCtrl.create({
       title: 'Sucesso!',
-      subTitle: 'Fazenda registrada com sucesso!',
+      subTitle: text,
       buttons: ['OK']
     });
     alert.present();

@@ -53,7 +53,7 @@ export class FieldRegisterPage{
   Register(){
     this.message.Wait();
     this.fieldProvider.save(this.field).subscribe((data)=>{
-      this.message.SuccessAlert();
+      this.message.SuccessAlert('Talhão registrado com sucesso!');
     },(err)=>{
       this.message.ErrorAlert();
     });
