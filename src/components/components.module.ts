@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { PhonePipe } from '../pipes/phone/phone';
 import { CultureComponent } from './culture/culture';
 import { ActionsComponent } from './actions/actions';
+import { FieldInfoComponent } from './field-info/field-info';
 
 // @NgModule({
 // 	declarations: [NavBarComponent,
@@ -27,13 +28,15 @@ import { ActionsComponent } from './actions/actions';
     PhonePipe,
     CultureComponent,
     ActionsComponent,
+    FieldInfoComponent,
 	],
 	imports: [CommonModule,IonicModule],
 	exports: [
     AddressComponent,
 		ContactComponent,
     CultureComponent,
-    ActionsComponent
+    ActionsComponent,
+    FieldInfoComponent
 	]
 })
 export class ComponentsModule {}

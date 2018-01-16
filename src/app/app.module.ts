@@ -46,6 +46,8 @@ import { NavBarComponent } from "../components/nav-bar/nav-bar";
 import { UserComponent } from "../components/user/user";
 import { CultureProvider } from '../providers/culture/culture';
 import { FarmProvider } from '../providers/farm/farm';
+import { FieldProvider } from '../providers/field/field';
+import { MessagesProvider } from '../providers/messages/messages';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,9 @@ import { FarmProvider } from '../providers/farm/farm';
     CityProvider,
     StateProvider,
     CultureProvider,
-    FarmProvider
+    FarmProvider,
+    FieldProvider,
+    MessagesProvider
   ]
 })
 export class AppModule {}

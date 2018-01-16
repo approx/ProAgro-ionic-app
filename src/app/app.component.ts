@@ -18,6 +18,9 @@ import { FarmPage } from "../pages/farm/farm";
 import { FarmListPage } from "../pages/farm-list/farm-list";
 import { FarmRegisterPage } from "../pages/farm-register/farm-register";
 import { CulturePage } from "../pages/culture/culture";
+import { FieldPage } from '../pages/field/field';
+import { FieldListPage } from '../pages/field-list/field-list';
+import { FieldRegisterPage } from '../pages/field-register/field-register';
 
 @Component({
   templateUrl: 'app.html'
@@ -67,6 +70,29 @@ export class MyApp {
         {
           name:'Cadastrar',
           component:FarmRegisterPage,
+          itensToogle:false
+        },
+        {
+          name:'Culturas',
+          component:CulturePage,
+          itensToogle:false
+        }
+      ]
+    },
+    {
+      name:'Talhões',
+      icon:'grid',
+      component:FieldPage,
+      itensToogle:false,
+      itens:[
+        {
+          name:'Listar',
+          component:FieldListPage,
+          itensToogle:false
+        },
+        {
+          name:'Cadastrar',
+          component:FieldRegisterPage,
           itensToogle:false
         },
         {

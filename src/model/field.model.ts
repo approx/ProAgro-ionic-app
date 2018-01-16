@@ -3,12 +3,12 @@ import { FarmModel } from './farm.model'
 
 export interface FieldInterface{
   id?:number;
-  actual_crop:number;
-  name:string;
-  area:number;
-  lat:number;
-  lng:number;
-  farm_id:number;
+  actual_crop?:number;
+  name?:string;
+  area?:number;
+  lat?:number;
+  lng?:number;
+  farm_id?:number;
 }
 
 export class FieldModel{
