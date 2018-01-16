@@ -1,6 +1,4 @@
 import { Component,Input} from '@angular/core';
-import { DashBoardPage } from "../../pages/dash-board/dash-board";
-import { NavController } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 
 /**

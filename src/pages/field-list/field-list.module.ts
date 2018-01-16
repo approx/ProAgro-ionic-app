@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { FarmDetailPage } from './farm-detail';
+import { FieldListPage } from './field-list';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
-    FarmDetailPage
+    FieldListPage,
   ],
   imports: [
     ComponentsModule,
-    IonicPageModule.forChild(FarmDetailPage),
+    IonicPageModule.forChild(FieldListPage),
   ],
 })
-export class FarmDetailPageModule {}
+export class FieldListPageModule {}

@@ -44,17 +44,18 @@ import { StateProvider } from '../providers/state/state';
 //Components
 import { NavBarComponent } from "../components/nav-bar/nav-bar";
 import { UserComponent } from "../components/user/user";
-import { ContactComponent } from "../components/contact/contact";
 import { CultureProvider } from '../providers/culture/culture';
 import { FarmProvider } from '../providers/farm/farm';
+import { FieldProvider } from '../providers/field/field';
+import { MessagesProvider } from '../providers/messages/messages';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     NavBarComponent,
-    UserComponent,
-    FilterPipe
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +71,7 @@ import { FarmProvider } from '../providers/farm/farm';
     FarmListPageModule,
     FarmRegisterPageModule,
     CulturePageModule,
+    PipesModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -100,7 +102,9 @@ import { FarmProvider } from '../providers/farm/farm';
     CityProvider,
     StateProvider,
     CultureProvider,
-    FarmProvider
+    FarmProvider,
+    FieldProvider,
+    MessagesProvider
   ]
 })
 export class AppModule {}

@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
 import { MyApp } from '../../app/app.component';
-import { ContactComponent } from '../../components/contact/contact';
-import { AddressModel,AddressInterface } from '../../model/address.model';
 
 /**
  * Generated class for the ClientDetailPage page.
@@ -26,7 +23,7 @@ export class ClientDetailPage {
   client:ClientModel;
 
 
-  constructor(public navCtrl: NavController,private http:HttpClient, public navParams: NavParams,private clientProvider:ClientProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private clientProvider:ClientProvider) {
     this.client = navParams.get('client');
     this.client_id = navParams.get('client_id');
   }

@@ -3,15 +3,12 @@ import { Platform,Nav,MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
 import { LoginPage } from "../pages/login/login";
 import { DashBoardPage } from "../pages/dash-board/dash-board";
 import { ClientListPage } from '../pages/client-list/client-list';
 import { ClientPage } from '../pages/client/client';
 import { ClientRegisterPage } from '../pages/client-register/client-register';
-import { AuthInterceptorProvider } from '../providers/auth-interceptor/auth-interceptor';
 import { NavBarPageInterface} from '../components/nav-bar/nav-bar';
-import { NgStyle,NgClass } from '@angular/common';
 import { AuthProvider} from '../providers/auth/auth';
 import { CookieProvider } from "../providers/cookie/cookie";
 import { HttpClient  } from '@angular/common/http';
@@ -21,6 +18,9 @@ import { FarmPage } from "../pages/farm/farm";
 import { FarmListPage } from "../pages/farm-list/farm-list";
 import { FarmRegisterPage } from "../pages/farm-register/farm-register";
 import { CulturePage } from "../pages/culture/culture";
+import { FieldPage } from '../pages/field/field';
+import { FieldListPage } from '../pages/field-list/field-list';
+import { FieldRegisterPage } from '../pages/field-register/field-register';
 
 @Component({
   templateUrl: 'app.html'
@@ -70,6 +70,29 @@ export class MyApp {
         {
           name:'Cadastrar',
           component:FarmRegisterPage,
+          itensToogle:false
+        },
+        {
+          name:'Culturas',
+          component:CulturePage,
+          itensToogle:false
+        }
+      ]
+    },
+    {
+      name:'Talhões',
+      icon:'grid',
+      component:FieldPage,
+      itensToogle:false,
+      itens:[
+        {
+          name:'Listar',
+          component:FieldListPage,
+          itensToogle:false
+        },
+        {
+          name:'Cadastrar',
+          component:FieldRegisterPage,
           itensToogle:false
         },
         {

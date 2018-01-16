@@ -23,9 +23,31 @@ h1{
   font-size: 30px;
 }
 
+.vr-right{
+  border-right: 2px solid (map-get($colors, primary));
+}
+
+
+ion-row.filters{
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.hr{
+  height: 2px;
+  background-color: (map-get($colors, primary));
+}
+
 .formContent{
   background-color: white;
   border-radius: 5px;
+}
+
+.justifyCenter{
+  justify-content: center;
 }
 
 ion-menu{

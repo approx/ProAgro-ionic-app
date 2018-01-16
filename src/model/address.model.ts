@@ -2,8 +2,6 @@ import { CityModel } from './city.model';
 import { ClientModel } from './client.model';
 import { FarmModel } from './farm.model';
 
-import { Observable } from 'rxjs/Observable';
-
 export interface AddressInterface{
   id?:number;
   CEP:string;

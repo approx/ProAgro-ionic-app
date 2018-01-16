@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
-import { NavBarComponent } from './nav-bar/nav-bar';
-import { UserComponent } from './user/user';
 import { ContactComponent } from './contact/contact';
 import { AddressComponent } from './address/address';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { FarmInfoComponent } from './farm-info/farm-info';
+import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { PhonePipe } from '../pipes/phone/phone';
+import { PipesModule } from '../pipes/pipes.module';
 import { CultureComponent } from './culture/culture';
 import { ActionsComponent } from './actions/actions';
+import { FieldInfoComponent } from './field-info/field-info';
 
 // @NgModule({
 // 	declarations: [NavBarComponent,
@@ -28,16 +25,17 @@ import { ActionsComponent } from './actions/actions';
 	declarations: [
     AddressComponent,
 		ContactComponent,
-    PhonePipe,
     CultureComponent,
     ActionsComponent,
+    FieldInfoComponent,
 	],
-	imports: [CommonModule,IonicModule],
+	imports: [CommonModule,IonicModule,PipesModule],
 	exports: [
     AddressComponent,
 		ContactComponent,
     CultureComponent,
-    ActionsComponent
+    ActionsComponent,
+    FieldInfoComponent
 	]
 })
 export class ComponentsModule {}

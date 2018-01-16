@@ -1,9 +1,8 @@
-import { HttpInterceptor,HttpRequest,HttpHandler,HttpEvent ,HttpResponse, HttpErrorResponse} from '@angular/common/http';
-import { Injectable,Injector } from '@angular/core';
+import { HttpInterceptor,HttpRequest,HttpHandler,HttpEvent} from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CookieProvider } from '../cookie/cookie';
 import { NavController } from 'ionic-angular';
-import { LoginPage } from '../../pages/login/login';
 
 import 'rxjs/add/operator/do';
 
