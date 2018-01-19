@@ -15,6 +15,7 @@ export class CropModel{
   constructor(
     public id:number,
     public field:FieldModel,
+    public name:string,
     public initial_date:Date,
     public final_date:Date,
     public culture:CultureModel,
