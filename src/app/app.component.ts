@@ -21,6 +21,10 @@ import { CulturePage } from "../pages/culture/culture";
 import { FieldPage } from '../pages/field/field';
 import { FieldListPage } from '../pages/field-list/field-list';
 import { FieldRegisterPage } from '../pages/field-register/field-register';
+import { CropPage } from '../pages/crop/crop';
+import { CropListPage } from '../pages/crop-list/crop-list';
+import { CropDetailPage } from '../pages/crop-detail/crop-detail';
+import { CropRegisterPage } from '../pages/crop-register/crop-register';
 
 @Component({
   templateUrl: 'app.html'
@@ -93,6 +97,24 @@ export class MyApp {
         {
           name:'Cadastrar',
           component:FieldRegisterPage,
+          itensToogle:false
+        }
+      ]
+    },
+    {
+      name:'Safras',
+      icon:'leaf',
+      component:CropPage,
+      itensToogle:false,
+      itens:[
+        {
+          name:'Listar',
+          component:CropListPage,
+          itensToogle:false
+        },
+        {
+          name:'Cadastrar',
+          component:CropRegisterPage,
           itensToogle:false
         },
         {

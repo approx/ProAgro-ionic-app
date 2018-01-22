@@ -49,6 +49,7 @@ import { FarmProvider } from '../providers/farm/farm';
 import { FieldProvider } from '../providers/field/field';
 import { MessagesProvider } from '../providers/messages/messages';
 import { PipesModule } from '../pipes/pipes.module';
+import { CropProvider } from '../providers/crop/crop';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { PipesModule } from '../pipes/pipes.module';
     CultureProvider,
     FarmProvider,
     FieldProvider,
-    MessagesProvider
+    MessagesProvider,
+    CropProvider
   ]
 })
 export class AppModule {}

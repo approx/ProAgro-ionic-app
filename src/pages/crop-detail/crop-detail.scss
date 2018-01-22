@@ -1,0 +1,62 @@
+page-crop-detail {
+  .searchbar-md .searchbar-input{
+    // box-shadow: none!important;
+  }
+
+  @media (max-width: 768px){
+    ion-col.onlyDesktop{
+      display: none;
+    }
+  }
+
+  ion-row.client{
+    cursor: pointer;
+  }
+
+  ion-grid.table ion-row:first-child{
+    border: solid 2px (map-get($colors, primary));
+    border-bottom: none;
+  }
+  ion-grid.table ion-row:last-child{
+    border: solid 2px (map-get($colors, primary));
+    border-top: none;
+  }
+
+  ion-grid.table ion-row ion-col{
+    border: solid 2px (map-get($colors, primary));
+    border-bottom: none;
+    border-left: none;
+  }
+
+  [bold]{
+    font-weight: bold;
+  }
+
+  ion-grid.table ion-row ion-col:first-child{
+    border-left: solid 2px (map-get($colors, primary));
+  }
+
+  ion-grid.table ion-row ion-col:last-child{
+    border-right: solid 2px (map-get($colors, primary));
+  }
+
+  ion-grid.table ion-row:first-child ion-col{
+    border: none;
+  }
+
+  ion-grid.table ion-row:last-child ion-col:last-child{
+    border-right: none;
+  }
+
+  ion-grid.table ion-row:last-child ion-col:first-child{
+    border-left: none;
+  }
+
+  ion-grid.table ion-row{
+    background-color: white;
+  }
+
+  ion-grid.table ion-row:nth-child(even){
+    background-color: #dadada;
+  }
+}
