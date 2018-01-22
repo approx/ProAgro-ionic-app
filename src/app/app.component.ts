@@ -103,7 +103,7 @@ export class MyApp {
     },
     {
       name:'Safras',
-      icon:'grid',
+      icon:'leaf',
       component:CropPage,
       itensToogle:false,
       itens:[

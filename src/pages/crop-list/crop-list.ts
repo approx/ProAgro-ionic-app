@@ -6,6 +6,7 @@ import { CultureModel } from '../../model/culture.model';
 import { CropProvider } from '../../providers/crop/crop';
 import { FarmProvider } from '../../providers/farm/farm';
 import { CultureProvider } from '../../providers/culture/culture';
+import { CropDetailPage } from '../../pages/crop-detail/crop-detail';
 
 /**
  * Generated class for the CropListPage page.
@@ -79,6 +80,10 @@ export class CropListPage {
       }
       return false;
     });
+  }
+
+  openCrop(crop){
+    this.navCtrl.push(CropDetailPage.name,{crop:crop,crop_id:crop.id});
   }
 
   getFarms(){
