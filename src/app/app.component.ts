@@ -29,6 +29,7 @@ import { ActivityPage } from '../pages/activity/activity';
 import { ActivityListPage } from '../pages/activity-list/activity-list';
 import { ActivityRegisterPage } from '../pages/activity-register/activity-register';
 import { ActivityTypePage } from '../pages/activity-type/activity-type';
+import { UnityPage } from '../pages/unity/unity';
 
 @Component({
   templateUrl: 'app.html'
@@ -147,6 +148,11 @@ export class MyApp {
         {
           name:'Tipos',
           component:ActivityTypePage,
+          itensToogle:false
+        },
+        {
+          name:'Unidades',
+          component:UnityPage,
           itensToogle:false
         }
       ]
