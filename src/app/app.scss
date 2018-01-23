@@ -23,6 +23,11 @@ h1{
   font-size: 30px;
 }
 
+.text-overflow{
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .vr-right{
   border-right: 2px solid (map-get($colors, primary));
 }

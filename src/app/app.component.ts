@@ -25,6 +25,10 @@ import { CropPage } from '../pages/crop/crop';
 import { CropListPage } from '../pages/crop-list/crop-list';
 import { CropDetailPage } from '../pages/crop-detail/crop-detail';
 import { CropRegisterPage } from '../pages/crop-register/crop-register';
+import { ActivityPage } from '../pages/activity/activity';
+import { ActivityListPage } from '../pages/activity-list/activity-list';
+import { ActivityRegisterPage } from '../pages/activity-register/activity-register';
+import { ActivityTypePage } from '../pages/activity-type/activity-type';
 
 @Component({
   templateUrl: 'app.html'
@@ -120,6 +124,29 @@ export class MyApp {
         {
           name:'Culturas',
           component:CulturePage,
+          itensToogle:false
+        }
+      ]
+    },
+    {
+      name:'Atividades',
+      icon:'clipboard',
+      component:ActivityPage,
+      itensToogle:false,
+      itens:[
+        {
+          name:'Listar',
+          component:ActivityListPage,
+          itensToogle:false
+        },
+        {
+          name:'Cadastrar',
+          component:ActivityRegisterPage,
+          itensToogle:false
+        },
+        {
+          name:'Tipos',
+          component:ActivityTypePage,
           itensToogle:false
         }
       ]

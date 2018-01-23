@@ -51,6 +51,7 @@ import { MessagesProvider } from '../providers/messages/messages';
 import { PipesModule } from '../pipes/pipes.module';
 import { CropProvider } from '../providers/crop/crop';
 import { ActivityProvider } from '../providers/activity/activity';
+import { ActivityTypeProvider } from '../providers/activity-type/activity-type';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { ActivityProvider } from '../providers/activity/activity';
     FieldProvider,
     MessagesProvider,
     CropProvider,
-    ActivityProvider
+    ActivityProvider,
+    ActivityTypeProvider
   ]
 })
 export class AppModule {}
