@@ -4,15 +4,83 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>activity-list</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
-
+  <!-- <pre>{{farm | json}}</pre> -->
+  <h1>Lista de Atividades</h1>
+  <ion-grid>
+    <ion-row padding-bottom style="display:flex;align-items:center;background-color:white">
+      <ion-col col-12 col-md-4>
+        <ion-item padding-top>
+          <ion-label>Fazenda</ion-label>
+          <ion-select [(ngModel)]="farm" multiple="true" (ngModelChange)="FilterFarm()" name="farm">
+            <ion-option *ngFor="let farm of farms" [value]="farm">{{farm.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12 col-md-4>
+        <ion-item padding-top>
+          <ion-label>Talhão</ion-label>
+          <ion-select [(ngModel)]="field" multiple="true" (ngModelChange)="FilterField()" name="field">
+            <ion-option *ngFor="let field of filteredFields" [value]="field">{{field.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12 col-md-4 style="display:flex;">
+        <ion-item padding-top>
+          <ion-label>Safra</ion-label>
+          <ion-select [(ngModel)]="crop" multiple="true" (ngModelChange)="FilterCrop()" name="crop">
+            <ion-option *ngFor="let crop of filteredCrops" [value]="crop">{{crop.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <button style="background-color:transparent" (click)="openRegisterPage($event)"> <ion-icon name="add-circle" style="font-size:30px;"></ion-icon></button>
+      </ion-col>
+      <ion-col col-12 col-md-6 col-lg-6>
+        <ion-item padding-top>
+          <ion-label>Produto/Serviço*</ion-label>
+          <ion-select [(ngModel)]="activityType" multiple="true" (ngModelChange)="Filter()" required name="activityType">
+            <ion-option *ngFor="let activityType of activityTypes" [value]="activityType">{{activityType.id}} - {{activityType.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12 col-md-6>
+        <ion-item padding-top>
+          <ion-label>Unidade*</ion-label>
+          <ion-select [(ngModel)]="unity" multiple="true" (ngModelChange)="FilterFarm()" required name="unity">
+            <ion-option *ngFor="let unity of unities" [value]="unity">{{unity.id}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <table *ngIf="activities.length>0" col-12>
+      <tr>
+        <th>Data operação</th>
+        <th>Produto/Serviço</th>
+        <th class="hide-lg">Cliente</th>
+        <th class="hide-md">Fazenda</th>
+        <th class="hide-md">Talhão</th>
+        <th class="hide-md">Safra</th>
+        <th class="hide-lg">Unidade</th>
+        <th class="hide-lg">Quantidade</th>
+        <th class="hide-md">Valor por ha</th>
+        <th>Total</th>
+      </tr>
+      <tr (click)="openActivityPage(activity)" class="Clickable" *ngFor="let activity of filteredActivities">
+        <td>{{activity.operation_date | date: 'dd/MM/yyyy'}}</td>
+        <td>{{activity.activity_type.id}} - {{activity.activity_type.name}}</td>
+        <td class="hide-lg" >{{activity.crop.field.farm.client.name}}</td>
+        <td class="hide-md" >{{activity.crop.field.farm.name}}</td>
+        <td class="hide-md" >{{activity.crop.field.name}}</td>
+        <td class="hide-md" >{{activity.crop.name}}</td>
+        <td class="hide-lg" >{{activity.unity.id}}</td>
+        <td class="hide-lg" >{{activity.quantity}}</td>
+        <td class="hide-md" >{{activity.value_per_ha}}</td>
+        <td>{{activity.total_value}}</td>
+      </tr>
+    </table>
+    <table *ngIf="activities.length<=0">
+      <tr>
+        <td padding style="text-align:center">Nem uma atividade cadastrada ainda, <a href="" (click)="openRegisterPage($event)">clique aqui</a> para cadastrar uma atividade.</td>
+      </tr>
+    </table>
+  </ion-grid>
 </ion-content>

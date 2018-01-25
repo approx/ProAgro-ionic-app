@@ -19,6 +19,10 @@
   overflow: auto;
 }
 
+.Clickable{
+  cursor: pointer;
+}
+
 .hide{
   display: none;
 }
@@ -123,6 +127,18 @@ ion-content{
 }
 .showOnMobile{
   display: none;
+}
+
+@media screen and (max-width: 769px) {
+  .hide-md{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .hide-lg{
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {

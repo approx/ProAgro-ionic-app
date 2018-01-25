@@ -1,3 +1,84 @@
 page-activity-list {
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
 
+  td, th {
+    border: solid 2px (map-get($colors, primary));
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr{
+    background-color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+//------------------------//
+
+  .searchbar-md .searchbar-input{
+    // box-shadow: none!important;
+  }
+
+  @media (max-width: 768px){
+    ion-col.onlyDesktop{
+      display: none;
+    }
+  }
+
+  ion-row.client{
+    cursor: pointer;
+  }
+
+  ion-grid ion-row:first-child{
+    border: solid 2px (map-get($colors, primary));
+    border-bottom: none;
+  }
+  ion-grid ion-row:last-child{
+    border: solid 2px (map-get($colors, primary));
+    border-top: none;
+  }
+
+  ion-grid ion-row ion-col{
+    border: solid 2px (map-get($colors, primary));
+    border-bottom: none;
+    border-left: none;
+  }
+
+  [bold]{
+    font-weight: bold;
+  }
+
+  ion-grid ion-row ion-col:first-child{
+    border-left: solid 2px (map-get($colors, primary));
+  }
+
+  ion-grid ion-row ion-col:last-child{
+    border-right: solid 2px (map-get($colors, primary));
+  }
+
+  ion-grid ion-row:first-child ion-col{
+    border: none;
+  }
+
+  ion-grid ion-row:last-child ion-col:last-child{
+    border-right: none;
+  }
+
+  ion-grid ion-row:last-child ion-col:first-child{
+    border-left: none;
+  }
+
+  ion-grid ion-row{
+    background-color: white;
+  }
+
+  ion-grid ion-row:nth-child(even){
+    background-color: #dadada;
+  }
 }
