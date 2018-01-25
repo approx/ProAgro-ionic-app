@@ -74,8 +74,7 @@ export class ActivityTypePage {
   }
 
   Register(){
-    this.activityType.value_per_ha = parseInt(this.value_per_ha.replace(/\D/g,''));
-    this.activityType.unity_value = parseInt(this.unity_value.replace(/\D/g,''));
+    this.activityType.unity_value = parseFloat(this.unity_value.replace(/(?=[^,])(\D)+/gi,'').replace(',','.'));
     this.acitivityTypeProvider.post(this.activityType).subscribe((data)=>{
       this.getActivityTypes();
       this.activityType = {

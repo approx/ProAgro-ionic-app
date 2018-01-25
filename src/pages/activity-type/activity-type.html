@@ -11,25 +11,19 @@
       <ion-col col-12>
           <form (ngSubmit)="Register()" #RrgisterForm="ngForm">
             <ion-row class="baseline">
-            <ion-col col-6 col-md-3>
+            <ion-col col-6 col-md-4>
               <ion-item>
                 <ion-label floating>Codigo</ion-label>
                 <ion-input type="text" name="id" [(ngModel)]="activityType.id" required value=""></ion-input>
               </ion-item>
             </ion-col>
-            <ion-col col-6 col-md-3>
+            <ion-col col-6 col-md-4>
               <ion-item>
                 <ion-label floating>Produto/Serviço</ion-label>
                 <ion-input type="text" name="name" [(ngModel)]="activityType.name" required value=""></ion-input>
               </ion-item>
             </ion-col>
-            <ion-col col-6 col-md-3>
-              <ion-item>
-                <ion-label floating>Valor por ha</ion-label>
-                <ion-input type="text" name="value_per_ha" (ngModelChange)="onValuePerHaChange($event)" [(ngModel)]="value_per_ha" required value=""></ion-input>
-              </ion-item>
-            </ion-col>
-            <ion-col col-6 col-md-3 style="display: flex; align-items: flex-end;">
+            <ion-col col-6 col-md-4 style="display: flex; align-items: flex-end;">
               <ion-item>
                 <ion-label floating>Valor Unitario</ion-label>
                 <ion-input type="text" name="unity_value" (ngModelChange)="onUnityValueChange($event)" [(ngModel)]="unity_value" required value=""></ion-input>
@@ -45,16 +39,13 @@
         <ion-list>
           <ion-item no-padding class="item-flex" *ngFor="let types of activityTypes">
             <ion-row col-12 style="align-items:center">
-              <ion-col class="padding-left-20 text-overflow" col-3>
+              <ion-col class="padding-left-20 text-overflow" col-4>
                 {{types.id}}
               </ion-col>
-              <ion-col class="padding-left-20 text-overflow" col-3>
+              <ion-col class="padding-left-20 text-overflow" col-4>
                 {{types.name}}
               </ion-col>
-              <ion-col class="padding-left-35 text-overflow" col-3>
-                R${{types.value_per_ha}}
-              </ion-col>
-              <ion-col col-3 class="padding-left-35 align-center-justify-between flex text-overflow">
+              <ion-col col-4 class="padding-left-35 align-center-justify-between flex text-overflow">
                 R${{types.unity_value}}
                 <button (click)="delete(types.id)" no-margin no-padding margin-left ><ion-icon name="remove-circle"></ion-icon></button>
               </ion-col>
