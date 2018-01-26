@@ -4,14 +4,15 @@ import { CropModel } from './crop.model';
 
 export interface ActivityInterface{
   id?:number,
-  operation_date:Date,
-  payment_date:Date,
-  activity_type_id:number,
-  total_value:number,
-  quantity:number,
-  unity_id:number,
-  dose:number,
-  crop_id:number
+  operation_date?:Date,
+  payment_date?:Date,
+  activity_type_id?:string,
+  total_value?:number,
+  value_per_ha?:number;
+  quantity?:number,
+  unity_id?:number,
+  dose?:number,
+  crop_id?:number
 }
 
 export class ActivityModel{
@@ -21,6 +22,7 @@ export class ActivityModel{
     public payment_date:Date,
     public activity_type:ActivityTypeModel,
     public total_value:number,
+    public value_per_ha:number,
     public quantity:number,
     public unity:UnityModel,
     public dose:number,

@@ -1,0 +1,9 @@
+page-activity-register {
+  .crpoItens{
+    border-radius: 5px;
+    border: 2px solid (map-get($colors, primary));
+  }
+  ion-icon{
+    cursor: pointer;
+  }
+}

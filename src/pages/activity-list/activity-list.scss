@@ -1,4 +1,26 @@
-page-client-list {
+page-activity-list {
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: solid 2px (map-get($colors, primary));
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr{
+    background-color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+//------------------------//
+
   .searchbar-md .searchbar-input{
     // box-shadow: none!important;
   }
@@ -8,8 +30,6 @@ page-client-list {
       display: none;
     }
   }
-
-  
 
   ion-row.client{
     cursor: pointer;

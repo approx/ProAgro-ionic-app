@@ -1,0 +1,43 @@
+<!--
+  Generated template for the ActivityDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+  <h1>Atividade</h1>
+  <ion-grid>
+    <ion-row class="description" *ngIf="activity">
+      <ion-col col-6>
+        {{activity.crop.field.farm.name}}<br>
+        {{activity.crop.field.name}}<br>
+        {{activity.crop.name}}<br>
+      </ion-col>
+      <ion-col col-6>
+        {{activity.crop.field.farm.client.name}}<br>
+        {{activity.crop.field.farm.client.phone | phone}}<br>
+        <span *ngIf="activity.crop.field.farm.client.phone_2">{{activity.crop.field.farm.client.phone_2 | phone}}<br></span>
+        <span *ngIf="activity.crop.field.farm.client.email">{{activity.crop.field.farm.client.email}}<br></span>
+      </ion-col>
+    </ion-row>
+    <div class="horizontalLine">
+      <h2>Descrição</h2>
+    </div>
+    <ion-row class="info" padding *ngIf="activity">
+      <ion-col col-12 style="display:flex;justify-content: space-between;">
+        <p>{{activity.activity_type.id}} - {{activity.activity_type.name}}</p>
+        <p>Data da operação: {{activity.operation_date | date:'dd/MM/yyyy'}}</p>
+        <p>Data do pagamento: {{activity.payment_date | date:'dd/MM/yyyy'}}</p>
+      </ion-col>
+      <ion-col col-12 style="display:flex;justify-content: space-between;">
+        <p>Dose: {{activity.dose}}{{activity.unity.id}}/ha</p>
+        <p>Quantity: {{activity.quantity}}{{activity.unity.id}}</p>
+        <p>Valor Unitario: R$ {{activity.activity_type.unity_value}}</p>
+        <p>Valor por ha: R$ {{activity.value_per_ha}}</p>
+      </ion-col>
+      <ion-col margin-top text-center col-12>
+        <h3>Valor Total: R$ {{activity.total_value}}</h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -26,8 +26,27 @@ nav-bar {
     color: $textHoverColor!important;
   }
 
+  .wraper{
+    position: relative;;
+    .itens{
+      border: 2px solid $textHoverColor !important;
+      border-left: none !important;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      margin-left: 1px;
+      background-color: #222222;
+      padding-top: 5px;
+      position: absolute;
+      top:-1px;
+      left: 100%;
+      z-index: 50;
+    }
+  }
+
   ion-item{
     padding-left: 10px!important;
+    position: relative;
+
   }
 
   button{
@@ -35,7 +54,7 @@ nav-bar {
     padding-left: 5px!important;
     background-color: transparent!important;
     width: 100%;
-    padding: 13px 8px 13px 0!important;
+    padding: 13px 10px 13px 6px !important;
   }
 
   button button{
@@ -63,15 +82,11 @@ nav-bar {
     border-bottom: 1px solid (map-get($colors, primary));
   }
 
-  .itens{
-    padding-top: 5px;
-  }
-
   .toggleIten{
     background-color: transparent;
     display: block;
-    text-align: center;
+    text-align: left;
     width: 100%;
-    padding: 3px 0px;
+    padding: 3px 3px;
   }
 }

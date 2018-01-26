@@ -19,8 +19,21 @@
   overflow: auto;
 }
 
+.Clickable{
+  cursor: pointer;
+}
+
+.hide{
+  display: none;
+}
+
 h1{
   font-size: 30px;
+}
+
+.text-overflow{
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .vr-right{
@@ -114,6 +127,18 @@ ion-content{
 }
 .showOnMobile{
   display: none;
+}
+
+@media screen and (max-width: 769px) {
+  .hide-md{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .hide-lg{
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {

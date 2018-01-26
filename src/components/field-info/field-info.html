@@ -2,5 +2,5 @@
 <ion-col padding col-12>
   <h3 class="title">{{field.name}} <span>{{field.area}}Hectares</span></h3>
   <p class="farm">{{field.farm.name}}</p>
-  <h3  class="actual_crop"><span *ngIf="field.crop">{{field.crop}}</span><span *ngIf="!field.crop">sem safra atual</span></h3>
+  <h3  class="actual_crop"><span *ngIf="field.crop">{{field.crop.name}}</span><span *ngIf="!field.crop">sem safra atual</span></h3>
 </ion-col>
