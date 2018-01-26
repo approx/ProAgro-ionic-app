@@ -59,7 +59,7 @@
         <th class="hide-md">Fazenda</th>
         <th class="hide-md">Talhão</th>
         <th class="hide-md">Safra</th>
-        <th class="hide-lg">Unidade</th>
+        <th class="hide-md">Dose</th>
         <th class="hide-lg">Quantidade</th>
         <th class="hide-md">Valor por ha</th>
         <th>Total</th>
@@ -71,10 +71,10 @@
         <td class="hide-md" >{{activity.crop.field.farm.name}}</td>
         <td class="hide-md" >{{activity.crop.field.name}}</td>
         <td class="hide-md" >{{activity.crop.name}}</td>
-        <td class="hide-lg" >{{activity.unity.id}}</td>
-        <td class="hide-lg" >{{activity.quantity}}</td>
-        <td class="hide-md" >{{activity.value_per_ha}}</td>
-        <td>{{activity.total_value}}</td>
+        <td class="hide-md" >{{activity.dose}}{{activity.unity.id}}/ha</td>
+        <td class="hide-lg" >{{activity.quantity}}{{activity.unity.id}}</td>
+        <td class="hide-md" >R$ {{activity.value_per_ha}}</td>
+        <td>R$ {{activity.total_value}}</td>
       </tr>
     </table>
     <table *ngIf="activities.length<=0">
