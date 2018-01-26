@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
 import { MyApp } from '../../app/app.component';
+import { FarmDetailPage } from '../../pages/farm-detail/farm-detail';
+import { FarmRegisterPage } from '../../pages/farm-register/farm-register';
 
 /**
  * Generated class for the ClientDetailPage page.
@@ -21,6 +23,7 @@ import { MyApp } from '../../app/app.component';
 export class ClientDetailPage {
   client_id:number;
   client:ClientModel;
+  farmSize=300;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private clientProvider:ClientProvider) {
@@ -48,6 +51,16 @@ export class ClientDetailPage {
 
   ionViewCanEnter(): boolean{
     return MyApp.instance.loged;
+  }
+
+  openFarmPage(farm){
+    this.navCtrl.push(FarmDetailPage.name,{farm_id:farm.id});
+  }
+
+  openFarmRegister(event:MouseEvent){
+    event.preventDefault();
+    event.stopPropagation();
+    this.navCtrl.push(FarmRegisterPage.name);
   }
 
 }

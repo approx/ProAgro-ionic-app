@@ -19,8 +19,36 @@
   overflow: auto;
 }
 
+.farmsWraper{
+  margin-right:-16px;
+  margin-left:-16px;
+  padding-left: 32px;
+  width:auto;
+  overflow: auto;
+}
+
 .Clickable{
   cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: (map-get($colors, primary));
 }
 
 .hide{

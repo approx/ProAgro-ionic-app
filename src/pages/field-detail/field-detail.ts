@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FieldModel } from '../../model/field.model';
 import { FieldProvider } from '../../providers/field/field';
 import { DomSanitizer} from '@angular/platform-browser';
+import { CropDetailPage } from '../../pages/crop-detail/crop-detail';
+import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 
 /**
  * Generated class for the FieldDetailPage page.
@@ -38,6 +40,16 @@ export class FieldDetailPage {
     if(this.field){
       this.setMapUrl();
     }
+  }
+
+  openCropPage(crop){
+    this.navCtrl.push(CropDetailPage.name,{crop_id:crop.id});
+  }
+
+  openCropRegister(event:MouseEvent){
+    event.stopPropagation();
+    event.preventDefault();
+    this.navCtrl.push(CropRegisterPage);
   }
 
   ionViewDidLoad() {

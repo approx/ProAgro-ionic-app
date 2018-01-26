@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FarmModel } from '../../model/farm.model';
 import { MyApp } from '../../app/app.component';
 import { FarmProvider } from '../../providers/farm/farm';
+import { FieldRegisterPage } from '../../pages/field-register/field-register';
+import { FieldDetailPage } from '../../pages/field-detail/field-detail';
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -42,6 +44,16 @@ export class FarmDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider) {
     this.farm_id = navParams.get('farm_id');
     this.farm = navParams.get('farm');
+  }
+
+  openFieldPage(field){
+    this.navCtrl.push(FieldDetailPage.name,{field_id:field.id});
+  }
+
+  openFieldRegister(event:MouseEvent){
+    event.preventDefault();
+    event.stopPropagation();
+    this.navCtrl.push(FieldRegisterPage.name);
   }
 
   ionViewDidLoad() {
