@@ -16,7 +16,7 @@
       </ion-col>
       <ion-col *ngIf="field" style="display:flex;align-items:center;justify-content: center;" col-12 col-md-6>
         <div *ngIf="!field.crop" col-12 style="display:flex;justify-content:center"><button type="button" ion-button col-12 col-sm-9 col-md-8 col-lg-6 col-xl-5>Registrar Safra Atual</button></div>
-        <crop-info [ngStyle]="{'width': 300 +'px'}" (click)="openCropPage(field.crop)" [crop]="field.crop"></crop-info>
+        <crop-info *ngIf="field.crop" [ngStyle]="{'width': 300 +'px'}" (click)="openCropPage(field.crop)" [crop]="field.crop"></crop-info>
       </ion-col>
     </ion-row>
     <div margin-top margin-bottom class="hr">
