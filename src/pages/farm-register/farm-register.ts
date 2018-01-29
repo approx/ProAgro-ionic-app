@@ -8,6 +8,7 @@ import { CityProvider } from '../../providers/city/city';
 import { StateProvider } from '../../providers/state/state';
 import { FarmInterface } from '../../model/farm.model';
 import { FarmProvider } from '../../providers/farm/farm';
+import { ClientModel } from '../../model/client.model';
 
 /**
  * Generated class for the FarmRegisterPage page.
@@ -60,7 +61,14 @@ export class FarmRegisterPage {
     this.getClients();
     this.getCultures();
     this.getCitiesAndStates();
+    this.setParamsItens();
+  }
 
+  setParamsItens(){
+    let client:ClientModel = this.navParams.get('client');
+    if(client){
+      this.farm.client_id = client.id;
+    }
   }
 
   ionViewDidLoad() {
@@ -70,7 +78,7 @@ export class FarmRegisterPage {
   getClients() {
     this.clientProvider.getAll().subscribe((data: any) => {
       this.clients = data;
-    })
+    });
   }
 
   Wait() {

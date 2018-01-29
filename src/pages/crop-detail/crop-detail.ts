@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CropModel } from '../../model/crop.model';
 import { CropProvider } from '../../providers/crop/crop';
+import { ActivityRegisterPage } from '../../pages/activity-register/activity-register';
+import { ActivityDetailPage } from '../../pages/activity-detail/activity-detail';
 
 /**
  * Generated class for the CropDetailPage page.
@@ -24,6 +26,16 @@ export class CropDetailPage {
     this.crop_id = navParams.get('crop_id');
     this.crop = navParams.get('crop');
     console.log(this.crop)
+  }
+
+  openRegisterPage(event:MouseEvent){
+    event.stopPropagation();
+    event.preventDefault();
+    this.navCtrl.push(ActivityRegisterPage.name);
+  }
+
+  openActivityPage(activity){
+    this.navCtrl.push(ActivityDetailPage.name,{activity_id:activity.id});
   }
 
   ionViewDidLoad() {

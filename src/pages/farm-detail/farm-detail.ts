@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FarmModel } from '../../model/farm.model';
 import { MyApp } from '../../app/app.component';
 import { FarmProvider } from '../../providers/farm/farm';
+import { FieldRegisterPage } from '../../pages/field-register/field-register';
+import { FieldDetailPage } from '../../pages/field-detail/field-detail';
+import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -25,23 +28,29 @@ export class FarmDetailPage {
   {
     label:'Adicionar Talhão',
     down:()=>{
-      console.log('open field register page');
+      console.log('open');
+      this.navCtrl.push(FieldRegisterPage.name,{farm:this.farm});
     }
   },{
     label:'Adicionar Nova Safra',
     down:()=>{
-      console.log('open crop register page');
-    }
-  },{
-    label:'Registrar Atividade',
-    down:()=>{
-      console.log('open activity register page');
+      this.navCtrl.push(CropRegisterPage.name,{farm:this.farm});
     }
   }]
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider) {
     this.farm_id = navParams.get('farm_id');
     this.farm = navParams.get('farm');
+  }
+
+  openFieldPage(field){
+    this.navCtrl.push(FieldDetailPage.name,{field_id:field.id});
+  }
+
+  openFieldRegister(event:MouseEvent){
+    event.preventDefault();
+    event.stopPropagation();
+    this.navCtrl.push(FieldRegisterPage.name,{farm:this.farm});
   }
 
   ionViewDidLoad() {

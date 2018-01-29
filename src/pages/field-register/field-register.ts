@@ -6,6 +6,8 @@ import { MessagesProvider } from '../../providers/messages/messages';
 import { DomSanitizer} from '@angular/platform-browser';
 import { FarmModel } from '../../model/farm.model';
 import { FarmProvider } from '../../providers/farm/farm';
+import { ClientProvider } from '../../providers/client/client';
+import { ClientModel } from '../../model/client.model';
 
 /**
  * Generated class for the FieldRegisterPage page.
@@ -22,8 +24,11 @@ import { FarmProvider } from '../../providers/farm/farm';
 export class FieldRegisterPage{
 
   @Input() field:FieldInterface={};
-  farms:FarmModel[];
+  filteredFarms:FarmModel[];
+  farms:FarmModel[]=[];
+  clients:ClientModel[];
   mapUrl;
+  client_id:number;
 
   constructor(
     public navCtrl: NavController,
@@ -31,11 +36,57 @@ export class FieldRegisterPage{
     public fieldProvider:FieldProvider,
     private message:MessagesProvider,
     private sanitizer:DomSanitizer,
-    private farmProvider:FarmProvider
+    private farmProvider:FarmProvider,
+    private clientProvider:ClientProvider
   ) {
     this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
       this.farms = data;
+      this.filteredFarms = data;
+      this.ClientSelected();
+      this.setParamsItens();
     })
+    this.getClients();
+  }
+
+  findIdInArray(id:number,array:{id:number}[]):{id:number}{
+    for (let i = 0; i < array.length; i++) {
+        if(id==array[i].id){
+          return array[i];
+        }
+    }
+    return null;
+  }
+
+  setParamsItens(){
+    let client:ClientModel = this.navParams.get('client');
+    if(client){
+      this.client_id = client.id;
+    }
+    let farm:FarmModel = this.navParams.get('farm');
+    if(farm){
+      this.field.farm_id = farm.id;
+      this.client_id =farm.client.id;
+    }
+  }
+
+  getClients(){
+    this.clientProvider.getAll().subscribe((data:ClientModel[])=>{
+      this.clients = data;
+      this.ClientSelected();
+      this.setParamsItens();
+    });
+  }
+
+  ClientSelected(){
+    this.filteredFarms = this.farms.filter((farm)=>{
+      if(this.client_id == farm.client.id){
+        return true;
+      }
+      return false;
+    });
+    if(this.filteredFarms.length==0 && !this.client_id){
+      this.filteredFarms = this.farms;
+    }
   }
 
   ionViewDidLoad() {

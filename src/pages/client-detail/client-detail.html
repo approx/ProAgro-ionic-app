@@ -21,18 +21,28 @@
     <h2>Ações</h2>
   </div>
   <ion-grid margin-top padding>
-    <ion-row>
+    <ion-row style="justify-content: center;">
       <ion-col col-12 col-md-3>
-        <button ion-button full type="button" name="button">Adicionar Fazenda</button>
+        <button ion-button full (click)="openFarmRegister($event)" type="button" name="button">Adicionar Fazenda</button>
       </ion-col>
       <ion-col col-12 col-md-3>
-        <button ion-button full type="button" name="button">Adicionar Talhão</button>
+        <button ion-button full (click)="openFieldRegister($event)" type="button" name="button">Adicionar Talhão</button>
       </ion-col>
       <ion-col col-12 col-md-3>
-        <button ion-button full type="button" name="button">Registrar nova safra</button>
+        <button ion-button full (click)="openCropRegister($event)" type="button" name="button">Registrar nova safra</button>
       </ion-col>
-      <ion-col col-12 col-md-3>
-        <button ion-button full type="button" name="button">Registrar atividade</button>
+    </ion-row>
+  </ion-grid>
+  <div class="horizontalLine">
+    <h2>Fazendas</h2>
+  </div>
+  <ion-grid *ngIf="client" class="farmsWraper">
+    <ion-row *ngIf="client.farms.length>0" [ngStyle]="{'width': farmSize * client.farms.length + 'px'}">
+      <farm-info [ngStyle]="{'width': farmSize+'px'}" (click)="openFarmPage(farm)" *ngFor="let farm of client.farms" [farm]="farm"></farm-info>
+    </ion-row>
+    <ion-row *ngIf="client.farms.length<=0">
+      <ion-col text-center col-12>
+        Nem uma fazenda cadastrada para este cliente,<a href="" (click)="openFarmRegister($event)">clique aqui</a> para cadastrar uma.
       </ion-col>
     </ion-row>
   </ion-grid>

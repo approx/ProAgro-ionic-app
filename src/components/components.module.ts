@@ -8,6 +8,7 @@ import { CultureComponent } from './culture/culture';
 import { ActionsComponent } from './actions/actions';
 import { FieldInfoComponent } from './field-info/field-info';
 import { CropInfoComponent } from './crop-info/crop-info';
+import { FarmInfoComponent } from './farm-info/farm-info';
 
 // @NgModule({
 // 	declarations: [NavBarComponent,
@@ -30,6 +31,7 @@ import { CropInfoComponent } from './crop-info/crop-info';
     ActionsComponent,
     FieldInfoComponent,
     CropInfoComponent,
+		FarmInfoComponent
 	],
 	imports: [CommonModule,IonicModule,PipesModule],
 	exports: [
@@ -38,7 +40,8 @@ import { CropInfoComponent } from './crop-info/crop-info';
     CultureComponent,
     ActionsComponent,
     FieldInfoComponent,
-    CropInfoComponent
+    CropInfoComponent,
+		FarmInfoComponent
 	]
 })
 export class ComponentsModule {}

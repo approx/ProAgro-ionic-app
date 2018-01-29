@@ -14,8 +14,9 @@
         <span *ngIf="field.farm.client.email">{{field.farm.client.email}}</span><br>
         {{field.farm.client.phone | phone}}
       </ion-col>
-      <ion-col *ngIf="field" style="display:flex;align-items:center;" col-12 col-md-6>
-        <div *ngIf="!field.crop" col-12 style="display:flex;justify-content:center"><button type="button" ion-button col-12 col-sm-9 col-md-8 col-lg-6 col-xl-5>Registrar Safra Atual</button></div>
+      <ion-col *ngIf="field" style="display:flex;align-items:center;justify-content: center;" col-12 col-md-6>
+        <div *ngIf="!field.crop" col-12 style="display:flex;justify-content:center"><button type="button" (click)="openCropRegister($event)" ion-button col-12 col-sm-9 col-md-8 col-lg-6 col-xl-5>Registrar Safra Atual</button></div>
+        <crop-info *ngIf="field.crop" [ngStyle]="{'width': 300 +'px'}" (click)="openCropPage(field.crop)" [crop]="field.crop"></crop-info>
       </ion-col>
     </ion-row>
     <div margin-top margin-bottom class="hr">
@@ -28,6 +29,19 @@
         frameborder="0" style="border:0"
         [src]="mapUrl" allowfullscreen>
       </iframe>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="horizontalLine">
+    <h2>Safras</h2>
+  </div>
+  <ion-grid *ngIf="field" class="farmsWraper">
+    <ion-row *ngIf="field.crops.length>0" [ngStyle]="{'width': 300  * field.crops.length + 'px'}">
+      <crop-info [ngStyle]="{'width': 300 +'px'}" (click)="openCropPage(crop)" *ngFor="let crop of field.crops" [crop]="crop"></crop-info>
+    </ion-row>
+    <ion-row *ngIf="field.crops.length<=0">
+      <ion-col text-center col-12>
+        Nem uma safra cadastrada para este talhão,<a href="" (click)="openCropRegister($event)">clique aqui</a> para cadastrar uma.
       </ion-col>
     </ion-row>
   </ion-grid>

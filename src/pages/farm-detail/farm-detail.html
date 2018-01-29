@@ -19,5 +19,18 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div class="horizontalLine">
+    <h2>Talhões</h2>
+  </div>
+  <ion-grid *ngIf="farm" class="farmsWraper">
+    <ion-row *ngIf="farm.fields.length>0" [ngStyle]="{'width': 300  * farm.fields.length + 'px'}">
+      <field-info [ngStyle]="{'width': 300 +'px'}" (click)="openFieldPage(field)" *ngFor="let field of farm.fields" [field]="field"></field-info>
+    </ion-row>
+    <ion-row *ngIf="farm.fields.length<=0">
+      <ion-col text-center col-12>
+        Nem um talhão cadastrado para esta fazenda,<a href="" (click)="openFieldRegister($event)">clique aqui</a> para cadastrar um.
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <actions [actions]="actions"></actions>
 </ion-content>
