@@ -9,7 +9,7 @@
   <form (ngSubmit)="Register()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
       <ion-row style="align-items: flex-end;">
-        <ion-col col-12 col-md-3>
+        <ion-col col-12 col-md-12>
           <ion-item>
             <ion-label floating>Nome*</ion-label>
             <ion-input type="text" required maxlength="45" #name="ngModel" [(ngModel)]="crop.name" name="name" value=""></ion-input>
@@ -17,16 +17,24 @@
         </ion-col>
         <ion-col col-12 col-md-3>
           <ion-item padding-top>
+            <ion-label>Cliente*</ion-label>
+            <ion-select [(ngModel)]="client" (ngModelChange)="ClientSelected($event)" required name="client">
+              <ion-option *ngFor="let client of clients" value="{{client.id}}">{{client.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-3>
+          <ion-item padding-top>
             <ion-label>Fazenda*</ion-label>
-            <ion-select [(ngModel)]="farm" (ngModelChange)="filterFarm($event)" required name="farm">
-              <ion-option *ngFor="let farm of farms" [value]="farm">{{farm.name}}</ion-option>
+            <ion-select [(ngModel)]="farm" (ngModelChange)="FarmSelected($event)" required name="farm">
+              <ion-option *ngFor="let farm of filteredFarms" [value]="farm">{{farm.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-3>
           <ion-item padding-top>
             <ion-label>Talhão*</ion-label>
-            <ion-select [(ngModel)]="crop.field_id" required name="field">
+            <ion-select [(ngModel)]="crop.field_id" (ngModelChange)="FieldSelected($event)" required name="field">
               <ion-option *ngFor="let field of filteredFields" value="{{field.id}}">{{field.name}}</ion-option>
             </ion-select>
           </ion-item>

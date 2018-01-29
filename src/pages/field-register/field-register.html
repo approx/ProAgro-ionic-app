@@ -9,27 +9,39 @@
   <h1>Registrar novo talhão</h1>
   <form (ngSubmit)="Register()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
-      <ion-row >
+      <ion-row>
         <ion-col col-12 col-md-12>
           <ion-item>
             <ion-label floating>Nome*</ion-label>
             <ion-input type="text" required maxlength="45" #name="ngModel" [(ngModel)]="field.name" name="name" value=""></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6>
+      </ion-row>
+      <ion-row flex-end-align>
+        <ion-col col-12 col-md-4>
           <ion-item padding-top>
-            <ion-label>Fazenda*</ion-label>
-            <ion-select [(ngModel)]="field.farm_id" required name="farm">
-              <ion-option *ngFor="let farm of farms" value="{{farm.id}}">{{farm.name}}</ion-option>
+            <ion-label>Cliente*</ion-label>
+            <ion-select [(ngModel)]="client_id" (ngModelChange)="ClientSelected()" required name="client">
+              <ion-option *ngFor="let client of clients" value="{{client.id}}">{{client.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6>
+        <ion-col col-12 col-md-4>
+          <ion-item padding-top>
+            <ion-label>Fazenda*</ion-label>
+            <ion-select [(ngModel)]="field.farm_id" required name="farm">
+              <ion-option *ngFor="let farm of filteredFarms" value="{{farm.id}}">{{farm.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4>
           <ion-item>
             <ion-label floating>Area*</ion-label>
             <ion-input type="text" required maxlength="45" [(ngModel)]="field.area" name="area" value=""></ion-input>
           </ion-item>
         </ion-col>
+      </ion-row>
+      <ion-row>
         <ion-col col-12 col-md-6>
           <ion-item>
             <ion-label floating>Lat</ion-label>

@@ -5,6 +5,7 @@ import { MyApp } from '../../app/app.component';
 import { FarmProvider } from '../../providers/farm/farm';
 import { FieldRegisterPage } from '../../pages/field-register/field-register';
 import { FieldDetailPage } from '../../pages/field-detail/field-detail';
+import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -27,17 +28,13 @@ export class FarmDetailPage {
   {
     label:'Adicionar Talhão',
     down:()=>{
-      console.log('open field register page');
+      console.log('open');
+      this.navCtrl.push(FieldRegisterPage.name,{farm:this.farm});
     }
   },{
     label:'Adicionar Nova Safra',
     down:()=>{
-      console.log('open crop register page');
-    }
-  },{
-    label:'Registrar Atividade',
-    down:()=>{
-      console.log('open activity register page');
+      this.navCtrl.push(CropRegisterPage.name,{farm:this.farm});
     }
   }]
 
@@ -53,7 +50,7 @@ export class FarmDetailPage {
   openFieldRegister(event:MouseEvent){
     event.preventDefault();
     event.stopPropagation();
-    this.navCtrl.push(FieldRegisterPage.name);
+    this.navCtrl.push(FieldRegisterPage.name,{farm:this.farm});
   }
 
   ionViewDidLoad() {

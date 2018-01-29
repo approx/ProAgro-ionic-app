@@ -21,18 +21,15 @@
     <h2>Ações</h2>
   </div>
   <ion-grid margin-top padding>
-    <ion-row>
+    <ion-row style="justify-content: center;">
       <ion-col col-12 col-md-3>
-        <button ion-button full type="button" name="button">Adicionar Fazenda</button>
+        <button ion-button full (click)="openFarmRegister($event)" type="button" name="button">Adicionar Fazenda</button>
       </ion-col>
       <ion-col col-12 col-md-3>
-        <button ion-button full type="button" name="button">Adicionar Talhão</button>
+        <button ion-button full (click)="openFieldRegister($event)" type="button" name="button">Adicionar Talhão</button>
       </ion-col>
       <ion-col col-12 col-md-3>
-        <button ion-button full type="button" name="button">Registrar nova safra</button>
-      </ion-col>
-      <ion-col col-12 col-md-3>
-        <button ion-button full type="button" name="button">Registrar atividade</button>
+        <button ion-button full (click)="openCropRegister($event)" type="button" name="button">Registrar nova safra</button>
       </ion-col>
     </ion-row>
   </ion-grid>

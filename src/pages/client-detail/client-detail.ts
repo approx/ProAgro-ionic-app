@@ -5,6 +5,8 @@ import { ClientModel } from '../../model/client.model';
 import { MyApp } from '../../app/app.component';
 import { FarmDetailPage } from '../../pages/farm-detail/farm-detail';
 import { FarmRegisterPage } from '../../pages/farm-register/farm-register';
+import { FieldRegisterPage } from '../../pages/field-register/field-register';
+import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 
 /**
  * Generated class for the ClientDetailPage page.
@@ -60,7 +62,19 @@ export class ClientDetailPage {
   openFarmRegister(event:MouseEvent){
     event.preventDefault();
     event.stopPropagation();
-    this.navCtrl.push(FarmRegisterPage.name);
+    this.navCtrl.push(FarmRegisterPage.name,{client:this.client});
   }
 
+  openFieldRegister(event:MouseEvent){
+    event.preventDefault();
+    event.stopPropagation();
+    this.navCtrl.push(FieldRegisterPage.name,{client:this.client});
+  }
+
+
+  openCropRegister(event:MouseEvent){
+    event.preventDefault();
+    event.stopPropagation();
+    this.navCtrl.push(CropRegisterPage.name,{client:this.client});
+  }
 }

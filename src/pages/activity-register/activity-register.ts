@@ -38,15 +38,15 @@ import { MessagesProvider } from '../../providers/messages/messages';
 export class ActivityRegisterPage {
 
   activity:ActivityInterface={};
-  farms:FarmModel[];
-  fields:FieldModel[];
-  filteredFields:FieldModel[];
-  crops:CropModel[];
-  filteredCrops:CropModel[];
-  activityTypes:ActivityTypeModel[];
+  farms:FarmModel[]=[];
+  fields:FieldModel[]=[];
+  filteredFields:FieldModel[]=[];
+  crops:CropModel[]=[];
+  filteredCrops:CropModel[]=[];
+  activityTypes:ActivityTypeModel[]=[];
   activity_type:ActivityTypeModel;
   field:FieldModel;
-  unities:UnityModel[];
+  unities:UnityModel[]=[];
   maxDate:string;
   totalDose;
   farm:FarmModel;
@@ -82,6 +82,7 @@ export class ActivityRegisterPage {
     this.getCrops();
     this.getTypes();
     this.getUnities();
+    this.setParams();
   }
 
   getUnities(){
@@ -92,6 +93,22 @@ export class ActivityRegisterPage {
 
   safraSelected(crop){
     this.addCrop(crop);
+  }
+
+  findIdInArray(id:number,array:{id:number}[]):{id:number}{
+    for (let i = 0; i < array.length; i++) {
+        if(id==array[i].id){
+          return array[i];
+        }
+    }
+    return null;
+  }
+
+  setParams(){
+    let field:FieldModel = this.navParams.get('field');
+    if(field.crop){
+      this.addCrop(field.crop);
+    }
   }
 
   selectActivity(activity:ActivityTypeModel){
