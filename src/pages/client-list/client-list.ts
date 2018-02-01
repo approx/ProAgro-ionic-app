@@ -22,6 +22,7 @@ import { MyApp } from '../../app/app.component';
 })
 export class ClientListPage {
   clients:ClientModel[];
+  loaded:boolean=false;
 
   constructor(
     public navCtrl: NavController,
@@ -30,6 +31,7 @@ export class ClientListPage {
   ) {
     this.clientsProvider.getAll().subscribe((data:ClientModel[])=>{
         this.clients = data;
+        this.loaded = true;
     },(err:any) => {
       if (err.error instanceof Error) {
         // A client-side or network error occurred. Handle it accordingly.

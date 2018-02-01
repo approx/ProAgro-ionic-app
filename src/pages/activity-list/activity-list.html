@@ -32,7 +32,7 @@
             <ion-option *ngFor="let crop of filteredCrops" [value]="crop">{{crop.name}}</ion-option>
           </ion-select>
         </ion-item>
-        
+
       </ion-col>
       <ion-col col-12 col-md-6 col-lg-6>
         <ion-item padding-top>
@@ -51,7 +51,7 @@
         </ion-item>
       </ion-col>
     </ion-row>
-    <table *ngIf="activities.length>0" col-12>
+    <table col-12>
       <tr>
         <th>Data operação</th>
         <th>Produto/Serviço</th>
@@ -76,11 +76,18 @@
         <td class="hide-md" >R$ {{activity.value_per_ha}}</td>
         <td>R$ {{activity.total_value}}</td>
       </tr>
-    </table>
-    <table *ngIf="activities.length<=0">
-      <tr>
-        <td padding style="text-align:center">Nem uma atividade cadastrada ainda, <a href="" (click)="openRegisterPage($event)">clique aqui</a> para cadastrar uma atividade.</td>
+      <tr *ngIf="activities.length<=0&&loaded">
+        <td colspan="10" padding style="text-align:center">Nem uma atividade cadastrada ainda, <a href="" (click)="openRegisterPage($event)">clique aqui</a> para cadastrar uma atividade.</td>
       </tr>
+      <tr *ngIf="!loaded">
+        <td colspan="10" padding style="text-align:center" >
+          <p style="display: flex;align-items: center;justify-content: center;">
+            <ion-spinner name="bubbles"></ion-spinner> Carregando lista de atividades.
+          </p>
+        </td>
+      </tr>
+    </table>
+    <table >
     </table>
   </ion-grid>
 </ion-content>

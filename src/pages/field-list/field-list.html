@@ -37,9 +37,14 @@
       </ion-col>
     </ion-row>
     <div class="hr"></div>
-    <ion-row>
+    <ion-row *ngIf="loaded">
       <ion-col *ngFor="let field of filteredFields" col-12 col-md-6 col-lg-4 col-xl-3>
         <field-info (click)="openField(field)" [field]="field"></field-info>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!loaded">
+      <ion-col text-center padding style="display: flex;justify-content: center;align-items: center;">
+        <ion-spinner name="bubbles"></ion-spinner> Carregando lista de Talhões.
       </ion-col>
     </ion-row>
   </ion-grid>

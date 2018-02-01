@@ -30,6 +30,7 @@ export class CropListPage {
   cultureFilter:number[]=[];
   filterText:string='';
   state:string[];
+  loaded:boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -98,6 +99,7 @@ export class CropListPage {
       this.crops = data;
       this.filteredCrops = this.crops;
       console.log(data);
+      this.loaded=true;
     })
   }
 

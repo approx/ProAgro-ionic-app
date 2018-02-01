@@ -50,6 +50,8 @@ export class ActivityListPage {
   unities:UnityModel[];
   unity:UnityModel[]=[];
 
+  loaded:boolean = false;
+
 
   constructor(
     public navCtrl: NavController,
@@ -73,6 +75,7 @@ export class ActivityListPage {
     this.activityProvider.getAll().subscribe((data:ActivityModel[])=>{
       this.activities = data;
       this.filteredActivities = data;
+      this.loaded = true;
     })
   }
 

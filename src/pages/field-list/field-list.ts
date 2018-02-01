@@ -35,6 +35,7 @@ export class FieldListPage {
   farms:FarmModel[];
   farmFilter:number;
   operator:Operator;
+  loaded:boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -60,6 +61,7 @@ export class FieldListPage {
     this.fieldProvider.getAll().subscribe((data:FieldModel[])=>{
       this.fields=data;
       this.filteredFields=this.fields;
+      this.loaded= true;
     })
   }
 

@@ -30,6 +30,7 @@ export class FarmListPage {
   @Input() culturesSelected;
   @Input() filterText='';
   @Input() clientFilter;
+  loaded:boolean=false;
 
   constructor(
     public navCtrl: NavController,
@@ -88,6 +89,7 @@ export class FarmListPage {
     this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
       this.farms=data;
       this.filteredFarms=this.farms;
+      this.loaded = true;
       console.log(data);
     })
   }
