@@ -106,8 +106,15 @@ export class ActivityRegisterPage {
 
   setParams(){
     let field:FieldModel = this.navParams.get('field');
-    if(field.crop){
-      this.addCrop(field.crop);
+    if(field){
+      if(field.crop){
+        this.addCrop(field.crop);
+      }
+    }
+
+    let crop:CropModel = this.navParams.get('crop');
+    if(crop){
+      this.addCrop(crop);
     }
   }
 

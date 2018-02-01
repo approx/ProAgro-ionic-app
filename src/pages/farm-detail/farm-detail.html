@@ -32,5 +32,38 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div class="horizontalLine">
+    <h2>Inventorio Rural</h2>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col padding-left padding-right col-12>
+        <button style="background-color:transparent; float: right;margin-bottom: 5px;" (click)="openRegisterInventory($event)"> <ion-icon name="add-circle" style="font-size:30px;"></ion-icon></button>
+        <table *ngIf="farm" margin-top col-12>
+          <tr>
+            <th>Nome</th>
+            <th>Tempo de depreciação</th>
+            <th>Valor Total</th>
+            <th>depreciação/mes</th>
+          </tr>
+          <tr *ngFor="let iten of farm.inventory_itens" >
+            <td>{{iten.name}}</td>
+            <td>{{iten.depreciation_time}}</td>
+            <td>R$ {{iten.price}}</td>
+            <td>R$ {{iten.depreciation_value}}</td>
+          </tr>
+          <tr *ngIf="farm.inventory_itens.length>0" >
+            <th>Total</th>
+            <th></th>
+            <th>R$ {{total_value}}</th>
+            <th>R$ {{total_depreciation_value}}</th>
+          </tr>
+          <tr *ngIf="farm.inventory_itens.length==0" >
+            <td colspan="4" text-center>Nem um iten cadastrado ainda.</td>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <actions [actions]="actions"></actions>
 </ion-content>

@@ -192,8 +192,9 @@ export class CropRegisterPage {
   }
 
   setMapUrl(){
-    if(this.farm){
-      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.farm.address.street_name+'+'+this.farm.address.street_number+", "+this.farm.address.city.name+"+"+this.farm.address.city.state.name;
+    if(this.crop.field_id){
+      let field:FieldModel = <FieldModel>this.findIdInArray(this.crop.field_id,this.fields);
+      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+field.lat+","+field.lng;
       this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapUrl);
     }
   }
