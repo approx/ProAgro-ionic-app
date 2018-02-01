@@ -6,6 +6,7 @@ import { FarmProvider } from '../../providers/farm/farm';
 import { FieldRegisterPage } from '../../pages/field-register/field-register';
 import { FieldDetailPage } from '../../pages/field-detail/field-detail';
 import { CropRegisterPage } from '../../pages/crop-register/crop-register';
+import { InventoryItenRegisterPage } from '../../pages/inventory-iten-register/inventory-iten-register';
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -36,7 +37,10 @@ export class FarmDetailPage {
     down:()=>{
       this.navCtrl.push(CropRegisterPage.name,{farm:this.farm});
     }
-  }]
+  }];
+
+  total_value:number;
+  total_depreciation_value:number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider) {
     this.farm_id = navParams.get('farm_id');
@@ -59,8 +63,31 @@ export class FarmDetailPage {
       this.farmProvider.get(this.farm_id).subscribe((data:FarmModel)=>{
         this.farm=data;
         console.log(this.farm);
+        this.calculateTotal();
       });
     }
+    else{
+      this.calculateTotal();
+    }
+  }
+
+  calculateTotal(){
+    if(this.farm.inventory_itens.length>0){
+      this.total_value = 0;
+      this.total_depreciation_value = 0;
+      for (let i = 0; i < this.farm.inventory_itens.length; i++) {
+          this.total_value+=this.farm.inventory_itens[i].price;
+          this.total_depreciation_value+=this.farm.inventory_itens[i].depreciation_value;
+      }
+    }
+    this.total_depreciation_value = Math.round(this.total_depreciation_value*100)/100;
+    this.total_value = Math.round(this.total_value*100)/100;
+  }
+
+  openRegisterInventory(event:MouseEvent){
+    event.preventDefault();
+    event.stopPropagation();
+    this.navCtrl.push(InventoryItenRegisterPage.name,{farm:this.farm});
   }
 
   ionViewCanEnter(): boolean{

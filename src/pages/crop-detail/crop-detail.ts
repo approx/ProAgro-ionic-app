@@ -31,7 +31,7 @@ export class CropDetailPage {
   openRegisterPage(event:MouseEvent){
     event.stopPropagation();
     event.preventDefault();
-    this.navCtrl.push(ActivityRegisterPage.name);
+    this.navCtrl.push(ActivityRegisterPage.name,{crop:this.crop});
   }
 
   openActivityPage(activity){

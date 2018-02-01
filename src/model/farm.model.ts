@@ -2,6 +2,7 @@ import { AddressModel } from './address.model';
 import { CultureModel } from './culture.model';
 import { ClientModel } from './client.model';
 import { FieldModel } from './field.model';
+import { InventoryItenModel } from './inventario_iten.model';
 
 export interface FarmInterface{
   id?:number;
@@ -19,6 +20,7 @@ export class FarmModel{
     public address:AddressModel,
     public client:ClientModel,
     public fields:FieldModel[],
-    public cultures:CultureModel[]
+    public cultures:CultureModel[],
+    public inventory_itens:InventoryItenModel[]
   ){}
 }

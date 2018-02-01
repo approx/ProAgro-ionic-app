@@ -53,6 +53,7 @@ import { CropProvider } from '../providers/crop/crop';
 import { ActivityProvider } from '../providers/activity/activity';
 import { ActivityTypeProvider } from '../providers/activity-type/activity-type';
 import { UnityProvider } from '../providers/unity/unity';
+import { InventoryItenProvider } from '../providers/inventory-iten/inventory-iten';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { UnityProvider } from '../providers/unity/unity';
     CropProvider,
     ActivityProvider,
     ActivityTypeProvider,
-    UnityProvider
+    UnityProvider,
+    InventoryItenProvider
   ]
 })
 export class AppModule {}

@@ -52,7 +52,7 @@ export class FieldDetailPage {
   openCropRegister(event:MouseEvent){
     event.stopPropagation();
     event.preventDefault();
-    this.navCtrl.push(CropRegisterPage,{field:this.field});
+    this.navCtrl.push(CropRegisterPage.name,{field:this.field});
   }
 
   ionViewDidLoad() {
