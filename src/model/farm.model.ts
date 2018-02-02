@@ -10,6 +10,10 @@ export interface FarmInterface{
   address_id?:number;
   client_id?:number;
   cultures:string;
+  ha?:number;
+  value_ha?:number;
+  capital_tied?:number;
+  remuneration?:number;
 }
 
 export class FarmModel{
@@ -21,6 +25,10 @@ export class FarmModel{
     public client:ClientModel,
     public fields:FieldModel[],
     public cultures:CultureModel[],
-    public inventory_itens:InventoryItenModel[]
+    public inventory_itens:InventoryItenModel[],
+    public ha:number,
+    public value_ha:number,
+    public capital_tied:number,
+    public remuneration:number
   ){}
 }

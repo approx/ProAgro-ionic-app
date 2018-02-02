@@ -45,6 +45,9 @@ export class FarmRegisterPage {
     street_name: '',
     street_number: ''
   };
+  value_ha;
+  capital_tied;
+  remuneration;
 
   constructor(
     public navCtrl: NavController,
@@ -68,6 +71,25 @@ export class FarmRegisterPage {
     let client:ClientModel = this.navParams.get('client');
     if(client){
       this.farm.client_id = client.id;
+    }
+  }
+
+  onHectarValueChange($event:any){
+    let value:string = $event;
+    value = value.replace(/(?=[^,])(\D)+/gi,'');
+    this.farm.value_ha = parseFloat(value);
+    setTimeout(()=>{
+      this.value_ha = value.length>0 ? 'R$ '+value: '';
+    },0);
+    this.calculateValues();
+  }
+
+  calculateValues(){
+    if(this.farm.value_ha && this.farm.ha){
+      this.farm.capital_tied = this.farm.ha * this.farm.value_ha;
+      this.capital_tied = 'R$ ' + this.farm.capital_tied;
+      this.farm.remuneration = (this.farm.capital_tied*.5)/100;
+      this.remuneration = 'R$ ' + this.farm.remuneration;
     }
   }
 

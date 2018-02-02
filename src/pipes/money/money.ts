@@ -12,14 +12,24 @@ export class MoneyPipe implements PipeTransform {
   /**
    * Takes a value and makes it lowercase.
    */
-  transform(value: string) {
-    let newValue="R$ ";
-    for (let i = 0; i < value.length; i++) {
-        if(i%3==0){
-          newValue+=".";
+  transform(value: string, ...args) {
+    if(!value) return value;
+    value = value.toString();
+    value = value.replace('.',',');
+    value = value.replace(/(?=[^,])(\D)+/gi,'');
+    let valueArray = value.split(',');
+    value = valueArray[0];
+    let afterComma = valueArray[1];
+    let nValue="";
+    let count = 0;
+    for (let i = value.length-1; i >= 0; i--) {
+        nValue= value[i] + nValue;
+        count++;
+        if(count==3&&i>0){
+          nValue='.'+nValue;
+          count = 0;
         }
-        newValue+=value[i];
     }
-    return newValue;
+    return afterComma ? 'R$ '+nValue+','+afterComma : 'R$ '+nValue;
   }
 }

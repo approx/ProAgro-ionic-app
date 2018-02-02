@@ -6,7 +6,22 @@
 -->
 <ion-content padding>
   <h1 *ngIf="farm">Fazenda {{farm.name}}</h1>
+  <p *ngIf="farm">    </p>
   <ion-grid>
+    <ion-row *ngIf="farm">
+      <ion-col col-12 col-md-6 col-lg-3>
+        <h5>Tamanho:<br>&nbsp;&nbsp;&nbsp;{{farm.ha}}ha</h5>
+      </ion-col>
+      <ion-col col-12 col-md-6 col-lg-3>
+        <h5>Valor por ha:<br>&nbsp;&nbsp;&nbsp;{{farm.value_ha | money}}/ha</h5>
+      </ion-col>
+      <ion-col col-12 col-md-6 col-lg-3>
+        <h5>Capital empatado em terra:<br>&nbsp;&nbsp;&nbsp;{{farm.capital_tied | money}}</h5>
+      </ion-col>
+      <ion-col col-12 col-md-6 col-lg-3>
+        <h5>Remuneração ao mês:<br>&nbsp;&nbsp;&nbsp;{{farm.remuneration | money}}/mes</h5>
+      </ion-col>
+    </ion-row>
     <ion-row>
       <ion-col col-12 col-md-6>
         <contact *ngIf="farm" [client]="farm.client" [showName]="true" [label]="'Dono'"></contact>
@@ -49,17 +64,20 @@
           <tr *ngFor="let iten of farm.inventory_itens" >
             <td>{{iten.name}}</td>
             <td>{{iten.depreciation_time}}</td>
-            <td>R$ {{iten.price}}</td>
-            <td>R$ {{iten.depreciation_value}}</td>
+            <td>{{iten.price | money}}</td>
+            <td>{{iten.depreciation_value | money}}</td>
           </tr>
-          <tr *ngIf="farm.inventory_itens.length>0" >
+          <tr>
+            <td>Capital empatado em Terra</td>
+            <td> -- </td>
+            <td>{{farm.capital_tied | money}}</td>
+            <td> -- </td>
+          </tr>
+          <tr>
             <th>Total</th>
             <th></th>
-            <th>R$ {{total_value}}</th>
-            <th>R$ {{total_depreciation_value}}</th>
-          </tr>
-          <tr *ngIf="farm.inventory_itens.length==0" >
-            <td colspan="4" text-center>Nem um iten cadastrado ainda.</td>
+            <th>{{total_value | money}}</th>
+            <th>{{total_depreciation_value | money}}</th>
           </tr>
         </table>
       </ion-col>

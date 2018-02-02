@@ -41,6 +41,7 @@ export class FarmDetailPage {
 
   total_value:number;
   total_depreciation_value:number;
+  test=1000000.256
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider) {
     this.farm_id = navParams.get('farm_id');
@@ -72,9 +73,9 @@ export class FarmDetailPage {
   }
 
   calculateTotal(){
+    this.total_value = this.farm.capital_tied;
+    this.total_depreciation_value = 0;
     if(this.farm.inventory_itens.length>0){
-      this.total_value = 0;
-      this.total_depreciation_value = 0;
       for (let i = 0; i < this.farm.inventory_itens.length; i++) {
           this.total_value+=this.farm.inventory_itens[i].price;
           this.total_depreciation_value+=this.farm.inventory_itens[i].depreciation_value;

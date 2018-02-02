@@ -5,10 +5,12 @@ import { MoneyPipe } from './money/money';
 @NgModule({
 	declarations: [FilterPipe,
     PhonePipe,
+    MoneyPipe,
     MoneyPipe],
 	imports: [],
 	exports: [FilterPipe,
     PhonePipe,
+    MoneyPipe,
     MoneyPipe]
 })
 export class PipesModule {}
