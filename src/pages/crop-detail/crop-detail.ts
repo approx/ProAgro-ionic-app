@@ -21,6 +21,9 @@ export class CropDetailPage {
 
   crop:CropModel;
   crop_id:number;
+  percentage:number;
+  total_value:number;
+  total_value_ha:number=0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider) {
     this.crop_id = navParams.get('crop_id');
@@ -44,8 +47,39 @@ export class CropDetailPage {
       this.cropProvider.get(this.crop_id).subscribe((data:CropModel)=>{
         this.crop=data;
         console.log(this.crop);
+        this.calculatePercentage();
+        this.calculateTotal();
       });
     }
+    else{
+      this.calculateTotal();
+      this.calculatePercentage();
+    }
+  }
+
+  calculateTotal(){
+    this.total_value=0;
+    this.total_value_ha=0;
+    for (let i = 0; i < this.crop.activities.length; i++) {
+      this.total_value +=  this.crop.activities[i].total_value;
+      this.total_value_ha += this.crop.activities[i].value_per_ha;
+    }
+  }
+
+  calculatePercentage(){
+    let initialTime = new Date(this.crop.initial_date).getTime();
+    let finalTime = new Date(this.crop.final_date).getTime();
+
+    let timeVariation = finalTime - initialTime;
+
+    let nowVariation = new Date().getTime() - initialTime ;
+    console.log(timeVariation)
+    nowVariation = Math.max(0,nowVariation);
+    console.log(nowVariation)
+
+    this.percentage = (100*nowVariation)/timeVariation;
+    console.log(this.percentage)
+    this.percentage = Math.min(100,Math.round(this.percentage));
   }
 
 }

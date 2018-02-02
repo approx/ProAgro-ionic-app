@@ -28,6 +28,22 @@ page-crop-detail {
     }
   }
 
+  div[loader]{
+    display: flex;
+    height: .7em;
+    background-color: #bcb8b8;
+    width: 100%;
+    border-radius: 5px;
+    overflow: auto;
+    @for $i from 0 through 100{
+      [loaded = "#{$i}"]{
+        content: " ";
+        background-color: green;
+        width: 0% + $i;
+      }
+    }
+  }
+
   ion-row.client{
     cursor: pointer;
   }
