@@ -8,7 +8,8 @@ export interface CropInterface{
   initial_date?:Date,
   final_date?:Date,
   name:string,
-  culture_id?:number
+  culture_id?:number,
+  expected?:number,
 }
 
 export class CropModel{
@@ -19,6 +20,8 @@ export class CropModel{
     public initial_date:Date,
     public final_date:Date,
     public culture:CultureModel,
-    public activities:ActivityModel[]
+    public activities:ActivityModel[],
+    public expected:number,
+    public sack?:number
   ){}
 }

@@ -47,16 +47,22 @@
             </ion-select>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6>
+        <ion-col col-12 col-md-4>
           <ion-item>
-            <ion-label>Data inicial</ion-label>
+            <ion-label>Data inicial*</ion-label>
             <ion-datetime displayFormat="DD/MM/YYYY" max="{{maxDate}}" pickerFormat="DD MM YYYY" name="initial_date" [(ngModel)]="crop.initial_date"></ion-datetime>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6>
+        <ion-col col-12 col-md-4>
           <ion-item>
-            <ion-label>Data final</ion-label>
+            <ion-label>Data final*</ion-label>
             <ion-datetime displayFormat="DD/MM/YYYY" max="{{maxDate}}" pickerFormat="DD MM YYYY" name="final_date" [(ngModel)]="crop.final_date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4>
+          <ion-item>
+            <ion-label floating>Expectativa(sacas)*</ion-label>
+            <ion-input type="text" required maxlength="45" #name="ngModel" [(ngModel)]="crop.expected" name="expected" value=""></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
