@@ -215,6 +215,10 @@ ion-grid.container,ion-grid.container ion-row{
   height: 100%;
 }
 
+ion-grid{
+  display: -webkit-box!important;
+}
+
 
 .horizontalLine{
   border-bottom: solid 2px (map-get($colors, primary));

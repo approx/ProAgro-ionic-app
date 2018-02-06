@@ -17,13 +17,19 @@ export class CookieProvider {
 
   set(name:string,value:any){
       this.get();
-      this.objs[name]=value;
-      document.cookie = JSON.stringify(this.objs);
+      this.objs[name] = value;
+      document.cookie = "user="+JSON.stringify(this.objs);
   }
 
   get(){
-    this.objs=JSON.parse(document.cookie?document.cookie:'{}');
-    console.log('geted cookies');
+    if(document.cookie){
+      let cookie = document.cookie.split('=')[1];
+      this.objs=JSON.parse(cookie);
+      console.log('geted cookies');
+    }
+    else{
+      this.objs={};
+    }
   }
 
   delete(name:string){
