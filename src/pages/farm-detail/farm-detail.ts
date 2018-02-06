@@ -41,7 +41,7 @@ export class FarmDetailPage {
 
   total_value:number;
   total_depreciation_value:number;
-  test=1000000.256
+  total_remunaration:number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider) {
     this.farm_id = navParams.get('farm_id');
@@ -72,8 +72,17 @@ export class FarmDetailPage {
     }
   }
 
+  diffInMonths(d1:Date,d2:Date){
+    let yearsdiff = Math.abs(d1.getFullYear()-d2.getFullYear());
+    let monthdiff = Math.abs(d1.getMonth()-d2.getMonth());
+
+    return (yearsdiff*12)+monthdiff;
+  }
+
   calculateTotal(){
-    this.total_value = this.farm.capital_tied;
+    let monthDiff = this.diffInMonths(new Date(this.farm.created_at),new Date());
+    this.total_remunaration = monthDiff * this.farm.remuneration;
+    this.total_value = this.farm.capital_tied+this.total_remunaration;
     this.total_depreciation_value = 0;
     if(this.farm.inventory_itens.length>0){
       for (let i = 0; i < this.farm.inventory_itens.length; i++) {

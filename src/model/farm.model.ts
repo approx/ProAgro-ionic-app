@@ -29,6 +29,8 @@ export class FarmModel{
     public ha:number,
     public value_ha:number,
     public capital_tied:number,
-    public remuneration:number
+    public remuneration:number,
+    public created_at:string,
+    public updated_at:string
   ){}
 }
