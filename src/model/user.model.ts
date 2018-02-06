@@ -14,29 +14,36 @@ export class User{
     this.cpf = cpf;
     this.email = email;
   }
-
-
 }
 
-export class UserModel extends User{
-  role:{id:number,name:string}
-  private http:HttpClient;
+export interface Role{
+  id:number;
+  name:string;
+}
 
-  constructor(http:HttpClient,id:number,name:string,cpf:string,email:string,phone:string) {
-    super(id,name,cpf,email,phone);
-    this.http = http;
-    this.http.get(endPoint+'/api/user/'+this.id+'/role').subscribe((data:any)=>{
-      this.role = {id:data.id,name:data.name};
-    });
+export class UserModel {
+
+  constructor(
+    public id:number,
+    public name:string,
+    public CPF:string,
+    public email:string,
+    public phone:string,
+    public role:Role
+  ) {
   }
 
   getJson():any{
     return {
       id:this.id,
       name:this.name,
-      cpf:this.cpf,
+      CPF:this.CPF,
       phone:this.phone,
-      email:this.email
+      email:this.email,
+      role:{
+        id:this.role.id,
+        name:this.role.name
+      }
     };
   }
 }

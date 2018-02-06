@@ -230,9 +230,9 @@ export class MyApp {
   getUserData(){
     if(!this.checkUserOnCookie()){
       this.http.get(endPoint+'api/current_user').subscribe(
-        (data:any)=>{
-          this.user = new UserModel(this.http,data.id,data.name,data.CPF,data.email,data.phone);
-          console.log(this.user.getJson());
+        (data:UserModel)=>{
+          this.user = new UserModel(data.id,data.name,data.CPF,data.email,data.phone,data.role);
+          console.log(this.user);
           this.cookie.set('user',this.user.getJson());
         }
       );
