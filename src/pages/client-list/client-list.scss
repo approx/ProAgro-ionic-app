@@ -9,7 +9,26 @@ page-client-list {
     }
   }
 
-  
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: solid 2px (map-get($colors, primary));
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr{
+    background-color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
 
   ion-row.client{
     cursor: pointer;

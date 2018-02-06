@@ -23,12 +23,14 @@ import { MyApp } from '../../app/app.component';
 export class ClientListPage {
   clients:ClientModel[];
   loaded:boolean=false;
+  user;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private clientsProvider:ClientProvider
   ) {
+    this.user = MyApp.instance.user;
     this.clientsProvider.getAll().subscribe((data:ClientModel[])=>{
         this.clients = data;
         this.loaded = true;

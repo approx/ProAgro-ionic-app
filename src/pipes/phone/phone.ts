@@ -13,6 +13,7 @@ export class PhonePipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(value: string) {
+    if(!value) return value;
     return value.replace(/(\d{2})(\d{4})(\d{4})/,"($1) $2-$3");
   }
 }
