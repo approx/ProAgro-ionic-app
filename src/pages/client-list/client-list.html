@@ -26,7 +26,7 @@
         <th class="hideOnMobile">CPF/CNPJ</th>
         <th *ngIf="user.role.name == 'master'">Usuario</th>
       </tr>
-      <tr *ngFor="let client of clients" >
+      <tr *ngFor="let client of clients" class="client" (click)="openClientPage(client)">
         <td>{{client.name}}</td>
         <td class="hideOnMobile">{{client.email}}</td>
         <td class="hideOnMobile">{{client.phone | phone}}</td>
