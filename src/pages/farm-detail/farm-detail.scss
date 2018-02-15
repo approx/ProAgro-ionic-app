@@ -18,4 +18,10 @@ page-farm-detail {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+  h1{
+    ion-icon{
+      float: right;
+      cursor: pointer;
+    }
+  }
 }

@@ -8,6 +8,7 @@ export interface AddressInterface{
   street_name:string;
   street_number:string;
   city_id?:number
+  state_id?:number;
 }
 
 export class AddressModel{

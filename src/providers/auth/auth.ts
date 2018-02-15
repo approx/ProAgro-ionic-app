@@ -14,8 +14,8 @@ import { Token } from "../Token";
 export class AuthProvider {
   private body = {
     'grant_type':'password',
-    'client_id':2,
-    'client_secret':'i9iY1gxcz8hsxvts8QgseOtCQZkCiUcwsPbsey03',
+    'client_id':1,
+    'client_secret':'6YPZsxqNtGhe5KbiB7SY0X95SAtsmMqhOhH29CNV',
     'username': '',
     'password':'',
     'scope':'*'

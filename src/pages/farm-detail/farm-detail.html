@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content padding>
-  <h1 *ngIf="farm">Fazenda {{farm.name}}</h1>
+  <h1 *ngIf="farm">Fazenda {{farm.name}}<ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <p *ngIf="farm">    </p>
   <ion-grid>
     <ion-row *ngIf="farm">
@@ -29,8 +29,13 @@
       <ion-col col-12 col-md-6>
         <culture *ngIf="farm" [cultures]="farm.cultures"></culture>
       </ion-col>
-      <ion-col col-12 margin-top>
-        <address *ngIf="farm" [address]="farm.address" [showMap]="true"></address>
+      <ion-col *ngIf="farm.lat&&farm.lng&&mapUrl" col-12 col-md-12>
+        <iframe
+        width="100%"
+        height="450"
+        frameborder="0" style="border:0"
+        [src]="mapUrl" allowfullscreen>
+      </iframe>
       </ion-col>
     </ion-row>
   </ion-grid>

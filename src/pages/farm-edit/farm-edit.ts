@@ -1,40 +1,41 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Loading, LoadingController } from 'ionic-angular';
-import { AddressInterface } from '../../model/address.model';
+import { AddressInterface, AddressModel } from '../../model/address.model';
 import { AddressProvider } from '../../providers/address/address';
 import { ClientProvider } from '../../providers/client/client';
 import { CultureProvider } from '../../providers/culture/culture';
 import { CityProvider } from '../../providers/city/city';
 import { StateProvider } from '../../providers/state/state';
-import { FarmInterface } from '../../model/farm.model';
+import { FarmInterface, FarmModel } from '../../model/farm.model';
 import { FarmProvider } from '../../providers/farm/farm';
 import { ClientModel } from '../../model/client.model';
-import { DomSanitizer } from "@angular/platform-browser";
 
 /**
- * Generated class for the FarmRegisterPage page.
+ * Generated class for the FarmEditPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-interface Culture {
-  id: number;
-  name: string;
-  selected: boolean;
-}
 
+ interface Culture {
+   id: number;
+   name: string;
+   selected: boolean;
+ }
 
 @IonicPage({
-  segment: 'farm/register'
+  segment:'farm/:farm_id/edit'
 })
 @Component({
-  selector: 'page-farm-register',
-  templateUrl: 'farm-register.html',
+  selector: 'page-farm-edit',
+  templateUrl: 'farm-edit.html',
 })
-export class FarmRegisterPage {
+export class FarmEditPage {
+
   cities;
   states;
   clients;
+  loaded:boolean=false;
   loader: Loading;
   culturesSelected: Culture[] = [];
   @Input() farm:FarmInterface={
@@ -49,7 +50,7 @@ export class FarmRegisterPage {
   value_ha;
   capital_tied;
   remuneration;
-  mapUrl;
+  getedCultures;
 
   constructor(
     public navCtrl: NavController,
@@ -61,19 +62,50 @@ export class FarmRegisterPage {
     private cultureProvider: CultureProvider,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private farmProvider:FarmProvider,
-    private sanitizer:DomSanitizer,
+    private farmProvider:FarmProvider
   ) {
     this.getClients();
     this.getCultures();
     this.getCitiesAndStates();
-    this.setParamsItens();
+    this.getFarm();
   }
 
-  setParamsItens(){
-    let client:ClientModel = this.navParams.get('client');
-    if(client){
-      this.farm.client_id = client.id;
+  getFarm(){
+    let farm = this.navParams.get('farm');
+    if(!farm){
+      this.farmProvider.get(this.navParams.get('farm_id')).subscribe((data:FarmModel)=>{
+        this.setFarm(data);
+      })
+    }
+    else{
+      this.setFarm(farm);
+    }
+  }
+
+  setFarm(farm){
+    this.farm.id = farm.id;
+    this.farm.name = farm.name;
+    this.farm.capital_tied = farm.capital_tied;
+    this.farm.client_id = farm.client.id;
+    this.address = farm.address;
+    this.address.city_id = (<AddressModel>this.address).city.id;
+    this.address.state_id = (<AddressModel>this.address).city.state.id;
+    this.farm.ha = farm.ha;
+    this.onHectarValueChange(farm.value_ha.toString());
+    this.getedCultures = farm.cultures;
+    this.findInCultures();
+    this.loaded = true;
+  }
+
+  findInCultures(){
+    if(this.getedCultures&&this.culturesSelected.length>0){
+      for (let i = 0; i < this.getedCultures.length; i++) {
+          for (let j = 0; j < this.culturesSelected.length; j++) {
+              if(this.getedCultures[i].id==this.culturesSelected[j].id){
+                this.culturesSelected[j].selected=true;
+              }
+          }
+      }
     }
   }
 
@@ -118,6 +150,7 @@ export class FarmRegisterPage {
   }
 
   SuccessAlert() {
+    this.Done();
     let alert = this.alertCtrl.create({
       title: 'Sucesso!',
       subTitle: 'Fazenda registrada com sucesso!',
@@ -127,6 +160,7 @@ export class FarmRegisterPage {
   }
 
   ErrorAlert() {
+    this.Done();
     let alert = this.alertCtrl.create({
       title: 'Error!',
       subTitle: 'Algum erro inesperdado ocorreu, tente novamente!',
@@ -141,6 +175,7 @@ export class FarmRegisterPage {
       for (let i = 0; i < data.length; i++) {
         this.culturesSelected.push({ id: data[i].id, name: data[i].name, selected: false });
       }
+      this.findInCultures();
     })
   }
 
@@ -176,17 +211,7 @@ export class FarmRegisterPage {
     }
   }
 
-  setMapUrl(){
-    if(this.farm.lat&&this.farm.lng){
-      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.farm.lat+","+this.farm.lng;
-      this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapUrl);
-    }
-    console.log('changed')
-  }
-
-  Register() {
-    this.Wait();
-    this.farm.cultures='';
+  setCultureToSend(){
     let insertIndex=0;
     for (let i = 0; i < this.culturesSelected.length; i++) {
       if(this.culturesSelected[i].selected){
@@ -194,13 +219,15 @@ export class FarmRegisterPage {
         insertIndex++;
       }
     }
-    this.farmProvider.post(this.farm).subscribe((data)=>{
-      this.Done();
-      this.SuccessAlert();
-    },(err)=>{
-      this.Done();
-      this.ErrorAlert();
-    });
   }
 
+  Update() {
+    this.Wait();
+    this.addressProvider.update(this.address).subscribe((data)=>{
+      this.setCultureToSend();
+      this.farmProvider.update(this.farm).subscribe((data)=>{
+      this.SuccessAlert();
+      },(err)=>{this.ErrorAlert()})
+    },(err)=>{this.ErrorAlert()})
+  }
 }

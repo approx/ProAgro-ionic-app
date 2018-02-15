@@ -7,6 +7,8 @@ import { FieldRegisterPage } from '../../pages/field-register/field-register';
 import { FieldDetailPage } from '../../pages/field-detail/field-detail';
 import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 import { InventoryItenRegisterPage } from '../../pages/inventory-iten-register/inventory-iten-register';
+import { FarmEditPage } from "../farm-edit/farm-edit";
+import { DomSanitizer } from "@angular/platform-browser";
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -25,6 +27,7 @@ import { InventoryItenRegisterPage } from '../../pages/inventory-iten-register/i
 export class FarmDetailPage {
   farm_id:number;
   farm:FarmModel;
+  mapUrl;
   actions=[
   {
     label:'Adicionar Talhão',
@@ -43,7 +46,7 @@ export class FarmDetailPage {
   total_depreciation_value:number;
   total_remunaration:number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider,private sanitizer:DomSanitizer,) {
     this.farm_id = navParams.get('farm_id');
     this.farm = navParams.get('farm');
   }
@@ -58,6 +61,12 @@ export class FarmDetailPage {
     this.navCtrl.push(FieldRegisterPage.name,{farm:this.farm});
   }
 
+  openEditPage(event:MouseEvent){
+    event.preventDefault();
+    event.stopPropagation();
+    this.navCtrl.push(FarmEditPage.name,{farm:this.farm,farm_id:this.farm.id});
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad FarmDetailPage');
     if(!this.farm&&this.farm_id){
@@ -65,9 +74,11 @@ export class FarmDetailPage {
         this.farm=data;
         console.log(this.farm);
         this.calculateTotal();
+        this.setMapUrl();
       });
     }
     else{
+      this.setMapUrl();
       this.calculateTotal();
     }
   }
@@ -77,6 +88,14 @@ export class FarmDetailPage {
     let monthdiff = Math.abs(d1.getMonth()-d2.getMonth());
 
     return (yearsdiff*12)+monthdiff;
+  }
+
+  setMapUrl(){
+    if(this.farm.lat&&this.farm.lng){
+      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.farm.lat+","+this.farm.lng;
+      this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapUrl);
+    }
+    console.log('changed')
   }
 
   calculateTotal(){

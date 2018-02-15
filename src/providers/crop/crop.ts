@@ -11,7 +11,7 @@ import { CropInterface } from '../../model/crop.model';
 */
 
 interface CropInterfaceWithMethod extends CropInterface{
-  _method:string;
+  _method?:string;
 }
 
 @Injectable()
@@ -38,6 +38,7 @@ export class CropProvider {
   }
 
   update(crop:CropInterfaceWithMethod):Observable<any>{
+    crop._method="PUT";
     return this.http.post(endPoint+'api/crop/'+crop.id,crop);
   }
 }

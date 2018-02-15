@@ -6,7 +6,7 @@
 -->
 
 <ion-content padding>
-  <h1 *ngIf="client">{{client.name}} - {{client.inscription_number}}</h1>
+  <h1 *ngIf="client">{{client.name}} - {{client.inscription_number}} <ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <ion-grid>
     <ion-row>
       <ion-col margin-bottom col-12 col-md-6>

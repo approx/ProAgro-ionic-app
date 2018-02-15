@@ -4,6 +4,7 @@ import { CropModel } from '../../model/crop.model';
 import { CropProvider } from '../../providers/crop/crop';
 import { ActivityRegisterPage } from '../../pages/activity-register/activity-register';
 import { ActivityDetailPage } from '../../pages/activity-detail/activity-detail';
+import { CropEditPage } from "../crop-edit/crop-edit";
 
 /**
  * Generated class for the CropDetailPage page.
@@ -35,6 +36,12 @@ export class CropDetailPage {
     event.stopPropagation();
     event.preventDefault();
     this.navCtrl.push(ActivityRegisterPage.name,{crop:this.crop});
+  }
+
+  openEditPage(event:MouseEvent){
+    event.stopPropagation();
+    event.preventDefault();
+    this.navCtrl.push(CropEditPage.name,{crop:this.crop,crop_id:this.crop.id});
   }
 
   openActivityPage(activity){

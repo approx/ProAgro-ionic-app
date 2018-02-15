@@ -7,6 +7,7 @@ import { FarmDetailPage } from '../../pages/farm-detail/farm-detail';
 import { FarmRegisterPage } from '../../pages/farm-register/farm-register';
 import { FieldRegisterPage } from '../../pages/field-register/field-register';
 import { CropRegisterPage } from '../../pages/crop-register/crop-register';
+import { ClientEditPage } from "../client-edit/client-edit";
 
 /**
  * Generated class for the ClientDetailPage page.
@@ -69,6 +70,12 @@ export class ClientDetailPage {
     event.preventDefault();
     event.stopPropagation();
     this.navCtrl.push(FieldRegisterPage.name,{client:this.client});
+  }
+
+  openEditPage(event:MouseEvent){
+    event.preventDefault();
+    event.stopPropagation();
+    this.navCtrl.push(ClientEditPage.name,{client:this.client,client_id:this.client.id});
   }
 
 

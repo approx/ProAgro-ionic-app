@@ -1,4 +1,10 @@
 page-crop-detail {
+  h1{
+    ion-icon{
+      float: right;
+      cursor: pointer;
+    }
+  }
   table {
     font-family: arial, sans-serif;
     border-collapse: collapse;

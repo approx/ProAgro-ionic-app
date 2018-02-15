@@ -6,6 +6,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { CropDetailPage } from '../../pages/crop-detail/crop-detail';
 import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 import { ActivityRegisterPage } from '../../pages/activity-register/activity-register';
+import { FieldEditPage } from "../field-edit/field-edit";
 
 /**
  * Generated class for the FieldDetailPage page.
@@ -47,6 +48,12 @@ export class FieldDetailPage {
 
   openCropPage(crop){
     this.navCtrl.push(CropDetailPage.name,{crop_id:crop.id});
+  }
+
+  openEditPage(event:MouseEvent){
+    event.stopPropagation();
+    event.preventDefault();
+    this.navCtrl.push(FieldEditPage.name,{field:this.field,field_id:this.field.id});
   }
 
   openCropRegister(event:MouseEvent){

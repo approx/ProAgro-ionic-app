@@ -57,7 +57,7 @@ export class ClientListPage {
   openRegisterPage(event:MouseEvent){
     event.preventDefault();
     event.stopPropagation();
-    this.navCtrl.push(ClientRegisterPage);
+    this.navCtrl.push(ClientRegisterPage.name);
   }
 
   openClientPage(client:ClientInteface){

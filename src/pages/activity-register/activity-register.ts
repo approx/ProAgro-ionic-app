@@ -21,7 +21,7 @@ import { MessagesProvider } from '../../providers/messages/messages';
  * Ionic pages and navigation.
  */
 
- interface ActivityIten{
+ export interface ActivityIten{
    crop:CropModel;
    percentage:number;
    quantity:number;
@@ -121,7 +121,7 @@ export class ActivityRegisterPage {
   selectActivity(activity:ActivityTypeModel){
     this.Calculate();
     this.unity_value = 'R$ '+activity.unity_value.toString();
-    this.activity.activity_type_id = activity.id;
+    this.activity.activity_type_id = activity.id.toString();
     console.log('foi');
   }
 
@@ -171,7 +171,7 @@ export class ActivityRegisterPage {
     this.message.Wait()
     for (let i = 0; i < this.cropsRegister.length; i++) {
       this.activityProvider.save({
-        activity_type_id:this.activity_type.id,
+        activity_type_id:this.activity_type.id.toString(),
         dose:this.cropsRegister[i].dose,
         unity_id:this.activity.unity_id,
         operation_date:this.activity.operation_date,

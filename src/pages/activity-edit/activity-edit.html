@@ -1,0 +1,109 @@
+<!--
+  Generated template for the ActivityEditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+  <h1>Editar Atividade</h1>
+  <form (ngSubmit)="Update()" #ClientForm="ngForm">
+    <ion-grid padding-right>
+      <ion-row flex-end-align class="">
+        <ion-col col-12 col-md-3>
+          <ion-item padding-top>
+            <ion-label>Cliente*</ion-label>
+            <ion-select [(ngModel)]="client" (ionChange)="ClientSelected($event)" required name="client">
+              <ion-option *ngFor="let client of clients" [value]="client">{{client.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-3>
+          <ion-item padding-top>
+            <ion-label>Fazenda*</ion-label>
+            <ion-select [(ngModel)]="farm" (ionChange)="FarmSelected($event)" required name="farm">
+              <ion-option *ngFor="let farm of filteredFarms" [value]="farm">{{farm.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-3>
+          <ion-item padding-top>
+            <ion-label>Talhão*</ion-label>
+            <ion-select [(ngModel)]="field" (ionChange)="FieldSelected($event)" required name="field">
+              <ion-option *ngFor="let field of filteredFields" [value]="field">{{field.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-3>
+          <ion-item padding-top>
+            <ion-label>Safra*</ion-label>
+            <ion-select [(ngModel)]="activity.crop_id" (ionChange)="CropSelected($event)" required name="crop">
+              <ion-option *ngFor="let crop of filteredCrops" value="{{crop.id}}">{{crop.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-4>
+          <ion-item>
+            <ion-label>Atividade*</ion-label>
+            <ion-select [(ngModel)]="activity_type" (ionChange)="TypeSelected($event)" required name="activity_type">
+              <ion-option *ngFor="let type of activity_types" [value]="type">{{type.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-2>
+          <ion-item>
+            <ion-label floating>Valor Unitario*</ion-label>
+            <ion-input type="text" required readonly="true" [(ngModel)]="activity_type.unity_value" name="unity_value" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-2>
+          <ion-item>
+            <ion-label floating>Dose*</ion-label>
+            <ion-input type="text" required maxlength="11" (ionChange)="CalculateIten()" [(ngModel)]="activity.dose" name="dose" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-2>
+          <ion-item>
+            <ion-label>Unidade*</ion-label>
+            <ion-select [(ngModel)]="activity.unity_id" required name="unity">
+              <ion-option *ngFor="let unity of unities" value="{{unity.id}}">{{unity.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-2>
+          <ion-item>
+            <ion-label floating>Quantidade*</ion-label>
+            <ion-input type="text" required maxlength="11" [(ngModel)]="activity.quantity" name="qunatity" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-3>
+          <ion-item>
+            <ion-label floating>Valor por ha*</ion-label>
+            <ion-input type="text" required maxlength="11" [(ngModel)]="activity.value_per_ha" name="value_per_ha" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-3>
+          <ion-item>
+            <ion-label floating>Valor total*</ion-label>
+            <ion-input type="text" required maxlength="11" [(ngModel)]="activity.total_value" name="total_value" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-3>
+          <ion-item>
+            <ion-label>Data da operação*</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" max="{{maxDate}}" pickerFormat="DD MM YYYY" name="operation_date" [(ngModel)]="activity.payment_date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-3>
+          <ion-item>
+            <ion-label>Data pagamento*</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" max="{{maxDate}}" pickerFormat="DD MM YYYY" name="payment_date" [(ngModel)]="activity.payment_date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="center" margin-bottom>
+        <button type="submit" [disabled]="!ClientForm.form.valid" ion-button col-12 col-md-3>Cadastrar</button>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

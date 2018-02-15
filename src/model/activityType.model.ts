@@ -8,9 +8,9 @@ export interface ActivityTypeInterface{
 
 export class ActivityTypeModel{
   constructor(
-    public id:string,
+    public id:number,
     public name:string,
     public unity_value:number,
-    public activities:ActivityModel
+    public activities:ActivityModel[]
   ){}
 }

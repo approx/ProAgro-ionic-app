@@ -10,6 +10,10 @@ import { endPoint } from "../../Env";
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+interface ClientUpdate extends ClientInteface{
+  _method?:string;
+}
+
 @Injectable()
 export class ClientProvider {
 
@@ -27,6 +31,11 @@ export class ClientProvider {
 
   Register(client:ClientInteface):Observable<any>{
     return this.http.post(endPoint+'api/clients',client);
+  }
+
+  update(client:ClientUpdate):Observable<any>{
+    client._method="PUT";
+    return this.http.post(endPoint+'api/client/'+client.id,client);
   }
 
 }

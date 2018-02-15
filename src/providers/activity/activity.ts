@@ -5,7 +5,7 @@ import { endPoint } from '../../Env';
 import { ActivityInterface } from '../../model/activity.model'
 
 interface ActivityUpdate extends ActivityInterface{
-  _method;
+  _method?:string;
 }
 
 /*

@@ -10,6 +10,10 @@ import { FarmInterface } from "../../model/farm.model";
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+interface FarmUpdate extends FarmInterface{
+  _method?:string;
+}
+
 @Injectable()
 export class FarmProvider {
 
@@ -31,6 +35,11 @@ export class FarmProvider {
 
   public delete(id:number):Observable<any>{
     return this.http.post(endPoint+'/api/farm/'+id,{_method:'DELETE'});
+  }
+
+  public update(farm:FarmUpdate):Observable<any>{
+    farm._method="PUT";
+    return this.http.post(endPoint+'api/farm/'+farm.id,farm);
   }
 
 }

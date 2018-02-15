@@ -7,7 +7,8 @@ import { InventoryItenModel } from './inventario_iten.model';
 export interface FarmInterface{
   id?:number;
   name:string;
-  address_id?:number;
+  lat?:number;
+  lng?:number;
   client_id?:number;
   cultures:string;
   ha?:number;
@@ -21,7 +22,8 @@ export class FarmModel{
   constructor(
     public id:number,
     public name:string,
-    public address:AddressModel,
+    public lat:number,
+    public lng:number,
     public client:ClientModel,
     public fields:FieldModel[],
     public cultures:CultureModel[],

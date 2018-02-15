@@ -5,8 +5,8 @@ import { ActivityModel } from './activity.model';
 export interface CropInterface{
   id?:number,
   field_id?:number,
-  initial_date?:Date,
-  final_date?:Date,
+  initial_date?:Date|string,
+  final_date?:Date|string,
   name:string,
   culture_id?:number,
   expected?:number,

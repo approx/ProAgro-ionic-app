@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ActivityModel } from '../../model/activity.model';
 import { ActivityProvider } from '../../providers/activity/activity';
+import { ActivityEditPage } from "../activity-edit/activity-edit";
 
 /**
  * Generated class for the ActivityDetailPage page.
@@ -30,6 +31,13 @@ export class ActivityDetailPage {
     if(this.activity_id && !this.activity){
       this.getActivity();
     }
+  }
+  
+
+  openEditPage(event:MouseEvent){
+    event.preventDefault();
+    event.stopPropagation();
+    this.navCtrl.push(ActivityEditPage.name,{activity:this.activity,activity_id:this.activity.id});
   }
 
   getActivity(){

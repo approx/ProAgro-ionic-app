@@ -54,41 +54,26 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row class="address" margin-top>
-        <label>Endereço</label>
-        <ion-col col-12 col-md-4 col-lg-3>
+      <ion-row>
+        <ion-col col-12 col-md-6>
           <ion-item>
-            <ion-label floating>CEP*</ion-label>
-            <ion-input type="text" required maxlength="8" [(ngModel)]="address.CEP" name="cep" value=""></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col col-12 col-md-4 col-lg-6>
-          <ion-item>
-            <ion-label floating>Rua*</ion-label>
-            <ion-input type="text" required [(ngModel)]="address.street_name" name="street_name" value=""></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col col-12 col-md-4 col-lg-3>
-          <ion-item>
-            <ion-label floating>Numero*</ion-label>
-            <ion-input type="text" required maxlength="11" [(ngModel)]="address.street_number" name="street_number" value=""></ion-input>
+            <ion-label floating>Lat</ion-label>
+            <ion-input type="text" (change)="setMapUrl()" required [(ngModel)]="farm.lat" name="lat" value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6>
           <ion-item>
-            <ion-label>Estado*</ion-label>
-            <ion-select [(ngModel)]="address.state_id" required name="state">
-              <ion-option *ngFor="let state of states" value="{{state.id}}">{{state.name}}</ion-option>
-            </ion-select>
+            <ion-label floating>Lng</ion-label>
+            <ion-input type="text" (change)="setMapUrl()" required [(ngModel)]="farm.lng" name="lng" value=""></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6>
-          <ion-item>
-            <ion-label>Cidade*</ion-label>
-            <ion-select required [(ngModel)]="address.city_id" name="city">
-              <ion-option *ngFor="let city of cities " value="{{city.id}}">{{city.name}}</ion-option>
-            </ion-select>
-          </ion-item>
+        <ion-col *ngIf="farm.lat&&farm.lng&&mapUrl" col-12 col-md-12>
+          <iframe
+          width="100%"
+          height="450"
+          frameborder="0" style="border:0"
+          [src]="mapUrl" allowfullscreen>
+        </iframe>
         </ion-col>
       </ion-row>
       <ion-col margin-top col-6>

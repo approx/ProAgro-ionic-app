@@ -11,7 +11,7 @@ import { FieldInterface } from '../../model/field.model';
   and Angular DI.
 */
 interface FieldInterfaceWithMethod extends FieldInterface {
-    _method:string;
+    _method?:string;
 }
 
 @Injectable()
@@ -39,6 +39,6 @@ export class FieldProvider {
 
   update(field:FieldInterfaceWithMethod):Observable<any>{
     field._method='PUT';
-    return this.http.post(endPoint+'api/fields',field);
+    return this.http.post(endPoint+'api/field/'+field.id,field);
   }
 }

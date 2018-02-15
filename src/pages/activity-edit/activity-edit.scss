@@ -1,0 +1,40 @@
+page-activity-edit {
+  .crpoItens{
+    border-radius: 5px;
+    border: 2px solid (map-get($colors, primary));
+  }
+  ion-icon{
+    cursor: pointer;
+  }
+  h1{
+    font-size: 30px;
+  }
+
+  ion-row.address{
+    position: relative;
+    border-radius: 5px;
+    border: solid 2px (map-get($colors, primary));
+  }
+
+  ion-row.address label{
+    position: absolute;
+    font-size: 20px;
+    line-height: 20px;
+    top:-12px;
+    left:10px;
+    background-color: white;
+    padding: 0px 5px;
+  }
+
+  ion-grid{
+    background-color: white;
+    border-radius: 5px;
+    // border: solid 2px (map-get($colors, primary));
+  }
+
+  ion-row.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

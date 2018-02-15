@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content padding>
-  <h1>Atividade</h1>
+  <h1>Atividade<ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <ion-grid>
     <ion-row class="description" *ngIf="activity">
       <ion-col col-6>
