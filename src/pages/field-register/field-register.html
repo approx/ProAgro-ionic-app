@@ -10,10 +10,18 @@
   <form (ngSubmit)="Register()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
       <ion-row>
-        <ion-col col-12 col-md-12>
+        <ion-col col-12 col-md-9>
           <ion-item>
             <ion-label floating>Nome*</ion-label>
             <ion-input type="text" required maxlength="45" #name="ngModel" [(ngModel)]="field.name" name="name" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-3>
+          <ion-item padding-top>
+            <ion-label>Tipo*</ion-label>
+            <ion-select [(ngModel)]="field.field_type_id" required name="type">
+              <ion-option *ngFor="let type of fieldTypes" value="{{type.id}}">{{type.name}}</ion-option>
+            </ion-select>
           </ion-item>
         </ion-col>
       </ion-row>

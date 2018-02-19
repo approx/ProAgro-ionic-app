@@ -26,9 +26,38 @@
     </ion-row>
   </ion-grid>
   <div margin-bottom class="horizontalLine">
+    <h2>Inventario utilizado</h2>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col padding-left padding-right col-12>
+        <table *ngIf="crop" margin-top col-12>
+          <tr>
+            <th>Nome</th>
+            <th>Tempo de depreciação</th>
+            <th>Valor Total</th>
+            <th>depreciação/mes</th>
+          </tr>
+          <tr *ngFor="let iten of crop.inventory_itens" >
+            <td>{{iten.name}}</td>
+            <td>{{iten.depreciation_time}}</td>
+            <td>{{iten.price | currency:'BRL'}}</td>
+            <td>{{iten.depreciation_value | currency:'BRL'}}</td>
+          </tr>
+          <tr>
+            <th>Total</th>
+            <th></th>
+            <th>{{itens_total_value | currency:'BRL'}}</th>
+            <th>{{itens_depreciation_value | currency:'BRL'}}</th>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div margin-bottom class="horizontalLine">
     <h2>Atividades</h2>
   </div>
-  <ion-grid class="table">
+  <ion-grid padding-left padding-right class="table">
     <ion-row style="display:flex;align-items:center;background-color:white">
       <ion-col col-11>
         <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>

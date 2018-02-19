@@ -9,6 +9,7 @@ import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 import { InventoryItenRegisterPage } from '../../pages/inventory-iten-register/inventory-iten-register';
 import { FarmEditPage } from "../farm-edit/farm-edit";
 import { DomSanitizer } from "@angular/platform-browser";
+import { InventoryItenSalePage } from "../../pages/inventory-iten-sale/inventory-iten-sale";
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -35,10 +36,17 @@ export class FarmDetailPage {
       console.log('open');
       this.navCtrl.push(FieldRegisterPage.name,{farm:this.farm});
     }
-  },{
+  },
+  {
     label:'Adicionar Nova Safra',
     down:()=>{
       this.navCtrl.push(CropRegisterPage.name,{farm:this.farm});
+    }
+  },
+  {
+    label:'Registar Venda',
+    down:()=>{
+      this.navCtrl.push(InventoryItenSalePage.name,{farm:this.farm,farm_id:this.farm.id});
     }
   }];
 

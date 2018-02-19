@@ -54,6 +54,7 @@ import { ActivityProvider } from '../providers/activity/activity';
 import { ActivityTypeProvider } from '../providers/activity-type/activity-type';
 import { UnityProvider } from '../providers/unity/unity';
 import { InventoryItenProvider } from '../providers/inventory-iten/inventory-iten';
+import { FieldTypesProvider } from '../providers/field-types/field-types';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { InventoryItenProvider } from '../providers/inventory-iten/inventory-ite
     ActivityProvider,
     ActivityTypeProvider,
     UnityProvider,
-    InventoryItenProvider
+    InventoryItenProvider,
+    FieldTypesProvider
   ]
 })
 export class AppModule {}

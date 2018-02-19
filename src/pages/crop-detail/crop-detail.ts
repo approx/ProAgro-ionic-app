@@ -25,6 +25,9 @@ export class CropDetailPage {
   percentage:number;
   total_value:number;
   total_value_ha:number=0;
+  itens_total_value:number;
+  itens_depreciation_value:number;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider) {
     this.crop_id = navParams.get('crop_id');
@@ -56,11 +59,22 @@ export class CropDetailPage {
         console.log(this.crop);
         this.calculatePercentage();
         this.calculateTotal();
+        this.calculateTotalInventario();
       });
     }
     else{
       this.calculateTotal();
       this.calculatePercentage();
+      this.calculateTotalInventario();
+    }
+  }
+
+  calculateTotalInventario(){
+    this.itens_total_value = 0;
+    this.itens_depreciation_value = 0;
+    for (let i = 0; i < this.crop.inventory_itens.length; i++) {
+        this.itens_total_value+=this.crop.inventory_itens[i].price;
+        this.itens_depreciation_value+=this.crop.inventory_itens[i].depreciation_value;
     }
   }
 

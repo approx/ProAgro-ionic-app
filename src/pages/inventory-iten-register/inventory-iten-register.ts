@@ -69,10 +69,19 @@ export class InventoryItenRegisterPage {
     this.depreciationMounth();
   }
 
+  reset(){
+    this.iten.name = '';
+    this.iten.depreciation_time = null;
+    this.iten.depreciation_value = null;
+    this.iten.price = null;
+    this.price = '';
+    this.depreciation_value = '';
+  }
+
   Register(){
     this.messages.Wait();
     this.itenProvider.save(this.iten).subscribe((data)=>{
-      this.messages.SuccessAlert('Iten cadastrado com sucesso!');
+      this.messages.SuccessAlert('Iten cadastrado com sucesso!',()=>{this.reset()});
     },()=>{
       this.messages.ErrorAlert();
     })

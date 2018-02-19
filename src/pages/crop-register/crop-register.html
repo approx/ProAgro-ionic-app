@@ -66,10 +66,21 @@
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-col margin-top col-12 col-md-6>
+        <ion-row padding-top class="address">
+          <label>Inventario a ser usado nesta safra</label>
+          <ion-col col-12>
+            <ion-item *ngFor="let iten of inventoriSelected ">
+              <ion-label>{{iten.name}}</ion-label>
+              <ion-checkbox [(ngModel)]="iten.selected" name="checkBox-{{iten.id}}"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
       <ion-row class="justifyCenter" margin-bottom>
         <button type="submit" [disabled]="!RegisterForm.form.valid" ion-button col-12 col-md-3>Cadastrar</button>
       </ion-row>
-      <ion-col *ngIf="farm" col-12 col-md-12>
+      <ion-col *ngIf="farm" col-12 col-md-6>
         <iframe
         width="100%"
         height="450"

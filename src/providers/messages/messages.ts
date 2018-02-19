@@ -27,12 +27,12 @@ export class MessagesProvider {
     this.loader.dismiss();
   }
 
-  SuccessAlert(text) {
+  SuccessAlert(text,handler?) {
     this.Done();
     let alert = this.alertCtrl.create({
       title: 'Sucesso!',
       subTitle: text,
-      buttons: ['OK']
+      buttons: handler ? [{text:'OK',handler:handler}]:['OK']
     });
     alert.present();
   }

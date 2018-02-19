@@ -20,6 +20,12 @@ import { ClientModel } from '../../model/client.model';
  * Ionic pages and navigation.
  */
 
+ interface InventoriIten{
+   id:number;
+   name:string;
+   selected:boolean;
+ }
+
 @IonicPage({segment:'crop/register'})
 @Component({
   selector: 'page-crop-register',
@@ -37,6 +43,7 @@ export class CropRegisterPage {
   cultures:CultureModel[]=[];
   clients:ClientModel[]=[];
   farm:FarmModel;
+  inventoriSelected:InventoriIten[]=[];
   mapUrl;
   client:number;
 
@@ -58,6 +65,7 @@ export class CropRegisterPage {
     this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
       this.farms = data;
       this.filteredFarms = data;
+      console.log(data);
       this.setParams();
     });
     this.fieldProvider.getAll().subscribe((data:FieldModel[])=>{
@@ -70,6 +78,27 @@ export class CropRegisterPage {
       this.setParams();
     });
     this.getClient();
+  }
+
+  getInventoriItens(){
+    if(this.farm){
+      this.inventoriSelected=[];
+      let inventory_itens = this.farm.inventory_itens;
+      for (let i = 0; i < inventory_itens.length; i++) {
+        this.inventoriSelected.push({id:inventory_itens[i].id,name:inventory_itens[i].name,selected:false});
+      }
+    }
+  }
+
+  setItens(){
+    this.crop.itens='';
+    let insertIndex=0;
+    for (let i = 0; i < this.inventoriSelected.length; i++) {
+      if(this.inventoriSelected[i].selected){
+        this.crop.itens+= (insertIndex==0 ? this.inventoriSelected[i].id.toString() : ';'+this.inventoriSelected[i].id);
+        insertIndex++;
+      }
+    }
   }
 
   setParams(){
@@ -144,6 +173,7 @@ export class CropRegisterPage {
   }
 
   FarmSelected(){
+    this.getInventoriItens();
     console.log('starting to filter fields : '+this.fields.length);
     this.filteredFields = this.fields.filter((field:FieldModel)=>{
       if(!this.farm && !this.client){
@@ -184,6 +214,7 @@ export class CropRegisterPage {
 
   Register(){
     this.message.Wait();
+    this.setItens();
     this.cropProvider.save(this.crop).subscribe((data)=>{
       this.message.SuccessAlert('Safra registrada com sucesso!');
     },(err)=>{

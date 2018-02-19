@@ -29,7 +29,7 @@
       <ion-col col-12 col-md-6>
         <culture *ngIf="farm" [cultures]="farm.cultures"></culture>
       </ion-col>
-      <ion-col *ngIf="farm.lat&&farm.lng&&mapUrl" col-12 col-md-12>
+      <ion-col *ngIf="farm&&mapUrl" col-12 col-md-12>
         <iframe
         width="100%"
         height="450"

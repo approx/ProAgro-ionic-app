@@ -8,6 +8,8 @@ import { FarmModel } from '../../model/farm.model';
 import { FarmProvider } from '../../providers/farm/farm';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
+import { FieldTypesProvider } from "../../providers/field-types/field-types";
+import { FieldTypeModel } from "../../model/fieldType.model";
 
 /**
  * Generated class for the FieldRegisterPage page.
@@ -27,6 +29,7 @@ export class FieldRegisterPage{
   filteredFarms:FarmModel[];
   farms:FarmModel[]=[];
   clients:ClientModel[];
+  fieldTypes:FieldTypeModel[];
   mapUrl;
   client_id:number;
 
@@ -37,7 +40,8 @@ export class FieldRegisterPage{
     private message:MessagesProvider,
     private sanitizer:DomSanitizer,
     private farmProvider:FarmProvider,
-    private clientProvider:ClientProvider
+    private clientProvider:ClientProvider,
+    private fieldTypeProvider:FieldTypesProvider
   ) {
     this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
       this.farms = data;
@@ -46,6 +50,7 @@ export class FieldRegisterPage{
       this.setParamsItens();
     })
     this.getClients();
+    this.getFieldTypes();
   }
 
   findIdInArray(id:number,array:{id:number}[]):{id:number}{
@@ -55,6 +60,13 @@ export class FieldRegisterPage{
         }
     }
     return null;
+  }
+
+  getFieldTypes(){
+    this.fieldTypeProvider.getAll().subscribe((data:FieldTypeModel[])=>{
+      this.fieldTypes = data;
+      console.log(data);
+    });
   }
 
   setParamsItens(){

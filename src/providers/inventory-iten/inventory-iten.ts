@@ -11,7 +11,7 @@ import { InventoryItenInterface } from '../../model/inventario_iten.model';
   and Angular DI.
 */
 interface InventoryItenWithMethod extends InventoryItenInterface{
-  _method;
+  _method?;
 }
 
 @Injectable()

@@ -15,7 +15,7 @@ export class AuthProvider {
   private body = {
     'grant_type':'password',
     'client_id':1,
-    'client_secret':'6YPZsxqNtGhe5KbiB7SY0X95SAtsmMqhOhH29CNV',
+    'client_secret':'pYmZlczatNm65zCdm0yVpEeBE9pDSfX0VEVAEhLy',
     'username': '',
     'password':'',
     'scope':'*'
