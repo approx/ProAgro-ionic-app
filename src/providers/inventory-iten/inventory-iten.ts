@@ -14,6 +14,11 @@ interface InventoryItenWithMethod extends InventoryItenInterface{
   _method?;
 }
 
+interface SellIten{
+  sold_price:number;
+  sold_date:string;
+}
+
 @Injectable()
 export class InventoryItenProvider {
 
@@ -42,4 +47,9 @@ export class InventoryItenProvider {
     return this.http.post(endPoint+'api/inventory/'+iten.id,iten);
   }
 
+  sell(iten:SellIten,id:number):Observable<any>{
+    return this.http.post(endPoint+'api/inventory/'+id+'/sell',iten,{
+        responseType: 'text'
+     });
+  }
 }

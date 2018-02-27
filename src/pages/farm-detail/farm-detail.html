@@ -94,5 +94,31 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div class="horizontalLine">
+    <h2>Renda Bruta</h2>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col padding-left padding-right col-12>
+        <table *ngIf="farm" margin-top col-12>
+          <tr>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+          </tr>
+          <tr *ngFor="let iten of farm.income_histories" >
+            <td >{{iten.date | date:'dd/MM/yyyy'}}</td>
+            <td >{{iten.description}}</td>
+            <td [ngStyle]="iten.expense==1 ? {'color':'red'}:{'color' : 'green'}">{{iten.value | currency:'BRL'}}</td>
+          </tr>
+          <tr>
+            <th>Total</th>
+            <th></th>
+            <th>{{farm.income | currency:'BRL'}}</th>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <actions [actions]="actions"></actions>
 </ion-content>

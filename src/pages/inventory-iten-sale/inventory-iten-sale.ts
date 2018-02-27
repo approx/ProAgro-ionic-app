@@ -15,6 +15,7 @@ import { MessagesProvider } from "../../providers/messages/messages";
 
  interface UpdadeProvider{
    update(iten:any):Observable<any>;
+   sell(iten:any,id:number):Observable<any>;
  }
 
  export class UpdateItens{
@@ -37,7 +38,7 @@ import { MessagesProvider } from "../../providers/messages/messages";
      return new Promise((resolve,reject)=>{
        for (let i = 0; i < this.itens.length; i++) {
          console.log(this.itens[i]);
-           this.provider.update(this.itens[i]).subscribe((data)=>{
+           this.provider.sell(this.itens[i],this.itens[i].id).subscribe((data)=>{
              this.sended++;
              if(!this.error&&this.sended==this.sending){
                resolve();

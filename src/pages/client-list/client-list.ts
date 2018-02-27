@@ -22,8 +22,10 @@ import { MyApp } from '../../app/app.component';
 })
 export class ClientListPage {
   clients:ClientModel[];
+  filteredClients:ClientModel[];
   loaded:boolean=false;
   user;
+  searchTxt:string;
 
   constructor(
     public navCtrl: NavController,
@@ -33,6 +35,7 @@ export class ClientListPage {
     this.user = MyApp.instance.user;
     this.clientsProvider.getAll().subscribe((data:ClientModel[])=>{
         this.clients = data;
+        this.filteredClients = data;
         this.loaded = true;
     },(err:any) => {
       if (err.error instanceof Error) {
@@ -48,6 +51,13 @@ export class ClientListPage {
 
   ionViewCanEnter(): boolean{
     return MyApp.instance.loged;
+  }
+
+  getItems($event){
+    this.filteredClients = this.clients.filter((client)=>{
+      return client.name.indexOf(this.searchTxt)!=-1||this.searchTxt=='';
+    });
+    console.log();
   }
 
   ionViewDidLoad() {
