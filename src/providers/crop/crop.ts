@@ -14,6 +14,12 @@ interface CropInterfaceWithMethod extends CropInterface{
   _method?:string;
 }
 
+export interface RegisterSack{
+  crop_id?:number;
+  value?:number;
+  quantity?:number;
+}
+
 @Injectable()
 export class CropProvider {
 
@@ -40,5 +46,9 @@ export class CropProvider {
   update(crop:CropInterfaceWithMethod):Observable<any>{
     crop._method="PUT";
     return this.http.post(endPoint+'api/crop/'+crop.id,crop);
+  }
+
+  register_sack(registerSack:RegisterSack,crop_id:number):Observable<any>{
+    return this.http.post(endPoint+'api/crop/'+crop_id+'/sold_sack',registerSack);
   }
 }

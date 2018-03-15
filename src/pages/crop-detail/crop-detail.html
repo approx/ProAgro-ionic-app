@@ -25,6 +25,16 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-row>
+    <ion-col col-12>
+      <canvas baseChart
+      [chartType]="'bar'"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [legend]="true"
+      [datasets]="lineChartData"></canvas>
+    </ion-col>
+  </ion-row>
   <div margin-bottom class="horizontalLine">
     <h2>Inventario utilizado</h2>
   </div>
@@ -100,4 +110,5 @@
       </ion-row>
     </ng-container>
   </ion-grid>
+  <actions [actions]="actions"></actions>
 </ion-content>

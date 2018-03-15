@@ -5,6 +5,8 @@ import { CropProvider } from '../../providers/crop/crop';
 import { ActivityRegisterPage } from '../../pages/activity-register/activity-register';
 import { ActivityDetailPage } from '../../pages/activity-detail/activity-detail';
 import { CropEditPage } from "../crop-edit/crop-edit";
+import { CropRegisterSackPage } from "../crop-register-sack/crop-register-sack";
+import { ChartsModule } from 'ng2-charts';
 
 /**
  * Generated class for the CropDetailPage page.
@@ -22,11 +24,29 @@ export class CropDetailPage {
 
   crop:CropModel;
   crop_id:number;
+  chartData:Array<any>=[];
   percentage:number;
   total_value:number;
   total_value_ha:number=0;
   itens_total_value:number;
   itens_depreciation_value:number;
+  actions=[{
+    label:'Registrar Atividade',
+    down:()=>{
+      this.navCtrl.push(ActivityRegisterPage.name,{crop:this.crop});
+    }
+  },{
+    label:'Registrar venda de sacas',
+    down:()=>{
+      this.navCtrl.push(CropRegisterSackPage.name,{crop:this.crop,crop_id:this.crop.id});
+    }
+  }]
+
+  chartLabels = ['January', 'February', 'Mars', 'April'];
+
+  chartOptions = {
+    responsive: true
+  };
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider) {
@@ -60,13 +80,26 @@ export class CropDetailPage {
         this.calculatePercentage();
         this.calculateTotal();
         this.calculateTotalInventario();
+        this.setChartData();
       });
     }
     else{
       this.calculateTotal();
       this.calculatePercentage();
       this.calculateTotalInventario();
+      this.setChartData();
     }
+  }
+
+  setChartData(){
+    let total_sacks = 0;
+    for (let i = 0; i < this.crop.sack_solds.length; i++) {
+        total_sacks+=this.crop.sack_solds[i].quantity;
+    }
+    this.chartData = [
+      {data:this.crop.expected,label:'Experado'},
+      {data:total_sacks,label:'Alcançado'}
+    ]
   }
 
   calculateTotalInventario(){

@@ -14,6 +14,11 @@ export interface CropInterface{
   itens?:string
 }
 
+interface SackSold{
+  value:number;
+  quantity:number;
+}
+
 export class CropModel{
   constructor(
     public id:number,
@@ -24,6 +29,7 @@ export class CropModel{
     public culture:CultureModel,
     public activities:ActivityModel[],
     public inventory_itens:InventoryItenModel[],
+    public sack_solds:SackSold[],
     public expected:number,
     public sack?:number
   ){}
