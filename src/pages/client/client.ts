@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ClientPage page.
@@ -14,13 +15,10 @@ import { MyApp } from '../../app/app.component';
   selector: 'page-client',
   templateUrl: 'client.html',
 })
-export class ClientPage {
+export class ClientPage extends BasePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewCanEnter(): boolean{
-    return MyApp.instance.loged;
+    super(navCtrl);
   }
 
   ionViewDidLoad() {

@@ -12,6 +12,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
+import { BasePage } from "../base/base";
 
 
 /**
@@ -28,7 +29,7 @@ import { ClientModel } from '../../model/client.model';
   selector: 'page-crop-edit',
   templateUrl: 'crop-edit.html',
 })
-export class CropEditPage {
+export class CropEditPage extends BasePage{
 
   @Input() crop:CropInterface={
     name:''
@@ -55,13 +56,7 @@ export class CropEditPage {
     private cropProvider:CropProvider,
     private clientProvider:ClientProvider
   ) {
-    let date = new Date();
-    date.setFullYear(date.getFullYear()+10);
-    this.maxDate = date.getFullYear()+'-12-31';
-    this.getFarms();
-    this.getFields();
-    this.getCultures();
-    this.getClient();
+    super(navCtrl);
   }
 
   getFarms(){
@@ -134,6 +129,13 @@ export class CropEditPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CropRegisterPage');
+    let date = new Date();
+    date.setFullYear(date.getFullYear()+10);
+    this.maxDate = date.getFullYear()+'-12-31';
+    this.getFarms();
+    this.getFields();
+    this.getCultures();
+    this.getClient();
   }
 
   ClientSelected(){

@@ -1,6 +1,7 @@
 import { Component,Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CultureProvider } from '../../providers/culture/culture';
+import { BasePage } from "../base/base";
 /**
  * Generated class for the CulturePage page.
  *
@@ -13,12 +14,12 @@ import { CultureProvider } from '../../providers/culture/culture';
   selector: 'page-culture',
   templateUrl: 'culture.html',
 })
-export class CulturePage {
+export class CulturePage extends BasePage{
   cultures;
   @Input() name;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private cultureProvider:CultureProvider) {
-    this.getCultures();
+    super(navCtrl);
   }
 
   getCultures(){
@@ -49,6 +50,7 @@ export class CulturePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CulturePage');
+    this.getCultures();
   }
 
 }

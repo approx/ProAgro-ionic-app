@@ -8,6 +8,7 @@ import { AddressProvider } from '../../providers/address/address';
 import { ClientProvider } from '../../providers/client/client';
 import { LoadingController,Loading,AlertController } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ClientRegisterPage page.
@@ -23,7 +24,7 @@ import { MyApp } from '../../app/app.component';
   selector: 'page-client-register',
   templateUrl: 'client-register.html',
 })
-export class ClientRegisterPage {
+export class ClientRegisterPage extends BasePage{
 
   cities:any;
   states:any;
@@ -52,6 +53,11 @@ export class ClientRegisterPage {
     private clientProvider:ClientProvider,
     private alertCtrl:AlertController
   ) {
+    super(navCtrl);
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ClientRegisterPage');
     this.cityProvider.getAll().subscribe((data:any)=>{
       this.cities=data;
       console.log(this.cities);
@@ -71,14 +77,6 @@ export class ClientRegisterPage {
       else{}
     })
 
-  }
-
-  ionViewCanEnter(): boolean{
-    return MyApp.instance.loged;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ClientRegisterPage');
   }
 
   SuccessAlert() {

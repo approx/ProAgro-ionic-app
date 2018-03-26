@@ -7,6 +7,7 @@ import { CultureModel } from '../../model/culture.model';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
 import { FarmDetailPage } from '../../pages/farm-detail/farm-detail';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the FarmListPage page.
@@ -22,7 +23,7 @@ import { FarmDetailPage } from '../../pages/farm-detail/farm-detail';
   selector: 'page-farm-list',
   templateUrl: 'farm-list.html',
 })
-export class FarmListPage {
+export class FarmListPage extends BasePage{
   farms:FarmModel[];
   cultures:CultureModel[];
   clients:ClientModel[];
@@ -39,9 +40,7 @@ export class FarmListPage {
     private cultureProvider:CultureProvider,
     private clientProvider:ClientProvider
   ) {
-    this.getFarms();
-    this.getCultures();
-    this.getClients();
+    super(navCtrl);
   }
 
   FilterFarm(){
@@ -108,6 +107,9 @@ export class FarmListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FarmListPage');
+    this.getFarms();
+    this.getCultures();
+    this.getClients();
   }
 
 }

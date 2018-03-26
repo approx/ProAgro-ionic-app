@@ -8,6 +8,7 @@ import { FarmModel } from '../../model/farm.model';
 import { FarmProvider } from '../../providers/farm/farm';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the FieldEditPage page.
@@ -23,7 +24,7 @@ import { ClientModel } from '../../model/client.model';
   selector: 'page-field-edit',
   templateUrl: 'field-edit.html',
 })
-export class FieldEditPage {
+export class FieldEditPage extends BasePage{
 
   @Input() field:FieldInterface={};
   filteredFarms:FarmModel[];
@@ -43,14 +44,7 @@ export class FieldEditPage {
     private farmProvider:FarmProvider,
     private clientProvider:ClientProvider
   ) {
-    this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
-      this.farms = data;
-      this.filteredFarms = data;
-      this.ClientSelected();
-      this.setParamsItens();
-    })
-    this.getClients();
-    this.getField();
+    super(navCtrl);
   }
 
   findIdInArray(id:number,array:{id:number}[]):{id:number}{
@@ -96,6 +90,14 @@ export class FieldEditPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FieldRegisterPage');
+    this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
+      this.farms = data;
+      this.filteredFarms = data;
+      this.ClientSelected();
+      this.setParamsItens();
+    })
+    this.getClients();
+    this.getField();
   }
 
   getField(){

@@ -5,6 +5,7 @@ import { FarmModel } from '../../model/farm.model';
 import { FieldProvider } from '../../providers/field/field';
 import { FarmProvider } from '../../providers/farm/farm';
 import { FieldDetailPage } from '../../pages/field-detail/field-detail';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the FieldListPage page.
@@ -26,7 +27,7 @@ import { FieldDetailPage } from '../../pages/field-detail/field-detail';
   selector: 'page-field-list',
   templateUrl: 'field-list.html',
 })
-export class FieldListPage {
+export class FieldListPage extends BasePage{
 
   @Input() fields:FieldModel[];
   filteredFields:FieldModel[];
@@ -43,12 +44,13 @@ export class FieldListPage {
     private farmProvider:FarmProvider,
     private fieldProvider:FieldProvider
   ) {
-    this.getFarms();
-    this.getFields();
+    super(navCtrl);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FieldListPage');
+    this.getFarms();
+    this.getFields();
   }
 
   getFarms(){

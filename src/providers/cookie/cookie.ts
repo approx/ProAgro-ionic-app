@@ -33,10 +33,8 @@ export class CookieProvider {
   }
 
   delete(){
-    var d = new Date();
-    d.setDate(d.getDate() - 1);
-    this.objs = undefined;
-    document.cookie = JSON.stringify(this.objs)+';expires='+d;
+    this.objs = {};
+    document.cookie = "user="+JSON.stringify(this.objs);
   }
 
 }

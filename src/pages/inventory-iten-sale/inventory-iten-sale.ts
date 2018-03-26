@@ -5,6 +5,7 @@ import { FarmProvider } from "../../providers/farm/farm";
 import { InventoryItenProvider } from "../../providers/inventory-iten/inventory-iten";
 import { Observable } from "rxjs/Observable";
 import { MessagesProvider } from "../../providers/messages/messages";
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the InventoryItenSalePage page.
@@ -65,16 +66,14 @@ import { MessagesProvider } from "../../providers/messages/messages";
   selector: 'page-inventory-iten-sale',
   templateUrl: 'inventory-iten-sale.html',
 })
-export class InventoryItenSalePage {
+export class InventoryItenSalePage extends BasePage{
 
   farm:FarmModel;
   farm_id:number;
   maxDate;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider, private inventoryItenProvider:InventoryItenProvider,private message:MessagesProvider) {
-    this.farm = navParams.get('farm');
-    this.getParams();
-    this.setMaxDate();
+    super(navCtrl);
   }
 
   setMaxDate(){
@@ -85,6 +84,9 @@ export class InventoryItenSalePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InventoryItenSalePage');
+    this.farm = this.navParams.get('farm');
+    this.getParams();
+    this.setMaxDate();
   }
 
   Register(){

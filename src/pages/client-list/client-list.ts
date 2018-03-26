@@ -5,6 +5,7 @@ import { ClientInteface,ClientModel } from '../../model/client.model';
 import { ClientRegisterPage } from '../client-register/client-register';
 import { ClientDetailPage } from '../client-detail/client-detail';
 import { MyApp } from '../../app/app.component';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ClientListPage page.
@@ -20,7 +21,7 @@ import { MyApp } from '../../app/app.component';
   selector: 'page-client-list',
   templateUrl: 'client-list.html',
 })
-export class ClientListPage {
+export class ClientListPage extends BasePage{
   clients:ClientModel[];
   filteredClients:ClientModel[];
   loaded:boolean=false;
@@ -32,6 +33,18 @@ export class ClientListPage {
     public navParams: NavParams,
     private clientsProvider:ClientProvider
   ) {
+    super(navCtrl);
+  }
+
+  getItems($event){
+    this.filteredClients = this.clients.filter((client)=>{
+      return client.name.indexOf(this.searchTxt)!=-1||this.searchTxt=='';
+    });
+    console.log();
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ClientListPage');
     this.user = MyApp.instance.user;
     this.clientsProvider.getAll().subscribe((data:ClientModel[])=>{
         this.clients = data;
@@ -47,21 +60,6 @@ export class ClientListPage {
         console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
       }
     })
-  }
-
-  ionViewCanEnter(): boolean{
-    return MyApp.instance.loged;
-  }
-
-  getItems($event){
-    this.filteredClients = this.clients.filter((client)=>{
-      return client.name.indexOf(this.searchTxt)!=-1||this.searchTxt=='';
-    });
-    console.log();
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ClientListPage');
   }
 
   openRegisterPage(event:MouseEvent){

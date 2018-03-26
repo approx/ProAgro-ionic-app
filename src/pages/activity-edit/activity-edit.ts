@@ -16,6 +16,7 @@ import { CropModel } from "../../model/crop.model";
 import { CropProvider } from "../../providers/crop/crop";
 import { MessagesProvider } from "../../providers/messages/messages";
 import { ActivityIten } from "../activity-register/activity-register";
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ActivityEditPage page.
@@ -31,7 +32,7 @@ import { ActivityIten } from "../activity-register/activity-register";
   selector: 'page-activity-edit',
   templateUrl: 'activity-edit.html',
 })
-export class ActivityEditPage {
+export class ActivityEditPage extends BasePage {
   clients:ClientModel[]=[];
   client:ClientModel;
 
@@ -71,13 +72,7 @@ export class ActivityEditPage {
     private activityProvider:ActivityProvider,
     private message:MessagesProvider
   ) {
-    this.getClients();
-    this.getFarms();
-    this.getFields();
-    this.getCrops();
-    this.getActivities();
-    this.getUnities();
-    this.getActivity();
+    super(navCtrl);
   }
 
   getClients(){
@@ -221,6 +216,13 @@ export class ActivityEditPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ActivityEditPage');
+    this.getClients();
+    this.getFarms();
+    this.getFields();
+    this.getCrops();
+    this.getActivities();
+    this.getUnities();
+    this.getActivity();
   }
 
 }

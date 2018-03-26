@@ -8,6 +8,7 @@ import { FarmRegisterPage } from '../../pages/farm-register/farm-register';
 import { FieldRegisterPage } from '../../pages/field-register/field-register';
 import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 import { ClientEditPage } from "../client-edit/client-edit";
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ClientDetailPage page.
@@ -23,20 +24,21 @@ import { ClientEditPage } from "../client-edit/client-edit";
   selector: 'page-client-detail',
   templateUrl: 'client-detail.html',
 })
-export class ClientDetailPage {
+export class ClientDetailPage extends BasePage{
   client_id:number;
   client:ClientModel;
   farmSize=300;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private clientProvider:ClientProvider) {
-    this.client = navParams.get('client');
-    this.client_id = navParams.get('client_id');
+    super(navCtrl);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClientDetailPage');
     console.log();
+    this.client = this.navParams.get('client');
+    this.client_id = this.navParams.get('client_id');
 
     if(!this.client&&this.client_id){
       console.log('geting client data')
@@ -50,10 +52,6 @@ export class ClientDetailPage {
         }
       })
     }
-  }
-
-  ionViewCanEnter(): boolean{
-    return MyApp.instance.loged;
   }
 
   openFarmPage(farm){

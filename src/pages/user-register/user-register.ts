@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserRegisterProvider } from "../../providers/user-register/user-register";
 import { MessagesProvider } from "../../providers/messages/messages";
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the UserRegisterPage page.
@@ -17,12 +18,13 @@ import { MessagesProvider } from "../../providers/messages/messages";
   selector: 'page-user-register',
   templateUrl: 'user-register.html',
 })
-export class UserRegisterPage {
+export class UserRegisterPage extends BasePage{
 
   name:string;
   email:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userRegisterProvider:UserRegisterProvider,private message:MessagesProvider) {
+    super(navCtrl);
   }
 
   ionViewDidLoad() {

@@ -9,6 +9,7 @@ import { StateProvider } from '../../providers/state/state';
 import { FarmInterface, FarmModel } from '../../model/farm.model';
 import { FarmProvider } from '../../providers/farm/farm';
 import { ClientModel } from '../../model/client.model';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the FarmEditPage page.
@@ -30,7 +31,7 @@ import { ClientModel } from '../../model/client.model';
   selector: 'page-farm-edit',
   templateUrl: 'farm-edit.html',
 })
-export class FarmEditPage {
+export class FarmEditPage extends BasePage{
 
   cities;
   states;
@@ -64,10 +65,7 @@ export class FarmEditPage {
     private loadingCtrl: LoadingController,
     private farmProvider:FarmProvider
   ) {
-    this.getClients();
-    this.getCultures();
-    this.getCitiesAndStates();
-    this.getFarm();
+    super(navCtrl);
   }
 
   getFarm(){
@@ -130,6 +128,10 @@ export class FarmEditPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FarmRegisterPage');
+    this.getClients();
+    this.getCultures();
+    this.getCitiesAndStates();
+    this.getFarm();
   }
 
   getClients() {

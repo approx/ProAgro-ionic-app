@@ -12,6 +12,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the CropRegisterPage page.
@@ -31,7 +32,7 @@ import { ClientModel } from '../../model/client.model';
   selector: 'page-crop-register',
   templateUrl: 'crop-register.html',
 })
-export class CropRegisterPage {
+export class CropRegisterPage extends BasePage{
 
   @Input() crop:CropInterface={
     name:''
@@ -59,25 +60,7 @@ export class CropRegisterPage {
     private cropProvider:CropProvider,
     private clientProvider:ClientProvider
   ) {
-    let date = new Date();
-    date.setFullYear(date.getFullYear()+10);
-    this.maxDate = date.getFullYear()+'-12-31';
-    this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
-      this.farms = data;
-      this.filteredFarms = data;
-      console.log(data);
-      this.setParams();
-    });
-    this.fieldProvider.getAll().subscribe((data:FieldModel[])=>{
-      this.fields = data;
-      this.filteredFields = data;
-      this.setParams();
-    });
-    this.culturesProvider.getAll().subscribe((data:CultureModel[])=>{
-      this.cultures = data;
-      this.setParams();
-    });
-    this.getClient();
+    super(navCtrl);
   }
 
   getInventoriItens(){
@@ -142,6 +125,25 @@ export class CropRegisterPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CropRegisterPage');
+    let date = new Date();
+    date.setFullYear(date.getFullYear()+10);
+    this.maxDate = date.getFullYear()+'-12-31';
+    this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
+      this.farms = data;
+      this.filteredFarms = data;
+      console.log(data);
+      this.setParams();
+    });
+    this.fieldProvider.getAll().subscribe((data:FieldModel[])=>{
+      this.fields = data;
+      this.filteredFields = data;
+      this.setParams();
+    });
+    this.culturesProvider.getAll().subscribe((data:CultureModel[])=>{
+      this.cultures = data;
+      this.setParams();
+    });
+    this.getClient();
   }
 
   ClientSelected(){

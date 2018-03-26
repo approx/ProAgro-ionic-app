@@ -10,6 +10,7 @@ import { InventoryItenRegisterPage } from '../../pages/inventory-iten-register/i
 import { FarmEditPage } from "../farm-edit/farm-edit";
 import { DomSanitizer } from "@angular/platform-browser";
 import { InventoryItenSalePage } from "../../pages/inventory-iten-sale/inventory-iten-sale";
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -25,7 +26,7 @@ import { InventoryItenSalePage } from "../../pages/inventory-iten-sale/inventory
   selector: 'page-farm-detail',
   templateUrl: 'farm-detail.html',
 })
-export class FarmDetailPage {
+export class FarmDetailPage extends BasePage{
   farm_id:number;
   farm:FarmModel;
   mapUrl;
@@ -55,8 +56,7 @@ export class FarmDetailPage {
   total_remunaration:number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider,private sanitizer:DomSanitizer,) {
-    this.farm_id = navParams.get('farm_id');
-    this.farm = navParams.get('farm');
+    super(navCtrl);
   }
 
   openFieldPage(field){
@@ -77,6 +77,8 @@ export class FarmDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FarmDetailPage');
+    this.farm_id = this.navParams.get('farm_id');
+    this.farm = this.navParams.get('farm');
     if(!this.farm&&this.farm_id){
       this.farmProvider.get(this.farm_id).subscribe((data:FarmModel)=>{
         this.farm=data;

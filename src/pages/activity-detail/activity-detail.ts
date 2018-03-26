@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ActivityModel } from '../../model/activity.model';
 import { ActivityProvider } from '../../providers/activity/activity';
 import { ActivityEditPage } from "../activity-edit/activity-edit";
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ActivityDetailPage page.
@@ -16,7 +17,7 @@ import { ActivityEditPage } from "../activity-edit/activity-edit";
   selector: 'page-activity-detail',
   templateUrl: 'activity-detail.html',
 })
-export class ActivityDetailPage {
+export class ActivityDetailPage extends BasePage {
   activity_id:number;
   activity:ActivityModel;
 
@@ -25,14 +26,9 @@ export class ActivityDetailPage {
     public navParams: NavParams,
     private activityProvider:ActivityProvider
   ) {
-    this.activity_id = this.navParams.get('activity_id');
-    this.activity = this.navParams.get('activity');
-
-    if(this.activity_id && !this.activity){
-      this.getActivity();
-    }
+    super(navCtrl);
   }
-  
+
 
   openEditPage(event:MouseEvent){
     event.preventDefault();
@@ -49,6 +45,12 @@ export class ActivityDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ActivityDetailPage');
+    this.activity_id = this.navParams.get('activity_id');
+    this.activity = this.navParams.get('activity');
+
+    if(this.activity_id && !this.activity){
+      this.getActivity();
+    }
 
   }
 }

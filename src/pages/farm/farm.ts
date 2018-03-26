@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the FarmPage page.
@@ -13,9 +14,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-farm',
   templateUrl: 'farm.html',
 })
-export class FarmPage {
+export class FarmPage extends BasePage{
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    super(navCtrl);
   }
 
   ionViewDidLoad() {

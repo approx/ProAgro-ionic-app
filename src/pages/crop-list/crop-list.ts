@@ -7,6 +7,7 @@ import { CropProvider } from '../../providers/crop/crop';
 import { FarmProvider } from '../../providers/farm/farm';
 import { CultureProvider } from '../../providers/culture/culture';
 import { CropDetailPage } from '../../pages/crop-detail/crop-detail';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the CropListPage page.
@@ -20,7 +21,7 @@ import { CropDetailPage } from '../../pages/crop-detail/crop-detail';
   selector: 'page-crop-list',
   templateUrl: 'crop-list.html',
 })
-export class CropListPage {
+export class CropListPage extends BasePage{
 
   crops:CropModel[];
   filteredCrops:CropModel[];
@@ -39,13 +40,14 @@ export class CropListPage {
     private farmProvider:FarmProvider,
     private cultureProvider:CultureProvider
   ) {
-    this.getFarms();
-    this.getCrops();
-    this.getCultures();
+    super(navCtrl);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CropListPage');
+    this.getFarms();
+    this.getCrops();
+    this.getCultures();
   }
 
   find(obj,array):boolean{

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ActivityPage page.
@@ -13,9 +14,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-activity',
   templateUrl: 'activity.html',
 })
-export class ActivityPage {
+export class ActivityPage extends BasePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    super(navCtrl);
   }
 
   ionViewDidLoad() {

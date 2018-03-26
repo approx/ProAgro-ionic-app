@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the FieldPage page.
@@ -13,9 +14,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-field',
   templateUrl: 'field.html',
 })
-export class FieldPage {
+export class FieldPage extends BasePage{
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    super(navCtrl);
   }
 
   ionViewDidLoad() {

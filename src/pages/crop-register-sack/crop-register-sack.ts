@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CropModel } from "../../model/crop.model";
 import { CropProvider,RegisterSack } from "../../providers/crop/crop";
 import { MessagesProvider } from "../../providers/messages/messages";
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the CropRegisterSackPage page.
@@ -18,7 +19,7 @@ import { MessagesProvider } from "../../providers/messages/messages";
   selector: 'page-crop-register-sack',
   templateUrl: 'crop-register-sack.html',
 })
-export class CropRegisterSackPage {
+export class CropRegisterSackPage extends BasePage{
 
   crop:CropModel;
   registerSack:RegisterSack={};
@@ -26,11 +27,12 @@ export class CropRegisterSackPage {
   total_value:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public cropProvider:CropProvider, public messenger:MessagesProvider) {
-    this.crop = navParams.get('crop');
+    super(navCtrl);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CropRegisterSackPage');
+    this.crop = this.navParams.get('crop');
     if(!this.crop){
       this.cropProvider.get(this.navParams.get('crop_id')).subscribe((data:CropModel)=>{
         this.crop=data;

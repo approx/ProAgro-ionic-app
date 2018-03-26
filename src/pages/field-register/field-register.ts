@@ -10,6 +10,7 @@ import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
 import { FieldTypesProvider } from "../../providers/field-types/field-types";
 import { FieldTypeModel } from "../../model/fieldType.model";
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the FieldRegisterPage page.
@@ -23,7 +24,7 @@ import { FieldTypeModel } from "../../model/fieldType.model";
   selector: 'page-field-register',
   templateUrl: 'field-register.html',
 })
-export class FieldRegisterPage{
+export class FieldRegisterPage extends BasePage{
 
   @Input() field:FieldInterface={};
   filteredFarms:FarmModel[];
@@ -43,14 +44,7 @@ export class FieldRegisterPage{
     private clientProvider:ClientProvider,
     private fieldTypeProvider:FieldTypesProvider
   ) {
-    this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
-      this.farms = data;
-      this.filteredFarms = data;
-      this.ClientSelected();
-      this.setParamsItens();
-    })
-    this.getClients();
-    this.getFieldTypes();
+    super(navCtrl);
   }
 
   findIdInArray(id:number,array:{id:number}[]):{id:number}{
@@ -103,6 +97,14 @@ export class FieldRegisterPage{
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FieldRegisterPage');
+    this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
+      this.farms = data;
+      this.filteredFarms = data;
+      this.ClientSelected();
+      this.setParamsItens();
+    })
+    this.getClients();
+    this.getFieldTypes();
   }
 
   setMapUrl(){

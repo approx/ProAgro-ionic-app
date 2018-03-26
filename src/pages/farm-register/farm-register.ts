@@ -10,6 +10,7 @@ import { FarmInterface } from '../../model/farm.model';
 import { FarmProvider } from '../../providers/farm/farm';
 import { ClientModel } from '../../model/client.model';
 import { DomSanitizer } from "@angular/platform-browser";
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the FarmRegisterPage page.
@@ -31,7 +32,7 @@ interface Culture {
   selector: 'page-farm-register',
   templateUrl: 'farm-register.html',
 })
-export class FarmRegisterPage {
+export class FarmRegisterPage extends BasePage{
   cities;
   states;
   clients;
@@ -64,10 +65,7 @@ export class FarmRegisterPage {
     private farmProvider:FarmProvider,
     private sanitizer:DomSanitizer,
   ) {
-    this.getClients();
-    this.getCultures();
-    this.getCitiesAndStates();
-    this.setParamsItens();
+    super(navCtrl);
   }
 
   setParamsItens(){
@@ -98,6 +96,10 @@ export class FarmRegisterPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FarmRegisterPage');
+    this.getClients();
+    this.getCultures();
+    this.getCitiesAndStates();
+    this.setParamsItens();
   }
 
   getClients() {

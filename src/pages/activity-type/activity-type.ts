@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ActivityTypeInterface,ActivityTypeModel } from '../../model/activityType.model';
 import { ActivityTypeProvider } from '../../providers/activity-type/activity-type';
 import { MessagesProvider } from '../../providers/messages/messages';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ActivityTypePage page.
@@ -17,7 +18,7 @@ import { MessagesProvider } from '../../providers/messages/messages';
   selector: 'page-activity-type',
   templateUrl: 'activity-type.html',
 })
-export class ActivityTypePage {
+export class ActivityTypePage extends BasePage{
 
   activityType:ActivityTypeInterface={
   };
@@ -34,7 +35,8 @@ export class ActivityTypePage {
     private acitivityTypeProvider:ActivityTypeProvider,
     private message:MessagesProvider
   ){
-    this.getActivityTypes();
+    super(navCtrl);
+
   }
 
   getActivityTypes(){
@@ -49,6 +51,7 @@ export class ActivityTypePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ActivityTypePage');
     console.log(this.models);
+    this.getActivityTypes();
   }
 
   onValuePerHaChange($event:any){

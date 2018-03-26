@@ -9,6 +9,7 @@ import { ClientProvider } from '../../providers/client/client';
 import { LoadingController,Loading,AlertController } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 import { MessagesProvider } from '../../providers/messages/messages';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ClientEditPage page.
@@ -24,7 +25,7 @@ import { MessagesProvider } from '../../providers/messages/messages';
   selector: 'page-client-edit',
   templateUrl: 'client-edit.html',
 })
-export class ClientEditPage {
+export class ClientEditPage extends BasePage{
 
   state_id: number;
   cities:any;
@@ -55,8 +56,7 @@ export class ClientEditPage {
     private alertCtrl:AlertController,
     private message:MessagesProvider
   ) {
-    this.getCities();
-    this.getStates();
+    super(navCtrl);
   }
 
   getCities(){
@@ -131,6 +131,8 @@ export class ClientEditPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClientEditPage');
+    this.getCities();
+    this.getStates();
     this.getClient();
   }
 

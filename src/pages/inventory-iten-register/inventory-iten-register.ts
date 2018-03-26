@@ -5,6 +5,7 @@ import { FarmProvider } from '../../providers/farm/farm';
 import { FarmModel } from '../../model/farm.model';
 import { InventoryItenProvider } from '../../providers/inventory-iten/inventory-iten';
 import { MessagesProvider } from '../../providers/messages/messages';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the InventoryItenRegisterPage page.
@@ -18,7 +19,7 @@ import { MessagesProvider } from '../../providers/messages/messages';
   selector: 'page-inventory-iten-register',
   templateUrl: 'inventory-iten-register.html',
 })
-export class InventoryItenRegisterPage {
+export class InventoryItenRegisterPage extends BasePage{
   @Input() iten:InventoryItenInterface={};
   price:string;
   depreciation_value:string;
@@ -30,8 +31,7 @@ export class InventoryItenRegisterPage {
     private itenProvider:InventoryItenProvider,
     private messages:MessagesProvider
   ) {
-    this.getFarms();
-    this.setParams()
+    super(navCtrl);
   }
 
   getFarms(){
@@ -49,6 +49,8 @@ export class InventoryItenRegisterPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InventoryItenRegisterPage');
+    this.getFarms();
+    this.setParams()
   }
 
   depreciationMounth(){

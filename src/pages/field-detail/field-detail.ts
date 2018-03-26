@@ -7,6 +7,7 @@ import { CropDetailPage } from '../../pages/crop-detail/crop-detail';
 import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 import { ActivityRegisterPage } from '../../pages/activity-register/activity-register';
 import { FieldEditPage } from "../field-edit/field-edit";
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the FieldDetailPage page.
@@ -20,7 +21,7 @@ import { FieldEditPage } from "../field-edit/field-edit";
   selector: 'page-field-detail',
   templateUrl: 'field-detail.html',
 })
-export class FieldDetailPage {
+export class FieldDetailPage extends BasePage{
   field:FieldModel;
   field_id:number;
   mapUrl;
@@ -39,11 +40,7 @@ export class FieldDetailPage {
   }]
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private fieldProvider:FieldProvider,private sanitizer:DomSanitizer) {
-    this.field_id = navParams.get('field_id');
-    this.field = navParams.get('field');
-    if(this.field){
-      this.setMapUrl();
-    }
+    super(navCtrl);
   }
 
   openCropPage(crop){
@@ -64,6 +61,11 @@ export class FieldDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FieldDetailPage');
+    this.field_id = this.navParams.get('field_id');
+    this.field = this.navParams.get('field');
+    if(this.field){
+      this.setMapUrl();
+    }
     if(!this.field&&this.field_id){
       this.fieldProvider.get(this.field_id).subscribe((data:FieldModel)=>{
         this.field=data;

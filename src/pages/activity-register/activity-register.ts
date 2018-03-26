@@ -13,6 +13,7 @@ import { ActivityTypeModel,ActivityTypeInterface } from '../../model/activityTyp
 import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
 import { MessagesProvider } from '../../providers/messages/messages';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ActivityRegisterPage page.
@@ -35,7 +36,7 @@ import { MessagesProvider } from '../../providers/messages/messages';
   selector: 'page-activity-register',
   templateUrl: 'activity-register.html',
 })
-export class ActivityRegisterPage {
+export class ActivityRegisterPage extends BasePage{
 
   activity:ActivityInterface={};
   farms:FarmModel[]=[];
@@ -72,17 +73,8 @@ export class ActivityRegisterPage {
     private unityProvider:UnityProvider,
     private message:MessagesProvider
   ) {
+    super(navCtrl);
 
-    let date = new Date();
-    date.setFullYear(date.getFullYear()+10);
-    this.maxDate = date.getFullYear()+'-12-31';
-
-    this.getFarms();
-    this.getFields();
-    this.getCrops();
-    this.getTypes();
-    this.getUnities();
-    this.setParams();
   }
 
   getUnities(){
@@ -374,6 +366,16 @@ export class ActivityRegisterPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ActivityRegisterPage');
+    let date = new Date();
+    date.setFullYear(date.getFullYear()+10);
+    this.maxDate = date.getFullYear()+'-12-31';
+
+    this.getFarms();
+    this.getFields();
+    this.getCrops();
+    this.getTypes();
+    this.getUnities();
+    this.setParams();
   }
 
 }

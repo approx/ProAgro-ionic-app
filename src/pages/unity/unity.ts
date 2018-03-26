@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UnityProvider } from '../../providers/unity/unity';
 import { UnityInterface, UnityModel} from '../../model/unity.model';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the UnityPage page.
@@ -15,7 +16,7 @@ import { UnityInterface, UnityModel} from '../../model/unity.model';
   selector: 'page-unity',
   templateUrl: 'unity.html',
 })
-export class UnityPage {
+export class UnityPage extends BasePage{
   unity:UnityInterface={};
   unities:UnityModel[];
 
@@ -24,7 +25,7 @@ export class UnityPage {
     public navParams: NavParams,
     private unityProvider:UnityProvider
   ) {
-    this.getUnities();
+    super(navCtrl);
   }
 
   getUnities(){
@@ -51,6 +52,7 @@ export class UnityPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UnityPage');
+    this.getUnities();
   }
 
 }

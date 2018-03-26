@@ -14,6 +14,7 @@ import { ActivityTypeProvider } from '../../providers/activity-type/activity-typ
 import { ActivityTypeModel } from '../../model/activityType.model';
 import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the ActivityListPage page.
@@ -22,12 +23,12 @@ import { UnityModel } from '../../model/unity.model';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({segment:"acivity/list"})
 @Component({
   selector: 'page-activity-list',
   templateUrl: 'activity-list.html',
 })
-export class ActivityListPage {
+export class ActivityListPage extends BasePage {
 
   activities:ActivityModel[]=[];
 
@@ -63,12 +64,7 @@ export class ActivityListPage {
     private activityTypeProvider:ActivityTypeProvider,
     private uniyProvider:UnityProvider
   ) {
-    this.getActivities();
-    this.getFarms();
-    this.getFields();
-    this.getCrops();
-    this.getActivityTypes();
-    this.getUnities();
+    super(navCtrl);
   }
 
   getActivities(){
@@ -224,6 +220,12 @@ export class ActivityListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ActivityListPage');
+    this.getActivities();
+    this.getFarms();
+    this.getFields();
+    this.getCrops();
+    this.getActivityTypes();
+    this.getUnities();
   }
 
 }

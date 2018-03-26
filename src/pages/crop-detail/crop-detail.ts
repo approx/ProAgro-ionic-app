@@ -7,6 +7,7 @@ import { ActivityDetailPage } from '../../pages/activity-detail/activity-detail'
 import { CropEditPage } from "../crop-edit/crop-edit";
 import { CropRegisterSackPage } from "../crop-register-sack/crop-register-sack";
 import { ChartsModule } from 'ng2-charts';
+import { BasePage } from "../base/base";
 
 /**
  * Generated class for the CropDetailPage page.
@@ -20,7 +21,7 @@ import { ChartsModule } from 'ng2-charts';
   selector: 'page-crop-detail',
   templateUrl: 'crop-detail.html',
 })
-export class CropDetailPage {
+export class CropDetailPage extends BasePage{
 
   crop:CropModel;
   crop_id:number;
@@ -50,9 +51,7 @@ export class CropDetailPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider) {
-    this.crop_id = navParams.get('crop_id');
-    this.crop = navParams.get('crop');
-    console.log(this.crop)
+    super(navCtrl);
   }
 
   openRegisterPage(event:MouseEvent){
@@ -73,6 +72,9 @@ export class CropDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CropDetailPage');
+    this.crop_id = this.navParams.get('crop_id');
+    this.crop = this.navParams.get('crop');
+    console.log(this.crop)
     if(!this.crop&&this.crop_id){
       this.cropProvider.get(this.crop_id).subscribe((data:CropModel)=>{
         this.crop=data;
