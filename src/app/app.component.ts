@@ -36,7 +36,7 @@ import { UserRegisterPage } from "../pages/user-register/user-register";
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = LoginPage;
+  rootPage:any = DashBoardPage.name;
 
   loged:boolean = false;
   user:UserModel;
@@ -225,7 +225,7 @@ export class MyApp {
     }
     if(this.auth.checkIfLogged()){
       MyApp.instance.loged=true;
-      this.nav.setRoot(DashBoardPage.name);
+      // this.nav.setRoot(DashBoardPage.name);
       MyApp.instance.getUserData();
     }
   }
@@ -257,7 +257,7 @@ export class MyApp {
       return this.auth.LogIn(cpf,password).then((result)=>{
         console.log(result);
         this.loged=true;
-        this.nav.setRoot(DashBoardPage);
+        this.nav.setRoot(DashBoardPage.name);
         this.getUserData();
       }).catch((error)=>{
         console.log(error);

@@ -35,6 +35,7 @@ export class CookieProvider {
   delete(){
     this.objs = {};
     document.cookie = "user="+JSON.stringify(this.objs);
+    console.log('deleted cokies');
   }
 
 }

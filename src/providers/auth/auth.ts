@@ -41,6 +41,7 @@ export class AuthProvider {
   }
 
   LogOut(){
+    console.log('deleted')
     this.cookie.delete();
   }
 
