@@ -24,12 +24,12 @@
 <ion-content class="app-content">
   <ion-grid no-padding class="container">
     <ion-row >
-      <ion-col *ngIf="loged" class="side-menu hideOnMobile" col-3 col-lg-2 col-xl-2>
+      <ion-col *ngIf="loged && user" class="side-menu hideOnMobile" col-3 col-lg-2 col-xl-2>
         <ion-list >
           <div class="imgWraper hideOnMobile">
             <img src="assets/imgs/logo.png" height="50px" alt="">
           </div>
-          <nav-bar *ngFor="let page of pages" [page]="page" ></nav-bar>
+          <nav-bar *ngFor="let page of pages" [user]="user" [page]="page" ></nav-bar>
         </ion-list>
       </ion-col>
       <ion-col [attr.col-12]="loged ? '':null" [attr.col-md-9]="loged ? '':null" [attr.col-lg-10]="loged ? '':null" [attr.col-xl-10]="loged ? '':null">

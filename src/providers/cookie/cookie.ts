@@ -32,10 +32,11 @@ export class CookieProvider {
     }
   }
 
-  delete(name:string){
-    this.objs[name] = undefined;
-    document.cookie = JSON.stringify(this.objs);
-    console.log('deleted cookie '+name);
+  delete(){
+    var d = new Date();
+    d.setDate(d.getDate() - 1);
+    this.objs = undefined;
+    document.cookie = JSON.stringify(this.objs)+';expires='+d;
   }
 
 }

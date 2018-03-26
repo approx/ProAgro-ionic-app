@@ -1,5 +1,5 @@
 <!-- Generated template for the NavBarComponent component -->
-<div class="wraper" (mouseenter)="openPageMenu(page)" (mouseleave)="cloasePageMenu(page)">
+<div *ngIf="render" class="wraper" (mouseenter)="openPageMenu(page)" (mouseleave)="cloasePageMenu(page)">
   <ion-item>
     <button (click)="openPage(page,$event)">
       <ion-icon no-margin float-left class="primary" name="{{page.icon}}"></ion-icon>

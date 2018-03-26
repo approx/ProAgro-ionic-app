@@ -1,5 +1,6 @@
 import { Component,Input} from '@angular/core';
 import { MyApp } from '../../app/app.component';
+import { UserModel } from "../../model/user.model";
 
 /**
  * Generated class for the NavBarComponent component.
@@ -10,6 +11,7 @@ import { MyApp } from '../../app/app.component';
 
  export interface NavBarPageInterface{
    name:string;
+   role:string;
    icon?:string;
    component: any;
    itensToogle:boolean;
@@ -24,11 +26,21 @@ export class NavBarComponent {
 
   text: string;
   @Input() page:NavBarPageInterface;
+  @Input() user:UserModel;
+  render=true;
 
 
   constructor() {
     console.log('Hello NavBarComponent Component');
-    this.text = 'Hello World';
+
+  }
+
+  ngOnInit() {
+    console.log(this.page);
+    let roles = this.page.role.split("|");
+    if(roles.indexOf(this.user.role.name)==-1){
+      this.render=false;
+    }
   }
 
   tooglePageMenu(page){

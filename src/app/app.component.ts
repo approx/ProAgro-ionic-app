@@ -30,6 +30,7 @@ import { ActivityListPage } from '../pages/activity-list/activity-list';
 import { ActivityRegisterPage } from '../pages/activity-register/activity-register';
 import { ActivityTypePage } from '../pages/activity-type/activity-type';
 import { UnityPage } from '../pages/unity/unity';
+import { UserRegisterPage } from "../pages/user-register/user-register";
 
 @Component({
   templateUrl: 'app.html'
@@ -45,22 +46,26 @@ export class MyApp {
       name:'DashBoard',
       icon:'pie',
       component:DashBoardPage,
-      itensToogle:false
+      itensToogle:false,
+      role:'master'
     },
     {
       name:'Clientes',
       icon:'people',
       component:ClientPage,
       itensToogle:false,
+      role:'master',
       itens:[
         {
           name:'Listar',
           component:ClientListPage,
+          role:'master',
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:ClientRegisterPage,
+          role:'master',
           itensToogle:false
         }
       ]
@@ -69,21 +74,25 @@ export class MyApp {
       name:'Fazendas',
       icon:'flag',
       component:FarmPage,
+      role:'master',
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:FarmListPage,
+          role:'master',
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:FarmRegisterPage,
+          role:'master',
           itensToogle:false
         },
         {
           name:'Culturas',
           component:CulturePage,
+          role:'master',
           itensToogle:false
         }
       ]
@@ -92,16 +101,19 @@ export class MyApp {
       name:'Talhões',
       icon:'grid',
       component:FieldPage,
+      role:'master',
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:FieldListPage,
+          role:'master',
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:FieldRegisterPage,
+          role:'master',
           itensToogle:false
         }
       ]
@@ -110,21 +122,25 @@ export class MyApp {
       name:'Safras',
       icon:'leaf',
       component:CropPage,
+      role:'master',
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:CropListPage,
+          role:'master',
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:CropRegisterPage,
+          role:'master',
           itensToogle:false
         },
         {
           name:'Culturas',
           component:CulturePage,
+          role:'master',
           itensToogle:false
         }
       ]
@@ -133,26 +149,46 @@ export class MyApp {
       name:'Atividades',
       icon:'clipboard',
       component:ActivityPage,
+      role:'master',
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:ActivityListPage,
+          role:'master',
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:ActivityRegisterPage,
+          role:'master',
           itensToogle:false
         },
         {
           name:'Tipos',
           component:ActivityTypePage,
+          role:'master',
           itensToogle:false
         },
         {
           name:'Unidades',
           component:UnityPage,
+          role:'master',
+          itensToogle:false
+        }
+      ]
+    },
+    {
+      name:'Usuarios',
+      icon:'clipboard',
+      component:UserRegisterPage,
+      role:'master',
+      itensToogle:false,
+      itens:[
+        {
+          name:'Cadastrar',
+          component:UserRegisterPage,
+          role:'master',
           itensToogle:false
         }
       ]
@@ -184,11 +220,20 @@ export class MyApp {
   }
 
   ngOnInit(){
+    if(this.checkIfIsNewUserURL()){
+      this.auth.LogOut();
+    }
     if(this.auth.checkIfLogged()){
       MyApp.instance.loged=true;
       this.nav.setRoot(DashBoardPage.name);
       MyApp.instance.getUserData();
     }
+  }
+
+  checkIfIsNewUserURL(){
+    let url = document.URL.split('#')[1];
+    if(!url) return false;
+    return url.indexOf('/user/new/') !=-1;
   }
 
   openPage(page,event:MouseEvent){

@@ -23,12 +23,14 @@ export class AuthInterceptorProvider implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>,next: HttpHandler):Observable<HttpEvent<any>> {
-    if(this.cookie.objs.token){
-      request = request.clone({
-        setHeaders:{
-          Authorization: this.cookie.objs.token.token_type+" "+this.cookie.objs.token.access_token
-        }
-      });
+    if(this.cookie.objs){
+      if(this.cookie.objs.token){
+        request = request.clone({
+          setHeaders:{
+            Authorization: this.cookie.objs.token.token_type+" "+this.cookie.objs.token.access_token
+          }
+        });
+      }
     }
 
     return next.handle(request);

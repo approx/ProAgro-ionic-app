@@ -15,7 +15,7 @@ export class AuthProvider {
   private body = {
     'grant_type':'password',
     'client_id':1,
-    'client_secret':'Sj8OleJAPtNYlIHVqvjDGEaDxrusrykUP57PIPu2',
+    'client_secret':'ibKMiK7n9Ldd3dPlClevSkpXToc1VSggcGbksSAr',
     'username': '',
     'password':'',
     'scope':'*'
@@ -28,6 +28,7 @@ export class AuthProvider {
   }
 
   checkIfLogged():boolean{
+    if(!this.cookie.objs) return false;
     return this.cookie.objs.token!=undefined;
   }
 
@@ -37,6 +38,10 @@ export class AuthProvider {
 
   getAccessToken():string{
     return this.cookie.objs.token.access_token;
+  }
+
+  LogOut(){
+    this.cookie.delete();
   }
 
   LogIn(cpf:string,password:string):Promise<any>{
