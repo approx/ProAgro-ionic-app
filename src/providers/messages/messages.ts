@@ -16,9 +16,10 @@ export class MessagesProvider {
     private loadingCtrl: LoadingController,
   ) {}
 
-  Wait() {
+  Wait(message?:string) {
+    let msg = message ? message : "Registrando...";
     this.loader = this.loadingCtrl.create({
-      content: "Registrando..."
+      content: msg
     });
     this.loader.present();
   }

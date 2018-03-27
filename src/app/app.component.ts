@@ -36,23 +36,23 @@ import { UserRegisterPage } from "../pages/user-register/user-register";
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = DashBoardPage.name;
+  rootPage:any = ClientListPage.name;
 
   loged:boolean = false;
   user:UserModel;
 
   pages:NavBarPageInterface[] = [
-    {
-      name:'DashBoard',
-      icon:'pie',
-      component:DashBoardPage,
-      itensToogle:false,
-      role:'master'
-    },
+    // {
+    //   name:'DashBoard',
+    //   icon:'pie',
+    //   component:DashBoardPage,
+    //   itensToogle:false,
+    //   role:'master'
+    // },
     {
       name:'Clientes',
       icon:'people',
-      component:ClientPage,
+      component:ClientListPage,
       itensToogle:false,
       role:'master',
       itens:[
@@ -73,7 +73,7 @@ export class MyApp {
     {
       name:'Fazendas',
       icon:'flag',
-      component:FarmPage,
+      component:FarmListPage,
       role:'master',
       itensToogle:false,
       itens:[
@@ -100,7 +100,7 @@ export class MyApp {
     {
       name:'Talhões',
       icon:'grid',
-      component:FieldPage,
+      component:FieldListPage,
       role:'master',
       itensToogle:false,
       itens:[
@@ -121,7 +121,7 @@ export class MyApp {
     {
       name:'Safras',
       icon:'leaf',
-      component:CropPage,
+      component:CropListPage,
       role:'master',
       itensToogle:false,
       itens:[
@@ -148,7 +148,7 @@ export class MyApp {
     {
       name:'Atividades',
       icon:'clipboard',
-      component:ActivityPage,
+      component:ActivityListPage,
       role:'master',
       itensToogle:false,
       itens:[
@@ -257,7 +257,7 @@ export class MyApp {
       return this.auth.LogIn(cpf,password).then((result)=>{
         console.log(result);
         this.loged=true;
-        this.nav.setRoot(DashBoardPage.name);
+        this.nav.setRoot(ClientListPage.name);
         this.getUserData();
       }).catch((error)=>{
         console.log(error);
