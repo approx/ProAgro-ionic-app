@@ -20,7 +20,11 @@ export class UserRegisterProvider {
   }
 
   public validToken(token){
-    return this.http.get(endPoint+'/api/user_token/'+token,{responseType: 'text'});
+    return this.http.get(endPoint+'api/user_token/'+token,{responseType: 'json'});
+  }
+
+  public register(request:any){
+    return this.http.post(endPoint+'api/user/register',request,{responseType: 'text'});
   }
 
 }

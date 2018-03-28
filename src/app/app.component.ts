@@ -246,6 +246,7 @@ export class MyApp {
   }
 
   push(page:any,params?:any,opts?:any):Promise<any>{
+    console.log(this.nav);
     return this.nav.push(page,params,opts);
   }
 
