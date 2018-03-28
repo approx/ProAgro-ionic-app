@@ -15,7 +15,7 @@
         <button style="background-color:transparent"> <ion-icon name="person-add" style="font-size:30px;"></ion-icon></button>
       </ion-col>
     </ion-row>
-    <table *ngIf="clients&&loaded" col-12>
+    <table *ngIf="clients&&loaded&&user" col-12>
       <tr>
         <th>Nome</th>
         <th class="hideOnMobile">E-mail</th>

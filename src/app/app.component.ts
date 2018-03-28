@@ -37,6 +37,7 @@ import { UserRegisterPage } from "../pages/user-register/user-register";
 })
 export class MyApp {
   rootPage:any = ClientListPage.name;
+  version = '1.0.0';
 
   loged:boolean = false;
   user:UserModel;
@@ -54,18 +55,18 @@ export class MyApp {
       icon:'people',
       component:ClientListPage,
       itensToogle:false,
-      role:'master',
+      role:'master|employe',
       itens:[
         {
           name:'Listar',
           component:ClientListPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:ClientRegisterPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         }
       ]
@@ -74,25 +75,25 @@ export class MyApp {
       name:'Fazendas',
       icon:'flag',
       component:FarmListPage,
-      role:'master',
+      role:'master|employe',
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:FarmListPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:FarmRegisterPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         },
         {
           name:'Culturas',
           component:CulturePage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         }
       ]
@@ -101,19 +102,19 @@ export class MyApp {
       name:'Talhões',
       icon:'grid',
       component:FieldListPage,
-      role:'master',
+      role:'master|employe',
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:FieldListPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:FieldRegisterPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         }
       ]
@@ -122,25 +123,25 @@ export class MyApp {
       name:'Safras',
       icon:'leaf',
       component:CropListPage,
-      role:'master',
+      role:'master|employe',
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:CropListPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:CropRegisterPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         },
         {
           name:'Culturas',
           component:CulturePage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         }
       ]
@@ -149,31 +150,31 @@ export class MyApp {
       name:'Atividades',
       icon:'clipboard',
       component:ActivityListPage,
-      role:'master',
+      role:'master|employe',
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:ActivityListPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:ActivityRegisterPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         },
         {
           name:'Tipos',
           component:ActivityTypePage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         },
         {
           name:'Unidades',
           component:UnityPage,
-          role:'master',
+          role:'master|employe',
           itensToogle:false
         }
       ]

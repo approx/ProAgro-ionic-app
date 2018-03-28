@@ -35,6 +35,7 @@ export class LoginPage {
     let login = MyApp.instance.LogIn(this.cpf,this.password);
     if(login!=null){
       login.catch((error)=>{
+        console.log("error");
         this.messages.ErrorAlert();
         this.password="";
       }).then(()=>{

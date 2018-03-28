@@ -26,7 +26,8 @@ import { BasePage } from "../base/base";
 })
 export class ClientRegisterPage extends BasePage{
 
-  cities:any;
+  cities:Array<any>;
+  citiesFilterde:any=[];
   states:any;
   loader:Loading;
   @Input() client:ClientInteface={
@@ -54,6 +55,11 @@ export class ClientRegisterPage extends BasePage{
     private alertCtrl:AlertController
   ) {
     super(navCtrl);
+  }
+
+  FilterCity(state){
+    console.log(state);
+    this.citiesFilterde = this.cities.filter((city)=>{return city.state_id==state});
   }
 
   ionViewDidLoad() {

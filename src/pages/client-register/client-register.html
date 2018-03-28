@@ -73,7 +73,7 @@
         <ion-col col-12 col-md-6>
           <ion-item>
             <ion-label>Estado*</ion-label>
-            <ion-select [(ngModel)]="address.state_id" required name="state">
+            <ion-select [(ngModel)]="address.state_id" (ngModelChange)="FilterCity($event)" required name="state">
               <ion-option *ngFor="let state of states" value="{{state.id}}">{{state.name}}</ion-option>
             </ion-select>
           </ion-item>
@@ -82,7 +82,7 @@
           <ion-item>
             <ion-label>Cidade*</ion-label>
             <ion-select required [(ngModel)]="address.city_id" name="city">
-              <ion-option *ngFor="let city of cities " value="{{city.id}}">{{city.name}}</ion-option>
+              <ion-option *ngFor="let city of citiesFilterde " value="{{city.id}}">{{city.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>

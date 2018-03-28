@@ -15,8 +15,8 @@ export class UserRegisterProvider {
     console.log('Hello UserRegisterProvider Provider');
   }
 
-  public acess(name:string,email:string){
-    return this.http.post(endPoint+'api/user/giveAccess',{name:name,email:email,url:app_url+"user/new/"},{responseType: 'text'});
+  public acess(name:string,email:string,role_id:number){
+    return this.http.post(endPoint+'api/user/giveAccess',{name:name,email:email,role_id:role_id,url:app_url+"user/new/"},{responseType: 'text'});
   }
 
   public validToken(token){

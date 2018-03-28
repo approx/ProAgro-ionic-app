@@ -6,12 +6,19 @@ user {
   .container{
       display: flex;
       align-items: center;
+      position: relative;
       width: 100%;
       height: 81px;
       background-color: (map-get($colors, dark));
       border-bottom: solid 2px (map-get($colors, primary));
       p{
         color: $textColor;
+      }
+      .version{
+        position: absolute;
+        bottom: 0;
+        right: 5px;
+        margin-bottom: 3px;
       }
   }
 

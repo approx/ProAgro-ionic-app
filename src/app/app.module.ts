@@ -56,6 +56,7 @@ import { UnityProvider } from '../providers/unity/unity';
 import { InventoryItenProvider } from '../providers/inventory-iten/inventory-iten';
 import { FieldTypesProvider } from '../providers/field-types/field-types';
 import { UserRegisterProvider } from '../providers/user-register/user-register';
+import { RolesProvider } from '../providers/roles/roles';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { UserRegisterProvider } from '../providers/user-register/user-register';
     UnityProvider,
     InventoryItenProvider,
     FieldTypesProvider,
-    UserRegisterProvider
+    UserRegisterProvider,
+    RolesProvider
   ]
 })
 export class AppModule {}

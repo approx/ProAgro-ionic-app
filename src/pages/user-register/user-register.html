@@ -9,16 +9,24 @@
   <form (ngSubmit)="GiveAcesss()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
       <ion-row style="align-items: flex-end;">
-        <ion-col col-12 col-md-6>
+        <ion-col col-12 col-md-4>
           <ion-item>
             <ion-label floating>Nome*</ion-label>
             <ion-input type="text" required maxlength="45"[(ngModel)]="name" name="name" value=""></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6>
+        <ion-col col-12 col-md-4>
           <ion-item>
             <ion-label floating>E-mail*</ion-label>
             <ion-input type="email" required maxlength="45" [(ngModel)]="email" name="email" value=""></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4>
+          <ion-item padding-top>
+            <ion-label>Capacidade*</ion-label>
+            <ion-select [(ngModel)]="role_id" required name="role">
+              <ion-option *ngFor="let role of roles" value="{{role.id}}">{{role.name}}</ion-option>
+            </ion-select>
           </ion-item>
         </ion-col>
       </ion-row>

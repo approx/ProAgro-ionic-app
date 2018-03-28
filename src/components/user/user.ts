@@ -1,5 +1,6 @@
 import { Component,Input } from '@angular/core';
 import { UserModel } from '../../model/user.model';
+import { MyApp } from '../../app/app.component';
 
 /**
  * Generated class for the UserComponent component.
@@ -16,9 +17,11 @@ export class UserComponent {
 
   text: string;
   @Input() user:UserModel;
+  version;
 
   constructor() {
     console.log('Hello UserComponent Component');
+    this.version = MyApp.instance.version;
   }
 
 
