@@ -38,13 +38,23 @@ export class MessagesProvider {
     alert.present();
   }
 
-  ErrorAlert() {
+  ErrorAlert(message?:string) {
     this.Done();
-    let alert = this.alertCtrl.create({
-      title: 'Error!',
-      subTitle: 'Algum erro inesperdado ocorreu, tente novamente!',
-      buttons: ['OK']
-    });
-    alert.present();
+    if(!message){
+      let alert = this.alertCtrl.create({
+        title: 'Error!',
+        subTitle: 'Algum erro inesperdado ocorreu, tente novamente!',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+    else{
+      let alert = this.alertCtrl.create({
+        title: 'Error!',
+        subTitle: message,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
   }
 }
