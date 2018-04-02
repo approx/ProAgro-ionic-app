@@ -18,7 +18,7 @@
         <ion-col col-12 col-md-4 col-lg-2>
           <ion-item>
             <ion-label floating>CPF/CNPJ*</ion-label>
-            <ion-input type="text" required maxlength="15" [(ngModel)]="client.cpf_cnpj" name="cpf_cnpj" value=""></ion-input>
+            <ion-input type="text" required minlength="11" maxlength="15" [(ngModel)]="client.cpf_cnpj" name="cpf_cnpj" value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4 col-lg-5>
@@ -86,9 +86,6 @@
             </ion-select>
           </ion-item>
         </ion-col>
-      </ion-row>
-      <ion-row>
-        <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger"> ... </div>
       </ion-row>
       <ion-row class="center" margin-bottom>
         <button type="submit" [disabled]="!ClientForm.form.valid" ion-button col-12 col-md-3>Cadastrar</button>
