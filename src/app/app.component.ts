@@ -256,14 +256,17 @@ export class MyApp {
 
   LogIn(cpf:string,password:string):Promise<any>|null{
     if(!this.loged){
-      return this.auth.LogIn(cpf,password).then((result)=>{
+      return new Promise<any>((resolve,reject)=>{
+        this.auth.LogIn(cpf,password).then((result)=>{
         console.log(result);
         this.loged=true;
         this.nav.setRoot(ClientListPage.name);
         this.getUserData();
+        resolve(result);
       }).catch((error)=>{
-        console.log(error);
+        reject(error);
       });
+    });
     }
     else{
       return null;

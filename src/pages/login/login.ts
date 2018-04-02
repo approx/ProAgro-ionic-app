@@ -34,12 +34,18 @@ export class LoginPage {
     this.messages.Wait('Entrando...');
     let login = MyApp.instance.LogIn(this.cpf,this.password);
     if(login!=null){
-      login.catch((error)=>{
-        console.log("error");
-        this.messages.ErrorAlert();
-        this.password="";
-      }).then(()=>{
+      login.then(()=>{
+        console.log("ok");
         this.messages.Done();
+      }).catch((error)=>{
+        console.log(error);
+        if(error.status==401){
+          this.messages.ErrorAlert("Credenciais incorretas, por favor verifique se o cpf/email e a senha foram digitados corretamentes.");
+        }
+        else{
+          this.messages.ErrorAlert();
+        }
+        this.password="";
       });
     }
   }
