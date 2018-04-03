@@ -112,8 +112,9 @@ export class ActivityRegisterPage extends BasePage{
 
   selectActivity(activity:ActivityTypeModel){
     this.Calculate();
-    this.unity_value = 'R$ '+activity.unity_value.toString();
+    // this.unity_value = 'R$ '+activity.unity_value.toString();
     this.activity.activity_type_id = activity.id.toString();
+    this.activity.unity_id = activity.unity_id;
     console.log('foi');
   }
 
@@ -210,7 +211,8 @@ export class ActivityRegisterPage extends BasePage{
       console.log(iten);
       let activityType = this.getActivityType(this.activity.activity_type_id);
       iten.quantity = ((iten.percentage/100) * this.activity.dose) * iten.crop.field.area;
-      iten.total = (activityType.unity_value * iten.quantity);
+      console.log(this.unity_value);
+      iten.total = (parseFloat(this.unity_value) * iten.quantity);
       iten.value_per_ha = iten.total / iten.crop.field.area;
       iten.dose = (iten.percentage/100) * this.activity.dose;
 
@@ -287,9 +289,9 @@ export class ActivityRegisterPage extends BasePage{
   calculateValueAndQuantity(){
     if(this.totalDose && this.activity.activity_type_id && this.field){
       let activityType = this.getActivityType(this.activity.activity_type_id);
-      this.total_value = 'R$ '+(activityType.unity_value * this.totalDose);
+      this.total_value = 'R$ '+(parseFloat(this.unity_value) * this.totalDose);
       this.quantity = this.totalDose;
-      this.value_per_ha = 'R$ '+((activityType.unity_value * this.totalDose) / this.field.area);
+      this.value_per_ha = 'R$ '+((parseFloat(this.unity_value) * this.totalDose) / this.field.area);
       console.log('Value and quantity calculated');
     }
   }

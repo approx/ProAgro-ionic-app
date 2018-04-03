@@ -5,6 +5,8 @@ import { ActivityTypeInterface,ActivityTypeModel } from '../../model/activityTyp
 import { ActivityTypeProvider } from '../../providers/activity-type/activity-type';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
+import { UnityProvider } from '../../providers/unity/unity';
+import { UnityModel } from '../../model/unity.model';
 
 /**
  * Generated class for the ActivityTypePage page.
@@ -26,6 +28,7 @@ export class ActivityTypePage extends BasePage{
   unity_value:string;
   value_per_ha:string;
   @ViewChildren(NgModel) models:NgModel[];
+  unities:UnityModel[]=[];
 
   private _valuePerHa:string='';
 
@@ -33,7 +36,8 @@ export class ActivityTypePage extends BasePage{
     public navCtrl: NavController,
     public navParams: NavParams,
     private acitivityTypeProvider:ActivityTypeProvider,
-    private message:MessagesProvider
+    private message:MessagesProvider,
+    private unityProvider:UnityProvider,
   ){
     super(navCtrl);
 
@@ -52,6 +56,7 @@ export class ActivityTypePage extends BasePage{
     console.log('ionViewDidLoad ActivityTypePage');
     console.log(this.models);
     this.getActivityTypes();
+    this.getUnities();
   }
 
   onValuePerHaChange($event:any){
@@ -60,6 +65,12 @@ export class ActivityTypePage extends BasePage{
     setTimeout(()=>{
       this.value_per_ha = value.length>0 ? 'R$ '+value: '';
     },0);
+  }
+
+  getUnities(){
+    this.unityProvider.getAll().subscribe((data:UnityModel[])=>{
+      this.unities = data;
+    });
   }
 
   onUnityValueChange($event:any){
@@ -77,7 +88,6 @@ export class ActivityTypePage extends BasePage{
   }
 
   Register(){
-    this.activityType.unity_value = parseFloat(this.unity_value.replace(/(?=[^,])(\D)+/gi,'').replace(',','.'));
     this.acitivityTypeProvider.post(this.activityType).subscribe((data)=>{
       this.getActivityTypes();
       this.activityType = {
