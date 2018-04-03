@@ -20,7 +20,7 @@
         <ion-col col-12 col-md-6 col-lg-6>
           <ion-item>
             <ion-label floating>Valor Unitario*</ion-label>
-            <ion-input type="text" readonly="true" value="{{unity_value}}"></ion-input>
+            <ion-input type="text" [(ngModel)]="unity_value" (change)="Calculate()" name="unity_value" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-3>
@@ -33,7 +33,7 @@
           <ion-item padding-top>
             <ion-label>Unidade*</ion-label>
             <ion-select [(ngModel)]="activity.unity_id" required name="unity">
-              <ion-option *ngFor="let unity of unities" value="{{unity.id}}">{{unity.id}}</ion-option>
+              <ion-option *ngFor="let unity of unities" value="{{unity.id}}">{{unity.id}} - {{unity.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
