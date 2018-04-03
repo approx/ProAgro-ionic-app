@@ -44,6 +44,8 @@ export class ActivityEditPage extends BasePage {
   field:FieldModel;
   filteredFields:FieldModel[]=[];
 
+  unity_value:number;
+
   crops:CropModel[]=[];
   filteredCrops:CropModel[]=[];
 
@@ -56,7 +58,8 @@ export class ActivityEditPage extends BasePage {
   activity_type:ActivityTypeModel={
     id:undefined,
     name:'',
-    unity_value:undefined,
+    unity_id:undefined,
+    unity:undefined,
     activities:[]
   };
 
@@ -149,7 +152,7 @@ export class ActivityEditPage extends BasePage {
       console.log(this.activity);
       let activityType = this.activity_type;
       this.activity.quantity = this.activity.dose * crop.field.area;
-      this.activity.total_value = (activityType.unity_value * this.activity.quantity);
+      this.activity.total_value = (this.unity_value * this.activity.quantity);
       this.activity.value_per_ha = this.activity.total_value / crop.field.area;
 
       this.activity.quantity = Math.round(this.activity.quantity);

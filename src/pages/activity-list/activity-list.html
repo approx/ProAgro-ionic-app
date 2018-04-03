@@ -64,7 +64,7 @@
         <th class="hide-md">Valor por ha</th>
         <th>Total</th>
       </tr>
-      <tr (click)="openActivityPage(activity)" class="Clickable" *ngFor="let activity of filteredActivities">
+      <tr class="Clickable" *ngFor="let activity of filteredActivities">
         <td>{{activity.operation_date | date: 'dd/MM/yyyy'}}</td>
         <td>{{activity.activity_type.id}} - {{activity.activity_type.name}}</td>
         <td class="hide-lg" >{{activity.crop.field.farm.client.name}}</td>
