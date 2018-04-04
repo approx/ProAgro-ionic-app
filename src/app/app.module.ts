@@ -57,6 +57,7 @@ import { InventoryItenProvider } from '../providers/inventory-iten/inventory-ite
 import { FieldTypesProvider } from '../providers/field-types/field-types';
 import { UserRegisterProvider } from '../providers/user-register/user-register';
 import { RolesProvider } from '../providers/roles/roles';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { RolesProvider } from '../providers/roles/roles';
     FarmRegisterPageModule,
     CulturePageModule,
     PipesModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    NgxMaskModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
