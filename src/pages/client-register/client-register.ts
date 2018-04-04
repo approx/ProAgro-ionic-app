@@ -40,7 +40,10 @@ export class ClientRegisterPage extends BasePage{
   @Input() address:AddressInterface={
     CEP:'',
     street_name:'',
-    street_number:''
+    street_number:'',
+    city:'',
+    state:'',
+    country:''
   };
 
 

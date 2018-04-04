@@ -41,7 +41,7 @@ export class AddressComponent {
   }
 
   setMapUrl(){
-    this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.address.street_name+"+"+this.address.street_number+","+this.address.city.name+"+"+this.address.city.state.name;
+    this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.address.street_name+"+"+this.address.street_number+","+this.address.city+"+"+this.address.state;
     this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapUrl);
   }
 

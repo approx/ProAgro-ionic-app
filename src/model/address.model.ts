@@ -7,8 +7,9 @@ export interface AddressInterface{
   CEP:string;
   street_name:string;
   street_number:string;
-  city_id?:number
-  state_id?:number;
+  city:string,
+  state:string,
+  country:string,
 }
 
 export class AddressModel{
@@ -17,7 +18,9 @@ export class AddressModel{
     public CEP:string,
     public street_name:string,
     public street_number:string,
-    public city:CityModel,
+    public city:string,
+    public state:string,
+    public country:string,
     public id?:number,
     public client?:ClientModel,
     public farm?:FarmModel

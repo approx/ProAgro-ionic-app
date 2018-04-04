@@ -3,7 +3,7 @@
   <h5>Endereço</h5>
   <p *ngIf="address">{{address.street_name}} {{address.street_number}}</p>
   <p *ngIf="address"></p>
-  <p *ngIf="address">{{address.city.name}}, {{address.city.state.name}}</p>
+  <p *ngIf="address">{{address.city}}, {{address.state}} - {{address.country}}</p>
   <iframe
   margin-right
   padding-right
