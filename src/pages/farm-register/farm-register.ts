@@ -33,8 +33,7 @@ interface Culture {
   templateUrl: 'farm-register.html',
 })
 export class FarmRegisterPage extends BasePage{
-  cities;
-  states;
+
   clients;
   loader: Loading;
   culturesSelected: Culture[] = [];
@@ -42,10 +41,13 @@ export class FarmRegisterPage extends BasePage{
     name:'',
     cultures:''
   };
-  @Input() address: AddressInterface = {
-    CEP: '',
-    street_name: '',
-    street_number: ''
+  @Input() address:AddressInterface={
+    CEP:'',
+    street_name:'',
+    street_number:'',
+    city:'',
+    state:'',
+    country:''
   };
   value_ha;
   capital_tied;
@@ -143,27 +145,6 @@ export class FarmRegisterPage extends BasePage{
       for (let i = 0; i < data.length; i++) {
         this.culturesSelected.push({ id: data[i].id, name: data[i].name, selected: false });
       }
-    })
-  }
-
-  getCitiesAndStates() {
-    this.cityProvider.getAll().subscribe((data: any) => {
-      this.cities = data;
-      console.log(this.cities);
-    }, (err: any) => {
-      if (err instanceof Error) {
-
-      }
-      else {
-        console.log(err.status);
-      }
-    });
-
-    this.stateProvider.getAll().subscribe((data: any) => {
-      this.states = data;
-    }, (err: any) => {
-      if (err instanceof Error) { }
-      else { }
     })
   }
 

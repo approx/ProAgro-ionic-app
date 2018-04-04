@@ -10,6 +10,7 @@ import { FarmInterface, FarmModel } from '../../model/farm.model';
 import { FarmProvider } from '../../providers/farm/farm';
 import { ClientModel } from '../../model/client.model';
 import { BasePage } from "../base/base";
+import { DomSanitizer } from "@angular/platform-browser";
 
 /**
  * Generated class for the FarmEditPage page.
@@ -33,8 +34,6 @@ import { BasePage } from "../base/base";
 })
 export class FarmEditPage extends BasePage{
 
-  cities;
-  states;
   clients;
   loaded:boolean=false;
   loader: Loading;
@@ -43,15 +42,19 @@ export class FarmEditPage extends BasePage{
     name:'',
     cultures:''
   };
-  @Input() address: AddressInterface = {
-    CEP: '',
-    street_name: '',
-    street_number: ''
+  @Input() address:AddressInterface={
+    CEP:'',
+    street_name:'',
+    street_number:'',
+    city:'',
+    state:'',
+    country:''
   };
   value_ha;
   capital_tied;
   remuneration;
   getedCultures;
+  mapUrl;
 
   constructor(
     public navCtrl: NavController,
@@ -63,7 +66,8 @@ export class FarmEditPage extends BasePage{
     private cultureProvider: CultureProvider,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private farmProvider:FarmProvider
+    private farmProvider:FarmProvider,
+    private sanitizer:DomSanitizer,
   ) {
     super(navCtrl);
   }
@@ -85,10 +89,9 @@ export class FarmEditPage extends BasePage{
     this.farm.name = farm.name;
     this.farm.capital_tied = farm.capital_tied;
     this.farm.client_id = farm.client.id;
-    this.address = farm.address;
-    this.address.city_id = (<AddressModel>this.address).city.id;
-    this.address.state_id = (<AddressModel>this.address).city.state.id;
     this.farm.ha = farm.ha;
+    this.farm.lat = farm.lat;
+    this.farm.lng = farm.lng;
     this.onHectarValueChange(farm.value_ha.toString());
     this.getedCultures = farm.cultures;
     this.findInCultures();
@@ -105,6 +108,14 @@ export class FarmEditPage extends BasePage{
           }
       }
     }
+  }
+
+  setMapUrl(){
+    if(this.farm.lat&&this.farm.lng){
+      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.farm.lat+","+this.farm.lng;
+      this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapUrl);
+    }
+    console.log('changed')
   }
 
   onHectarValueChange($event:any){
@@ -130,7 +141,6 @@ export class FarmEditPage extends BasePage{
     console.log('ionViewDidLoad FarmRegisterPage');
     this.getClients();
     this.getCultures();
-    this.getCitiesAndStates();
     this.getFarm();
   }
 
@@ -181,27 +191,6 @@ export class FarmEditPage extends BasePage{
     })
   }
 
-  getCitiesAndStates() {
-    this.cityProvider.getAll().subscribe((data: any) => {
-      this.cities = data;
-      console.log(this.cities);
-    }, (err: any) => {
-      if (err instanceof Error) {
-
-      }
-      else {
-        console.log(err.status);
-      }
-    });
-
-    this.stateProvider.getAll().subscribe((data: any) => {
-      this.states = data;
-    }, (err: any) => {
-      if (err instanceof Error) { }
-      else { }
-    })
-  }
-
   showNumber(){
     this.farm.cultures='';
     let insertIndex=0;
@@ -225,11 +214,9 @@ export class FarmEditPage extends BasePage{
 
   Update() {
     this.Wait();
-    this.addressProvider.update(this.address).subscribe((data)=>{
-      this.setCultureToSend();
-      this.farmProvider.update(this.farm).subscribe((data)=>{
+    this.setCultureToSend();
+    this.farmProvider.update(this.farm).subscribe((data)=>{
       this.SuccessAlert();
-      },(err)=>{this.ErrorAlert()})
     },(err)=>{this.ErrorAlert()})
   }
 }

@@ -27,8 +27,6 @@ import { BasePage } from "../base/base";
 })
 export class ClientEditPage extends BasePage{
 
-  state_id: number;
-  cities:any;
   states:any;
   loader:Loading;
   loaded:boolean = false;
@@ -42,7 +40,10 @@ export class ClientEditPage extends BasePage{
   @Input() address:AddressInterface={
     CEP:'',
     street_name:'',
-    street_number:''
+    street_number:'',
+    city:'',
+    state:'',
+    country:''
   };
 
   constructor(
@@ -59,28 +60,6 @@ export class ClientEditPage extends BasePage{
     super(navCtrl);
   }
 
-  getCities(){
-    this.cityProvider.getAll().subscribe((data:any)=>{
-      this.cities=data;
-      console.log(this.cities);
-    },(err:any)=>{
-      if(err instanceof Error){
-
-      }
-      else{
-        console.log(err.status);
-      }
-    });
-  }
-
-  getStates(){
-    this.stateProvider.getAll().subscribe((data:any)=>{
-      this.states=data;
-    },(err:any)=>{
-      if(err instanceof Error){}
-      else{}
-    })
-  }
 
   Update(){
     this.message.Wait();
@@ -109,8 +88,6 @@ export class ClientEditPage extends BasePage{
       this.clientProvider.get(this.navParams.get('client_id')).subscribe((data:ClientModel)=>{
         this.client = data;
         this.address = data.address;
-        this.state_id = data.address.city.state.id;
-        this.address.city_id = data.address.city.id;
         this.loaded=true;
         console.log(this.address);
       },(err:any)=>{
@@ -123,16 +100,12 @@ export class ClientEditPage extends BasePage{
     }
     else{
       this.address = (<ClientModel>this.client).address;
-      this.state_id = (<ClientModel>this.client).address.city.state.id;
-      this.address.city_id = (<ClientModel>this.client).address.city.id;
       this.loaded=true;
     }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClientEditPage');
-    this.getCities();
-    this.getStates();
     this.getClient();
   }
 
