@@ -11,21 +11,65 @@
       <ion-row style="align-items: flex-end;">
         <ion-col col-12 col-md-6 col-lg-6>
           <ion-item padding-top>
-            <ion-label>Atividade*</ion-label>
-            <ion-select [(ngModel)]="activity_type" (ngModelChange)="selectActivity($event)" required name="activityType">
-              <ion-option *ngFor="let activityType of activityTypes" [value]="activityType">{{activityType.id}} - {{activityType.name}}</ion-option>
+            <ion-label>Fazenda*</ion-label>
+            <ion-select [(ngModel)]="farmSelected" (ngModelChange)="selectFarm()" required name="farm">
+              <ion-option *ngFor="let farm of farms" [value]="farm.id">{{farm.id}} - {{farm.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-6>
+          <ion-item padding-top>
+            <ion-label>Talhão*</ion-label>
+            <ion-select [(ngModel)]="fieldSelected" (ngModelChange)="selectField()" required name="field">
+              <ion-option *ngFor="let field of filteredFields" [value]="field.id">{{field.id}} - {{field.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-6>
+          <ion-item padding-top>
+            <ion-label>Safra*</ion-label>
+            <ion-select [(ngModel)]="activity.crop_id" (ngModelChange)="selectCrop()" required name="crop">
+              <ion-option *ngFor="let crop of filteredCrops" [value]="crop.id">{{crop.id}} - {{crop.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-6>
+          <ion-item padding-top>
+            <ion-label>Atividade*</ion-label>
+            <ion-select [(ngModel)]="activity.activity_type_id" required name="type">
+              <ion-option *ngFor="let type of activityTypes" [value]="type.id">{{type.id}} - {{type.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-3>
           <ion-item>
             <ion-label floating>Valor total*</ion-label>
-            <ion-input type="text" [(modelMask)]="unity_value" mask="R$ 9" currency="true" name="unity_value" ></ion-input>
+            <ion-input type="text" [(modelMask)]="activity.total_value" mask="R$ 9" currency="true" name="total_value" ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-3>
+          <ion-item padding-top>
+            <ion-label>Unidade*</ion-label>
+            <ion-select [(ngModel)]="activity.unity_id" required name="unity">
+              <ion-option *ngFor="let unity of unities" value="{{unity.id}}">{{unity.id}} - {{unity.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-3>
+          <ion-item>
+            <ion-label>Data da operação</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" required max="{{maxDate}}" pickerFormat="DD MM YYYY" name="operation_date" [(ngModel)]="activity.operation_date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-3>
+          <ion-item>
+            <ion-label>Data do pagamento</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" required max="{{maxDate}}" pickerFormat="DD MM YYYY" name="payment_date" [(ngModel)]="activity.payment_date"></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row margin-top class="justifyCenter" margin-bottom>
-        <button type="submit" [disabled]="!RegisterForm.form.valid || !cropsRegister.length>0" ion-button col-12 col-md-3>Cadastrar</button>
+        <button type="submit" [disabled]="!RegisterForm.form.valid " ion-button col-12 col-md-3>Cadastrar</button>
       </ion-row>
     </ion-grid>
   </form>

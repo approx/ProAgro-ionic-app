@@ -71,9 +71,12 @@
         <td class="hide-md" >{{activity.crop.field.farm.name}}</td>
         <td class="hide-md" >{{activity.crop.field.name}}</td>
         <td class="hide-md" >{{activity.crop.name}}</td>
-        <td class="hide-md" >{{activity.dose}}{{activity.unity.id}}/ha</td>
-        <td class="hide-lg" >{{activity.quantity}}{{activity.unity.id}}</td>
-        <td class="hide-md" >R$ {{activity.value_per_ha}}</td>
+        <td class="hide-md" *ngIf="activity.dose">{{activity.dose}}{{activity.unity.id}}/ha</td>
+        <td class="hide-md" *ngIf="!activity.dose">--</td>
+        <td class="hide-lg" *ngIf="activity.quantity">{{activity.quantity}}{{activity.unity.id}}</td>
+        <td class="hide-md" *ngIf="!activity.quantity">--</td>
+        <td class="hide-md" *ngIf="activity.value_per_ha">R$ {{activity.value_per_ha}}</td>
+        <td class="hide-md" *ngIf="!activity.value_per_ha">--</td>
         <td>R$ {{activity.total_value}}</td>
       </tr>
       <tr *ngIf="activities.length<=0&&loaded">
