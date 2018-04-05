@@ -44,7 +44,6 @@ export class ModelMaskDirective implements AfterViewInit {
 
   ngAfterViewInit(){
     this.component = this.viewContainerRef[ '_data' ].componentView.component;
-
   }
 
   // @HostListener('keydown',['$event'])
@@ -60,23 +59,33 @@ export class ModelMaskDirective implements AfterViewInit {
   //   // this.setValueOnMOdel();
   // }
 
+  canPutNumber():boolean{
+    let position = this.target.value.search(this.maskPlaceHolder);
+    return this.mask[position]=="9"||this.mask[position]==this.maskPlaceHolder;
+  }
+
+  canPutLeter():boolean{
+    let position = this.target.value.search(this.maskPlaceHolder);
+    return this.mask[position]=="A"||this.mask[position]==this.maskPlaceHolder;
+  }
+
   @HostListener('keydown',['$event'])
   getValue(keyEvent){
     keyEvent.preventDefault();
-    if(this.modelValue==undefined) this.modelValue='';
+    if(this.modelMask==undefined) this.modelMask='';
 
-    if ((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105)){
-      this.modelValue+=keyEvent.key;
+    if (((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105))&&this.canPutNumber()){
+      this.modelMask+=keyEvent.key;
     }
-    else if (keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90){
-      this.modelValue+=keyEvent.key;
+    else if (keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90&&this.canPutLeter()){
+      this.modelMask+=keyEvent.key;
     }
     else if(keyEvent.keyCode == 8){
-      this.modelValue = this.modelValue.substring(0,this.modelValue.length-1);
-      // console.log(this.modelValue);
+      this.modelMask = this.modelMask.substring(0,this.modelMask.length-1);
+      // console.log(this.modelMask);
     }
-    this.component.value = this.modelValue;
-    this.target.value = this.maskedValue(this.modelValue);
+    this.component.value = this.modelMask;
+    this.target.value = this.maskedValue(this.modelMask);
     this.setCursor();
     this.ablleToAdd=false;
     console.log(keyEvent);
@@ -85,22 +94,22 @@ export class ModelMaskDirective implements AfterViewInit {
   @HostListener('keyup',['$event'])
   keyup(){
     console.log('test');
-    this.target.value = this.maskedValue(this.modelValue);
+    this.target.value = this.maskedValue(this.modelMask);
     this.setCursor();
   }
 
   @HostListener('blur',['$event'])
   blur(event){
-    if(this.modelValue==undefined||this.modelValue==''){
+    if(this.modelMask==undefined||this.modelMask==''){
       this.target.value = '';
     }else{
-      this.target.value = this.maskedValue(this.modelValue);
+      this.target.value = this.maskedValue(this.modelMask);
       this.setCursor();
     }
   }
 
   getMask():string{
-    let mask = this.mask.replace(/9/g,this.maskPlaceHolder);
+    let mask = this.mask.replace(/9|A/g,this.maskPlaceHolder);
     return mask;
   }
 
@@ -115,7 +124,7 @@ export class ModelMaskDirective implements AfterViewInit {
   setCursor(){
     let maskedValueWithoutPlaceHolder = this.target.value.replace(new RegExp(this.maskPlaceHolder,'g'),'');
     let position = this.target.value.search(this.maskPlaceHolder);
-    if(this.modelValue){
+    if(this.modelMask){
       this.target.selectionStart= position!=-1 ? position : this.target.value.length
       this.target.selectionEnd= position!=-1 ? position : this.target.value.length
     }else{
@@ -146,15 +155,15 @@ export class ModelMaskDirective implements AfterViewInit {
   @HostListener('click',['$event'])
   focus(event){
     this.target = event.target;
-    if(this.modelValue==undefined){
+    if(this.modelMask==undefined){
       this.target.value = this.getMask();
     }
     else{
-      this.target.value = this.maskedValue(this.modelValue);
+      this.target.value = this.maskedValue(this.modelMask);
       this.setCursor();
     }
     this.setCursor();
-    console.log(this.modelValue);
+    console.log(this.modelMask);
     this.setPlaceHolder();
   }
 
