@@ -26,6 +26,7 @@ export class ModelMaskDirective implements AfterViewInit {
 
   @Input() mask:string;
   @Input() maskPlaceHolder:string;
+  @Input() currency:boolean = false;
 
   @Input()
   get modelMask(){
@@ -46,6 +47,15 @@ export class ModelMaskDirective implements AfterViewInit {
     this.component = this.viewContainerRef[ '_data' ].componentView.component;
   }
 
+  countLengthToDigit():number{
+    let mask = this.getMask();
+    let count = 0;
+    for (let i = 0; i < mask.length; i++) {
+        if(mask[i]==this.maskPlaceHolder) count++;
+    }
+    return count;
+  }
+
   // @HostListener('keydown',['$event'])
   // keyboardChange(keyEvent:KeyboardEvent){
   //   if(keyEvent.keyCode>=48&&keyEvent.keyCode<=57||keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90){
@@ -60,8 +70,13 @@ export class ModelMaskDirective implements AfterViewInit {
   // }
 
   canPutNumber():boolean{
-    let position = this.target.value.search(this.maskPlaceHolder);
-    return this.mask[position]=="9"||this.mask[position]==this.maskPlaceHolder;
+    if(this.currency){
+      console.log(this.target.value.length<=21)
+      return this.target.value.length<=20;
+    }else{
+      let position = this.target.value.search(this.maskPlaceHolder);
+      return this.mask[position]=="9"||this.mask[position]==this.maskPlaceHolder;
+    }
   }
 
   canPutLeter():boolean{
@@ -74,26 +89,53 @@ export class ModelMaskDirective implements AfterViewInit {
     keyEvent.preventDefault();
     if(this.modelMask==undefined) this.modelMask='';
 
-    if (((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105))&&this.canPutNumber()){
-      this.modelMask+=keyEvent.key;
-    }
-    else if (keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90&&this.canPutLeter()){
-      this.modelMask+=keyEvent.key;
-    }
-    else if(keyEvent.keyCode == 8){
-      this.modelMask = this.modelMask.substring(0,this.modelMask.length-1);
-      // console.log(this.modelMask);
+    if(!this.currency){
+      this.addKeyToMask(keyEvent);
+    }else{
+      this.addKeyToCurrency(keyEvent);
     }
     this.component.value = this.modelMask;
     this.target.value = this.maskedValue(this.modelMask);
     this.setCursor();
     this.ablleToAdd=false;
-    console.log(keyEvent);
+
+  }
+
+  addKeyToMask(keyEvent){
+    if (((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105))&&this.canPutNumber()){
+      this.modelMask+=keyEvent.key;
+    }
+    else if (keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90&&this.canPutLeter()){
+      this.modelMask+=keyEvent.key;
+    }else if(keyEvent.keyCode == 8){
+      this.modelMask = this.modelMask.substring(0,this.modelMask.length-1);
+      // console.log(this.modelMask);
+    }
+  }
+
+  addKeyToCurrency(keyEvent){
+    if((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105&&this.canPutNumber())){
+      console.log(this.modelMask);
+      this.modelMask=Math.round(this.modelMask*100);
+        console.log(this.modelMask);
+        this.modelMask = this.modelMask.toString();
+        console.log(this.modelMask);
+        this.modelMask+=keyEvent.key;
+        console.log(this.modelMask);
+        this.modelMask = parseInt(this.modelMask)/100;
+        console.log(this.modelMask);
+    }else if(keyEvent.keyCode == 8){
+      this.modelMask=Math.round(this.modelMask*100);
+      this.modelMask = this.modelMask.toString();
+      this.modelMask = this.modelMask.substring(0,this.modelMask.length-1);
+      this.modelMask = parseFloat(this.modelMask!='' ? this.modelMask: 0)/100;
+
+      // console.log(this.modelMask);
+    }
   }
 
   @HostListener('keyup',['$event'])
   keyup(){
-    console.log('test');
     this.target.value = this.maskedValue(this.modelMask);
     this.setCursor();
   }
@@ -109,33 +151,79 @@ export class ModelMaskDirective implements AfterViewInit {
   }
 
   getMask():string{
-    let mask = this.mask.replace(/9|A/g,this.maskPlaceHolder);
+    let mask
+    if(!this.currency){
+      mask = this.mask.replace(/9|A/g,this.maskPlaceHolder);
+    }else{
+      mask = this.mask.replace(/9|A/g,'');
+      if(this.modelMask==undefined){
+        mask+='0,00';
+      }
+    }
     return mask;
+  }
+
+  stringPutInPosition(s:string,position:number,value:string){
+    let splitedString = [s.substring(0,position),s.substring(position)];
+    return splitedString[0]+value+splitedString[1];
   }
 
   maskedValue(value):string{
     let masked = this.getMask();
-    for (let i = 0; i < value.length; i++) {
+    if(!this.currency){
+      for (let i = 0; i < value.length; i++) {
         masked = masked.replace(this.maskPlaceHolder,value[i]);
+      }
+    }else{
+      // console.log(value)
+      if(value==''){
+        masked+='0,00';
+      }else{
+        let string = value.toFixed(2).toString();
+        string =  string.replace('.',',');
+        let splited = string.split(',');
+        splited[0] = this.stringPutDotsInNumbersToBig(splited[0]);
+        masked+= splited[0]+','+splited[1];
+      }
     }
     return masked;
   }
 
+  stringPutDotsInNumbersToBig(s:string):string{
+    let positionsToAddDot=[];
+    let index=0;
+    for (let i = s.length-1; i >=0 ; i--) {
+        index++;
+        if(index>=4){
+          s = this.stringPutInPosition(s,i+1,'.');
+          index=0;
+          i++;
+        }
+    }
+    return s;
+  }
+
   setCursor(){
-    let maskedValueWithoutPlaceHolder = this.target.value.replace(new RegExp(this.maskPlaceHolder,'g'),'');
-    let position = this.target.value.search(this.maskPlaceHolder);
-    if(this.modelMask){
-      this.target.selectionStart= position!=-1 ? position : this.target.value.length
-      this.target.selectionEnd= position!=-1 ? position : this.target.value.length
+    if(!this.currency){
+      let maskedValueWithoutPlaceHolder = this.target.value.replace(new RegExp(this.maskPlaceHolder,'g'),'');
+      let position = this.target.value.search(this.maskPlaceHolder);
+      if(this.modelMask){
+        this.target.selectionStart= position!=-1 ? position : this.target.value.length
+        this.target.selectionEnd= position!=-1 ? position : this.target.value.length
+      }else{
+        this.target.selectionStart=  0;
+        this.target.selectionEnd=  0;
+      }
     }else{
-      this.target.selectionStart=  0;
-      this.target.selectionEnd=  0;
+      this.target.selectionStart= this.target.value.length;
+      this.target.selectionEnd= this.target.value.length;
     }
   }
 
   unMask(value):string{
     let mask = this.getMask();
     let positionsToRemove = [];
+    let ignoreNext=false;
     for (let i = 0; i < value.length; i++) {
       if(value[i]==this.maskPlaceHolder){
         positionsToRemove.push(i);
@@ -163,7 +251,7 @@ export class ModelMaskDirective implements AfterViewInit {
       this.setCursor();
     }
     this.setCursor();
-    console.log(this.modelMask);
+    // console.log(this.modelMask);
     this.setPlaceHolder();
   }
 

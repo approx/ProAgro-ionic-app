@@ -20,16 +20,8 @@
         <ion-col col-12 col-md-6 col-lg-6>
           <ion-item>
             <ion-label floating>Valor total*</ion-label>
-            <ion-input type="text" [(modelMask)]="unity_value" mask="___.___.___-__" maskPlaceHolder="_" name="unity_value" ></ion-input>
+            <ion-input type="text" [(modelMask)]="unity_value" mask="R$ 9" currency="true" name="unity_value" ></ion-input>
           </ion-item>
-          {{unity_value}}
-        </ion-col>
-        <ion-col col-12 col-md-6 col-lg-6>
-          <ion-item>
-            <ion-label floating>test*</ion-label>
-            <ion-input type="text" [(modelMask)]="test" mask="(99)9 9999-9999" maskPlaceHolder="_" name="unity_value" ></ion-input>
-          </ion-item>
-          {{test}}
         </ion-col>
       </ion-row>
       <ion-row margin-top class="justifyCenter" margin-bottom>
