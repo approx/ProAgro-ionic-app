@@ -53,13 +53,13 @@
         <ion-col col-12 col-md-6>
           <ion-item>
             <ion-label floating>Lat</ion-label>
-            <ion-input type="text" (change)="setMapUrl()" required [(ngModel)]="field.lat" name="lat" value=""></ion-input>
+            <ion-input type="text" (change)="setMapUrl()" [(ngModel)]="field.lat" name="lat" value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6>
           <ion-item>
             <ion-label floating>Lng</ion-label>
-            <ion-input type="text" (change)="setMapUrl()" required [(ngModel)]="field.lng" name="lng" value=""></ion-input>
+            <ion-input type="text" (change)="setMapUrl()" [(ngModel)]="field.lng" name="lng" value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col *ngIf="field.lat&&field.lng&&mapUrl" col-12 col-md-12>
