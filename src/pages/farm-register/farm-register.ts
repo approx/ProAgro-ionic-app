@@ -100,7 +100,6 @@ export class FarmRegisterPage extends BasePage{
     console.log('ionViewDidLoad FarmRegisterPage');
     this.getClients();
     this.getCultures();
-    this.getCitiesAndStates();
     this.setParamsItens();
   }
 
