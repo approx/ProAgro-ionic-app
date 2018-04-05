@@ -31,6 +31,7 @@ import { ActivityRegisterPage } from '../pages/activity-register/activity-regist
 import { ActivityTypePage } from '../pages/activity-type/activity-type';
 import { UnityPage } from '../pages/unity/unity';
 import { UserRegisterPage } from "../pages/user-register/user-register";
+import { ActivityRegisterTotalPage } from '../pages/activity-register-total/activity-register-total';
 
 @Component({
   templateUrl: 'app.html'
@@ -160,8 +161,14 @@ export class MyApp {
           itensToogle:false
         },
         {
-          name:'Cadastrar',
+          name:'Cadastrar por ha',
           component:ActivityRegisterPage,
+          role:'master|employe',
+          itensToogle:false
+        },
+        {
+          name:'Cadastrar por valor total',
+          component:ActivityRegisterTotalPage,
           role:'master|employe',
           itensToogle:false
         },
