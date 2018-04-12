@@ -72,6 +72,10 @@ export class ActivityRegisterTotalPage extends BasePage {
     this.getUnities();
   }
 
+  logForm(form){
+    console.log(form);
+  }
+
   filterFields(){
     this.filteredFields = this.fields.filter((field)=>{
       return field.farm.id == this.farmSelected;

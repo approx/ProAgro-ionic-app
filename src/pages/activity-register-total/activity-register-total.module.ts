@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { ActivityRegisterTotalPage } from './activity-register-total';
 import { NgxMaskModule } from 'ngx-mask';
 import { DirectivesModule } from '../../directives/directives.module';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { DirectivesModule } from '../../directives/directives.module';
   ],
   imports: [
     DirectivesModule,
+    ComponentsModule,
     IonicPageModule.forChild(ActivityRegisterTotalPage),
   ],
 })

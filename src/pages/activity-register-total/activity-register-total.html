@@ -6,7 +6,7 @@
 -->
 <ion-content padding>
   <h1>Registrar nova Atividade</h1>
-  <form (ngSubmit)="Register()" #RegisterForm="ngForm">
+  <form (ngSubmit)="logForm(RegisterForm)" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
       <ion-row style="align-items: flex-end;">
         <ion-col col-12 col-md-6 col-lg-6>
@@ -32,6 +32,9 @@
               <ion-option *ngFor="let crop of filteredCrops" [value]="crop.id">{{crop.id}} - {{crop.name}}</ion-option>
             </ion-select>
           </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-6>
+          <filter label="Atividade" [form]="RegisterForm" [objs]="activityTypes"></filter>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-6>
           <ion-item padding-top>
@@ -69,8 +72,11 @@
         </ion-col>
       </ion-row>
       <ion-row margin-top class="justifyCenter" margin-bottom>
-        <button type="submit" [disabled]="!RegisterForm.form.valid " ion-button col-12 col-md-3>Cadastrar</button>
+        <!-- <button type="submit" [disabled]="!RegisterForm.form.valid " ion-button col-12 col-md-3>Cadastrar</button> -->
+        <button type="submit"ion-button col-12 col-md-3>Cadastrar</button>
       </ion-row>
+      <pre>{{RegisterForm.form.valid}}</pre>
+
     </ion-grid>
   </form>
 </ion-content>
