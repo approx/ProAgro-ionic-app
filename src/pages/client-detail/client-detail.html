@@ -6,7 +6,7 @@
 -->
 
 <ion-content padding>
-  <h1 *ngIf="client">{{client.name}} - {{client.inscription_number}} <ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
+  <h1 *ngIf="client">{{client.name}}{{client.inscription_number}} <ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <ion-grid>
     <ion-row>
       <ion-col margin-bottom col-12 col-md-6>
@@ -42,7 +42,7 @@
     </ion-row>
     <ion-row *ngIf="client.farms.length<=0">
       <ion-col text-center col-12>
-        Nem uma fazenda cadastrada para este cliente,<a href="" (click)="openFarmRegister($event)">clique aqui</a> para cadastrar uma.
+        Nem uma fazenda cadastrada para este cliente, <a href="" (click)="openFarmRegister($event)"> clique aqui</a> para cadastrar uma.
       </ion-col>
     </ion-row>
   </ion-grid>

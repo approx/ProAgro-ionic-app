@@ -44,6 +44,12 @@ export class ClientDetailPage extends BasePage{
       console.log('geting client data')
       this.clientProvider.get(this.client_id).subscribe((data:ClientModel)=>{
         this.client = data;
+        if (this.client.inscription_number == null) {
+            this.client.inscription_number = '';
+        }
+        if (this.client.inscription_number != '') {
+            this.client.inscription_number = ' - ' + this.client.inscription_number;
+        }
       },(err:any)=>{
         if(err instanceof Error){
 

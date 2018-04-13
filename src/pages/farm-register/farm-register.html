@@ -31,25 +31,25 @@
       <ion-row>
         <ion-col col-12 col-md-6 col-lg-3>
           <ion-item no-padding>
-            <ion-label no-margin floating>Hectares</ion-label>
+            <ion-label no-margin floating>Hectares*</ion-label>
             <ion-input type="text" name="ha" (ionChange)="calculateValues()" [(ngModel)]="farm.ha" required value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-3>
           <ion-item no-padding>
-            <ion-label no-margin floating>Valor do hectar</ion-label>
+            <ion-label no-margin floating>Valor do hectar*</ion-label>
             <ion-input type="text" name="value_ha" (ngModelChange)="onHectarValueChange($event)" [(ngModel)]="value_ha" required value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-3>
           <ion-item no-padding>
-            <ion-label no-margin floating>Capital empatado em terra</ion-label>
+            <ion-label no-margin floating>Capital empatado em terra*</ion-label>
             <ion-input type="text" readonly="true" name="capital_tied" [(ngModel)]="capital_tied" required value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-3>
           <ion-item no-padding>
-            <ion-label no-margin floating>Remuneração ao mês</ion-label>
+            <ion-label no-margin floating>Remuneração ao mês*</ion-label>
             <ion-input type="text" readonly="true" name="remuneration" [(ngModel)]="remuneration" required value=""></ion-input>
           </ion-item>
         </ion-col>
@@ -58,13 +58,13 @@
         <ion-col col-12 col-md-6>
           <ion-item>
             <ion-label floating>Lat</ion-label>
-            <ion-input type="text" (change)="setMapUrl()" required [(ngModel)]="farm.lat" name="lat" value=""></ion-input>
+            <ion-input type="text" (change)="setMapUrl()" [(ngModel)]="farm.lat" name="lat" value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6>
           <ion-item>
             <ion-label floating>Lng</ion-label>
-            <ion-input type="text" (change)="setMapUrl()" required [(ngModel)]="farm.lng" name="lng" value=""></ion-input>
+            <ion-input type="text" (change)="setMapUrl()" [(ngModel)]="farm.lng" name="lng" value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col *ngIf="farm.lat&&farm.lng&&mapUrl" col-12 col-md-12>
