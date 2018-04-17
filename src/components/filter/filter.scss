@@ -1,0 +1,29 @@
+filter {
+  // position: relative;
+  .searchedBox{
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+    left: 21px;
+    right: 5px;
+    box-sizing: border-box;
+    border: #4a883f 1px solid;
+    border-top: none;
+    .iten{
+      &:hover{
+        background-color: #4a883f;
+        color: white;
+        cursor: pointer;
+      }
+      .inner{
+        box-sizing: border-box;
+        padding: 10px 5px;
+        margin: 0px 15px;
+        border-bottom: 1px solid gray;
+      }
+      box-sizing: border-box;
+      padding: 10px 0px;
+      padding-bottom: 0px;
+    }
+  }
+}

@@ -38,8 +38,8 @@ import { ActivityRegisterTotalPage } from '../pages/activity-register-total/acti
 })
 export class MyApp {
   rootPage:any = ClientListPage.name;
-
-  version = '1.1.2';
+  
+  version = '1.1.3';
 
   loged:boolean = false;
   user:UserModel;

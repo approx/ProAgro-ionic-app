@@ -13,7 +13,7 @@
           <ion-item padding-top>
             <ion-label>Fazenda*</ion-label>
             <ion-select [(ngModel)]="farmSelected" (ngModelChange)="selectFarm()" required name="farm">
-              <ion-option *ngFor="let farm of farms" [value]="farm.id">{{farm.id}} - {{farm.name}}</ion-option>
+              <ion-option *ngFor="let farm of farms" [value]="farm.id">{{farm.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -21,7 +21,7 @@
           <ion-item padding-top>
             <ion-label>Talhão*</ion-label>
             <ion-select [(ngModel)]="fieldSelected" (ngModelChange)="selectField()" required name="field">
-              <ion-option *ngFor="let field of filteredFields" [value]="field.id">{{field.id}} - {{field.name}}</ion-option>
+              <ion-option *ngFor="let field of filteredFields" [value]="field.id">{{field.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -29,16 +29,24 @@
           <ion-item padding-top>
             <ion-label>Safra*</ion-label>
             <ion-select [(ngModel)]="activity.crop_id" (ngModelChange)="selectCrop()" required name="crop">
-              <ion-option *ngFor="let crop of filteredCrops" [value]="crop.id">{{crop.id}} - {{crop.name}}</ion-option>
+              <ion-option *ngFor="let crop of filteredCrops" [value]="crop.id">{{crop.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-6>
-          <ion-item padding-top>
-            <ion-label>Atividade*</ion-label>
-            <ion-select [(ngModel)]="activity.activity_type_id" required name="type">
-              <ion-option *ngFor="let type of activityTypes" [value]="type.id">{{type.id}} - {{type.name}}</ion-option>
-            </ion-select>
+          <input type="hidden" required name="activityType" [(ngModel)]="activity.activity_type_id" [value]="activity_type">
+          <ion-item>
+            <select-searchable
+                name="atividade"
+                title="Atividade*"
+                [(ngModel)]="activityType"
+                [items]="activityTypes"
+                [canReset]="true"
+                itemValueField="id"
+                itemTextField="name"
+                [canSearch]="true"
+                (onChange)="portChange($event)">
+            </select-searchable>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-3>

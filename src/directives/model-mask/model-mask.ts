@@ -115,15 +115,15 @@ export class ModelMaskDirective implements AfterViewInit {
 
   addKeyToCurrency(keyEvent){
     if((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105&&this.canPutNumber())){
-      console.log(this.modelMask);
+      // console.log(this.modelMask);
       this.modelMask=Math.round(this.modelMask*100);
-        console.log(this.modelMask);
+        // console.log(this.modelMask);
         this.modelMask = this.modelMask.toString();
-        console.log(this.modelMask);
+        // console.log(this.modelMask);
         this.modelMask+=keyEvent.key;
-        console.log(this.modelMask);
+        // console.log(this.modelMask);
         this.modelMask = parseInt(this.modelMask)/100;
-        console.log(this.modelMask);
+        // console.log(this.modelMask);
     }else if(keyEvent.keyCode == 8){
       this.modelMask=Math.round(this.modelMask*100);
       this.modelMask = this.modelMask.toString();

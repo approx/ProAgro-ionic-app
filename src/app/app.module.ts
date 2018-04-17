@@ -58,6 +58,7 @@ import { FieldTypesProvider } from '../providers/field-types/field-types';
 import { UserRegisterProvider } from '../providers/user-register/user-register';
 import { RolesProvider } from '../providers/roles/roles';
 import { NgxMaskModule } from 'ngx-mask';
+import { SelectSearchableModule } from 'ionic-select-searchable';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { NgxMaskModule } from 'ngx-mask';
     CulturePageModule,
     PipesModule,
     IonicModule.forRoot(MyApp),
-    NgxMaskModule
+    NgxMaskModule,
+    SelectSearchableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

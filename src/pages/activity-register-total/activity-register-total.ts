@@ -15,6 +15,7 @@ import { UnityModel } from '../../model/unity.model';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
 import { ActivityIten } from '../activity-register/activity-register';
+import { SelectSearchable } from 'ionic-select-searchable';
 
 /**
  * Generated class for the ActivityRegisterTotalPage page.
@@ -22,6 +23,7 @@ import { ActivityIten } from '../activity-register/activity-register';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+
 
 @IonicPage()
 @Component({
@@ -41,6 +43,7 @@ export class ActivityRegisterTotalPage extends BasePage {
   unities:UnityModel[]=[];
   activity:ActivityInterface={};
   maxDate:string;
+  activityType:string;
 
   farmSelected:number;
   fieldSelected:number;
@@ -59,6 +62,15 @@ export class ActivityRegisterTotalPage extends BasePage {
     super(navCtrl);
   }
 
+  portChange(event: { component: SelectSearchable, value: any }) {
+    if (event.value != null) {
+      this.activity.activity_type_id = event.value.id;
+    } else {
+      this.activity.activity_type_id = '';
+    }
+    console.log('port:', event.value);
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ActivityRegisterTotalPage');
     this.getTypes();
@@ -70,6 +82,10 @@ export class ActivityRegisterTotalPage extends BasePage {
     this.getFields();
     this.getCrops();
     this.getUnities();
+  }
+
+  logForm(form){
+    console.log(form);
   }
 
   filterFields(){
@@ -115,6 +131,7 @@ export class ActivityRegisterTotalPage extends BasePage {
   }
 
   Register(){
+    //this.activity.activity_type_id = this.activity.activity_type_id.id;
     this.message.Wait();
     this.activityProvider.save(this.activity).subscribe((done)=>{
       this.message.SuccessAlert('Atividade registrada com sucesso!')
@@ -131,6 +148,11 @@ export class ActivityRegisterTotalPage extends BasePage {
   getTypes(){
     this.typesProvider.getAll().subscribe((data:ActivityTypeModel[])=>{
       this.activityTypes = data;
+      this.activityType = '';
+      for (var i = 0; i < this.activityTypes.length; i++) {
+        this.activityTypes[i].name = this.activityTypes[i].id + ' ' + this.activityTypes[i].name;
+      }
+      console.log(data);
     })
   }
 
