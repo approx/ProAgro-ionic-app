@@ -3,7 +3,7 @@
   <ion-input type="text" #input [(ngModel)]="searchText" required (blur)="Exit()" (ngModelChange)="Search()" name="activity_test" ></ion-input>
 </ion-item>
 <div *ngIf="searching" class="searchedBox">
-  <div class="iten" (click)="Select(iten)" *ngFor="let iten of searchedObjs">
+  <div class="iten" id="div_iten" (click)="Select(iten)" *ngFor="let iten of searchedObjs">
     <div class="inner">
       {{iten.id}} {{iten.name}}
     </div>
