@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 // import { Http } from '@angular/http';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -58,6 +58,9 @@ import { FieldTypesProvider } from '../providers/field-types/field-types';
 import { UserRegisterProvider } from '../providers/user-register/user-register';
 import { RolesProvider } from '../providers/roles/roles';
 import { NgxMaskModule } from 'ngx-mask';
+import localePtBr from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localePtBr);
 
 @NgModule({
   declarations: [
@@ -105,6 +108,7 @@ import { NgxMaskModule } from 'ngx-mask';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide : HTTP_INTERCEPTORS, useClass:AuthInterceptorProvider,multi:true },
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
     CookieProvider,
     AuthProvider,
     ClientProvider,

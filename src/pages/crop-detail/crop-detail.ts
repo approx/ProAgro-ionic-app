@@ -6,7 +6,6 @@ import { ActivityRegisterPage } from '../../pages/activity-register/activity-reg
 import { ActivityDetailPage } from '../../pages/activity-detail/activity-detail';
 import { CropEditPage } from "../crop-edit/crop-edit";
 import { CropRegisterSackPage } from "../crop-register-sack/crop-register-sack";
-import { ChartsModule } from 'ng2-charts';
 import { BasePage } from "../base/base";
 
 /**
@@ -117,8 +116,8 @@ export class CropDetailPage extends BasePage{
     this.total_value=0;
     this.total_value_ha=0;
     for (let i = 0; i < this.crop.activities.length; i++) {
-      this.total_value +=  this.crop.activities[i].total_value;
-      this.total_value_ha += this.crop.activities[i].value_per_ha;
+      this.total_value +=  this.crop.activities[i].total_value == null ? 0 : parseFloat(this.crop.activities[i].total_value.toString());
+      this.total_value_ha += this.crop.activities[i].value_per_ha == null ? 0 : parseFloat(this.crop.activities[i].value_per_ha.toString());
     }
   }
 
