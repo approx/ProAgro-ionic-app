@@ -111,12 +111,12 @@ export class FarmDetailPage extends BasePage{
   calculateTotal(){
     let monthDiff = this.diffInMonths(new Date(this.farm.created_at),new Date());
     this.total_remunaration = monthDiff * this.farm.remuneration;
-    this.total_value = this.farm.capital_tied+this.total_remunaration;
+    this.total_value = parseFloat(this.farm.capital_tied.toString())+parseFloat(this.total_remunaration.toString());
     this.total_depreciation_value = 0;
     if(this.farm.inventory_itens.length>0){
       for (let i = 0; i < this.farm.inventory_itens.length; i++) {
-          this.total_value+=this.farm.inventory_itens[i].price;
-          this.total_depreciation_value+=this.farm.inventory_itens[i].depreciation_value;
+          this.total_value+=parseFloat(this.farm.inventory_itens[i].price.toString());
+          this.total_depreciation_value+=parseFloat(this.farm.inventory_itens[i].depreciation_value.toString());
       }
     }
     this.total_depreciation_value = Math.round(this.total_depreciation_value*100)/100;
