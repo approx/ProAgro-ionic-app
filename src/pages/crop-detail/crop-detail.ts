@@ -98,10 +98,10 @@ export class CropDetailPage extends BasePage{
     for (let i = 0; i < this.crop.sack_solds.length; i++) {
         total_sacks+=this.crop.sack_solds[i].quantity;
     }
-    this.chartData = [
+    /*this.chartData = [
       {data:this.crop.expected,label:'Experado'},
       {data:total_sacks,label:'Alcançado'}
-    ]
+    ]*/
   }
 
   calculateTotalInventario(){
