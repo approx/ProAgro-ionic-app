@@ -16,7 +16,7 @@ import { BasePage } from "../base/base";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({segment:'crop/list'})
 @Component({
   selector: 'page-crop-list',
   templateUrl: 'crop-list.html',

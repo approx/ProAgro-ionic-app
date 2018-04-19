@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content padding *ngIf="crop">
-  <h1>{{crop.name}}<ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
+  <h1>{{crop.name}}<ion-icon class="Clickable" (click)="delete()" name="trash"></ion-icon><ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <ion-col col-12>
     <h3 margin-left>{{crop.initial_date | date:'dd/MM/yyyy'}} - {{crop.final_date | date:'dd/MM/yyyy'}}</h3>
     <div loader class=""><div [attr.loaded]="percentage"></div></div>
@@ -86,7 +86,7 @@
         <td class="hide-md" *ngIf="activity.value_per_ha">R$ {{activity.value_per_ha}}</td>
         <td class="hide-md" *ngIf="!activity.value_per_ha">--</td>
         <td>R$ {{activity.total_value}}</td>
-        <td><ion-icon class="Clickable" (click)="delete(activity)" name="trash"></ion-icon></td>
+        <td><ion-icon class="Clickable" (click)="deleteActivity(activity)" name="trash"></ion-icon></td>
       </tr>
       <tr>
         <th>Total</th>

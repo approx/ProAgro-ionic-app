@@ -11,6 +11,7 @@ import { CropRegisterSackPage } from "../crop-register-sack/crop-register-sack";
 import { ChartsModule } from 'ng2-charts';
 import { BasePage } from "../base/base";
 import { MessagesProvider } from '../../providers/messages/messages';
+import { CropListPage } from '../crop-list/crop-list';
 
 /**
  * Generated class for the CropDetailPage page.
@@ -96,7 +97,19 @@ export class CropDetailPage extends BasePage{
     }
   }
 
-  delete(activity:ActivityModel){
+  delete(){
+    this.message.ShowConfirmMessage('Deletar Safra',"tem certeza que deseja deletar está safra? todas as atividades relacionadas a ela também serão deletadas",()=>{
+      this.message.Wait();
+      this.cropProvider.delete(this.crop.id).subscribe((response)=>{
+        this.message.SuccessAlert('Safra deletada com sucesso!');
+        this.navCtrl.push(CropListPage.name);
+      },(err)=>{
+        this.message.ErrorAlert();
+      })
+    });
+  }
+
+  deleteActivity(activity:ActivityModel){
     this.message.ShowConfirmMessage('Deletar atividade','tem certeza que deseja deletar está atividade?',()=>{
       this.message.Wait();
       this.activityProvider.delete(activity.id).subscribe((response)=>{
