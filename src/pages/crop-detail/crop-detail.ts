@@ -3,11 +3,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CropModel } from '../../model/crop.model';
 import { CropProvider } from '../../providers/crop/crop';
 import { ActivityRegisterPage } from '../../pages/activity-register/activity-register';
+import { ActivityModel } from '../../model/activity.model';
+import { ActivityProvider } from '../../providers/activity/activity';
 import { ActivityDetailPage } from '../../pages/activity-detail/activity-detail';
 import { CropEditPage } from "../crop-edit/crop-edit";
 import { CropRegisterSackPage } from "../crop-register-sack/crop-register-sack";
 import { ChartsModule } from 'ng2-charts';
 import { BasePage } from "../base/base";
+import { MessagesProvider } from '../../providers/messages/messages';
+import { CropListPage } from '../crop-list/crop-list';
 
 /**
  * Generated class for the CropDetailPage page.
@@ -50,7 +54,7 @@ export class CropDetailPage extends BasePage{
   };
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider,private message:MessagesProvider,private activityProvider:ActivityProvider,) {
     super(navCtrl);
   }
 
@@ -93,15 +97,40 @@ export class CropDetailPage extends BasePage{
     }
   }
 
+  delete(){
+    this.message.ShowConfirmMessage('Deletar Safra',"tem certeza que deseja deletar está safra? todas as atividades relacionadas a ela também serão deletadas",()=>{
+      this.message.Wait();
+      this.cropProvider.delete(this.crop.id).subscribe((response)=>{
+        this.message.SuccessAlert('Safra deletada com sucesso!');
+        this.navCtrl.push(CropListPage.name);
+      },(err)=>{
+        this.message.ErrorAlert();
+      })
+    });
+  }
+
+  deleteActivity(activity:ActivityModel){
+    this.message.ShowConfirmMessage('Deletar atividade','tem certeza que deseja deletar está atividade?',()=>{
+      this.message.Wait();
+      this.activityProvider.delete(activity.id).subscribe((response)=>{
+        this.message.SuccessAlert('Atividade deletada com sucesso!',()=>{
+          this.ionViewDidLoad();
+        });
+      },(err)=>{
+        this.message.ErrorAlert();
+      })
+    })
+  }
+
   setChartData(){
     let total_sacks = 0;
     for (let i = 0; i < this.crop.sack_solds.length; i++) {
         total_sacks+=this.crop.sack_solds[i].quantity;
     }
-    /*this.chartData = [
-      {data:this.crop.expected,label:'Experado'},
-      {data:total_sacks,label:'Alcançado'}
-    ]*/
+    // this.chartData = [
+    //   {data:this.crop.expected,label:'Experado'},
+    //   {data:total_sacks,label:'Alcançado'}
+    // ]
   }
 
   calculateTotalInventario(){

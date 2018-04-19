@@ -8,6 +8,9 @@ import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 import { ActivityRegisterPage } from '../../pages/activity-register/activity-register';
 import { FieldEditPage } from "../field-edit/field-edit";
 import { BasePage } from "../base/base";
+import { FieldListPage } from '../field-list/field-list';
+
+import { MessagesProvider } from '../../providers/messages/messages';
 
 /**
  * Generated class for the FieldDetailPage page.
@@ -39,12 +42,24 @@ export class FieldDetailPage extends BasePage{
     }
   }]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private fieldProvider:FieldProvider,private sanitizer:DomSanitizer) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private fieldProvider:FieldProvider,private sanitizer:DomSanitizer,private message:MessagesProvider) {
     super(navCtrl);
   }
 
   openCropPage(crop){
     this.navCtrl.push(CropDetailPage.name,{crop_id:crop.id});
+  }
+
+  delete(){
+    this.message.ShowConfirmMessage('Deletar talhão',"tem certeza que deseja deletar este talhão? todas as atividades e safras relacionadas a ele também serão deletados",()=>{
+      this.message.Wait();
+      this.fieldProvider.delete(this.field.id).subscribe((response)=>{
+        this.message.SuccessAlert('Safra deletada com sucesso!');
+        this.navCtrl.push(FieldListPage.name);
+      },(err)=>{
+        this.message.ErrorAlert();
+      })
+    });
   }
 
   openEditPage(event:MouseEvent){
