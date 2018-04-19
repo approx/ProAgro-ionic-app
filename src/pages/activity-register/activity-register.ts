@@ -14,6 +14,7 @@ import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
+import { SelectSearchable } from 'ionic-select-searchable';
 
 /**
  * Generated class for the ActivityRegisterPage page.
@@ -58,6 +59,7 @@ export class ActivityRegisterPage extends BasePage{
   total_value:string='';
   finished_crops:boolean=false;
   cropsRegister:ActivityIten[]=[];
+  activityType:string;
 
   sended=0;
   totalToSend;
@@ -75,6 +77,16 @@ export class ActivityRegisterPage extends BasePage{
   ) {
     super(navCtrl);
 
+  }
+
+  portChange(event: { component: SelectSearchable, value: any }) {
+    if (event.value != null) {
+      this.activity_type = event.value;
+      this.selectActivity(event.value);
+    } else {
+      this.activity_type = null;
+    }
+    console.log('port:', event.value);
   }
 
   getUnities(){
@@ -112,10 +124,10 @@ export class ActivityRegisterPage extends BasePage{
 
   selectActivity(activity:ActivityTypeModel){
     this.Calculate();
-    // this.unity_value = 'R$ '+activity.unity_value.toString();
+    console.log('foi');
+    console.log(activity);
     this.activity.activity_type_id = activity.id.toString();
     this.activity.unity_id = activity.unity_id;
-    console.log('foi');
   }
 
   addCrop(crop:CropModel){
@@ -169,6 +181,7 @@ export class ActivityRegisterPage extends BasePage{
         unity_id:this.activity.unity_id,
         operation_date:this.activity.operation_date,
         payment_date: this.activity.payment_date,
+        product_name: this.activity.product_name,
         quantity: this.cropsRegister[i].quantity,
         total_value: this.cropsRegister[i].total,
         value_per_ha: this.cropsRegister[i].value_per_ha,
@@ -306,6 +319,10 @@ export class ActivityRegisterPage extends BasePage{
   getTypes(){
     this.typesProvider.getAll().subscribe((data:ActivityTypeModel[])=>{
       this.activityTypes = data;
+      this.activityType = '';
+      for (var i = 0; i < this.activityTypes.length; i++) {
+        this.activityTypes[i].name = this.activityTypes[i].id + ' ' + this.activityTypes[i].name;
+      }
     })
   }
 
