@@ -12,7 +12,8 @@ export interface ActivityInterface{
   quantity?:number,
   unity_id?:number,
   dose?:number,
-  crop_id?:number
+  crop_id?:number,
+  product_name?:string
 }
 
 export class ActivityModel{
@@ -26,7 +27,8 @@ export class ActivityModel{
     public quantity:number,
     public unity:UnityModel,
     public dose:number,
-    public crop:CropModel
+    public crop:CropModel,
+    public product_name:string
   ){
 
   }

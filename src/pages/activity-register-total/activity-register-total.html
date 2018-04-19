@@ -25,7 +25,7 @@
             </ion-select>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6 col-lg-6>
+        <ion-col col-12 col-md-4 col-lg-4>
           <ion-item padding-top>
             <ion-label>Safra*</ion-label>
             <ion-select [(ngModel)]="activity.crop_id" (ngModelChange)="selectCrop()" required name="crop">
@@ -33,7 +33,7 @@
             </ion-select>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6 col-lg-6>
+        <ion-col col-12 col-md-4 col-lg-4>
           <input type="hidden" required name="activityType" [(ngModel)]="activity.activity_type_id" [value]="activity_type">
           <ion-item>
             <select-searchable
@@ -47,6 +47,12 @@
                 [canSearch]="true"
                 (onChange)="portChange($event)">
             </select-searchable>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-4>
+          <ion-item>
+            <ion-label floating>Nome*</ion-label>
+            <ion-input type="text" [(ngModel)]="activity.product_name" name="product_name" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-3>
