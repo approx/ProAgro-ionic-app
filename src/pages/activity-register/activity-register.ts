@@ -14,6 +14,7 @@ import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
+import { SelectSearchable } from 'ionic-select-searchable';
 
 /**
  * Generated class for the ActivityRegisterPage page.
@@ -83,7 +84,7 @@ export class ActivityRegisterPage extends BasePage{
       this.activity_type = event.value;
       this.selectActivity(event.value);
     } else {
-      this.activity_type = '';
+      this.activity_type = null;
     }
     console.log('port:', event.value);
   }
