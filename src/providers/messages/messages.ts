@@ -38,6 +38,15 @@ export class MessagesProvider {
     alert.present();
   }
 
+  ShowConfirmMessage(title:string,text:string,handler:()=>void){
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: text,
+      buttons: [{text:'Confirmar',handler:handler},'Cancelar']
+    });
+    alert.present();
+  }
+
   ErrorAlert(message?:string) {
     this.Done();
     if(!message){

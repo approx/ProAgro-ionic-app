@@ -169,6 +169,7 @@ export class ModelMaskDirective implements AfterViewInit {
   }
 
   maskedValue(value):string{
+    if(value==undefined) value='';
     let masked = this.getMask();
     if(!this.currency){
       for (let i = 0; i < value.length; i++) {
