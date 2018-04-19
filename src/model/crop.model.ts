@@ -10,7 +10,7 @@ export interface CropInterface{
   final_date?:Date|string,
   name:string,
   culture_id?:number,
-  expected?:number,
+  sack_expected?:number,
   itens?:string
 }
 
@@ -30,7 +30,7 @@ export class CropModel{
     public activities:ActivityModel[],
     public inventory_itens:InventoryItenModel[],
     public sack_solds:SackSold[],
-    public expected:number,
-    public sack?:number
+    public sack_expected:number,
+    public sack_produced?:number
   ){}
 }
