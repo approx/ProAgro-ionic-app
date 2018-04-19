@@ -11,6 +11,8 @@ import { FarmEditPage } from "../farm-edit/farm-edit";
 import { DomSanitizer } from "@angular/platform-browser";
 import { InventoryItenSalePage } from "../../pages/inventory-iten-sale/inventory-iten-sale";
 import { BasePage } from "../base/base";
+import { MessagesProvider } from '../../providers/messages/messages';
+import { FarmListPage } from '../farm-list/farm-list';
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -55,7 +57,7 @@ export class FarmDetailPage extends BasePage{
   total_depreciation_value:number;
   total_remunaration:number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider,private sanitizer:DomSanitizer,) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider,private sanitizer:DomSanitizer,private message:MessagesProvider) {
     super(navCtrl);
   }
 
@@ -91,6 +93,18 @@ export class FarmDetailPage extends BasePage{
       this.setMapUrl();
       this.calculateTotal();
     }
+  }
+
+  delete(){
+    this.message.ShowConfirmMessage('Deletar Fazenda',"tem certeza que deseja deletar esta fazenda? todas as atividades,safras e talhões relacionadas a ela também serão deletados",()=>{
+      this.message.Wait();
+      this.farmProvider.delete(this.farm.id).subscribe((response)=>{
+        this.message.SuccessAlert('Fazenda deletada com sucesso!');
+        this.navCtrl.push(FarmListPage.name);
+      },(err)=>{
+        this.message.ErrorAlert();
+      })
+    });
   }
 
   diffInMonths(d1:Date,d2:Date){
