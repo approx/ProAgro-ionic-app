@@ -33,8 +33,8 @@ export class FieldProvider {
     return this.http.post(endPoint+'api/fields',field);
   }
 
-  delte(id):Observable<any>{
-    return this.http.post(endPoint+'api/fields',{_method:'DELETE'});
+  delete(id):Observable<any>{
+    return this.http.post(endPoint+'api/field/'+id,{_method:'DELETE'},{responseType:'text'});
   }
 
   update(field:FieldInterfaceWithMethod):Observable<any>{
