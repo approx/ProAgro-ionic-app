@@ -240,3 +240,33 @@ ion-grid{
 .select-searchable-value{
   color: #000;
 }
+
+.input-person{
+  background: #fff;
+  display: inline-block;
+  width: max-content;
+  margin: 0;
+}
+
+.input-person input{
+  margin: 0;
+}
+
+.button-person{
+  display: inline-block;
+  width: max-content;
+  height: 2.6rem;
+  vertical-align: middle;
+}
+
+.input-person input[type=number]::-webkit-inner-spin-button,
+.input-person input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.form-person{
+  display: inline-block;
+}

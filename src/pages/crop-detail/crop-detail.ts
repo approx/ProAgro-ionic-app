@@ -8,7 +8,6 @@ import { ActivityProvider } from '../../providers/activity/activity';
 import { ActivityDetailPage } from '../../pages/activity-detail/activity-detail';
 import { CropEditPage } from "../crop-edit/crop-edit";
 import { CropRegisterSackPage } from "../crop-register-sack/crop-register-sack";
-import { ChartsModule } from 'ng2-charts';
 import { BasePage } from "../base/base";
 import { MessagesProvider } from '../../providers/messages/messages';
 import { CropListPage } from '../crop-list/crop-list';
@@ -35,6 +34,8 @@ export class CropDetailPage extends BasePage{
   total_value_ha:number=0;
   itens_total_value:number;
   itens_depreciation_value:number;
+  sack_editing:boolean=false;
+  sack_produced:number;
   actions=[{
     label:'Registrar Atividade',
     down:()=>{
@@ -53,9 +54,26 @@ export class CropDetailPage extends BasePage{
     responsive: true
   };
 
-
   constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider,private message:MessagesProvider,private activityProvider:ActivityProvider,) {
+
     super(navCtrl);
+  }
+
+  editSack() {
+    this.sack_editing = !this.sack_editing;
+    this.crop.sack_produced = this.sack_produced;
+  }
+
+  saveSacks(){
+    this.message.Wait();
+
+    this.cropProvider.update(this.crop).subscribe((done)=>{
+      this.message.SuccessAlert('Sacas registradas com sucesso!');
+      this.sack_editing = !this.sack_editing;
+      this.sack_produced = this.crop.sack_produced;
+    },(err)=>{
+      this.message.ErrorAlert();
+    })
   }
 
   openRegisterPage(event:MouseEvent){
@@ -87,6 +105,10 @@ export class CropDetailPage extends BasePage{
         this.calculateTotal();
         this.calculateTotalInventario();
         this.setChartData();
+        if (this.crop.sack_produced == null) {
+          this.crop.sack_produced = 0;
+        }
+        this.sack_produced = this.crop.sack_produced;
       });
     }
     else{
@@ -94,6 +116,10 @@ export class CropDetailPage extends BasePage{
       this.calculatePercentage();
       this.calculateTotalInventario();
       this.setChartData();
+      if (this.crop.sack_produced == null) {
+        this.crop.sack_produced = 0;
+      }
+      this.sack_produced = this.crop.sack_produced;
     }
   }
 
