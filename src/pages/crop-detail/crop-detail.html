@@ -16,7 +16,16 @@
         {{crop.field.farm.name}}<br>
         {{crop.field.name}}<br>
         {{crop.culture.name}}<br>
-        Expectativa {{crop.sack_expected}} sacas
+        Expectativa: {{crop.sack_expected}} sacas<br>
+        Produzido:
+        <span *ngIf="!sack_editing">{{crop.sack_produced}} sacas <ion-icon *ngIf="!sack_editing" style="cursor:pointer" (click)="editSack()" name="create"></ion-icon></span>
+        <span *ngIf="sack_editing">
+          <form class="form-person" (ngSubmit)="saveSacks()" #RegisterForm="ngForm">
+            <ion-input type="number" class="input-person" required maxlength="45" #name="ngModel" [(ngModel)]="crop.sack_produced" name="sack_produced" value=""></ion-input>
+            <button class="button-person" type="submit" [disabled]="!RegisterForm.form.valid " ion-button col-12 col-md-3>Salvar</button>
+            <button class="button-person" ion-button full (click)="editSack()" type="button" name="button">Cancelar</button>
+          </form>
+        </span>
       </ion-col>
       <ion-col *ngIf="crop" style="line-height:25px;" col-12 col-md-6>
         {{crop.field.farm.client.name}}<br>
