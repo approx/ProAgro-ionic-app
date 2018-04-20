@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content padding *ngIf="crop">
-  <h1>{{crop.name}}<ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
+  <h1>{{crop.name}}<ion-icon class="Clickable" (click)="delete()" name="trash"></ion-icon><ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <ion-col col-12>
     <h3 margin-left>{{crop.initial_date | date:'dd/MM/yyyy'}} - {{crop.final_date | date:'dd/MM/yyyy'}}</h3>
     <div loader class=""><div [attr.loaded]="percentage"></div></div>
@@ -83,14 +83,19 @@
         <th class="hide-md">Quantidade</th>
         <th class="hide-md">Valor por ha</th>
         <th>Total</th>
+        <th>Ações</th>
       </tr>
-      <tr (click)="openActivityPage(activity)" class="Clickable" *ngFor="let activity of crop.activities">
+      <tr *ngFor="let activity of crop.activities">
         <td>{{activity.operation_date | date: 'dd/MM/yyyy'}}</td>
-        <td>{{activity.activity_type.id}} - {{activity.activity_type.name}}</td>
-        <td class="hide-md" >{{activity.dose}}{{activity.unity.id}}/ha</td>
-        <td class="hide-md" >{{activity.quantity}}{{activity.unity.id}}</td>
-        <td class="hide-md" >R$ {{activity.value_per_ha}}</td>
+        <td>{{activity.activity_type.id}} - {{activity.product_name}}</td>
+        <td class="hide-md" *ngIf="activity.dose">{{activity.dose}}{{activity.unity.id}}/ha</td>
+        <td class="hide-md" *ngIf="!activity.dose">--</td>
+        <td class="hide-lg" *ngIf="activity.quantity">{{activity.quantity}}{{activity.unity.id}}</td>
+        <td class="hide-md" *ngIf="!activity.quantity">--</td>
+        <td class="hide-md" *ngIf="activity.value_per_ha">R$ {{activity.value_per_ha}}</td>
+        <td class="hide-md" *ngIf="!activity.value_per_ha">--</td>
         <td>R$ {{activity.total_value}}</td>
+        <td><ion-icon class="Clickable" (click)="deleteActivity(activity)" name="trash"></ion-icon></td>
       </tr>
       <tr>
         <th>Total</th>
@@ -99,6 +104,7 @@
         <th class="hide-md"></th>
         <th class="hide-md">R$ {{total_value_ha}}</th>
         <th>R$ {{total_value}}</th>
+        <th></th>
       </tr>
     </table>
     <ng-container *ngIf="crop.activities.length<=0">

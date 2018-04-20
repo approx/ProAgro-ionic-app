@@ -34,7 +34,7 @@ export class FarmProvider {
   }
 
   public delete(id:number):Observable<any>{
-    return this.http.post(endPoint+'/api/farm/'+id,{_method:'DELETE'});
+    return this.http.post(endPoint+'/api/farm/'+id,{_method:'DELETE'},{responseType:'text'});
   }
 
   public update(farm:FarmUpdate):Observable<any>{

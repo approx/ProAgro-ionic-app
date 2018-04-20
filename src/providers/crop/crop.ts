@@ -40,7 +40,7 @@ export class CropProvider {
   }
 
   delete(id:number):Observable<any>{
-    return this.http.post(endPoint+'api/crop/'+id,{_method:'DELETE'});
+    return this.http.post(endPoint+'api/crop/'+id,{_method:'DELETE'},{responseType:'text'});
   }
 
   update(crop:CropInterfaceWithMethod):Observable<any>{

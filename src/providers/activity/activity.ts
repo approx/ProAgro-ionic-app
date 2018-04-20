@@ -34,7 +34,7 @@ export class ActivityProvider {
   }
 
   delete(id):Observable<any>{
-    return this.http.post(endPoint+'api/activity/'+id,{_method:'DELETE'});
+    return this.http.post(endPoint+'api/activity/'+id,{_method:'DELETE'},{responseType: 'text'});
   }
 
   update(activity:ActivityUpdate):Observable<any>{

@@ -15,6 +15,7 @@ import { ActivityTypeModel } from '../../model/activityType.model';
 import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
 import { BasePage } from "../base/base";
+import { MessagesProvider } from '../../providers/messages/messages';
 
 /**
  * Generated class for the ActivityListPage page.
@@ -62,7 +63,8 @@ export class ActivityListPage extends BasePage {
     private fieldProvider:FieldProvider,
     private cropProvider:CropProvider,
     private activityTypeProvider:ActivityTypeProvider,
-    private uniyProvider:UnityProvider
+    private uniyProvider:UnityProvider,
+    private message:MessagesProvider
   ) {
     super(navCtrl);
   }
@@ -118,6 +120,20 @@ export class ActivityListPage extends BasePage {
     }
     return false;
   }
+
+  delete(activity:ActivityModel){
+    this.message.ShowConfirmMessage('Deletar atividade','tem certeza que deseja deletar está atividade?',()=>{
+      this.message.Wait();
+      this.activityProvider.delete(activity.id).subscribe((response)=>{
+        this.message.SuccessAlert('Atividade deletada com sucesso!',()=>{
+          this.getActivities();
+        });
+      },(err)=>{
+        this.message.ErrorAlert();
+      })
+    })
+  }
+
 
   Filter(){
     this.filteredActivities = this.activities.filter((activity)=>{
