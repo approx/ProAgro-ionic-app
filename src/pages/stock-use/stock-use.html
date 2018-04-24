@@ -1,0 +1,81 @@
+<!--
+  Generated template for the StockUsePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+  <h2>Registrar uso de estoque</h2>
+  <form (ngSubmit)="Register()" #RegisterForm="ngForm">
+    <ion-grid padding class="formContent">
+      <ion-row>
+        <ion-col col-12 col-md-6 col-lg-6>
+          <ion-item padding-top>
+            <ion-label>Fazenda</ion-label>
+            <ion-select [(ngModel)]="farmSelected" (ngModelChange)="selectFarm()" name="farm">
+              <ion-option *ngFor="let farm of farms" [value]="farm.id">{{farm.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-6>
+          <ion-item padding-top>
+            <ion-label>Talhão</ion-label>
+            <ion-select [(ngModel)]="fieldSelected" (ngModelChange)="selectField()" name="field">
+              <ion-option *ngFor="let field of filteredFields" [value]="field.id">{{field.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-6>
+          <ion-item padding-top>
+            <ion-label>Safra*</ion-label>
+            <ion-select [(ngModel)]="activity.crop_id" (ngModelChange)="selectCrop()" required name="crop">
+              <ion-option *ngFor="let crop of filteredCrops" [value]="crop.id">{{crop.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-6>
+          <ion-item padding-top>
+            <ion-label>Estoque*</ion-label>
+            <ion-select [(ngModel)]="stockSelected" (ngModelChange)="selectStock($event)" required name="stock">
+              <ion-option *ngFor="let stock of stocks" [value]="stock.id">{{stock.activity_type.id}} {{stock.product_name}} - {{stock.quantity}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-4>
+          <ion-item>
+            <ion-label floating>Atividade*</ion-label>
+            <ion-input type="text" readonly="true" [(ngModel)]="activityType" name="activityType" ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-4>
+          <ion-item>
+            <ion-label floating>Nome*</ion-label>
+            <ion-input type="text" readonly="true" [(ngModel)]="activity.product_name" name="product_name" ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-4>
+          <ion-item>
+            <ion-label floating>Valor Unitario*</ion-label>
+            <ion-input type="text" readonly="true" [(ngModel)]="unity_valueMaksed" name="unity_value" ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-6>
+          <ion-item>
+            <ion-label floating>Quantidade*</ion-label>
+            <ion-input type="text" [(ngModel)]="activity.quantity" (ionChange)="calculateTotal()" name="quantity" ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-6>
+          <ion-item>
+            <ion-label floating>Valor total*</ion-label>
+            <ion-input type="text" readonly="true" [(ngModel)]="total_valueMasked" name="total_value" ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row margin-top class="justifyCenter" margin-bottom>
+        <button type="submit" [disabled]="!RegisterForm.form.valid " ion-button col-12 col-md-3>Cadastrar</button>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

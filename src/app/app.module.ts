@@ -61,6 +61,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { SelectSearchableModule } from 'ionic-select-searchable';
 import localePtBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { StockProvider } from '../providers/stock/stock';
 registerLocaleData(localePtBr);
 
 @NgModule({
@@ -128,7 +129,8 @@ registerLocaleData(localePtBr);
     InventoryItenProvider,
     FieldTypesProvider,
     UserRegisterProvider,
-    RolesProvider
+    RolesProvider,
+    StockProvider
   ]
 })
 export class AppModule {}
