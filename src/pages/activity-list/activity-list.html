@@ -67,7 +67,7 @@
       </tr>
       <tr *ngFor="let activity of filteredActivities">
         <td>{{activity.operation_date | date: 'dd/MM/yyyy'}}</td>
-        <td>{{activity.activity_type.id}} - {{activity.product_name}}</td>
+        <td>{{activity.activity_type.id}} - <span *ngIf="activity.product_name">{{activity.product_name}}</span><span *ngIf="!activity.product_name">{{activity.activity_type.name}}</span></td>
         <td class="hide-lg" >{{activity.crop.field.farm.client.name}}</td>
         <td class="hide-md" >{{activity.crop.field.farm.name}}</td>
         <td class="hide-md" >{{activity.crop.field.name}}</td>
