@@ -33,6 +33,10 @@ export class FarmProvider {
     return this.http.post(endPoint+'/api/farms',farm);
   }
 
+  public createStock(id:number,stock):Observable<any>{
+    return this.http.post(endPoint+'/api/farm/'+id+'/stock',stock);
+  }
+
   public delete(id:number):Observable<any>{
     return this.http.post(endPoint+'/api/farm/'+id,{_method:'DELETE'},{responseType:'text'});
   }

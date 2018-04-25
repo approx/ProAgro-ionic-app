@@ -19,6 +19,33 @@
   overflow: auto;
 }
 
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: solid 2px (map-get($colors, primary));
+  text-align: left;
+  padding: 8px;
+}
+
+tr{
+  background-color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+h1{
+  ion-icon{
+    float: right;
+    cursor: pointer;
+    margin-left: 15px;
+  }
+}
+
 [flex-end-align]{
   display: flex;
   align-items: flex-end;

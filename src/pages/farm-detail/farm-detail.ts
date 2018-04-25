@@ -13,6 +13,7 @@ import { InventoryItenSalePage } from "../../pages/inventory-iten-sale/inventory
 import { BasePage } from "../base/base";
 import { MessagesProvider } from '../../providers/messages/messages';
 import { FarmListPage } from '../farm-list/farm-list';
+import { StocksPage } from '../stocks/stocks';
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -50,7 +51,12 @@ export class FarmDetailPage extends BasePage{
     label:'Registar Venda',
     down:()=>{
       this.navCtrl.push(InventoryItenSalePage.name,{farm:this.farm,farm_id:this.farm.id});
-    }
+    },
+  },{
+    label:'Registrar Estoque',
+    down:()=>{
+      this.navCtrl.push(StocksPage.name,{farm:this.farm});
+    },
   }];
 
   total_value:number;
