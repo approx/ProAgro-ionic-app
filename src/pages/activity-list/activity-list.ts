@@ -16,6 +16,7 @@ import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
 import { BasePage } from "../base/base";
 import { MessagesProvider } from '../../providers/messages/messages';
+import { ActivityEditPage } from "../activity-edit/activity-edit";
 
 /**
  * Generated class for the ActivityListPage page.
@@ -232,6 +233,12 @@ export class ActivityListPage extends BasePage {
 
   openActivityPage(activity:ActivityModel){
     this.navCtrl.push(ActivityDetailPage.name,{activity_id:activity.id,activity:activity});
+  }
+
+  openEditPage(event:MouseEvent,activity:ActivityModel){
+    event.stopPropagation();
+    event.preventDefault();
+    this.navCtrl.push(ActivityEditPage.name,{activity:activity,activity_id:activity.id});
   }
 
   ionViewDidLoad() {
