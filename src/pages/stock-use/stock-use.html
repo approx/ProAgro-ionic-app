@@ -8,7 +8,7 @@
   <h2>Registrar uso de estoque</h2>
   <form (ngSubmit)="Register()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
-      <ion-row>
+      <ion-row style="align-items: flex-end;">
         <ion-col col-12 col-md-6 col-lg-6>
           <ion-item padding-top>
             <ion-label>Fazenda</ion-label>
@@ -28,7 +28,7 @@
         <ion-col col-12 col-md-6 col-lg-6>
           <ion-item padding-top>
             <ion-label>Safra*</ion-label>
-            <ion-select [(ngModel)]="activity.crop_id" (ngModelChange)="selectCrop()" required name="crop">
+            <ion-select [(ngModel)]="crop_id" (ngModelChange)="selectCrop()" required name="crop">
               <ion-option *ngFor="let crop of filteredCrops" [value]="crop.id">{{crop.name}}</ion-option>
             </ion-select>
           </ion-item>
@@ -50,7 +50,7 @@
         <ion-col col-12 col-md-4 col-lg-4>
           <ion-item>
             <ion-label floating>Nome*</ion-label>
-            <ion-input type="text" readonly="true" [(ngModel)]="activity.product_name" name="product_name" ></ion-input>
+            <ion-input type="text" readonly="true" [(ngModel)]="product_name" name="product_name" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4 col-lg-4>
@@ -59,16 +59,28 @@
             <ion-input type="text" readonly="true" [(ngModel)]="unity_valueMaksed" name="unity_value" ></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6 col-lg-6>
+        <ion-col col-12 col-md-6 col-lg-3>
           <ion-item>
             <ion-label floating>Quantidade*</ion-label>
-            <ion-input type="text" [(ngModel)]="activity.quantity" (ionChange)="calculateTotal()" name="quantity" ></ion-input>
+            <ion-input type="text" required [(ngModel)]="quantity" (ionChange)="calculateTotal()" name="quantity" ></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6 col-lg-6>
+        <ion-col col-12 col-md-6 col-lg-3>
           <ion-item>
             <ion-label floating>Valor total*</ion-label>
             <ion-input type="text" readonly="true" [(ngModel)]="total_valueMasked" name="total_value" ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-3>
+          <ion-item>
+            <ion-label>Data da operação</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" required max="{{maxDate}}" pickerFormat="DD MM YYYY" name="operation_date" [(ngModel)]="operation_date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-3>
+          <ion-item>
+            <ion-label>Data do pagamento</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" required max="{{maxDate}}" pickerFormat="DD MM YYYY" name="payment_date" [(ngModel)]="payment_date"></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>

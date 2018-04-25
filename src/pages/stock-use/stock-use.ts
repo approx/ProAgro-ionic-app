@@ -11,6 +11,7 @@ import { StockProvider } from '../../providers/stock/stock';
 import { StockModel } from '../../model/Stock.model';
 import { CurrencyPipe } from '@angular/common';
 import { ActivityProvider } from '../../providers/activity/activity';
+import { MessagesProvider } from '../../providers/messages/messages';
 
 /**
  * Generated class for the StockUsePage page.
@@ -34,6 +35,7 @@ export class StockUsePage {
   activity:ActivityInterface={};
   farms:FarmModel[];
   stocks:StockModel[];
+  maxDate;
   stockSelected;
 
   farmSelected;
@@ -41,10 +43,16 @@ export class StockUsePage {
   activityType;
   unity_value;
   unity_valueMaksed;
-  quantity;
   total_valueMasked;
+  product_name;
+  operation_date;
+  payment_date;
 
-  constructor(public navCtrl: NavController,
+  crop_id;
+  quantity;
+
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     private farmProvider:FarmProvider,
     private fieldProvider:FieldProvider,
@@ -52,11 +60,16 @@ export class StockUsePage {
     private stockProvider:StockProvider,
     private currency:CurrencyPipe,
     private activityProvider:ActivityProvider,
+    private message:MessagesProvider
   ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StockUsePage');
+
+    let date = new Date();
+    date.setFullYear(date.getFullYear()+10);
+    this.maxDate = date.getFullYear()+'-12-31';
 
     this.getFarms();
     this.getFields();
@@ -65,7 +78,12 @@ export class StockUsePage {
   }
 
   Register(){
-
+    this.message.Wait();
+    this.stockProvider.registerUse({crop_id:this.crop_id,quantity:this.quantity,operation_date:this.operation_date,payment_date:this.payment_date},this.stockSelected).subscribe((response)=>{
+      this.message.SuccessAlert('Atividade cadastrada com sucesso!');
+    },(err)=>{
+      this.message.ErrorAlert();
+    });
   }
 
   filterFields(){
@@ -105,7 +123,7 @@ export class StockUsePage {
     this.farmSelected = stock.farm.id;
     this.selectFarm();
     this.activityType = stock.activity_type.id+' '+stock.activity_type.name;
-    this.activity.product_name = stock.product_name;
+    this.product_name = stock.product_name;
     this.unity_value = stock.unity_value;
     this.unity_valueMaksed = this.currency.transform(stock.unity_value,'BRL');
     this.calculateTotal();
@@ -113,7 +131,7 @@ export class StockUsePage {
 
   calculateTotal(){
     if(this.unity_value&&this.quantity){
-      this.activity.total_value = this.unity_value*this.activity.quantity;
+      this.activity.total_value = this.unity_value*this.quantity;
       this.total_valueMasked = this.currency.transform(this.activity.total_value,'BRL');
     }
   }
@@ -141,7 +159,7 @@ export class StockUsePage {
   }
 
   selectCrop(){
-    let crop = this.getCrop(this.activity.crop_id);
+    let crop = this.getCrop(this.crop_id);
     this.fieldSelected = crop.field.id;
     this.farmSelected = crop.field.farm.id;
   }

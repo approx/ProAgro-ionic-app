@@ -20,4 +20,8 @@ export class StockProvider {
     return this.http.get(endPoint+'api/stocks');
   }
 
+  public registerUse(data,id):Observable<any>{
+    return this.http.post(endPoint+'api/stock/'+id,data);
+  }
+
 }
