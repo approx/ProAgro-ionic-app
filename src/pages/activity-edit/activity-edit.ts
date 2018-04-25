@@ -1,23 +1,21 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ClientProvider } from "../../providers/client/client";
-import { ClientModel } from "../../model/client.model";
-import { FarmModel } from "../../model/farm.model";
-import { FieldModel } from "../../model/field.model";
-import { ActivityModel, ActivityInterface } from "../../model/activity.model";
-import { UnityModel } from "../../model/unity.model";
-import { FarmProvider } from "../../providers/farm/farm";
-import { FieldProvider } from "../../providers/field/field";
-import { ActivityProvider } from "../../providers/activity/activity";
-import { UnityProvider } from "../../providers/unity/unity";
-import { ActivityTypeModel } from "../../model/activityType.model";
-import { ActivityTypeProvider } from "../../providers/activity-type/activity-type";
-import { CropModel } from "../../model/crop.model";
-import { CropProvider } from "../../providers/crop/crop";
-import { MessagesProvider } from "../../providers/messages/messages";
-import { ActivityIten } from "../activity-register/activity-register";
+import { ActivityProvider } from '../../providers/activity/activity';
+import { FarmProvider } from '../../providers/farm/farm';
+import { FieldProvider } from '../../providers/field/field';
+import { CropProvider } from '../../providers/crop/crop';
+import { FarmModel } from '../../model/farm.model';
+import { FieldModel } from '../../model/field.model';
+import { CropModel } from '../../model/crop.model';
+import { ActivityInterface } from '../../model/activity.model';
+import { ActivityModel } from '../../model/activity.model';
+import { ActivityTypeProvider } from '../../providers/activity-type/activity-type';
+import { ActivityTypeModel,ActivityTypeInterface } from '../../model/activityType.model';
+import { UnityProvider } from '../../providers/unity/unity';
+import { UnityModel } from '../../model/unity.model';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
+import { ActivityIten } from '../activity-register/activity-register';
 import { SelectSearchable } from 'ionic-select-searchable';
 
 /**
