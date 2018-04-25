@@ -39,7 +39,7 @@ export class ActivityProvider {
 
   update(activity:ActivityUpdate):Observable<any>{
     activity._method='PUT';
-    return this.http.post(endPoint+'api/activities',activity);
+    return this.http.post(endPoint+'api/activity/'+activity.id,activity);
   }
 
 }

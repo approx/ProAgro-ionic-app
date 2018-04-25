@@ -79,7 +79,10 @@
         <td class="hide-md" *ngIf="activity.value_per_ha">R$ {{activity.value_per_ha}}</td>
         <td class="hide-md" *ngIf="!activity.value_per_ha">--</td>
         <td>R$ {{activity.total_value}}</td>
-        <td><ion-icon class="Clickable" (click)="delete(activity)" name="trash"></ion-icon></td>
+        <td text-center>
+          <ion-icon class="Clickable" (click)="delete(activity)" name="trash"></ion-icon>
+          <ion-icon class="Clickable" (click)="openEditPage($event, activity)" name="create"></ion-icon>
+        </td>
       </tr>
       <tr *ngIf="activities.length<=0&&loaded">
         <td colspan="11" padding style="text-align:center">Nem uma atividade cadastrada ainda, <a href="" (click)="openRegisterPage($event)">clique aqui</a> para cadastrar uma atividade.</td>
