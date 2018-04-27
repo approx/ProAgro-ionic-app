@@ -38,7 +38,13 @@ export class UserRegisterPage extends BasePage{
   getRoles(){
     this.rolesProvider.getAll().subscribe((response)=>{
       console.log(response);
+      for (let i = 0; i < response.length; i++) {
+          if(3==response[i].id){
+            response.splice(i,1);
+          }
+      }
       this.roles = response;
+      console.log('Roles: ', this.roles);
     });
   }
 

@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
-import { MyApp } from '../../app/app.component';
 import { FarmDetailPage } from '../../pages/farm-detail/farm-detail';
 import { FarmRegisterPage } from '../../pages/farm-register/farm-register';
 import { FieldRegisterPage } from '../../pages/field-register/field-register';
 import { CropRegisterPage } from '../../pages/crop-register/crop-register';
 import { ClientEditPage } from "../client-edit/client-edit";
 import { BasePage } from "../base/base";
+import { UserRegisterProvider } from "../../providers/user-register/user-register";
+import { MessagesProvider } from '../../providers/messages/messages';
 
 /**
  * Generated class for the ClientDetailPage page.
@@ -30,7 +31,15 @@ export class ClientDetailPage extends BasePage{
   farmSize=300;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private clientProvider:ClientProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private clientProvider:ClientProvider,
+    public alertCtrl: AlertController,
+    public userRegisterProvider:UserRegisterProvider,
+    public toastCtrl: ToastController,
+    private message:MessagesProvider)
+  {
     super(navCtrl);
   }
 
@@ -87,5 +96,81 @@ export class ClientDetailPage extends BasePage{
     event.preventDefault();
     event.stopPropagation();
     this.navCtrl.push(CropRegisterPage.name,{client:this.client});
+  }
+
+  openUserRegister(event:MouseEvent){
+
+    let alert = this.alertCtrl.create({
+      title: 'Conceder Acesso ao Cliente',
+      inputs: [{
+        type: 'text',
+        name: 'name',
+        placeholder: 'Nome do Usuário'
+      },{
+        type: 'email',
+        name: 'email',
+        placeholder: 'E-mail'
+      }],
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            console.log('Saved clicked');
+            if (this.emailValidator(data.email)) {
+              if (data.name != '') {
+                this.grantAccessClient(data);
+                return true;
+              } else {
+                this.showErrorToast('Informe o Nome do Usuário!');
+                return false;
+              }
+            } else {
+              this.showErrorToast('E-mail Inválido');
+              return false;
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  grantAccessClient (data) {
+    console.log(data);
+    this.message.Wait();
+    var role_id = 3;
+    this.userRegisterProvider.acess(data.name,data.email,role_id).subscribe((data)=>{
+      this.message.SuccessAlert('Acesso concedido com sucesso, foi enviado um e-mail para o usuario terminar o cadastro!');
+    },(err)=>{
+      this.message.ErrorAlert();
+    });
+  }
+
+  showErrorToast(data: any) {
+    let toast = this.toastCtrl.create({
+      message: data,
+      duration: 3000,
+      position: 'top'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  emailValidator(email) {
+    if( /(.+)@(.+){2,}\.(.+){2,}/.test(email) ){
+      return true;
+    } else {
+       return false;
+    }
   }
 }
