@@ -40,7 +40,7 @@ import { StockUsePage } from '../pages/stock-use/stock-use';
 export class MyApp {
   rootPage:any = ClientListPage.name;
 
-  version = '1.3.1';
+  version = '1.3.2';
 
   loged:boolean = false;
   user:UserModel;
