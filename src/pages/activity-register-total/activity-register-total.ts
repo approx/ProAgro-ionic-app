@@ -95,6 +95,7 @@ export class ActivityRegisterTotalPage extends BasePage {
   }
 
   filterCropsByField(){
+    this.activity.crop_id = undefined;
     this.filteredCrops = this.crops.filter((crop)=>{
       return crop.field.id == this.fieldSelected;
     });
