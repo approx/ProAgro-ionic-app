@@ -71,20 +71,24 @@ export class FarmDetailPage extends BasePage{
   benefitPirChartLabel=[];
   pieChartOptions = {
     tooltips: {
-            callbacks: {
-                label: (tooltipItem, data)=> {
-                    var label = data.labels[tooltipItem.index] || '';
+      callbacks: {
+        label: (tooltipItem, data)=> {
+          var label = data.labels[tooltipItem.index] || '';
 
-                    if (label) {
-                        label += ': ';
-                    }
-                    console.log(data);
-                    label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
-                    return label;
-                }
-            }
+          if (label) {
+            label += ': ';
+          }
+          // console.log(data);
+          label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
+          return label;
         }
+      }
+    },
+    legend: {
+      display: true,
+      position:'left'
     }
+  }
   drawCharts=false;
   colors=[
     { // grey
@@ -108,14 +112,15 @@ export class FarmDetailPage extends BasePage{
       if(this.farm.income_histories[i].activity!=null){
         for (let j = 0; j < datas.length; j++) {
           if(labels[j]==this.farm.income_histories[i].activity.activity_type.name){
-            datas[j]+=this.farm.income_histories[i].value;
-            break loop1;
+            datas[j]+=parseFloat(<any>this.farm.income_histories[i].value);
+            continue loop1;
           }
         }
-        datas.push(this.farm.income_histories[i].value);
+        datas.push(parseFloat(<any>this.farm.income_histories[i].value));
         labels.push(this.farm.income_histories[i].activity.activity_type.name);
       }
     }
+    console.log(datas);
     return {datas:datas,labels:labels}
   }
 
@@ -126,13 +131,13 @@ export class FarmDetailPage extends BasePage{
     for (let i = 0; i < this.farm.income_histories.length; i++) {
       if(this.farm.income_histories[i].sack_sold!=null){
         for (let j = 0; j < datas.length; j++) {
-          console.log('test');
+          // console.log('test');
           if(labels[j]==this.farm.income_histories[i].sack_sold.crop.name){
-            datas[j]+=this.farm.income_histories[i].value;
-            break loop1;
+            datas[j]+=parseFloat(<any>this.farm.income_histories[i].value);
+            continue loop1;
           }
         }
-        datas.push(this.farm.income_histories[i].value);
+        datas.push(parseFloat(<any>this.farm.income_histories[i].value));
         labels.push(this.farm.income_histories[i].sack_sold.crop.name);
       }
     }
@@ -144,7 +149,7 @@ export class FarmDetailPage extends BasePage{
     let labels=[];
     for (let i = 0; i < this.farm.income_histories.length; i++) {
       if(this.farm.income_histories[i].inventory_iten!=null){
-        datas.push(this.farm.income_histories[i].value);
+        datas.push(parseFloat(<any>this.farm.income_histories[i].value));
         labels.push(this.farm.income_histories[i].inventory_iten.name);
       }
     }
@@ -161,8 +166,8 @@ export class FarmDetailPage extends BasePage{
     this.benefitPirChartLabel = this.benefitPirChartLabel.concat(sack_sold.labels);
     this.benefitPieChartData = this.benefitPieChartData.concat(inventory.datas);
     this.benefitPirChartLabel = this.benefitPirChartLabel.concat(inventory.labels);
-    console.log(this.benefitPirChartLabel);
-    console.log(this.expensePieChartLabels);
+    // console.log(this.benefitPirChartLabel);
+    // console.log(this.expensePieChartLabels);
     this.drawCharts=true;
   }
 

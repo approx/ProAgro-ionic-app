@@ -66,6 +66,10 @@ export class CropDetailPage extends BasePage{
           return label;
         }
       }
+    },
+    legend: {
+      display: true,
+      position: 'left'
     }
   }
   lineChartOptions= {
@@ -129,11 +133,11 @@ export class CropDetailPage extends BasePage{
     for (let i = 0; i < this.crop.activities.length; i++) {
       for (let j = 0; j < this.pieChartData.length; j++) {
           if(this.pieChartLabels[j]==this.crop.activities[i].activity_type.name){
-            this.pieChartData[j]+=this.crop.activities[i].total_value;
+            this.pieChartData[j]+=parseFloat(<any>this.crop.activities[i].total_value);
             continue loop1;
           }
       }
-      this.pieChartData.push(this.crop.activities[i].total_value);
+      this.pieChartData.push(parseFloat(<any>this.crop.activities[i].total_value));
       this.pieChartLabels.push(this.crop.activities[i].activity_type.name);
     }
     // console.log(this.pieChartData);
@@ -163,12 +167,12 @@ export class CropDetailPage extends BasePage{
       let label = this.months[date.getMonth()]+'/'+date.getFullYear();
       for (let j = 0; j < this.lineChartLabels.length; j++) {
           if(this.lineChartLabels[j]==label){
-            this.lineChartData[j]+=orderedActivities[i].total_value;
+            this.lineChartData[j]+=parseFloat(<any>orderedActivities[i].total_value);
             console.log(this.lineChartData[j]);
             continue loop1;
           }
       }
-      this.lineChartData.push(orderedActivities[i].total_value);
+      this.lineChartData.push(parseFloat(<any>orderedActivities[i].total_value));
       this.lineChartLabels.push(label);
     }
     // this.lineChartData=[{data:this.lineChartData,label:''}]
