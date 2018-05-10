@@ -18,6 +18,16 @@
 .scroll-content{
   overflow: auto;
 }
+.myRow{
+  display: flex;
+  flex-wrap: wrap;
+}
+.col-6{
+  display: inline-flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 50%;
+}
 
 table {
   font-family: arial, sans-serif;

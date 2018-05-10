@@ -35,6 +35,16 @@
     </ion-row>
   </ion-grid>
   <div margin-bottom class="horizontalLine">
+    <h2>Resumo</h2>
+  </div>
+  <h3 margin-left padding-left>Tipo de Atividade X Valor</h3>
+  <canvas baseChart
+        [colors]="colors"
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [options]="pieChartOptions"
+        chartType="pie"></canvas>
+  <div margin-bottom class="horizontalLine">
     <h2>Inventario utilizado</h2>
   </div>
   <ion-grid>

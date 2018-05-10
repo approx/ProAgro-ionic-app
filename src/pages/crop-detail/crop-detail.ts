@@ -11,6 +11,7 @@ import { CropRegisterSackPage } from "../crop-register-sack/crop-register-sack";
 import { BasePage } from "../base/base";
 import { MessagesProvider } from '../../providers/messages/messages';
 import { CropListPage } from '../crop-list/crop-list';
+import { CurrencyPipe } from '@angular/common';
 
 /**
  * Generated class for the CropDetailPage page.
@@ -23,6 +24,7 @@ import { CropListPage } from '../crop-list/crop-list';
 @Component({
   selector: 'page-crop-detail',
   templateUrl: 'crop-detail.html',
+  providers:[CurrencyPipe]
 })
 export class CropDetailPage extends BasePage{
 
@@ -46,15 +48,32 @@ export class CropDetailPage extends BasePage{
     down:()=>{
       this.navCtrl.push(CropRegisterSackPage.name,{crop:this.crop,crop_id:this.crop.id});
     }
-  }]
+  }];
 
-  chartLabels = ['January', 'February', 'Mars', 'April'];
+  pieChartData = [];
+  pieChartLabels = [];
+  pieChartOptions = {
+    tooltips: {
+            callbacks: {
+                label: (tooltipItem, data)=> {
+                    var label = data.labels[tooltipItem.index] || '';
 
-  chartOptions = {
-    responsive: true
-  };
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
+                    return label;
+                }
+            }
+        }
+    }
+    colors=[
+      { // grey
+        backgroundColor: ["#4a883f","#4A442D","#58B09C","#3D3522","#CAF7E2","#D5DFE5","#B49594","#C9B1BD","#7F9172","#4E3D42","#9F9F92","#C9D5B5","#E3DBDB","#32021F","#4B2E39","#6F7D8C","#77A0A9","#CACFD6","#D6E5E3","#9FD8CB","#2D3319"]
+      }
+    ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider,private message:MessagesProvider,private activityProvider:ActivityProvider,) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider,private message:MessagesProvider,private activityProvider:ActivityProvider,private currencyPipe:CurrencyPipe) {
 
     super(navCtrl);
   }
@@ -62,6 +81,23 @@ export class CropDetailPage extends BasePage{
   editSack() {
     this.sack_editing = !this.sack_editing;
     this.crop.sack_produced = this.sack_produced;
+  }
+
+  calculatePieChartData(){
+    let array=[];
+    loop1:
+    for (let i = 0; i < this.crop.activities.length; i++) {
+      for (let j = 0; j < this.pieChartData.length; j++) {
+          if(this.pieChartLabels[j]==this.crop.activities[i].activity_type.name){
+            this.pieChartData[j]+=this.crop.activities[i].total_value;
+            break loop1;
+          }
+      }
+      this.pieChartData.push(this.crop.activities[i].total_value);
+      this.pieChartLabels.push(this.crop.activities[i].activity_type.name);
+    }
+    console.log(this.pieChartData);
+    console.log(this.pieChartLabels)
   }
 
   saveSacks(){
@@ -104,7 +140,7 @@ export class CropDetailPage extends BasePage{
         this.calculatePercentage();
         this.calculateTotal();
         this.calculateTotalInventario();
-        this.setChartData();
+        this.calculatePieChartData();
         if (this.crop.sack_produced == null) {
           this.crop.sack_produced = 0;
         }
@@ -115,7 +151,7 @@ export class CropDetailPage extends BasePage{
       this.calculateTotal();
       this.calculatePercentage();
       this.calculateTotalInventario();
-      this.setChartData();
+      this.calculatePieChartData();
       if (this.crop.sack_produced == null) {
         this.crop.sack_produced = 0;
       }
@@ -146,17 +182,6 @@ export class CropDetailPage extends BasePage{
         this.message.ErrorAlert();
       })
     })
-  }
-
-  setChartData(){
-    let total_sacks = 0;
-    for (let i = 0; i < this.crop.sack_solds.length; i++) {
-        total_sacks+=this.crop.sack_solds[i].quantity;
-    }
-    // this.chartData = [
-    //   {data:this.crop.expected,label:'Experado'},
-    //   {data:total_sacks,label:'Alcançado'}
-    // ]
   }
 
   calculateTotalInventario(){
