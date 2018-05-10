@@ -3,6 +3,7 @@ import { CultureModel } from './culture.model';
 import { ClientModel } from './client.model';
 import { FieldModel } from './field.model';
 import { InventoryItenModel } from './inventario_iten.model';
+import { IncomHistoryModel } from './IncomeHistoryModel';
 
 export interface FarmInterface{
   id?:number;
@@ -28,6 +29,7 @@ export class FarmModel{
     public fields:FieldModel[],
     public cultures:CultureModel[],
     public inventory_itens:InventoryItenModel[],
+    public income_histories:IncomHistoryModel[],
     public ha:number,
     public value_ha:number,
     public capital_tied:number,
@@ -36,5 +38,5 @@ export class FarmModel{
     public updated_at:string
   ){}
 
-  
+
 }

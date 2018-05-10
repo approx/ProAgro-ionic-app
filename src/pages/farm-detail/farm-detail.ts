@@ -14,6 +14,7 @@ import { BasePage } from "../base/base";
 import { MessagesProvider } from '../../providers/messages/messages';
 import { FarmListPage } from '../farm-list/farm-list';
 import { StocksPage } from '../stocks/stocks';
+import { CurrencyPipe } from '@angular/common';
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -28,6 +29,7 @@ import { StocksPage } from '../stocks/stocks';
 @Component({
   selector: 'page-farm-detail',
   templateUrl: 'farm-detail.html',
+  providers:[CurrencyPipe]
 })
 export class FarmDetailPage extends BasePage{
   farm_id:number;
@@ -63,8 +65,105 @@ export class FarmDetailPage extends BasePage{
   total_depreciation_value:number;
   total_remunaration:number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider,private sanitizer:DomSanitizer,private message:MessagesProvider) {
+  expensePieChartData = [];
+  expensePieChartLabels = [];
+  benefitPieChartData=[];
+  benefitPirChartLabel=[];
+  pieChartOptions = {
+    tooltips: {
+            callbacks: {
+                label: (tooltipItem, data)=> {
+                    var label = data.labels[tooltipItem.index] || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    console.log(data);
+                    label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
+                    return label;
+                }
+            }
+        }
+    }
+  drawCharts=false;
+  colors=[
+    { // grey
+      backgroundColor: ["#4a883f","#4A442D","#58B09C","#3D3522","#CAF7E2","#D5DFE5","#B49594","#C9B1BD","#7F9172","#4E3D42","#9F9F92","#C9D5B5","#E3DBDB","#32021F","#4B2E39","#6F7D8C","#77A0A9","#CACFD6","#D6E5E3","#9FD8CB","#2D3319"]
+    }
+  ]
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider,private sanitizer:DomSanitizer,private message:MessagesProvider,private currencyPipe:CurrencyPipe) {
     super(navCtrl);
+  }
+
+  getIncomeType(){
+
+  }
+
+  calculateIncomeActivityForChart(){
+    let datas=[];
+    let labels=[];
+    loop1:
+    for (let i = 0; i < this.farm.income_histories.length; i++) {
+      if(this.farm.income_histories[i].activity!=null){
+        for (let j = 0; j < datas.length; j++) {
+          if(labels[j]==this.farm.income_histories[i].activity.activity_type.name){
+            datas[j]+=this.farm.income_histories[i].value;
+            break loop1;
+          }
+        }
+        datas.push(this.farm.income_histories[i].value);
+        labels.push(this.farm.income_histories[i].activity.activity_type.name);
+      }
+    }
+    return {datas:datas,labels:labels}
+  }
+
+  calculateIncomeSackSoldsForChart(){
+    let datas=[];
+    let labels=[];
+    loop1:
+    for (let i = 0; i < this.farm.income_histories.length; i++) {
+      if(this.farm.income_histories[i].sack_sold!=null){
+        for (let j = 0; j < datas.length; j++) {
+          console.log('test');
+          if(labels[j]==this.farm.income_histories[i].sack_sold.crop.name){
+            datas[j]+=this.farm.income_histories[i].value;
+            break loop1;
+          }
+        }
+        datas.push(this.farm.income_histories[i].value);
+        labels.push(this.farm.income_histories[i].sack_sold.crop.name);
+      }
+    }
+    return {datas:datas,labels:labels}
+  }
+
+  calculateIncomeInventoriItensForChart(){
+    let datas=[];
+    let labels=[];
+    for (let i = 0; i < this.farm.income_histories.length; i++) {
+      if(this.farm.income_histories[i].inventory_iten!=null){
+        datas.push(this.farm.income_histories[i].value);
+        labels.push(this.farm.income_histories[i].inventory_iten.name);
+      }
+    }
+    return {datas:datas,labels:labels}
+  }
+
+  calculateDataChart(){
+    let activity = this.calculateIncomeActivityForChart();
+    let sack_sold = this.calculateIncomeSackSoldsForChart();
+    let inventory = this.calculateIncomeInventoriItensForChart();
+    this.expensePieChartData = this.expensePieChartData.concat(activity.datas);
+    this.expensePieChartLabels = this.expensePieChartLabels.concat(activity.labels);
+    this.benefitPieChartData = this.benefitPieChartData.concat(sack_sold.datas);
+    this.benefitPirChartLabel = this.benefitPirChartLabel.concat(sack_sold.labels);
+    this.benefitPieChartData = this.benefitPieChartData.concat(inventory.datas);
+    this.benefitPirChartLabel = this.benefitPirChartLabel.concat(inventory.labels);
+    console.log(this.benefitPirChartLabel);
+    console.log(this.expensePieChartLabels);
+    this.drawCharts=true;
   }
 
   openFieldPage(field){
@@ -93,11 +192,13 @@ export class FarmDetailPage extends BasePage{
         console.log(this.farm);
         this.calculateTotal();
         this.setMapUrl();
+        this.calculateDataChart();
       });
     }
     else{
       this.setMapUrl();
       this.calculateTotal();
+      this.calculateDataChart();
     }
   }
 
