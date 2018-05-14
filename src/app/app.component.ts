@@ -187,6 +187,7 @@ export class MyApp {
           name:'Estoque',
           component:StockUsePage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         },
         {
