@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CropEditPage } from './crop-edit';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { CropEditPage } from './crop-edit';
   ],
   imports: [
     IonicPageModule.forChild(CropEditPage),
+    DirectivesModule
   ],
 })
 export class CropEditPageModule {}

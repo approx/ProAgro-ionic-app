@@ -1,5 +1,11 @@
 import { Directive,Input,Output,OnChanges,SimpleChanges,ViewContainerRef,AfterViewInit,HostListener,EventEmitter } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { NgForm,Validators,AbstractControl,FormControl,NgControl } from '@angular/forms';
+import { ViewController,TextInput } from 'ionic-angular';
+
+function hasExclamationMark(input: FormControl) {
+  const hasExclamation = input.value.indexOf('!') >= 0;
+  return hasExclamation ? null : { needsExclamation: true };
+}
 
 /**
  * Generated class for the ModelMaskDirective directive.
@@ -17,7 +23,7 @@ export class ModelMaskDirective implements AfterViewInit {
 
   modelValue=undefined;
 
-  component:any;
+  component:TextInput;
 
   target:any;
 
@@ -27,6 +33,9 @@ export class ModelMaskDirective implements AfterViewInit {
   @Input() mask:string;
   @Input() maskPlaceHolder:string;
   @Input() currency:boolean = false;
+  @Input() clean=true;
+  @Input() form:NgForm;
+  _formControl:FormControl;
 
   @Input()
   get modelMask(){
@@ -36,15 +45,76 @@ export class ModelMaskDirective implements AfterViewInit {
   @Output() modelMaskChange = new EventEmitter();
   set modelMask(val){
     this.modelValue = val;
+    if(!this._formControl){
+      this._formControl = new FormControl(this.modelMask,[Validators.required,(input: FormControl)=>{
+        if(!this.currency){
+          if(this.modelMask){
+            let value = input.value;
+            for (let i = 0; i < this.modelMask.length; i++) {
+              if(value[i]==this.maskPlaceHolder){
+
+                return {maskComplete:false}
+              }
+            }
+            return null;
+          }
+          else if(!this.modelMask){
+            return {emptyValue:false}
+          }
+        }else{
+          if(this.modelMask){
+            return null;
+          }
+          else if(!this.modelMask){
+            return {emptyValue:false}
+          }
+        }
+      }]);
+    }
+    this._formControl.setValue(val);
     this.modelMaskChange.emit(this.modelValue);
   }
 
   constructor(private viewContainerRef: ViewContainerRef) {
-    console.log('Hello ModelMaskDirective Directive');
   }
 
   ngAfterViewInit(){
     this.component = this.viewContainerRef[ '_data' ].componentView.component;
+    this.form.form.addControl(this.component._elementRef.nativeElement.getAttribute('name'),this._formControl);
+    // this.getModelValue();
+  }
+
+  checkValid(){
+    if(!this.currency){
+      if(this.modelMask){
+        this.component._item._elementRef.nativeElement.classList.add('input-has-value');
+        this.component._item._elementRef.nativeElement.classList.add('item-input-has-value');
+        this.component._item._elementRef.nativeElement.classList.remove('ng-invalid');
+        this.component._item._elementRef.nativeElement.classList.add('ng-valid');
+        let value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
+        for (let i = 0; i < this.modelMask.length; i++) {
+          if(value[i]==this.maskPlaceHolder){
+
+            this.component._item._elementRef.nativeElement.classList.remove('ng-valid');
+            this.component._item._elementRef.nativeElement.classList.add('ng-invalid');
+            break;
+          }
+        }
+      }
+      else if(!this.modelMask){
+        this.component._item._elementRef.nativeElement.classList.add('ng-invalid');
+      }
+    }else{
+      if(this.modelMask){
+        this.component._item._elementRef.nativeElement.classList.add('input-has-value');
+        this.component._item._elementRef.nativeElement.classList.add('item-input-has-value');
+        this.component._item._elementRef.nativeElement.classList.remove('ng-invalid');
+        this.component._item._elementRef.nativeElement.classList.add('ng-valid');
+      }
+      else if(!this.modelMask){
+        this.component._item._elementRef.nativeElement.classList.add('ng-invalid');
+      }
+    }
   }
 
   countLengthToDigit():number{
@@ -63,15 +133,14 @@ export class ModelMaskDirective implements AfterViewInit {
   //   }else if(keyEvent.keyCode==8){
   //     this.value = this.value.substring(0, this.value.length - 1);
   //   }
-  //   this.modelMask =  this.value;
-  //   console.log();
+  //   this.modelMask =  this.value
   //   (<any>keyEvent.target).value = 10;
   //   // this.setValueOnMOdel();
   // }
 
   canPutNumber():boolean{
     if(this.currency){
-      console.log(this.target.value.length<=21)
+
       return this.target.value.length<=20;
     }else{
       let position = this.target.value.search(this.maskPlaceHolder);
@@ -88,55 +157,85 @@ export class ModelMaskDirective implements AfterViewInit {
   getValue(keyEvent){
     keyEvent.preventDefault();
     if(this.modelMask==undefined) this.modelMask='';
-
     if(!this.currency){
+      this.moveArrowKey(keyEvent);
       this.addKeyToMask(keyEvent);
     }else{
       this.addKeyToCurrency(keyEvent);
     }
     this.component.value = this.modelMask;
-    this.target.value = this.maskedValue(this.modelMask);
+    this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
     this.setCursor();
     this.ablleToAdd=false;
+  }
 
+  getModelValue(){
+    // this.target.value = this.modelMask;
+    this.component.setValue(this.modelMask);
+    this.component._item._elementRef.nativeElement.classList.add('input-has-value');
+    this.component._item._elementRef.nativeElement.classList.add('item-input-has-value');
+    this.modelMask = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
+  }
+
+  moveArrowKey(keyEvent){
+    if(keyEvent.keyCode==37){
+      this.target.selectionStart-=1;
+      this.target.selectionEnd-=1;
+      this.setCursor();
+    }
   }
 
   addKeyToMask(keyEvent){
     if (((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105))&&this.canPutNumber()){
-      this.modelMask+=keyEvent.key;
+      if(this.clean){
+        this.modelMask+=keyEvent.key;
+      }else{
+        this.modelMask=this.unMask(this.modelMask);
+        this.modelMask+=keyEvent.key;
+        this.modelMask=this.maskedValue(this.modelMask);
+      }
     }
     else if (keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90&&this.canPutLeter()){
       this.modelMask+=keyEvent.key;
     }else if(keyEvent.keyCode == 8){
-      this.modelMask = this.modelMask.substring(0,this.modelMask.length-1);
-      // console.log(this.modelMask);
+      if(this.clean){
+        this.modelMask = this.modelMask.substring(0,this.modelMask.length-1);
+      }else{
+        // keyEvent.preventDefault();
+        // keyEvent.stopPropagation();
+        this.modelMask=this.unMask(this.modelMask);
+        this.modelMask = this.modelMask.substring(0,this.modelMask.length-1);
+        this.modelMask=this.maskedValue(this.modelMask);
+      }
+
+
     }
   }
 
   addKeyToCurrency(keyEvent){
     if((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105&&this.canPutNumber())){
-      // console.log(this.modelMask);
+
       this.modelMask=Math.round(this.modelMask*100);
-        // console.log(this.modelMask);
+
         this.modelMask = this.modelMask.toString();
-        // console.log(this.modelMask);
+
         this.modelMask+=keyEvent.key;
-        // console.log(this.modelMask);
+
         this.modelMask = parseInt(this.modelMask)/100;
-        // console.log(this.modelMask);
+
     }else if(keyEvent.keyCode == 8){
       this.modelMask=Math.round(this.modelMask*100);
       this.modelMask = this.modelMask.toString();
       this.modelMask = this.modelMask.substring(0,this.modelMask.length-1);
       this.modelMask = parseFloat(this.modelMask!='' ? this.modelMask: 0)/100;
 
-      // console.log(this.modelMask);
+
     }
   }
 
   @HostListener('keyup',['$event'])
   keyup(){
-    this.target.value = this.maskedValue(this.modelMask);
+    this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
     this.setCursor();
   }
 
@@ -145,9 +244,10 @@ export class ModelMaskDirective implements AfterViewInit {
     if(this.modelMask==undefined||this.modelMask==''){
       this.target.value = '';
     }else{
-      this.target.value = this.maskedValue(this.modelMask);
+      this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
       this.setCursor();
     }
+    this.checkValid();
   }
 
   getMask():string{
@@ -176,7 +276,7 @@ export class ModelMaskDirective implements AfterViewInit {
         masked = masked.replace(this.maskPlaceHolder,value[i]);
       }
     }else{
-      // console.log(value)
+
       if(value==''){
         masked+='0,00';
       }else{
@@ -212,8 +312,8 @@ export class ModelMaskDirective implements AfterViewInit {
         this.target.selectionStart= position!=-1 ? position : this.target.value.length
         this.target.selectionEnd= position!=-1 ? position : this.target.value.length
       }else{
-        this.target.selectionStart=  0;
-        this.target.selectionEnd=  0;
+        this.target.selectionStart =  0;
+        this.target.selectionEnd =  0;
       }
     }else{
       this.target.selectionStart= this.target.value.length;
@@ -225,17 +325,11 @@ export class ModelMaskDirective implements AfterViewInit {
     let mask = this.getMask();
     let positionsToRemove = [];
     let ignoreNext=false;
+    let unmasked='';
     for (let i = 0; i < value.length; i++) {
-      if(value[i]==this.maskPlaceHolder){
-        positionsToRemove.push(i);
-      }
-      else if(value[i]==mask[i]){
-        positionsToRemove.push(i);
-      }
-    }
-    let unmasked = value;
-    for (let i = 0; i < positionsToRemove.length; i++) {
-        unmasked = unmasked.substring(0,positionsToRemove[i]);
+        if(value[i]!=mask[i]){
+          unmasked+=value[i];
+        }
     }
     return unmasked;
   }
@@ -243,16 +337,16 @@ export class ModelMaskDirective implements AfterViewInit {
   @HostListener('focus',['$event'])
   @HostListener('click',['$event'])
   focus(event){
+    this.component._item._elementRef.nativeElement.classList.add('ng-touched');
     this.target = event.target;
     if(this.modelMask==undefined){
       this.target.value = this.getMask();
     }
     else{
-      this.target.value = this.maskedValue(this.modelMask);
+      this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
       this.setCursor();
     }
     this.setCursor();
-    // console.log(this.modelMask);
     this.setPlaceHolder();
   }
 
@@ -263,7 +357,10 @@ export class ModelMaskDirective implements AfterViewInit {
   }
 
   ngOnChanges(changes:SimpleChanges){
-    // console.log(changes);
+    console.log(changes);
+    if(changes.modelMask&&this.component){
+      this.component.setValue(changes.modelMask.currentValue);
+    }
   }
 
 }
