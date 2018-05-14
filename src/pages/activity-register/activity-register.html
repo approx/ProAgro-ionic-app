@@ -27,14 +27,15 @@
         </ion-col>
         <ion-col col-12 col-md-4 col-lg-4>
           <ion-item>
-            <ion-label floating>Nome*</ion-label>
+            <ion-label floating>Nome</ion-label>
             <ion-input type="text" [(ngModel)]="activity.product_name" name="product_name" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-4>
           <ion-item>
             <ion-label floating>Valor Unitario*</ion-label>
-            <ion-input type="text" [(ngModel)]="unity_value" (change)="Calculate()" name="unity_value" ></ion-input>
+            <!-- <ion-input type="text" [(ngModel)]="unity_value" minlength="10" (change)="Calculate()" name="unity_value" ></ion-input> -->
+            <ion-input type="text"[(modelMask)]="activity.total_value" required mask="R$ 9" [form]="RegisterForm" currency="true" (change)="Calculate()" name="unity_value" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-3>
@@ -53,14 +54,14 @@
         </ion-col>
         <ion-col col-12 col-md-4 col-lg-3>
           <ion-item>
-            <ion-label>Data da operação</ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" required max="{{maxDate}}" pickerFormat="DD MM YYYY" name="operation_date" [(ngModel)]="activity.operation_date"></ion-datetime>
+            <ion-label floating>Data da operação*</ion-label>
+            <ion-input type="text" required [(modelMask)]="activity.operation_date" [form]="RegisterForm" [clean]="false" mask="99/99/9999" maskPlaceHolder="_" name="operation_date" value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4 col-lg-3>
           <ion-item>
-            <ion-label>Data do pagamento</ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" required max="{{maxDate}}" pickerFormat="DD MM YYYY" name="payment_date" [(ngModel)]="activity.payment_date"></ion-datetime>
+            <ion-label floating>Data do pagamento*</ion-label>
+            <ion-input  required [(modelMask)]="activity.payment_date" [form]="RegisterForm" [clean]="false" mask="99/99/9999" maskPlaceHolder="_" name="payment_date"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
