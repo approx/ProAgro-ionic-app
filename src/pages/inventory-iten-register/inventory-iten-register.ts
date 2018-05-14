@@ -6,6 +6,8 @@ import { FarmModel } from '../../model/farm.model';
 import { InventoryItenProvider } from '../../providers/inventory-iten/inventory-iten';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
+import { MyApp } from '../../app/app.component';
+import { FarmListPage } from '../../pages/farm-list/farm-list';
 
 /**
  * Generated class for the InventoryItenRegisterPage page.
@@ -32,6 +34,16 @@ export class InventoryItenRegisterPage extends BasePage{
     private messages:MessagesProvider
   ) {
     super(navCtrl);
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(FarmListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   getFarms(){

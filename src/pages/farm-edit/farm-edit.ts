@@ -1,16 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Loading, LoadingController } from 'ionic-angular';
-import { AddressInterface, AddressModel } from '../../model/address.model';
-import { AddressProvider } from '../../providers/address/address';
+import { AddressInterface } from '../../model/address.model';
 import { ClientProvider } from '../../providers/client/client';
 import { CultureProvider } from '../../providers/culture/culture';
-import { CityProvider } from '../../providers/city/city';
-import { StateProvider } from '../../providers/state/state';
 import { FarmInterface, FarmModel } from '../../model/farm.model';
 import { FarmProvider } from '../../providers/farm/farm';
-import { ClientModel } from '../../model/client.model';
 import { BasePage } from "../base/base";
 import { DomSanitizer } from "@angular/platform-browser";
+import { MyApp } from '../../app/app.component';
+import { FarmListPage } from '../../pages/farm-list/farm-list';
 
 /**
  * Generated class for the FarmEditPage page.
@@ -59,10 +57,7 @@ export class FarmEditPage extends BasePage{
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private stateProvider: StateProvider,
-    private cityProvider: CityProvider,
     private clientProvider: ClientProvider,
-    private addressProvider: AddressProvider,
     private cultureProvider: CultureProvider,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
@@ -70,6 +65,16 @@ export class FarmEditPage extends BasePage{
     private sanitizer:DomSanitizer,
   ) {
     super(navCtrl);
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(FarmListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   getFarm(){

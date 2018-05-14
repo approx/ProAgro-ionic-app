@@ -69,7 +69,7 @@ registerLocaleData(localePtBr);
     MyApp,
     HomePage,
     NavBarComponent,
-    UserComponent
+    UserComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,7 +104,7 @@ registerLocaleData(localePtBr);
     FarmPage,
     FarmListPage,
     FarmRegisterPage,
-    CulturePage
+    CulturePage,
   ],
   providers: [
     StatusBar,

@@ -7,12 +7,12 @@
 <ion-content padding>
   <h1>Lista de Clientes</h1>
   <ion-grid>
-    <ion-row style="display:flex;align-items:center;background-color:white">
+    <ion-row *ngIf="!userClient" style="display:flex;align-items:center;background-color:white">
       <ion-col col-11>
         <ion-searchbar (ionInput)="getItems($event)" [(ngModel)]="searchTxt"></ion-searchbar>
       </ion-col>
       <ion-col col-1 >
-        <button style="background-color:transparent"> <ion-icon name="person-add" style="font-size:30px;"></ion-icon></button>
+        <button *ngIf="!userClient" style="background-color:transparent"> <ion-icon name="person-add" style="font-size:30px;"></ion-icon></button>
       </ion-col>
     </ion-row>
     <table *ngIf="clients&&loaded&&user" col-12>

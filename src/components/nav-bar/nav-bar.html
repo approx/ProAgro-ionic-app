@@ -1,5 +1,5 @@
 <!-- Generated template for the NavBarComponent component -->
-<div *ngIf="render" class="wraper" (mouseenter)="openPageMenu(page)" (mouseleave)="cloasePageMenu(page)">
+<div *ngIf="page.render" class="wraper" (mouseenter)="openPageMenu(page)" (mouseleave)="cloasePageMenu(page)">
   <ion-item>
     <button (click)="openPage(page,$event)">
       <ion-icon no-margin float-left class="primary" name="{{page.icon}}"></ion-icon>
@@ -7,8 +7,10 @@
     </button>
   </ion-item>
   <div *ngIf="page.itensToogle && page.itens" class="itens">
-    <button (click)="openPage(iten,$event)" class="toggleIten" *ngFor="let iten of page.itens">
-      {{iten.name}}
-    </button>
+    <span *ngFor="let iten of page.itens">
+      <button *ngIf="iten.render" (click)="openPage(iten,$event)" class="toggleIten">
+        <span>{{iten.name}}</span>
+      </button>
+    </span>
   </div>
 </div>

@@ -9,12 +9,14 @@ import { FieldModel } from '../../model/field.model';
 import { CropModel } from '../../model/crop.model';
 import { ActivityInterface } from '../../model/activity.model';
 import { ActivityTypeProvider } from '../../providers/activity-type/activity-type';
-import { ActivityTypeModel,ActivityTypeInterface } from '../../model/activityType.model';
+import { ActivityTypeModel } from '../../model/activityType.model';
 import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
 import { SelectSearchable } from 'ionic-select-searchable';
+import { MyApp } from '../../app/app.component';
+import { ActivityListPage } from '../../pages/activity-list/activity-list';
 
 /**
  * Generated class for the ActivityRegisterPage page.
@@ -77,6 +79,16 @@ export class ActivityRegisterPage extends BasePage{
   ) {
     super(navCtrl);
 
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(ActivityListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   portChange(event: { component: SelectSearchable, value: any }) {
@@ -222,7 +234,6 @@ export class ActivityRegisterPage extends BasePage{
   CalculateIten(iten:ActivityIten){
     if(this.activity.activity_type_id && iten.crop){
       console.log(iten);
-      let activityType = this.getActivityType(this.activity.activity_type_id);
       iten.quantity = ((iten.percentage/100) * this.activity.dose) * iten.crop.field.area;
       console.log(this.unity_value);
       iten.total = (parseFloat(this.unity_value) * iten.quantity);
@@ -301,7 +312,6 @@ export class ActivityRegisterPage extends BasePage{
 
   calculateValueAndQuantity(){
     if(this.totalDose && this.activity.activity_type_id && this.field){
-      let activityType = this.getActivityType(this.activity.activity_type_id);
       this.total_value = 'R$ '+(parseFloat(this.unity_value) * this.totalDose);
       this.quantity = this.totalDose;
       this.value_per_ha = 'R$ '+((parseFloat(this.unity_value) * this.totalDose) / this.field.area);

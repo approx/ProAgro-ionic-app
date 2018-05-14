@@ -8,7 +8,8 @@ export interface ClientInteface{
   phone:string;
   inscription_number:string;
   cpf_cnpj:string;
-  user_id?:number
+  user_id?:number;
+  client_user?:number;
   phone2?:string;
   email?:string;
   address_id?:number;
@@ -25,6 +26,7 @@ export class ClientModel{
     public address:AddressModel,
     public farms:FarmModel[],
     public user:UserModel,
+    public client_user:number,
     public phone2?:string,
     public email?:string
   ){}

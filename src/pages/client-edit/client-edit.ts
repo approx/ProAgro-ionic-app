@@ -1,12 +1,11 @@
 import { Component,Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ClientInteface, ClientModel } from '../../model/client.model';
-import { CityProvider } from '../../providers/city/city';
-import { StateProvider } from '../../providers/state/state';
 import { AddressInterface } from '../../model/address.model';
 import { AddressProvider } from '../../providers/address/address';
 import { ClientProvider } from '../../providers/client/client';
-import { LoadingController,Loading,AlertController } from 'ionic-angular';
+import { ClientListPage } from '../../pages/client-list/client-list';
+import { LoadingController,Loading } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
@@ -49,17 +48,23 @@ export class ClientEditPage extends BasePage{
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private stateProvider:StateProvider,
-    private cityProvider:CityProvider,
     private addressProvider:AddressProvider,
     public loadingCtrl: LoadingController,
     private clientProvider:ClientProvider,
-    private alertCtrl:AlertController,
     private message:MessagesProvider
   ) {
     super(navCtrl);
   }
 
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(ClientListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
+  }
 
   Update(){
     this.message.Wait();

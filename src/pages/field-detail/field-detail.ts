@@ -9,7 +9,7 @@ import { ActivityRegisterPage } from '../../pages/activity-register/activity-reg
 import { FieldEditPage } from "../field-edit/field-edit";
 import { BasePage } from "../base/base";
 import { FieldListPage } from '../field-list/field-list';
-
+import { MyApp } from '../../app/app.component';
 import { MessagesProvider } from '../../providers/messages/messages';
 
 /**
@@ -27,6 +27,7 @@ import { MessagesProvider } from '../../providers/messages/messages';
 export class FieldDetailPage extends BasePage{
   field:FieldModel;
   field_id:number;
+  userClient:boolean;
   mapUrl;
   actions=[{
     label:'Registrar Nova Safra',
@@ -44,6 +45,8 @@ export class FieldDetailPage extends BasePage{
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private fieldProvider:FieldProvider,private sanitizer:DomSanitizer,private message:MessagesProvider) {
     super(navCtrl);
+    MyApp.instance.user;
+    this.userClient = MyApp.instance.user.role.id == 3;
   }
 
   openCropPage(crop){

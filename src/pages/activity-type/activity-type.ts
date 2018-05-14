@@ -3,10 +3,11 @@ import { NgModel } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ActivityTypeInterface,ActivityTypeModel } from '../../model/activityType.model';
 import { ActivityTypeProvider } from '../../providers/activity-type/activity-type';
-import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
 import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
+import { MyApp } from '../../app/app.component';
+import { ActivityListPage } from '../../pages/activity-list/activity-list';
 
 /**
  * Generated class for the ActivityTypePage page.
@@ -26,21 +27,27 @@ export class ActivityTypePage extends BasePage{
   };
   activityTypes:ActivityTypeModel[];
   unity_value:string;
-  value_per_ha:string;
   @ViewChildren(NgModel) models:NgModel[];
   unities:UnityModel[]=[];
-
-  private _valuePerHa:string='';
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private acitivityTypeProvider:ActivityTypeProvider,
-    private message:MessagesProvider,
     private unityProvider:UnityProvider,
   ){
     super(navCtrl);
 
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(ActivityListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   getActivityTypes(){
@@ -57,14 +64,6 @@ export class ActivityTypePage extends BasePage{
     console.log(this.models);
     this.getActivityTypes();
     this.getUnities();
-  }
-
-  onValuePerHaChange($event:any){
-    let value:string = $event;
-    value = value.replace(/(?=[^,])(\D)+/gi,'');
-    setTimeout(()=>{
-      this.value_per_ha = value.length>0 ? 'R$ '+value: '';
-    },0);
   }
 
   getUnities(){
@@ -94,7 +93,6 @@ export class ActivityTypePage extends BasePage{
         name: '',
         id:''
       };
-      this.value_per_ha = '';
       this.unity_value = '';
     })
   }

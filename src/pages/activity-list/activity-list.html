@@ -63,7 +63,7 @@
         <th class="hide-lg">Quantidade</th>
         <th class="hide-md">Valor por ha</th>
         <th>Total</th>
-        <th>Ações</th>
+        <th *ngIf="!userClient">Ações</th>
       </tr>
       <tr *ngFor="let activity of filteredActivities">
         <td>{{activity.operation_date | date: 'dd/MM/yyyy'}}</td>
@@ -79,7 +79,7 @@
         <td class="hide-md" *ngIf="activity.value_per_ha">R$ {{activity.value_per_ha}}</td>
         <td class="hide-md" *ngIf="!activity.value_per_ha">--</td>
         <td>R$ {{activity.total_value}}</td>
-        <td text-center>
+        <td text-center *ngIf="!userClient">
           <ion-icon class="Clickable" (click)="delete(activity)" name="trash"></ion-icon>
           <ion-icon class="Clickable" (click)="openEditPage($event, activity)" name="create"></ion-icon>
         </td>

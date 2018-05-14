@@ -10,13 +10,15 @@ import { CropModel } from '../../model/crop.model';
 import { ActivityInterface } from '../../model/activity.model';
 import { ActivityModel } from '../../model/activity.model';
 import { ActivityTypeProvider } from '../../providers/activity-type/activity-type';
-import { ActivityTypeModel,ActivityTypeInterface } from '../../model/activityType.model';
+import { ActivityTypeModel } from '../../model/activityType.model';
 import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
 import { ActivityIten } from '../activity-register/activity-register';
 import { SelectSearchable } from 'ionic-select-searchable';
+import { MyApp } from '../../app/app.component';
+import { ActivityListPage } from '../../pages/activity-list/activity-list';
 
 /**
  * Generated class for the ActivityEditPage page.
@@ -80,7 +82,7 @@ export class ActivityEditPage extends BasePage {
     private message:MessagesProvider
   ) {
     super(navCtrl);
-
+    MyApp.instance.user;
   }
 
   portChange(event: { component: SelectSearchable, value: any }) {
@@ -155,7 +157,6 @@ export class ActivityEditPage extends BasePage {
     console.log('calculate');
 
     if(this.activity.activity_type_id && this.field){
-      let activityType = this.getActivityType(this.activity.activity_type_id);
       this.activity.quantity = this.activity.dose * this.field.area;
       console.log(this.field.area);
       this.activity.total_value = (parseFloat(this.unity_value) * this.activity.quantity);
@@ -215,14 +216,27 @@ export class ActivityEditPage extends BasePage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ActivityEditPage');
-    this.message.Wait('Buscando Dados...');
-    let date = new Date();
-    date.setFullYear(date.getFullYear()+10);
-    this.maxDate = date.getFullYear()+'-12-31';
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(ActivityListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
+  }
 
-    this.getFarms();
+  ionViewDidLoad() {
+    if (MyApp.instance.user.role.id != 3) {
+      console.log('ionViewDidLoad ActivityEditPage');
+      this.message.Wait('Buscando Dados...');
+      let date = new Date();
+      date.setFullYear(date.getFullYear()+10);
+      this.maxDate = date.getFullYear()+'-12-31';
+      console.log(MyApp.instance.user);
+
+      this.getFarms();
+    }
   }
 
   getFarms(){

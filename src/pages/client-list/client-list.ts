@@ -25,8 +25,9 @@ export class ClientListPage extends BasePage{
   clients:ClientModel[];
   filteredClients:ClientModel[];
   loaded:boolean=false;
-  user;
+  userClient:boolean;
   searchTxt:string;
+  user;
 
   constructor(
     public navCtrl: NavController,
@@ -34,6 +35,8 @@ export class ClientListPage extends BasePage{
     private clientsProvider:ClientProvider
   ) {
     super(navCtrl);
+    MyApp.instance.user;
+    this.userClient = MyApp.instance.user.role.id == 3;
   }
 
   getItems($event){
@@ -50,6 +53,7 @@ export class ClientListPage extends BasePage{
         this.clients = data;
         this.filteredClients = data;
         this.loaded = true;
+        console.log("Clientes: ", this.clients);
     },(err:any) => {
       if (err.error instanceof Error) {
         // A client-side or network error occurred. Handle it accordingly.

@@ -34,6 +34,7 @@ import { CurrencyPipe } from '@angular/common';
 export class FarmDetailPage extends BasePage{
   farm_id:number;
   farm:FarmModel;
+  userClient:boolean;
   mapUrl;
   actions=[
   {
@@ -98,6 +99,8 @@ export class FarmDetailPage extends BasePage{
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider,private sanitizer:DomSanitizer,private message:MessagesProvider,private currencyPipe:CurrencyPipe) {
     super(navCtrl);
+    MyApp.instance.user;
+    this.userClient = MyApp.instance.user.role.id == 3;
   }
 
   getIncomeType(){

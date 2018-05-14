@@ -2,6 +2,8 @@ import { Component,Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CultureProvider } from '../../providers/culture/culture';
 import { BasePage } from "../base/base";
+import { MyApp } from '../../app/app.component';
+import { FarmListPage } from '../../pages/farm-list/farm-list';
 /**
  * Generated class for the CulturePage page.
  *
@@ -20,6 +22,16 @@ export class CulturePage extends BasePage{
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private cultureProvider:CultureProvider) {
     super(navCtrl);
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(FarmListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   getCultures(){

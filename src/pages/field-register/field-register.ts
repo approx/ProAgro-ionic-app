@@ -11,6 +11,8 @@ import { ClientModel } from '../../model/client.model';
 import { FieldTypesProvider } from "../../providers/field-types/field-types";
 import { FieldTypeModel } from "../../model/fieldType.model";
 import { BasePage } from "../base/base";
+import { MyApp } from '../../app/app.component';
+import { FieldListPage } from '../../pages/field-list/field-list';
 
 /**
  * Generated class for the FieldRegisterPage page.
@@ -45,6 +47,16 @@ export class FieldRegisterPage extends BasePage{
     private fieldTypeProvider:FieldTypesProvider
   ) {
     super(navCtrl);
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(FieldListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   findIdInArray(id:number,array:{id:number}[]):{id:number}{

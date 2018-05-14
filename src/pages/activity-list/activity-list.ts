@@ -17,6 +17,7 @@ import { UnityModel } from '../../model/unity.model';
 import { BasePage } from "../base/base";
 import { MessagesProvider } from '../../providers/messages/messages';
 import { ActivityEditPage } from "../activity-edit/activity-edit";
+import { MyApp } from '../../app/app.component';
 
 /**
  * Generated class for the ActivityListPage page.
@@ -25,7 +26,7 @@ import { ActivityEditPage } from "../activity-edit/activity-edit";
  * Ionic pages and navigation.
  */
 
-@IonicPage({segment:"acivity/list"})
+@IonicPage({segment:"activity/list"})
 @Component({
   selector: 'page-activity-list',
   templateUrl: 'activity-list.html',
@@ -54,6 +55,7 @@ export class ActivityListPage extends BasePage {
   unity:UnityModel[]=[];
 
   loaded:boolean = false;
+  userClient:boolean;
 
 
   constructor(
@@ -68,6 +70,8 @@ export class ActivityListPage extends BasePage {
     private message:MessagesProvider
   ) {
     super(navCtrl);
+    MyApp.instance.user;
+    this.userClient = MyApp.instance.user.role.id == 3;
   }
 
   getActivities(){

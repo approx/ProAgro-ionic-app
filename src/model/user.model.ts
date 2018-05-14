@@ -1,5 +1,3 @@
-import { HttpClient  } from '@angular/common/http';
-import { endPoint } from "../Env";
 
 export class User{
   id:number;
