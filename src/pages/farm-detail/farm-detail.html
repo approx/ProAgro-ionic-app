@@ -39,6 +39,45 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div margin-bottom class="horizontalLine">
+    <h2>Resumo</h2>
+  </div>
+  <div *ngIf="drawCharts" class="myRow">
+    <ion-col *ngIf="expensePieChartData.length>0 && benefitPieChartData.length>0" col-lg-6>
+      <h3 margin-left padding-left>Despesas</h3>
+      <canvas baseChart
+      [data]="expensePieChartData"
+      [labels]="expensePieChartLabels"
+      [options]="pieChartOptions"
+      [colors]="colors"
+      chartType="pie"></canvas>
+    </ion-col>
+    <ion-col *ngIf="expensePieChartData.length>0 && benefitPieChartData.length>0" col-lg-6>
+      <h3 margin-left padding-left>Receita</h3>
+      <canvas baseChart
+      [data]="benefitPieChartData"
+      [labels]="benefitPirChartLabel"
+      [options]="lineChartOptions"
+      chartType="pie"></canvas>
+    </ion-col>
+    <ion-col *ngIf="expensePieChartData.length<=0" col-12>
+      <h3 margin-left padding-left>Receita</h3>
+      <canvas baseChart
+      [data]="benefitPieChartData"
+      [labels]="benefitPirChartLabel"
+      [options]="lineChartOptions"
+      chartType="pie"></canvas>
+    </ion-col>
+    <ion-col *ngIf="benefitPieChartData.length<=0" col-12>
+      <h3 margin-left padding-left>Despesas</h3>
+      <canvas baseChart
+      [data]="expensePieChartData"
+      [labels]="expensePieChartLabels"
+      [options]="pieChartOptions"
+      [colors]="colors"
+      chartType="pie"></canvas>
+    </ion-col>
+  </div>
   <div class="horizontalLine">
     <h2>Talhões</h2>
   </div>

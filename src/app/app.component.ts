@@ -23,6 +23,7 @@ import { ActivityTypePage } from '../pages/activity-type/activity-type';
 import { UnityPage } from '../pages/unity/unity';
 import { UserRegisterPage } from "../pages/user-register/user-register";
 import { ActivityRegisterTotalPage } from '../pages/activity-register-total/activity-register-total';
+import { StockUsePage } from '../pages/stock-use/stock-use';
 
 @Component({
   templateUrl: 'app.html'
@@ -180,6 +181,12 @@ export class MyApp {
           component:ActivityRegisterTotalPage,
           role:'master|employe',
           render:false,
+          itensToogle:false
+        },
+        {
+          name:'Estoque',
+          component:StockUsePage,
+          role:'master|employe',
           itensToogle:false
         },
         {

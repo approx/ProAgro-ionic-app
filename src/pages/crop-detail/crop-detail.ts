@@ -12,6 +12,7 @@ import { BasePage } from "../base/base";
 import { MessagesProvider } from '../../providers/messages/messages';
 import { CropListPage } from '../crop-list/crop-list';
 import { MyApp } from '../../app/app.component';
+import { CurrencyPipe } from '@angular/common';
 
 /**
  * Generated class for the CropDetailPage page.
@@ -24,6 +25,7 @@ import { MyApp } from '../../app/app.component';
 @Component({
   selector: 'page-crop-detail',
   templateUrl: 'crop-detail.html',
+  providers:[CurrencyPipe]
 })
 export class CropDetailPage extends BasePage{
 
@@ -48,15 +50,76 @@ export class CropDetailPage extends BasePage{
     down:()=>{
       this.navCtrl.push(CropRegisterSackPage.name,{crop:this.crop,crop_id:this.crop.id});
     }
-  }]
+  }];
 
-  chartLabels = ['January', 'February', 'Mars', 'April'];
+  drawCharts=false;
+  pieChartData = [];
+  pieChartLabels = [];
+  pieChartOptions = {
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data)=> {
+          var label = data.labels[tooltipItem.index] || '';
 
-  chartOptions = {
-    responsive: true
-  };
+          if (label) {
+            label += ': ';
+          }
+          label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
+          return label;
+        }
+      }
+    },
+    legend: {
+      display: true,
+      position: 'left'
+    }
+  }
+  lineChartOptions= {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    },
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data)=> {
+          var label = data.labels[tooltipItem.index] || '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider,private message:MessagesProvider,private activityProvider:ActivityProvider,) {
+          if (label) {
+            label += ': ';
+          }
+          label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
+          return label;
+        }
+      }
+    },
+    legend: {
+      display: false,
+    }
+  }
+
+  colors=[
+    { // grey
+      backgroundColor: ["#4a883f","#4A442D","#58B09C","#3D3522","#CAF7E2","#D5DFE5","#B49594","#C9B1BD","#7F9172","#4E3D42","#9F9F92","#C9D5B5","#E3DBDB","#32021F","#4B2E39","#6F7D8C","#77A0A9","#CACFD6","#D6E5E3","#9FD8CB","#2D3319"]
+    }
+  ];
+
+  linechartColors=[{ // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }]
+
+  months=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  lineChartData = [];
+  lineChartLabels = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider,private message:MessagesProvider,private activityProvider:ActivityProvider,private currencyPipe:CurrencyPipe) {
 
     super(navCtrl);
     MyApp.instance.user;
@@ -66,6 +129,59 @@ export class CropDetailPage extends BasePage{
   editSack() {
     this.sack_editing = !this.sack_editing;
     this.crop.sack_produced = this.sack_produced;
+  }
+
+  calculatePieChartData(){
+    let array=[];
+    loop1:
+    for (let i = 0; i < this.crop.activities.length; i++) {
+      for (let j = 0; j < this.pieChartData.length; j++) {
+          if(this.pieChartLabels[j]==this.crop.activities[i].activity_type.name){
+            this.pieChartData[j]+=parseFloat(<any>this.crop.activities[i].total_value);
+            continue loop1;
+          }
+      }
+      this.pieChartData.push(parseFloat(<any>this.crop.activities[i].total_value));
+      this.pieChartLabels.push(this.crop.activities[i].activity_type.name);
+    }
+    // console.log(this.pieChartData);
+    // console.log(this.pieChartLabels)
+  }
+
+  calculateLineChart(){
+    let orderedActivities = this.crop.activities.sort((a,b)=>{
+      let dateA = new Date(<string>a.operation_date);
+      let dateB = new Date(<string>b.operation_date);
+      if(dateA.getTime()<dateB.getTime()){
+        return -1;
+      }
+      if(dateA.getTime()>dateB.getTime()){
+        return 1;
+      }
+      if(dateA.getTime()===dateB.getTime()){
+        return 0;
+      }
+    });
+
+    loop1:
+    for (let i = 0; i < orderedActivities.length; i++) {
+      // console.log(orderedActivities[i].operation_date);
+      let date = new Date(<string>orderedActivities[i].operation_date);
+      console.log(i)
+      let label = this.months[date.getMonth()]+'/'+date.getFullYear();
+      for (let j = 0; j < this.lineChartLabels.length; j++) {
+          if(this.lineChartLabels[j]==label){
+            this.lineChartData[j]+=parseFloat(<any>orderedActivities[i].total_value);
+            console.log(this.lineChartData[j]);
+            continue loop1;
+          }
+      }
+      this.lineChartData.push(parseFloat(<any>orderedActivities[i].total_value));
+      this.lineChartLabels.push(label);
+    }
+    // this.lineChartData=[{data:this.lineChartData,label:''}]
+    console.log(this.lineChartData);
+    console.log(this.lineChartLabels);
   }
 
   saveSacks(){
@@ -108,7 +224,9 @@ export class CropDetailPage extends BasePage{
         this.calculatePercentage();
         this.calculateTotal();
         this.calculateTotalInventario();
-        this.setChartData();
+        this.calculatePieChartData();
+        this.calculateLineChart();
+        this.drawCharts=true;
         if (this.crop.sack_produced == null) {
           this.crop.sack_produced = 0;
         }
@@ -119,7 +237,9 @@ export class CropDetailPage extends BasePage{
       this.calculateTotal();
       this.calculatePercentage();
       this.calculateTotalInventario();
-      this.setChartData();
+      this.calculatePieChartData();
+      this.calculateLineChart();
+      this.drawCharts=true;
       if (this.crop.sack_produced == null) {
         this.crop.sack_produced = 0;
       }
@@ -150,17 +270,6 @@ export class CropDetailPage extends BasePage{
         this.message.ErrorAlert();
       })
     })
-  }
-
-  setChartData(){
-    let total_sacks = 0;
-    for (let i = 0; i < this.crop.sack_solds.length; i++) {
-        total_sacks+=this.crop.sack_solds[i].quantity;
-    }
-    // this.chartData = [
-    //   {data:this.crop.expected,label:'Experado'},
-    //   {data:total_sacks,label:'Alcançado'}
-    // ]
   }
 
   calculateTotalInventario(){
