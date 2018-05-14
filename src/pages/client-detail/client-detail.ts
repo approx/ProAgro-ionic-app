@@ -10,6 +10,7 @@ import { ClientEditPage } from "../client-edit/client-edit";
 import { BasePage } from "../base/base";
 import { UserRegisterProvider } from "../../providers/user-register/user-register";
 import { MessagesProvider } from '../../providers/messages/messages';
+import { MyApp } from '../../app/app.component';
 
 /**
  * Generated class for the ClientDetailPage page.
@@ -29,6 +30,8 @@ export class ClientDetailPage extends BasePage{
   client_id:number;
   client:ClientModel;
   farmSize=300;
+  client_user:number;
+  userClient:boolean;
 
 
   constructor(
@@ -41,6 +44,8 @@ export class ClientDetailPage extends BasePage{
     private message:MessagesProvider)
   {
     super(navCtrl);
+    MyApp.instance.user;
+    this.userClient = MyApp.instance.user.role.id == 3;
   }
 
   ionViewDidLoad() {
@@ -53,12 +58,14 @@ export class ClientDetailPage extends BasePage{
       console.log('geting client data')
       this.clientProvider.get(this.client_id).subscribe((data:ClientModel)=>{
         this.client = data;
-        if (this.client.inscription_number == null) {
+        /*if (this.client.inscription_number == null) {
             this.client.inscription_number = '';
         }
         if (this.client.inscription_number != '') {
             this.client.inscription_number = ' - ' + this.client.inscription_number;
-        }
+        }*/
+        console.log("Cliente", this.client);
+        this.client_user = this.client.client_user;
       },(err:any)=>{
         if(err instanceof Error){
 
@@ -66,6 +73,9 @@ export class ClientDetailPage extends BasePage{
 
         }
       })
+    } else {
+      console.log("Cliente já existe", this.client)
+      this.client_user = this.client.client_user;
     }
   }
 
@@ -119,7 +129,7 @@ export class ClientDetailPage extends BasePage{
           }
         },
         {
-          text: 'Save',
+          text: 'Salvar',
           handler: data => {
             console.log('Saved clicked');
             if (this.emailValidator(data.email)) {
@@ -141,15 +151,58 @@ export class ClientDetailPage extends BasePage{
     alert.present();
   }
 
+  openUserRemove(event:MouseEvent){
+
+    let alert = this.alertCtrl.create({
+      title: 'Remover Acesso do Cliente',
+      message: 'Tem certeza que deseja remover o acesso do Cliente?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: data => {
+            console.log('Ok clicked');
+            this.removeAccessClient();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   grantAccessClient (data) {
     console.log(data);
     this.message.Wait();
     var role_id = 3;
-    this.userRegisterProvider.acess(data.name,data.email,role_id).subscribe((data)=>{
+    this.userRegisterProvider.acess(data.name,data.email,role_id,this.client_id).subscribe((data)=>{
       this.message.SuccessAlert('Acesso concedido com sucesso, foi enviado um e-mail para o usuario terminar o cadastro!');
     },(err)=>{
       this.message.ErrorAlert();
     });
+  }
+
+  removeAccessClient () {
+    console.log(this.client_user);
+    var user_delete = this.client.client_user;
+    this.message.Wait();
+    this.client.client_user = null;
+    this.clientProvider.update(this.client).subscribe((data)=>{
+      console.log(data);
+      this.message.SuccessAlert('Acesso removido com sucesso!');
+      this.client_user = null;
+      this.userRegisterProvider.delete(String(user_delete)).subscribe(()=>{
+        console.log('Removeu Usuário');
+      },(err:any)=>{
+        console.log('Não removeu usuário');
+      })
+    },(err)=>{
+      this.message.ErrorAlert();
+    })
   }
 
   showErrorToast(data: any) {

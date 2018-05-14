@@ -9,13 +9,15 @@ import { FieldModel } from '../../model/field.model';
 import { CropModel } from '../../model/crop.model';
 import { ActivityInterface } from '../../model/activity.model';
 import { ActivityTypeProvider } from '../../providers/activity-type/activity-type';
-import { ActivityTypeModel,ActivityTypeInterface } from '../../model/activityType.model';
+import { ActivityTypeModel } from '../../model/activityType.model';
 import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
 import { ActivityIten } from '../activity-register/activity-register';
 import { SelectSearchable } from 'ionic-select-searchable';
+import { MyApp } from '../../app/app.component';
+import { ActivityListPage } from '../../pages/activity-list/activity-list';
 
 /**
  * Generated class for the ActivityRegisterTotalPage page.
@@ -60,6 +62,16 @@ export class ActivityRegisterTotalPage extends BasePage {
     private message:MessagesProvider
   ) {
     super(navCtrl);
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(ActivityListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   portChange(event: { component: SelectSearchable, value: any }) {

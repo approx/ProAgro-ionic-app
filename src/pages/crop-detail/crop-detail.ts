@@ -11,6 +11,7 @@ import { CropRegisterSackPage } from "../crop-register-sack/crop-register-sack";
 import { BasePage } from "../base/base";
 import { MessagesProvider } from '../../providers/messages/messages';
 import { CropListPage } from '../crop-list/crop-list';
+import { MyApp } from '../../app/app.component';
 
 /**
  * Generated class for the CropDetailPage page.
@@ -36,6 +37,7 @@ export class CropDetailPage extends BasePage{
   itens_depreciation_value:number;
   sack_editing:boolean=false;
   sack_produced:number;
+  userClient:boolean;
   actions=[{
     label:'Registrar Atividade',
     down:()=>{
@@ -57,6 +59,8 @@ export class CropDetailPage extends BasePage{
   constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider,private message:MessagesProvider,private activityProvider:ActivityProvider,) {
 
     super(navCtrl);
+    MyApp.instance.user;
+    this.userClient = MyApp.instance.user.role.id == 3;
   }
 
   editSack() {

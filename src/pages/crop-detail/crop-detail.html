@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content padding *ngIf="crop">
-  <h1>{{crop.name}}<ion-icon class="Clickable" (click)="delete()" name="trash"></ion-icon><ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
+  <h1>{{crop.name}}<ion-icon *ngIf="!userClient" class="Clickable" (click)="delete()" name="trash"></ion-icon><ion-icon *ngIf="!userClient" (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <ion-col col-12>
     <h3 margin-left>{{crop.initial_date | date:'dd/MM/yyyy'}} - {{crop.final_date | date:'dd/MM/yyyy'}}</h3>
     <div loader class=""><div [attr.loaded]="percentage"></div></div>
@@ -18,8 +18,8 @@
         {{crop.culture.name}}<br>
         Expectativa: {{crop.sack_expected}} sacas<br>
         Produzido:
-        <span *ngIf="!sack_editing">{{crop.sack_produced}} sacas <ion-icon *ngIf="!sack_editing" style="cursor:pointer" (click)="editSack()" name="create"></ion-icon></span>
-        <span *ngIf="sack_editing">
+        <span *ngIf="!sack_editing">{{crop.sack_produced}} sacas <ion-icon *ngIf="!sack_editing && !userClient" style="cursor:pointer" (click)="editSack()" name="create"></ion-icon></span>
+        <span *ngIf="sack_editing && !userClient">
           <form class="form-person" (ngSubmit)="saveSacks()" #RegisterForm="ngForm">
             <ion-input type="number" class="input-person" required maxlength="45" #name="ngModel" [(ngModel)]="crop.sack_produced" name="sack_produced" value=""></ion-input>
             <button class="button-person" type="submit" [disabled]="!RegisterForm.form.valid " ion-button col-12 col-md-3>Salvar</button>
@@ -72,7 +72,7 @@
         <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
       </ion-col>
       <ion-col col-1 >
-        <button style="background-color:transparent"> <ion-icon name="person-add" style="font-size:30px;"></ion-icon></button>
+        <button *ngIf="!userClient" style="background-color:transparent"> <ion-icon name="person-add" style="font-size:30px;"></ion-icon></button>
       </ion-col>
     </ion-row>
     <table *ngIf="crop.activities.length>0" col-12>
@@ -83,7 +83,7 @@
         <th class="hide-md">Quantidade</th>
         <th class="hide-md">Valor por ha</th>
         <th>Total</th>
-        <th>Ações</th>
+        <th *ngIf="!userClient">Ações</th>
       </tr>
       <tr *ngFor="let activity of crop.activities">
         <td>{{activity.operation_date | date: 'dd/MM/yyyy'}}</td>
@@ -95,7 +95,7 @@
         <td class="hide-md" *ngIf="activity.value_per_ha">R$ {{activity.value_per_ha}}</td>
         <td class="hide-md" *ngIf="!activity.value_per_ha">--</td>
         <td>R$ {{activity.total_value}}</td>
-        <td><ion-icon class="Clickable" (click)="deleteActivity(activity)" name="trash"></ion-icon></td>
+        <td *ngIf="!userClient"><ion-icon class="Clickable" (click)="deleteActivity(activity)" name="trash"></ion-icon></td>
       </tr>
       <tr>
         <th>Total</th>
@@ -104,7 +104,7 @@
         <th class="hide-md"></th>
         <th class="hide-md">R$ {{total_value_ha}}</th>
         <th>R$ {{total_value}}</th>
-        <th></th>
+        <th *ngIf="!userClient"></th>
       </tr>
     </table>
     <ng-container *ngIf="crop.activities.length<=0">
@@ -115,5 +115,5 @@
       </ion-row>
     </ng-container>
   </ion-grid>
-  <actions [actions]="actions"></actions>
+  <actions [actions]="actions" *ngIf="!userClient"></actions>
 </ion-content>

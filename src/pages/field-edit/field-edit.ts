@@ -9,6 +9,8 @@ import { FarmProvider } from '../../providers/farm/farm';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
 import { BasePage } from "../base/base";
+import { MyApp } from '../../app/app.component';
+import { FieldListPage } from '../../pages/field-list/field-list';
 
 /**
  * Generated class for the FieldEditPage page.
@@ -45,6 +47,16 @@ export class FieldEditPage extends BasePage{
     private clientProvider:ClientProvider
   ) {
     super(navCtrl);
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(FieldListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   findIdInArray(id:number,array:{id:number}[]):{id:number}{

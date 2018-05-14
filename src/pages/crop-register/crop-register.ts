@@ -13,6 +13,8 @@ import { MessagesProvider } from '../../providers/messages/messages';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientModel } from '../../model/client.model';
 import { BasePage } from "../base/base";
+import { MyApp } from '../../app/app.component';
+import { CropListPage } from '../../pages/crop-list/crop-list';
 
 /**
  * Generated class for the CropRegisterPage page.
@@ -61,6 +63,16 @@ export class CropRegisterPage extends BasePage{
     private clientProvider:ClientProvider
   ) {
     super(navCtrl);
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(CropListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   getInventoriItens(){

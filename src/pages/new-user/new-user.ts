@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserRegisterProvider } from "../../providers/user-register/user-register";
 import { MessagesProvider } from "../../providers/messages/messages";
 import { LoginPage } from "../login/login";
-import { ClientListPage } from '../client-list/client-list';
-import { MyApp } from '../../app/app.component';
 import { app_url } from '../../Env';
 
 /**

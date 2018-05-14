@@ -15,6 +15,7 @@ import { UserModel } from "../../model/user.model";
    icon?:string;
    component: any;
    itensToogle:boolean;
+   render:boolean;
    itens?: NavBarPageInterface[];
  }
 
@@ -27,7 +28,8 @@ export class NavBarComponent {
   text: string;
   @Input() page:NavBarPageInterface;
   @Input() user:UserModel;
-  render=true;
+  renderMenu=true;
+  renderSubmenu=true;
 
 
   constructor() {
@@ -37,9 +39,22 @@ export class NavBarComponent {
 
   ngOnInit() {
     console.log(this.page);
+    this.page.render = false;
     let roles = this.page.role.split("|");
     if(roles.indexOf(this.user.role.name)==-1){
-      this.render=false;
+      this.page.render=false;
+    } else {
+      this.page.render=true;
+    }
+
+    for (var i = 0; i < this.page.itens.length; i++) {
+      let rolesSubMenu = this.page.itens[i].role.split("|");
+      if (rolesSubMenu.indexOf(this.user.role.name)==-1){
+        this.page.itens[i].render=false;
+      } else {
+        this.page.itens[i].render=true;
+        this.page.render=true;
+      }
     }
   }
 

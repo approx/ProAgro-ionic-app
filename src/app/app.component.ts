@@ -2,11 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { Platform,Nav,MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { LoginPage } from "../pages/login/login";
-import { DashBoardPage } from "../pages/dash-board/dash-board";
 import { ClientListPage } from '../pages/client-list/client-list';
-import { ClientPage } from '../pages/client/client';
 import { ClientRegisterPage } from '../pages/client-register/client-register';
 import { NavBarPageInterface} from '../components/nav-bar/nav-bar';
 import { AuthProvider} from '../providers/auth/auth';
@@ -14,18 +10,13 @@ import { CookieProvider } from "../providers/cookie/cookie";
 import { HttpClient  } from '@angular/common/http';
 import { endPoint } from "../Env";
 import { UserModel } from "../model/user.model";
-import { FarmPage } from "../pages/farm/farm";
 import { FarmListPage } from "../pages/farm-list/farm-list";
 import { FarmRegisterPage } from "../pages/farm-register/farm-register";
 import { CulturePage } from "../pages/culture/culture";
-import { FieldPage } from '../pages/field/field';
 import { FieldListPage } from '../pages/field-list/field-list';
 import { FieldRegisterPage } from '../pages/field-register/field-register';
-import { CropPage } from '../pages/crop/crop';
 import { CropListPage } from '../pages/crop-list/crop-list';
-import { CropDetailPage } from '../pages/crop-detail/crop-detail';
 import { CropRegisterPage } from '../pages/crop-register/crop-register';
-import { ActivityPage } from '../pages/activity/activity';
 import { ActivityListPage } from '../pages/activity-list/activity-list';
 import { ActivityRegisterPage } from '../pages/activity-register/activity-register';
 import { ActivityTypePage } from '../pages/activity-type/activity-type';
@@ -39,7 +30,7 @@ import { ActivityRegisterTotalPage } from '../pages/activity-register-total/acti
 export class MyApp {
   rootPage:any = ClientListPage.name;
 
-  version = '1.3.0';
+  version = '1.4.0';
 
   loged:boolean = false;
   user:UserModel;
@@ -58,17 +49,20 @@ export class MyApp {
       component:ClientListPage,
       itensToogle:false,
       role:'master|employe',
+      render:false,
       itens:[
         {
           name:'Listar',
           component:ClientListPage,
-          role:'master|employe',
+          role:'master|employe|client',
+          render:false,
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:ClientRegisterPage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         }
       ]
@@ -78,24 +72,28 @@ export class MyApp {
       icon:'flag',
       component:FarmListPage,
       role:'master|employe',
+      render:false,
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:FarmListPage,
-          role:'master|employe',
+          role:'master|employe|client',
+          render:false,
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:FarmRegisterPage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         },
         {
           name:'Culturas',
           component:CulturePage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         }
       ]
@@ -105,18 +103,21 @@ export class MyApp {
       icon:'grid',
       component:FieldListPage,
       role:'master|employe',
+      render:false,
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:FieldListPage,
-          role:'master|employe',
+          role:'master|employe|client',
+          render:false,
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:FieldRegisterPage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         }
       ]
@@ -126,24 +127,28 @@ export class MyApp {
       icon:'leaf',
       component:CropListPage,
       role:'master|employe',
+      render:false,
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:CropListPage,
-          role:'master|employe',
+          role:'master|employe|client',
+          render:false,
           itensToogle:false
         },
         {
           name:'Cadastrar',
           component:CropRegisterPage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         },
         {
           name:'Culturas',
           component:CulturePage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         }
       ]
@@ -153,36 +158,42 @@ export class MyApp {
       icon:'clipboard',
       component:ActivityListPage,
       role:'master|employe',
+      render:false,
       itensToogle:false,
       itens:[
         {
           name:'Listar',
           component:ActivityListPage,
-          role:'master|employe',
+          role:'master|employe|client',
+          render:false,
           itensToogle:false
         },
         {
           name:'Cadastrar por ha',
           component:ActivityRegisterPage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         },
         {
           name:'Cadastrar por valor total',
           component:ActivityRegisterTotalPage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         },
         {
           name:'Tipos',
           component:ActivityTypePage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         },
         {
           name:'Unidades',
           component:UnityPage,
           role:'master|employe',
+          render:false,
           itensToogle:false
         }
       ]
@@ -192,12 +203,14 @@ export class MyApp {
       icon:'clipboard',
       component:UserRegisterPage,
       role:'master',
+      render:false,
       itensToogle:false,
       itens:[
         {
           name:'Cadastrar',
           component:UserRegisterPage,
           role:'master',
+          render:false,
           itensToogle:false
         }
       ]

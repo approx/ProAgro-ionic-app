@@ -4,7 +4,8 @@ import { CropModel } from "../../model/crop.model";
 import { CropProvider,RegisterSack } from "../../providers/crop/crop";
 import { MessagesProvider } from "../../providers/messages/messages";
 import { BasePage } from "../base/base";
-
+import { MyApp } from '../../app/app.component';
+import { CropListPage } from '../../pages/crop-list/crop-list';
 /**
  * Generated class for the CropRegisterSackPage page.
  *
@@ -30,6 +31,16 @@ export class CropRegisterSackPage extends BasePage{
     super(navCtrl);
   }
 
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(CropListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
+  }
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad CropRegisterSackPage');
     this.crop = this.navParams.get('crop');

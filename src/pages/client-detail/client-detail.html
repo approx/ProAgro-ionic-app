@@ -6,7 +6,7 @@
 -->
 
 <ion-content padding>
-  <h1 *ngIf="client">{{client.name}}{{client.inscription_number}} <ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
+  <h1 *ngIf="client">{{client.name}} <span *ngIf="client.inscription_number">-</span> {{client.inscription_number}} <ion-icon *ngIf="!userClient" (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <ion-grid>
     <ion-row>
       <ion-col margin-bottom col-12 col-md-6>
@@ -17,10 +17,10 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div class="horizontalLine">
+  <div class="horizontalLine" *ngIf="!userClient">
     <h2>Ações</h2>
   </div>
-  <ion-grid margin-top padding>
+  <ion-grid margin-top padding *ngIf="!userClient">
     <ion-row style="justify-content: center;">
       <ion-col col-12 col-md-3>
         <button ion-button full (click)="openFarmRegister($event)" type="button" name="button">Adicionar Fazenda</button>
@@ -31,8 +31,11 @@
       <ion-col col-12 col-md-3>
         <button ion-button full (click)="openCropRegister($event)" type="button" name="button">Registrar nova safra</button>
       </ion-col>
-      <ion-col col-12 col-md-3>
+      <ion-col col-12 col-md-3 *ngIf="!client_user">
         <button ion-button full (click)="openUserRegister($event)" type="button" name="button">Conceder Acesso</button>
+      </ion-col>
+      <ion-col col-12 col-md-3 *ngIf="client_user">
+        <button ion-button full (click)="openUserRemove($event)" type="button" name="button">Remover Acesso</button>
       </ion-col>
     </ion-row>
   </ion-grid>

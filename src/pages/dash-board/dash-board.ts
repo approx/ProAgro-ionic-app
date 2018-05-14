@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MyApp } from '../../app/app.component';
 import { BasePage } from "../base/base";
 
 /**

@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UnityProvider } from '../../providers/unity/unity';
 import { UnityInterface, UnityModel} from '../../model/unity.model';
 import { BasePage } from "../base/base";
+import { MyApp } from '../../app/app.component';
+import { ActivityListPage } from '../../pages/activity-list/activity-list';
 
 /**
  * Generated class for the UnityPage page.
@@ -26,6 +28,16 @@ export class UnityPage extends BasePage{
     private unityProvider:UnityProvider
   ) {
     super(navCtrl);
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(ActivityListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   getUnities(){

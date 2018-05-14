@@ -31,6 +31,7 @@ import { FarmListPage } from '../farm-list/farm-list';
 export class FarmDetailPage extends BasePage{
   farm_id:number;
   farm:FarmModel;
+  userClient:boolean;
   mapUrl;
   actions=[
   {
@@ -59,6 +60,8 @@ export class FarmDetailPage extends BasePage{
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider,private sanitizer:DomSanitizer,private message:MessagesProvider) {
     super(navCtrl);
+    MyApp.instance.user;
+    this.userClient = MyApp.instance.user.role.id == 3;
   }
 
   openFieldPage(field){

@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content padding>
-  <h1 *ngIf="farm">Fazenda {{farm.name}}<ion-icon class="Clickable" (click)="delete()" name="trash"></ion-icon><ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
+  <h1 *ngIf="farm">Fazenda {{farm.name}}<ion-icon *ngIf="!userClient" class="Clickable" (click)="delete()" name="trash"></ion-icon><ion-icon *ngIf="!userClient" (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <p *ngIf="farm">    </p>
   <ion-grid>
     <ion-row *ngIf="farm">
@@ -58,7 +58,7 @@
   <ion-grid>
     <ion-row>
       <ion-col padding-left padding-right col-12>
-        <button style="background-color:transparent; float: right;margin-bottom: 5px;" (click)="openRegisterInventory($event)"> <ion-icon name="add-circle" style="font-size:30px;"></ion-icon></button>
+        <button *ngIf="!userClient" style="background-color:transparent; float: right;margin-bottom: 5px;" (click)="openRegisterInventory($event)"> <ion-icon name="add-circle" style="font-size:30px;"></ion-icon></button>
         <table *ngIf="farm" margin-top col-12>
           <tr>
             <th>Nome</th>
@@ -120,5 +120,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <actions [actions]="actions"></actions>
+  <actions *ngIf="!userClient" [actions]="actions"></actions>
 </ion-content>

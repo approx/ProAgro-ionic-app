@@ -9,6 +9,7 @@ import { ClientProvider } from '../../providers/client/client';
 import { LoadingController,Loading,AlertController } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 import { BasePage } from "../base/base";
+import { ClientListPage } from '../../pages/client-list/client-list';
 
 /**
  * Generated class for the ClientRegisterPage page.
@@ -63,6 +64,16 @@ export class ClientRegisterPage extends BasePage{
   FilterCity(state){
     console.log(state);
     this.citiesFilterde = this.cities.filter((city)=>{return city.state_id==state});
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(ClientListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   ionViewDidLoad() {

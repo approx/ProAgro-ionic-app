@@ -6,6 +6,8 @@ import { InventoryItenProvider } from "../../providers/inventory-iten/inventory-
 import { Observable } from "rxjs/Observable";
 import { MessagesProvider } from "../../providers/messages/messages";
 import { BasePage } from "../base/base";
+import { MyApp } from '../../app/app.component';
+import { FarmListPage } from '../../pages/farm-list/farm-list';
 
 /**
  * Generated class for the InventoryItenSalePage page.
@@ -74,6 +76,16 @@ export class InventoryItenSalePage extends BasePage{
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider, private inventoryItenProvider:InventoryItenProvider,private message:MessagesProvider) {
     super(navCtrl);
+  }
+
+  ionViewWillEnter(){
+    if (MyApp.instance.user.role.id == 3) {
+      console.log('sem permissão');
+      this.navCtrl.push(FarmListPage.name)
+      //window.history.back();
+    } else {
+      console.log('user passou: ' + MyApp.instance.user.role.id);
+    }
   }
 
   setMaxDate(){

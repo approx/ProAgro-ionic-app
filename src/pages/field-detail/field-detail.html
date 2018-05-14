@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content padding>
-  <h1 *ngIf="field">{{field.name}} - {{field.field_type.name}}<ion-icon class="Clickable" (click)="delete()" name="trash"></ion-icon><ion-icon (click)="openEditPage($event)" name="create"></ion-icon></h1>
+  <h1 *ngIf="field">{{field.name}} - {{field.field_type.name}}<ion-icon *ngIf="!userClient" class="Clickable" (click)="delete()" name="trash"></ion-icon><ion-icon *ngIf="!userClient" (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <ion-grid padding>
     <ion-row>
       <ion-col *ngIf="field" col-12 col-md-6 style="line-height:25px;" class="vr-right">
@@ -14,7 +14,7 @@
         <span *ngIf="field.farm.client.email">{{field.farm.client.email}}</span><br>
         {{field.farm.client.phone | phone}}
       </ion-col>
-      <ion-col *ngIf="field" style="display:flex;align-items:center;justify-content: center;" col-12 col-md-6>
+      <ion-col *ngIf="field && !userClient" style="display:flex;align-items:center;justify-content: center;" col-12 col-md-6>
         <div *ngIf="!field.crop" col-12 style="display:flex;justify-content:center"><button type="button" (click)="openCropRegister($event)" ion-button col-12 col-sm-9 col-md-8 col-lg-6 col-xl-5>Registrar Safra Atual</button></div>
         <crop-info *ngIf="field.crop" [ngStyle]="{'width': 300 +'px'}" (click)="openCropPage(field.crop)" [crop]="field.crop"></crop-info>
       </ion-col>
@@ -45,5 +45,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <actions [actions]="actions"></actions>
+  <actions [actions]="actions" *ngIf="!userClient"></actions>
 </ion-content>
