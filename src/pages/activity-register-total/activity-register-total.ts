@@ -158,11 +158,11 @@ export class ActivityRegisterTotalPage extends BasePage {
   clearForm() {
     this.farmSelected = null;
     this.fieldSelected = null;
-    this.activity.crop_id = '';
-    this.activity.activity_type_id = '';
+    this.activity.crop_id = null;
+    this.activity.activity_type_id = null;
     this.activityType = null;
     this.activity.product_name = '';
-    this.activity.total_value = '';
+    this.activity.total_value = null;
     this.activity.unity_id = null;
     this.activity.operation_date = null;
     this.activity.payment_date = null;

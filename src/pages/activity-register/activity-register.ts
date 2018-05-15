@@ -62,6 +62,7 @@ export class ActivityRegisterPage extends BasePage{
   finished_crops:boolean=false;
   cropsRegister:ActivityIten[]=[];
   activityType:string;
+  activityTypeSelect;
 
   sended=0;
   totalToSend;
@@ -216,8 +217,8 @@ export class ActivityRegisterPage extends BasePage{
     this.activityTypeSelect = null;
     this.activity.product_name = '';
     this.unity_value = '';
-    this.activity.dose = '';
-    this.activity.unity_id = '';
+    this.activity.dose = null;
+    this.activity.unity_id = null;
     this.activity.operation_date = null;
     this.activity.payment_date = null;
     this.finished_crops = false;
