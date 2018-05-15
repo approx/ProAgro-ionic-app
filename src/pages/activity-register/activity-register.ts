@@ -215,7 +215,7 @@ export class ActivityRegisterPage extends BasePage{
     this.activity_type = null;
     this.activityTypeSelect = null;
     this.activity.product_name = '';
-    this.activity.total_value = '';
+    this.unity_value = '';
     this.activity.dose = '';
     this.activity.unity_id = '';
     this.activity.operation_date = null;

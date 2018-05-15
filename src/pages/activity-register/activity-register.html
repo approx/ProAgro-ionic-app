@@ -35,7 +35,7 @@
           <ion-item>
             <ion-label floating>Valor Unitario*</ion-label>
             <!-- <ion-input type="text" [(ngModel)]="unity_value" minlength="10" (change)="Calculate()" name="unity_value" ></ion-input> -->
-            <ion-input type="text"[(modelMask)]="activity.total_value" required mask="R$ 9" [form]="RegisterForm" currency="true" (change)="Calculate()" name="unity_value" ></ion-input>
+            <ion-input type="text" [(modelMask)]="unity_value" required mask="R$ 9" [form]="RegisterForm" currency="true" (change)="Calculate()" name="unity_value" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-3>
@@ -134,7 +134,7 @@
         </ion-col>
       </ion-row>
       <ion-row margin-top class="justifyCenter" margin-bottom>
-        <button type="submit" ion-button col-12 col-md-3>Cadastrar</button>
+        <button type="submit" [disabled]="!RegisterForm.form.valid || !cropsRegister.length>0" ion-button col-12 col-md-3>Cadastrar</button>
       </ion-row>
     </ion-grid>
   </form>
