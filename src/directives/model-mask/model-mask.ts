@@ -155,6 +155,8 @@ export class ModelMaskDirective implements AfterViewInit {
 
   @HostListener('keydown',['$event'])
   getValue(keyEvent){
+    console.log('keydown');
+    if(keyEvent.keyCode==9) return;
     keyEvent.preventDefault();
     if(this.modelMask==undefined) this.modelMask='';
     if(!this.currency){
@@ -233,17 +235,31 @@ export class ModelMaskDirective implements AfterViewInit {
     }
   }
 
-  @HostListener('keyup',['$event'])
-  keyup(){
-    this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
-    this.setCursor();
-  }
+  // @HostListener('keyup',['$event'])
+  // keyup(){
+  //   console.log('keyup');
+  //   this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
+  //   this.setCursor();
+  // }
 
   @HostListener('blur',['$event'])
   blur(event){
+    console.log('blur');
+    console.log(this.modelMask);
     if(this.modelMask==undefined||this.modelMask==''){
       this.target.value = '';
-    }else{
+      this.component._item._elementRef.nativeElement.classList.remove('input-has-value');
+      this.component._item._elementRef.nativeElement.classList.remove('item-input-has-value');
+    }else if(!this.clean&&this.modelMask==this.getMask()){
+      console.log('clean and equal mask');
+      this.target.value = '';
+      console.log(this.component._item._elementRef.nativeElement.classList)
+      this.component._item._elementRef.nativeElement.classList.remove('input-has-value');
+      this.component._item._elementRef.nativeElement.classList.remove('item-input-has-value');
+      console.log(this.component._item._elementRef.nativeElement.classList)
+      return
+    }
+    else{
       this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
       this.setCursor();
     }
@@ -339,6 +355,7 @@ export class ModelMaskDirective implements AfterViewInit {
   focus(event){
     this.component._item._elementRef.nativeElement.classList.add('ng-touched');
     this.target = event.target;
+    console.log('focus/click');
     if(this.modelMask==undefined){
       this.target.value = this.getMask();
     }
@@ -357,7 +374,7 @@ export class ModelMaskDirective implements AfterViewInit {
   }
 
   ngOnChanges(changes:SimpleChanges){
-    console.log(changes);
+    // console.log(changes);
     if(changes.modelMask&&this.component){
       this.component.setValue(changes.modelMask.currentValue);
     }
