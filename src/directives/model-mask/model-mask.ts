@@ -253,10 +253,8 @@ export class ModelMaskDirective implements AfterViewInit {
     }else if(!this.clean&&this.modelMask==this.getMask()){
       console.log('clean and equal mask');
       this.target.value = '';
-      console.log(this.component._item._elementRef.nativeElement.classList)
       this.component._item._elementRef.nativeElement.classList.remove('input-has-value');
       this.component._item._elementRef.nativeElement.classList.remove('item-input-has-value');
-      console.log(this.component._item._elementRef.nativeElement.classList)
       return
     }
     else{
