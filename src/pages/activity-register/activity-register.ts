@@ -185,7 +185,8 @@ export class ActivityRegisterPage extends BasePage{
   Register(){
     this.sended = 0;
     this.totalToSend = this.cropsRegister.length;
-    this.message.Wait()
+    this.message.Wait();
+
     for (let i = 0; i < this.cropsRegister.length; i++) {
       this.activityProvider.save({
         activity_type_id:this.activity_type.id.toString(),
@@ -202,11 +203,28 @@ export class ActivityRegisterPage extends BasePage{
       this.sended++;
       if(this.sended==this.totalToSend){
         this.message.SuccessAlert('Atividades registradas com sucesso!');
+        this.clearForm();
       }
       },(err)=>{
         this.message.ErrorAlert();
       })
     }
+  }
+
+  clearForm() {
+    this.activity_type = null;
+    this.activityTypeSelect = null;
+    this.activity.product_name = '';
+    this.unity_value = '';
+    this.activity.dose = '';
+    this.activity.unity_id = '';
+    this.activity.operation_date = null;
+    this.activity.payment_date = null;
+    this.finished_crops = false;
+    this.farm = null;
+    this.field = null;
+    this.crop = null;
+    this.cropsRegister = [];
   }
 
   onlyFieldsNotFinished():FieldModel[]{
