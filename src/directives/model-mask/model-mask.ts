@@ -35,6 +35,7 @@ export class ModelMaskDirective implements AfterViewInit {
   @Input() currency:boolean = false;
   @Input() clean=true;
   @Input() form:NgForm;
+  @Input() debug=false;
   _formControl:FormControl;
 
   @Input()
@@ -386,9 +387,16 @@ export class ModelMaskDirective implements AfterViewInit {
   }
 
   ngOnChanges(changes:SimpleChanges){
-    // console.log(changes);
-    if(changes.modelMask&&this.component){
-      this.component.setValue(changes.modelMask.currentValue);
+    if(this.debug){
+      console.log(changes);
+    }
+    if(changes.modelMask&&this.component&&this.component._native){
+      if(this.debug){
+        console.log(this.component._native);
+      }
+      this.component.value = this.modelMask;
+      this.component._native.nativeElement.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
+      // this.setCursor();
     }
   }
 
