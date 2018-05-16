@@ -46,42 +46,56 @@ export class ModelMaskDirective implements AfterViewInit {
   set modelMask(val){
     this.modelValue = val;
     if(!this._formControl){
-      this._formControl = new FormControl(this.modelMask,[Validators.required,(input: FormControl)=>{
-        if(!this.currency){
-          if(this.modelMask){
-            let value = input.value;
-            for (let i = 0; i < this.modelMask.length; i++) {
-              if(value[i]==this.maskPlaceHolder){
-
-                return {maskComplete:false}
-              }
-            }
-            return null;
-          }
-          else if(!this.modelMask){
-            return {emptyValue:false}
-          }
-        }else{
-          if(this.modelMask){
-            return null;
-          }
-          else if(!this.modelMask){
-            return {emptyValue:false}
-          }
-        }
-      }]);
+      this.setFormControll();
     }
     this._formControl.setValue(val);
     this.modelMaskChange.emit(this.modelValue);
   }
 
   constructor(private viewContainerRef: ViewContainerRef) {
+
   }
 
   ngAfterViewInit(){
-    this.component = this.viewContainerRef[ '_data' ].componentView.component;
+    if(!this.component){
+      this.component = this.viewContainerRef[ '_data' ].componentView.component;
+    }
     this.form.form.addControl(this.component._elementRef.nativeElement.getAttribute('name'),this._formControl);
     // this.getModelValue();
+  }
+
+  setFormControll(){
+    if(!this.component){
+      this.component = this.viewContainerRef[ '_data' ].componentView.component;
+    }
+    let validators:any = [(input: FormControl)=>{
+      if(!this.currency){
+        if(this.modelMask){
+          let value = input.value;
+          for (let i = 0; i < this.modelMask.length; i++) {
+            if(value[i]==this.maskPlaceHolder){
+
+              return {maskComplete:false}
+            }
+          }
+          return null;
+        }
+        else if(!this.modelMask){
+          return {emptyValue:false}
+        }
+      }else{
+        if(this.modelMask||this.component._elementRef.nativeElement.getAttribute('required')==null){
+          return null;
+        }
+        else if(!this.modelMask){
+          return {emptyValue:false}
+        }
+      }
+    }];
+    if(this.component._elementRef.nativeElement.getAttribute('required')!=null){
+      validators.push(Validators.required);
+    }
+    this._formControl = new FormControl(this.modelMask,validators);
   }
 
   checkValid(){
@@ -111,7 +125,7 @@ export class ModelMaskDirective implements AfterViewInit {
         this.component._item._elementRef.nativeElement.classList.remove('ng-invalid');
         this.component._item._elementRef.nativeElement.classList.add('ng-valid');
       }
-      else if(!this.modelMask){
+      else if(!this.modelMask&&this.component._elementRef.nativeElement.getAttribute('required')!=null){
         this.component._item._elementRef.nativeElement.classList.add('ng-invalid');
       }
     }
