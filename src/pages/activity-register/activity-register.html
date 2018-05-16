@@ -4,25 +4,33 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-content padding>
-  <h1>Registrar nova Atividade</h1>
+<ion-content  padding>
+  <h1 *ngIf="crop">{{crop.field.farm.name}} - {{crop.field.name}} - {{crop.name}}</h1>
   <form (ngSubmit)="Register()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
       <ion-row style="align-items: flex-end;">
         <ion-col col-12 col-md-4 col-lg-4>
-          <input type="hidden" required name="activityType" [(ngModel)]="activity_type" [value]="activity_type">
+          <input type="hidden" required name="activityType" [(ngModel)]="activity.activity_type_id" [value]="activity_type">
           <ion-item>
             <select-searchable
                 name="atividade"
                 title="Atividade*"
-                [(ngModel)]="activityTypeSelect"
+                [(ngModel)]="activityType"
                 [items]="activityTypes"
                 [canReset]="true"
                 itemValueField="id"
                 itemTextField="name"
                 [canSearch]="true"
-                (onChange)="portChange($event)">
+                (onChange)="selectedActivityType($event)">
             </select-searchable>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-4>
+          <ion-item padding-top>
+            <ion-label>Unidade*</ion-label>
+            <ion-select [(ngModel)]="activity.unity_id" required name="unity">
+              <ion-option *ngFor="let unity of unities" value="{{unity.id}}">{{unity.id}} - {{unity.name}}</ion-option>
+            </ion-select>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4 col-lg-4>
@@ -31,110 +39,45 @@
             <ion-input type="text" [(ngModel)]="activity.product_name" name="product_name" ></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6 col-lg-4>
+        <ion-col col-12 col-md-4 col-lg-4>
           <ion-item>
-            <ion-label floating>Valor Unitario*</ion-label>
-            <!-- <ion-input type="text" [(ngModel)]="unity_value" minlength="10" (change)="Calculate()" name="unity_value" ></ion-input> -->
-            <ion-input type="text" [(modelMask)]="unity_value" required mask="R$ 9" [form]="RegisterForm" currency="true" (change)="Calculate()" name="unity_value" ></ion-input>
+            <ion-label floating>Valor unitario</ion-label>
+            <ion-input  type="text" (ionChange)="calculateTotal()" [(modelMask)]="activity.unity_value" mask="R$ 9" [form]="RegisterForm" currency="true" name="unity_value" ></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-3>
+        <ion-col col-12 col-md-4 col-lg-4>
           <ion-item>
-            <ion-label floating>Dose*</ion-label>
-            <ion-input type="text" required maxlength="45" #name="ngModel" (change)="Calculate()" [(ngModel)]="activity.dose" name="dose" value=""></ion-input>
+            <ion-label floating>Dose</ion-label>
+            <ion-input type="text" (ionChange)="calculateTotal()" [(ngModel)]="activity.dose" name="dose" ></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-3>
-          <ion-item padding-top>
-            <ion-label>Unidade*</ion-label>
-            <ion-select [(ngModel)]="activity.unity_id" required name="unity">
-              <ion-option *ngFor="let unity of unities" value="{{unity.id}}">{{unity.id}} - {{unity.name}}</ion-option>
-            </ion-select>
+        <ion-col col-12 col-md-4 col-lg-4>
+          <ion-item>
+            <ion-label floating>Quantidade</ion-label>
+            <ion-input type="text" [(ngModel)]="activity.quantity" name="quantity" ></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-4 col-lg-3>
+        <ion-col col-12 col-md-4 col-lg-4>
+          <ion-item>
+            <ion-label floating>Valor Total*</ion-label>
+            <ion-input required type="text" [debug]="true" [(modelMask)]="activity.total_value" mask="R$ 9" [form]="RegisterForm" currency="true" name="total_value" ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-4>
           <ion-item>
             <ion-label floating>Data da operação*</ion-label>
             <ion-input type="text" required [(modelMask)]="activity.operation_date" [form]="RegisterForm" [clean]="false" mask="99/99/9999" maskPlaceHolder="_" name="operation_date" value=""></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-4 col-lg-3>
+        <ion-col col-12 col-md-4 col-lg-4>
           <ion-item>
             <ion-label floating>Data do pagamento*</ion-label>
             <ion-input  required [(modelMask)]="activity.payment_date" [form]="RegisterForm" [clean]="false" mask="99/99/9999" maskPlaceHolder="_" name="payment_date"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row margin-top margin-bottom *ngIf="activity_type && activity.dose && activity.unity_id" style="align-items: flex-end;">
-        {{field}} {{crop}}
-        <ion-col col-12>
-          <ion-row>
-            <ion-col col-5>
-              <ion-item>
-                <ion-label>Exibir safras finalizadas</ion-label>
-                <ion-checkbox color="primary" name="finished_crops" (ionChange)="cleanFilters()" [(ngModel)]="finished_crops"></ion-checkbox>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-        <ion-col col-12 [attr.col-md-4]="finished_crops? '' : null" [attr.col-md-6]="!finished_crops? '' : null">
-          <ion-item padding-top>
-            <ion-label>Fazenda</ion-label>
-            <ion-select [(ngModel)]="farm" (ngModelChange)="filterFarm($event)" name="farm">
-              <ion-option *ngFor="let farm of farms" [value]="farm">{{farm.name}}</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col col-12 [attr.col-md-4]="finished_crops? '' : null" [attr.col-md-6]="!finished_crops? '' : null">
-          <ion-item padding-top>
-            <ion-label>Talhão</ion-label>
-            <ion-select [(ngModel)]="field" (ngModelChange)="filterFields($event)" name="field">
-              <ion-option *ngFor="let field of filteredFields" [value]="field">{{field.name}}</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col col-12 [attr.col-md-4]="finished_crops? '' : null" [ngClass]="{'hide':!finished_crops}">
-          <ion-item padding-top>
-            <ion-label>Safra</ion-label>
-            <ion-select [(ngModel)]="crop" (ngModelChange)="safraSelected($event)" name="crop">
-              <ion-option *ngFor="let crop of filteredCrops" [value]="crop">{{crop.name}}</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-        <ion-col col-12 class="crpoItens" padding>
-          <ion-row *ngFor="let iten of cropsRegister">
-            <ion-col style="text-align:center">
-              {{iten.crop.field.farm.name}}
-            </ion-col>
-            <ion-col style="text-align:center">
-              {{iten.crop.field.name}}
-            </ion-col>
-            <ion-col style="text-align:center">
-              {{iten.crop.name}}
-            </ion-col>
-            <ion-col style="text-align:center">
-              Dose: {{iten.dose}}&nbsp;{{activity.unity_id}}/ha
-            </ion-col>
-            <ion-col style="text-align:center">
-              Quantidade: {{iten.quantity}}&nbsp;{{activity.unity_id}}
-            </ion-col>
-            <ion-col style="text-align:center">
-              Valor por ha: R$ {{iten.value_per_ha}}
-            </ion-col>
-            <ion-col style="text-align:center">
-              Valor Total: R$ {{iten.total}}
-            </ion-col>
-            <ion-item>
-              <ion-range min="0" max="100" name="range" (ionChange)="changedIten(iten)" [(ngModel)]="iten.percentage" color="primary">
-                <ion-label range-left>Dose</ion-label>
-                <ion-label range-right>{{iten.percentage}}% <ion-icon (click)="remove(iten)" style="font-size:2em;margin-left:10px;" name="remove-circle"></ion-icon></ion-label>
-              </ion-range>
-            </ion-item>
-          </ion-row>
-        </ion-col>
-      </ion-row>
       <ion-row margin-top class="justifyCenter" margin-bottom>
-        <button type="submit" [disabled]="!RegisterForm.form.valid || !cropsRegister.length>0" ion-button col-12 col-md-3>Cadastrar</button>
+        <button type="submit" [disabled]="!RegisterForm.form.valid " ion-button col-12 col-md-3>Cadastrar</button>
       </ion-row>
     </ion-grid>
   </form>

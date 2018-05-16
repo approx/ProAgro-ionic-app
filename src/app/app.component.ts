@@ -154,58 +154,58 @@ export class MyApp {
         }
       ]
     },
-    {
-      name:'Atividades',
-      icon:'clipboard',
-      component:ActivityListPage,
-      role:'master|employe',
-      render:false,
-      itensToogle:false,
-      itens:[
-        {
-          name:'Listar',
-          component:ActivityListPage,
-          role:'master|employe|client',
-          render:false,
-          itensToogle:false
-        },
-        {
-          name:'Cadastrar por ha',
-          component:ActivityRegisterPage,
-          role:'master|employe',
-          render:false,
-          itensToogle:false
-        },
-        {
-          name:'Cadastrar por valor total',
-          component:ActivityRegisterTotalPage,
-          role:'master|employe',
-          render:false,
-          itensToogle:false
-        },
-        {
-          name:'Estoque',
-          component:StockUsePage,
-          role:'master|employe',
-          render:false,
-          itensToogle:false
-        },
-        {
-          name:'Tipos',
-          component:ActivityTypePage,
-          role:'master|employe',
-          render:false,
-          itensToogle:false
-        },
-        {
-          name:'Unidades',
-          component:UnityPage,
-          role:'master|employe',
-          render:false,
-          itensToogle:false
-        }
-      ]
-    },
+    // {
+    //   name:'Atividades',
+    //   icon:'clipboard',
+    //   component:ActivityListPage,
+    //   role:'master|employe',
+    //   render:false,
+    //   itensToogle:false,
+    //   itens:[
+    //     {
+    //       name:'Listar',
+    //       component:ActivityListPage,
+    //       role:'master|employe|client',
+    //       render:false,
+    //       itensToogle:false
+    //     },
+    //     {
+    //       name:'Cadastrar por ha',
+    //       component:ActivityRegisterPage,
+    //       role:'master|employe',
+    //       render:false,
+    //       itensToogle:false
+    //     },
+    //     {
+    //       name:'Cadastrar por valor total',
+    //       component:ActivityRegisterTotalPage,
+    //       role:'master|employe',
+    //       render:false,
+    //       itensToogle:false
+    //     },
+    //     {
+    //       name:'Estoque',
+    //       component:StockUsePage,
+    //       role:'master|employe',
+    //       render:false,
+    //       itensToogle:false
+    //     },
+    //     {
+    //       name:'Tipos',
+    //       component:ActivityTypePage,
+    //       role:'master|employe',
+    //       render:false,
+    //       itensToogle:false
+    //     },
+    //     {
+    //       name:'Unidades',
+    //       component:UnityPage,
+    //       role:'master|employe',
+    //       render:false,
+    //       itensToogle:false
+    //     }
+    //   ]
+    // },
     {
       name:'Usuarios',
       icon:'clipboard',
