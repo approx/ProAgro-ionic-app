@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController,App } from 'ionic-angular';
 import { MyApp } from "../../app/app.component";
 import { LoginPage } from "../login/login";
 
@@ -21,11 +21,17 @@ export class BasePage {
   constructor(public navCtrl: NavController) {
   }
 
-  ionViewCanEnter(): boolean{
+  ionViewCanEnter(){
     if(MyApp.instance.loged){
+      console.log('loged');
       return true;
     }else{
-      this.navCtrl.push(LoginPage.name);
+      setTimeout(()=>{
+        this.navCtrl.setRoot(LoginPage.name);
+      }, 0);
+      console.log('not loged');
+      // this.navCtrl.setRoot(LoginPage.name);
+      return false;
     }
   }
 

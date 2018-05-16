@@ -24,7 +24,11 @@ export class LoginPage {
 
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
+    console.log('ionViewWill?Enter LoginPage');
+  }
+
+  ionViewDidEnter() {
     MyApp.instance.loged=false;
     console.log('ionViewDidLoad LoginPage');
     this.auth.LogOut();

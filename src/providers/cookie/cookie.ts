@@ -33,8 +33,7 @@ export class CookieProvider {
   }
 
   delete(){
-    this.objs = {};
-    document.cookie = "user="+JSON.stringify(this.objs);
+    document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     console.log('deleted cokies');
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,App } from 'ionic-angular';
 import { ClientProvider } from '../../providers/client/client';
 import { ClientInteface,ClientModel } from '../../model/client.model';
 import { ClientRegisterPage } from '../client-register/client-register';
@@ -32,11 +32,9 @@ export class ClientListPage extends BasePage{
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private clientsProvider:ClientProvider
+    private clientsProvider:ClientProvider,
   ) {
     super(navCtrl);
-    MyApp.instance.user;
-    this.userClient = MyApp.instance.user.role.id == 3;
   }
 
   getItems($event){
@@ -46,9 +44,11 @@ export class ClientListPage extends BasePage{
     console.log();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ClientListPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter ClientListPage');
+    console.log(MyApp.instance.user)
     this.user = MyApp.instance.user;
+    this.userClient = MyApp.instance.user.role.id == 3;
     this.clientsProvider.getAll().subscribe((data:ClientModel[])=>{
         this.clients = data;
         this.filteredClients = data;

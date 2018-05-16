@@ -31,7 +31,7 @@ import { StockUsePage } from '../pages/stock-use/stock-use';
 export class MyApp {
   rootPage:any = ClientListPage.name;
 
-  version = '1.4.0';
+  version = '1.4.1';
 
   loged:boolean = false;
   user:UserModel;
@@ -289,9 +289,12 @@ export class MyApp {
         this.auth.LogIn(cpf,password).then((result)=>{
         console.log(result);
         this.loged=true;
-        this.nav.setRoot(ClientListPage.name);
-        this.getUserData();
-        resolve(result);
+        this.getUserData().then(()=>{
+          this.nav.setRoot(ClientListPage.name);
+          resolve(result);
+        }).catch(()=>{
+          reject();
+        });
       }).catch((error)=>{
         reject(error);
       });
@@ -306,21 +309,28 @@ export class MyApp {
     return this.cookie.objs.user!=undefined;
   }
 
-  getUserData(){
-    if(!this.checkUserOnCookie()){
-      this.http.get(endPoint+'api/current_user').subscribe(
-        (data:UserModel)=>{
-          this.user = new UserModel(data.id,data.name,data.CPF,data.email,data.phone,data.role);
-          console.log(this.user);
-          this.cookie.set('user',this.user.getJson());
-        }
-      );
-    }
-    else{
-      this.user = this.cookie.objs.user;
-      // console.log(data);
-      console.log('geted user data')
-    }
+  getUserData():Promise<any>{
+    return new Promise((resolve,reject)=>{
+      if(!this.checkUserOnCookie()){
+        this.http.get(endPoint+'api/current_user').subscribe(
+          (data:UserModel)=>{
+            this.user = new UserModel(data.id,data.name,data.CPF,data.email,data.phone,data.role);
+            console.log(this.user);
+            this.cookie.set('user',this.user.getJson());
+            resolve();
+          },
+          (err)=>{
+            reject()
+          }
+        );
+      }
+      else{
+        this.user = this.cookie.objs.user;
+        resolve();
+        // console.log(data);
+        console.log('geted user data')
+      }
+    })
   }
 
 }
