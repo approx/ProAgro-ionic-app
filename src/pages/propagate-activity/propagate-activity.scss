@@ -1,0 +1,34 @@
+page-propagate-activity {
+  ion-row.address{
+    position: relative;
+    border-radius: 5px;
+    border: solid 2px (map-get($colors, primary));
+  }
+
+  ion-row.address label{
+    position: absolute;
+    font-size: 20px;
+    line-height: 20px;
+    top:-12px;
+    left:10px;
+    background-color: white;
+    padding: 0px 5px;
+  }
+  .Iten{
+    font-size: 1.6rem;
+    div{
+      margin: 13px 8px 13px 0;
+      display: inline-block;
+      &:last-of-type{
+        width: 70%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: right;
+        text-overflow: ellipsis;
+        float: right;
+      }
+    }
+    padding-right: 8px;
+    border-bottom: 1px solid #dedede;
+  }
+}

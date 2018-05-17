@@ -15,6 +15,7 @@ import { MessagesProvider } from '../../providers/messages/messages';
 import { FarmListPage } from '../farm-list/farm-list';
 import { StocksPage } from '../stocks/stocks';
 import { CurrencyPipe } from '@angular/common';
+import { PropagateActivityPage } from '../propagate-activity/propagate-activity';
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -59,6 +60,11 @@ export class FarmDetailPage extends BasePage{
     label:'Registrar Estoque',
     down:()=>{
       this.navCtrl.push(StocksPage.name,{farm:this.farm});
+    },
+  },{
+    label:'Ratear Atividade',
+    down:()=>{
+      this.navCtrl.push(PropagateActivityPage.name,{farm:this.farm,farm_id:this.farm.id});
     },
   }];
 
