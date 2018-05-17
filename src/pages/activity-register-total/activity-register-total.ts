@@ -14,7 +14,7 @@ import { UnityProvider } from '../../providers/unity/unity';
 import { UnityModel } from '../../model/unity.model';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
-import { ActivityIten } from '../activity-register/activity-register';
+// import { ActivityIten } from '../activity-register/activity-register';
 import { SelectSearchable } from 'ionic-select-searchable';
 import { MyApp } from '../../app/app.component';
 import { ActivityListPage } from '../../pages/activity-list/activity-list';
@@ -35,7 +35,7 @@ import { ActivityListPage } from '../../pages/activity-list/activity-list';
 export class ActivityRegisterTotalPage extends BasePage {
 
   activityTypes:ActivityTypeModel[]=[];
-  cropsRegister:ActivityIten[]=[];
+  // cropsRegister:ActivityIten[]=[];
   fields:FieldModel[]=[];
   filteredFields:FieldModel[]=[];
   crops:CropModel[]=[];
@@ -83,7 +83,7 @@ export class ActivityRegisterTotalPage extends BasePage {
     console.log('port:', event.value);
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad ActivityRegisterTotalPage');
     this.getTypes();
     let date = new Date();

@@ -43,7 +43,7 @@ export class CropDetailPage extends BasePage{
   actions=[{
     label:'Registrar Atividade',
     down:()=>{
-      this.navCtrl.push(ActivityRegisterPage.name,{crop:this.crop});
+      this.navCtrl.push(ActivityRegisterPage.name,{crop:this.crop,crop_id:this.crop.id});
     }
   },{
     label:'Registrar venda de sacas',

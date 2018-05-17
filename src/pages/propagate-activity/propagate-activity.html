@@ -1,11 +1,11 @@
 <!--
-  Generated template for the ActivityRegisterPage page.
+  Generated template for the PropagateActivityPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-content  padding>
-  <h1 *ngIf="crop">{{crop.field.farm.name}} - {{crop.field.name}} - {{crop.name}}</h1>
+<ion-content padding>
+  <h1 *ngIf="farm">{{farm.name}}</h1>
   <form (ngSubmit)="Register()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
       <ion-row style="align-items: flex-end;">
@@ -76,6 +76,44 @@
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-col col-12>
+        <div class="Iten" margin-left>
+          <div>Safras selecionadas</div>
+          <div ><span *ngFor="let crop of crops; let i = index"><span *ngIf="crop.selected"><span *ngIf="i>0">,</span> {{crop.name}}</span></span></div>
+        </div>
+      </ion-col>
+      <ion-col margin-top col-6>
+        <ion-row padding-top padding-bottom class="address">
+          <label>Safras</label>
+          <ion-col col-12>
+            <ion-row>
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label>Selecionar todas as safras</ion-label>
+                  <ion-checkbox [(ngModel)]="selectedAll" name="selectedAll" (ionChange)="selectAll()"></ion-checkbox>
+                </ion-item>
+              </ion-col>
+              <ion-col col-6>
+                <ion-searchbar
+                [(ngModel)]="cropSearch" (ionInput)="onSearch()" name="cropSearch"></ion-searchbar>
+              </ion-col>
+              <ion-col col-6>
+                <ion-item>
+                  <ion-label>Exibir safras finalizadas</ion-label>
+                  <ion-checkbox [(ngModel)]="showFinalCrops" (ionChange)="filter()" name="showFinalCrops"></ion-checkbox>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          <!-- <hr> -->
+          </ion-col>
+          <ion-col col-12 col-md-3 *ngFor="let crop of filteredCrops">
+            <ion-item>
+              <ion-label>{{crop.field.name}} - {{crop.name}}</ion-label>
+              <ion-checkbox (ionChange)="logCrops()" [(ngModel)]="crop.selected" name="{{crop.id}}-checkbox"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
       <ion-row margin-top class="justifyCenter" margin-bottom>
         <button type="submit" [disabled]="!RegisterForm.form.valid " ion-button col-12 col-md-3>Cadastrar</button>
       </ion-row>
