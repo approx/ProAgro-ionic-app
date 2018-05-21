@@ -125,9 +125,9 @@
         <td class="hide-md" *ngIf="!activity.dose">--</td>
         <td class="hide-lg" *ngIf="activity.quantity">{{activity.quantity}}{{activity.unity.id}}</td>
         <td class="hide-md" *ngIf="!activity.quantity">--</td>
-        <td class="hide-md" *ngIf="activity.value_per_ha">R$ {{activity.value_per_ha}}</td>
+        <td class="hide-md" *ngIf="activity.value_per_ha">{{activity.value_per_ha | currency:'BRL'}}</td>
         <td class="hide-md" *ngIf="!activity.value_per_ha">--</td>
-        <td>R$ {{activity.total_value}}</td>
+        <td>{{activity.total_value | currency:'BRL'}}</td>
         <td *ngIf="!userClient"><ion-icon class="Clickable" (click)="deleteActivity(activity)" name="trash"></ion-icon></td>
       </tr>
       <tr>
@@ -136,7 +136,7 @@
         <th class="hide-md"></th>
         <th class="hide-md"></th>
         <th class="hide-md">R$ {{total_value_ha}}</th>
-        <th>R$ {{total_value}}</th>
+        <th>{{total_value | currency:'BRL'}}</th>
         <th *ngIf="!userClient"></th>
       </tr>
     </table>

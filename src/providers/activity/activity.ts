@@ -37,6 +37,10 @@ export class ActivityProvider {
     return this.http.post(endPoint+'api/multiple-activities',activity,{responseType: 'text'});
   }
 
+  savePercentageSizeMultiple(activity):Observable<any>{
+    return this.http.post(endPoint+'api/percentage-multiple-activities',activity,{responseType: 'text'});
+  }
+
   delete(id):Observable<any>{
     return this.http.post(endPoint+'api/activity/'+id,{_method:'DELETE'},{responseType: 'text'});
   }

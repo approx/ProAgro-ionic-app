@@ -263,9 +263,8 @@ export class CropDetailPage extends BasePage{
     this.message.ShowConfirmMessage('Deletar atividade','tem certeza que deseja deletar está atividade?',()=>{
       this.message.Wait();
       this.activityProvider.delete(activity.id).subscribe((response)=>{
-        this.message.SuccessAlert('Atividade deletada com sucesso!',()=>{
-          this.ionViewDidLoad();
-        });
+        this.message.SuccessAlert('Atividade deletada com sucesso!');
+        this.ionViewDidLoad();
       },(err)=>{
         this.message.ErrorAlert();
       })
