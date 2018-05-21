@@ -53,13 +53,6 @@ export class CulturePage extends BasePage{
     });
   }
 
-  delete(id){
-    console.log('deleting')
-    this.cultureProvider.delete(id).subscribe(()=>{
-      this.getCultures();
-    })
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad CulturePage');
     this.getCultures();
