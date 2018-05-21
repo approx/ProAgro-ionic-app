@@ -35,12 +35,6 @@ export class FieldDetailPage extends BasePage{
       console.log('open crop register page');
       this.navCtrl.push(CropRegisterPage.name,{field:this.field});
     }
-  },{
-    label:'Registrar Atividade',
-    down:()=>{
-      console.log('open activity register page');
-      this.navCtrl.push(ActivityRegisterPage.name,{field:this.field});
-    }
   }]
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private fieldProvider:FieldProvider,private sanitizer:DomSanitizer,private message:MessagesProvider) {
