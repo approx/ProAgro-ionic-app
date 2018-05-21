@@ -9,6 +9,12 @@
   <form (ngSubmit)="Register()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
       <ion-row style="align-items: flex-end;">
+        <ion-col col-12>
+          <ion-item>
+            <ion-label>Ratear as atividades com base na area</ion-label>
+            <ion-checkbox [(ngModel)]="perPercentage" name="perPercentage"></ion-checkbox>
+          </ion-item>
+        </ion-col>
         <ion-col col-12 col-md-4 col-lg-4>
           <input type="hidden" required name="activityType" [(ngModel)]="activity.activity_type_id" [value]="activity_type">
           <ion-item>
@@ -37,24 +43,6 @@
           <ion-item>
             <ion-label floating>Nome</ion-label>
             <ion-input type="text" [(ngModel)]="activity.product_name" name="product_name" ></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col col-12 col-md-4 col-lg-4>
-          <ion-item>
-            <ion-label floating>Valor unitario</ion-label>
-            <ion-input  type="text" (ionChange)="calculateTotal()" [(modelMask)]="activity.unity_value" mask="R$ 9" [form]="RegisterForm" currency="true" name="unity_value" ></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col col-12 col-md-4 col-lg-4>
-          <ion-item>
-            <ion-label floating>Dose</ion-label>
-            <ion-input type="text" (ionChange)="calculateTotal()" [(ngModel)]="activity.dose" name="dose" ></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col col-12 col-md-4 col-lg-4>
-          <ion-item>
-            <ion-label floating>Quantidade</ion-label>
-            <ion-input type="text" [(ngModel)]="activity.quantity" name="quantity" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4 col-lg-4>

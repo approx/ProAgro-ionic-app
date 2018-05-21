@@ -30,7 +30,8 @@ export class PropagateActivityPage extends BasePage{
   showFinalCrops=false;
   selectedAll=false;
   activityTypes;
-  unities
+  unities;
+  perPercentage=true;
 
   constructor(
     public navCtrl: NavController,
@@ -159,13 +160,23 @@ export class PropagateActivityPage extends BasePage{
     });
     let activityToSend = {...this.activity,crops:maped};
     this.message.Wait();
-    this.activityProvider.saveMultiple(activityToSend).subscribe(
-      (response)=>{
-        this.message.SuccessAlert('Atividades salvas com sucesso!');
-      },(err)=>{
-        this.message.ErrorAlert();
-      }
-    );
+    if(this.perPercentage){
+      this.activityProvider.savePercentageSizeMultiple(activityToSend).subscribe(
+        (response)=>{
+          this.message.SuccessAlert('Atividades salvas com sucesso!');
+        },(err)=>{
+          this.message.ErrorAlert();
+        }
+      );
+    }else{
+      this.activityProvider.saveMultiple(activityToSend).subscribe(
+        (response)=>{
+          this.message.SuccessAlert('Atividades salvas com sucesso!');
+        },(err)=>{
+          this.message.ErrorAlert();
+        }
+      );
+    }
   }
 
   onSearch(){
