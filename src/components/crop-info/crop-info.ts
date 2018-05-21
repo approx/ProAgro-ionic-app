@@ -14,6 +14,7 @@ import { CropModel } from '../../model/crop.model'
 export class CropInfoComponent {
   @Input() crop:CropModel;
   percentage:number;
+  months;
 
   constructor() {
     console.log('Hello CropInfoComponent Component');
@@ -26,6 +27,13 @@ export class CropInfoComponent {
   calculatePercentage(){
     let initialTime = new Date(this.crop.initial_date).getTime();
     let finalTime = new Date(this.crop.final_date).getTime();
+
+    let now = new Date();
+    let finatDate = new Date(this.crop.final_date)
+    this.months = (finatDate.getFullYear() - now.getFullYear()) * 12;
+    this.months -= now.getMonth() + 1;
+    this.months += finatDate.getMonth();
+    this.months = this.months <= 0 ? 0 : this.months;
 
     let timeVariation = finalTime - initialTime;
 
