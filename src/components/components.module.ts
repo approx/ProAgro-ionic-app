@@ -10,6 +10,8 @@ import { FieldInfoComponent } from './field-info/field-info';
 import { CropInfoComponent } from './crop-info/crop-info';
 import { FarmInfoComponent } from './farm-info/farm-info';
 import { FilterComponent } from './filter/filter';
+import { IndicatorsComponent } from './indicators/indicators';
+import { ChartsModule } from 'ng2-charts';
 
 // @NgModule({
 // 	declarations: [NavBarComponent,
@@ -33,9 +35,10 @@ import { FilterComponent } from './filter/filter';
     FieldInfoComponent,
     CropInfoComponent,
 		FarmInfoComponent,
-    FilterComponent
+    FilterComponent,
+    IndicatorsComponent
 	],
-	imports: [CommonModule,IonicModule,PipesModule],
+	imports: [CommonModule,IonicModule,PipesModule,ChartsModule],
 	exports: [
     AddressComponent,
 		ContactComponent,
@@ -44,7 +47,8 @@ import { FilterComponent } from './filter/filter';
     FieldInfoComponent,
     CropInfoComponent,
 		FarmInfoComponent,
-    FilterComponent
+    FilterComponent,
+    IndicatorsComponent
 	]
 })
 export class ComponentsModule {}

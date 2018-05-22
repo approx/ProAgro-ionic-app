@@ -29,6 +29,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class CropDetailPage extends BasePage{
 
+  indicators=false;
   crop:CropModel;
   crop_id:number;
   chartData:Array<any>=[];
@@ -129,6 +130,10 @@ export class CropDetailPage extends BasePage{
   editSack() {
     this.sack_editing = !this.sack_editing;
     this.crop.sack_produced = this.sack_produced;
+  }
+
+  indicatorTab(value){
+    this.indicators=value;
   }
 
   calculatePieChartData(){

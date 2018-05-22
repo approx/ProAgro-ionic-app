@@ -34,119 +34,128 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div *ngIf="drawCharts" margin-bottom class="horizontalLine">
-    <h2>Resumo</h2>
+  <div class="archives">
+    <h4 [ngClass]="{'active':!indicators}" (click)="indicatorTab(false)">Detalhes</h4>
+    <h4 [ngClass]="{'active':indicators}" (click)="indicatorTab(true)">Indicadores</h4>
   </div>
-  <div *ngIf="drawCharts" class="myRow">
-    <ion-col *ngIf="lineChartData.length>1" col-lg-6>
-      <h3 margin-left padding-left>Tipo de Atividade X Valor</h3>
-      <canvas baseChart
-      [colors]="colors"
-      [data]="pieChartData"
-      [labels]="pieChartLabels"
-      [options]="pieChartOptions"
-      chartType="pie"></canvas>
-    </ion-col>
-    <ion-col *ngIf="lineChartData.length>1" col-lg-6>
-      <h3 margin-left padding-left>Meses X Valor</h3>
-      <canvas baseChart
-      [colors]="linechartColors"
-      [data]="lineChartData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [colors]="colors"
-      chartType="line"></canvas>
-    </ion-col>
-    <ion-col *ngIf="lineChartData.length<=1" col-12>
-      <h3 margin-left padding-left>Tipo de Atividade X Valor</h3>
-      <canvas baseChart
-      [colors]="colors"
-      [data]="pieChartData"
-      [labels]="pieChartLabels"
-      [options]="pieChartOptions"
-      chartType="pie"></canvas>
-    </ion-col>
+  <div class="folder" *ngIf="indicators">
+    <indicators [crop]="crop"></indicators>
   </div>
-  <div margin-bottom class="horizontalLine">
-    <h2>Inventario utilizado</h2>
-  </div>
-  <ion-grid>
-    <ion-row>
-      <ion-col padding-left padding-right col-12>
-        <table *ngIf="crop" margin-top col-12>
-          <tr>
-            <th>Nome</th>
-            <th>Tempo de depreciação</th>
-            <th>Valor Total</th>
-            <th>depreciação/mes</th>
-          </tr>
-          <tr *ngFor="let iten of crop.inventory_itens" >
-            <td>{{iten.name}}</td>
-            <td>{{iten.depreciation_time}}</td>
-            <td>{{iten.price | currency:'BRL'}}</td>
-            <td>{{iten.depreciation_value | currency:'BRL'}}</td>
-          </tr>
-          <tr>
-            <th>Total</th>
-            <th></th>
-            <th>{{itens_total_value | currency:'BRL'}}</th>
-            <th>{{itens_depreciation_value | currency:'BRL'}}</th>
-          </tr>
-        </table>
+  <div *ngIf="!indicators" class="folder">
+    <div *ngIf="drawCharts" margin-bottom class="horizontalLine">
+      <h2>Resumo</h2>
+    </div>
+    <div *ngIf="drawCharts" class="myRow">
+      <ion-col *ngIf="lineChartData.length>1" col-lg-6>
+        <h3 margin-left padding-left>Tipo de Atividade X Valor</h3>
+        <canvas baseChart
+        [colors]="colors"
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [options]="pieChartOptions"
+        chartType="pie"></canvas>
       </ion-col>
-    </ion-row>
-  </ion-grid>
-  <div margin-bottom class="horizontalLine">
-    <h2>Atividades</h2>
-  </div>
-  <ion-grid padding-left padding-right class="table">
-    <ion-row style="display:flex;align-items:center;background-color:white">
-      <ion-col col-11>
-        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+      <ion-col *ngIf="lineChartData.length>1" col-lg-6>
+        <h3 margin-left padding-left>Meses X Valor</h3>
+        <canvas baseChart
+        [colors]="linechartColors"
+        [data]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="colors"
+        chartType="line"></canvas>
       </ion-col>
-      <ion-col col-1 >
-        <button *ngIf="!userClient" style="background-color:transparent"> <ion-icon name="person-add" style="font-size:30px;"></ion-icon></button>
+      <ion-col *ngIf="lineChartData.length<=1" col-12>
+        <h3 margin-left padding-left>Tipo de Atividade X Valor</h3>
+        <canvas baseChart
+        [colors]="colors"
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [options]="pieChartOptions"
+        chartType="pie"></canvas>
       </ion-col>
-    </ion-row>
-    <table *ngIf="crop.activities.length>0" col-12>
-      <tr>
-        <th>Data operação</th>
-        <th>Produto/Serviço</th>
-        <th class="hide-md">Dose</th>
-        <th class="hide-md">Quantidade</th>
-        <th class="hide-md">Valor por ha</th>
-        <th>Total</th>
-        <th *ngIf="!userClient">Ações</th>
-      </tr>
-      <tr *ngFor="let activity of crop.activities">
-        <td>{{activity.operation_date | date: 'dd/MM/yyyy'}}</td>
-        <td>{{activity.activity_type.id}} - <span *ngIf="activity.product_name">{{activity.product_name}}</span><span *ngIf="!activity.product_name">{{activity.activity_type.name}}</span></td>
-        <td class="hide-md" *ngIf="activity.dose">{{activity.dose}}{{activity.unity.id}}/ha</td>
-        <td class="hide-md" *ngIf="!activity.dose">--</td>
-        <td class="hide-lg" *ngIf="activity.quantity">{{activity.quantity}}{{activity.unity.id}}</td>
-        <td class="hide-md" *ngIf="!activity.quantity">--</td>
-        <td class="hide-md" *ngIf="activity.value_per_ha">{{activity.value_per_ha | currency:'BRL'}}</td>
-        <td class="hide-md" *ngIf="!activity.value_per_ha">--</td>
-        <td>{{activity.total_value | currency:'BRL'}}</td>
-        <td *ngIf="!userClient"><ion-icon class="Clickable" (click)="deleteActivity(activity)" name="trash"></ion-icon></td>
-      </tr>
-      <tr>
-        <th>Total</th>
-        <th></th>
-        <th class="hide-md"></th>
-        <th class="hide-md"></th>
-        <th class="hide-md">R$ {{total_value_ha}}</th>
-        <th>{{total_value | currency:'BRL'}}</th>
-        <th *ngIf="!userClient"></th>
-      </tr>
-    </table>
-    <ng-container *ngIf="crop.activities.length<=0">
+    </div>
+    <div margin-bottom class="horizontalLine">
+      <h2>Inventario utilizado</h2>
+    </div>
+    <ion-grid>
       <ion-row>
-        <ion-col text-center padding>
-          Nem uma atividade cadastrada ainda, <a href="" (click)="openRegisterPage($event)">clique aqui</a> para cadastrar uma atividade.
+        <ion-col padding-left padding-right col-12>
+          <table *ngIf="crop" margin-top col-12>
+            <tr>
+              <th>Nome</th>
+              <th>Tempo de depreciação</th>
+              <th>Valor Total</th>
+              <th>depreciação/mes</th>
+            </tr>
+            <tr *ngFor="let iten of crop.inventory_itens" >
+              <td>{{iten.name}}</td>
+              <td>{{iten.depreciation_time}}</td>
+              <td>{{iten.price | currency:'BRL'}}</td>
+              <td>{{iten.depreciation_value | currency:'BRL'}}</td>
+            </tr>
+            <tr>
+              <th>Total</th>
+              <th></th>
+              <th>{{itens_total_value | currency:'BRL'}}</th>
+              <th>{{itens_depreciation_value | currency:'BRL'}}</th>
+            </tr>
+          </table>
         </ion-col>
       </ion-row>
-    </ng-container>
-  </ion-grid>
+    </ion-grid>
+    <div margin-bottom class="horizontalLine">
+      <h2>Atividades</h2>
+    </div>
+    <ion-grid padding-left padding-right class="table">
+      <ion-row style="display:flex;align-items:center;background-color:white">
+        <ion-col col-11>
+          <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+        </ion-col>
+        <ion-col col-1 >
+          <button *ngIf="!userClient" style="background-color:transparent"> <ion-icon name="person-add" style="font-size:30px;"></ion-icon></button>
+        </ion-col>
+      </ion-row>
+      <table *ngIf="crop.activities.length>0" col-12>
+        <tr>
+          <th>Data operação</th>
+          <th>Produto/Serviço</th>
+          <th class="hide-md">Dose</th>
+          <th class="hide-md">Quantidade</th>
+          <th class="hide-md">Valor por ha</th>
+          <th>Total</th>
+          <th *ngIf="!userClient">Ações</th>
+        </tr>
+        <tr *ngFor="let activity of crop.activities">
+          <td>{{activity.operation_date | date: 'dd/MM/yyyy'}}</td>
+          <td>{{activity.activity_type.id}} - <span *ngIf="activity.product_name">{{activity.product_name}}</span><span *ngIf="!activity.product_name">{{activity.activity_type.name}}</span></td>
+          <td class="hide-md" *ngIf="activity.dose">{{activity.dose}}{{activity.unity.id}}/ha</td>
+          <td class="hide-md" *ngIf="!activity.dose">--</td>
+          <td class="hide-lg" *ngIf="activity.quantity">{{activity.quantity}}{{activity.unity.id}}</td>
+          <td class="hide-md" *ngIf="!activity.quantity">--</td>
+          <td class="hide-md" *ngIf="activity.value_per_ha">{{activity.value_per_ha | currency:'BRL'}}</td>
+          <td class="hide-md" *ngIf="!activity.value_per_ha">--</td>
+          <td>{{activity.total_value | currency:'BRL'}}</td>
+          <td *ngIf="!userClient"><ion-icon class="Clickable" (click)="deleteActivity(activity)" name="trash"></ion-icon></td>
+        </tr>
+        <tr>
+          <th>Total</th>
+          <th></th>
+          <th class="hide-md"></th>
+          <th class="hide-md"></th>
+          <th class="hide-md">R$ {{total_value_ha}}</th>
+          <th>{{total_value | currency:'BRL'}}</th>
+          <th *ngIf="!userClient"></th>
+        </tr>
+      </table>
+      <ng-container *ngIf="crop.activities.length<=0">
+        <ion-row>
+          <ion-col text-center padding>
+            Nem uma atividade cadastrada ainda, <a href="" (click)="openRegisterPage($event)">clique aqui</a> para cadastrar uma atividade.
+          </ion-col>
+        </ion-row>
+      </ng-container>
+    </ion-grid>
+  </div>
   <actions [actions]="actions" *ngIf="!userClient"></actions>
 </ion-content>
