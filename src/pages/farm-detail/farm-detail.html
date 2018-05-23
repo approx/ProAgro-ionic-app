@@ -13,13 +13,13 @@
         <h5>Tamanho:<br>&nbsp;&nbsp;&nbsp;{{farm.ha}}ha</h5>
       </ion-col>
       <ion-col col-12 col-md-6 col-lg-3>
-        <h5>Valor por ha:<br>&nbsp;&nbsp;&nbsp;{{farm.value_ha | currency:'BRL'}}/ha</h5>
+        <h5>Valor por ha:<br>&nbsp;&nbsp;&nbsp;{{farm.value_ha | currency:farm.currency_id}}/ha</h5>
       </ion-col>
       <ion-col col-12 col-md-6 col-lg-3>
-        <h5>Capital empatado em terra:<br>&nbsp;&nbsp;&nbsp;{{farm.capital_tied | currency:'BRL'}}</h5>
+        <h5>Capital empatado em terra:<br>&nbsp;&nbsp;&nbsp;{{farm.capital_tied | currency:farm.currency_id}}</h5>
       </ion-col>
       <ion-col col-12 col-md-6 col-lg-3>
-        <h5>Remuneração ao mês:<br>&nbsp;&nbsp;&nbsp;{{farm.remuneration | currency:'BRL'}}/mes</h5>
+        <h5>Remuneração ao mês:<br>&nbsp;&nbsp;&nbsp;{{farm.remuneration | currency:farm.currency_id}}/mes</h5>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -39,45 +39,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div margin-bottom class="horizontalLine">
-    <h2>Resumo</h2>
-  </div>
-  <div *ngIf="drawCharts" class="myRow">
-    <ion-col *ngIf="expensePieChartData.length>0 && benefitPieChartData.length>0" col-lg-6>
-      <h3 margin-left padding-left>Despesas</h3>
-      <canvas baseChart
-      [data]="expensePieChartData"
-      [labels]="expensePieChartLabels"
-      [options]="pieChartOptions"
-      [colors]="colors"
-      chartType="pie"></canvas>
-    </ion-col>
-    <ion-col *ngIf="expensePieChartData.length>0 && benefitPieChartData.length>0" col-lg-6>
-      <h3 margin-left padding-left>Receita</h3>
-      <canvas baseChart
-      [data]="benefitPieChartData"
-      [labels]="benefitPirChartLabel"
-      [options]="lineChartOptions"
-      chartType="pie"></canvas>
-    </ion-col>
-    <ion-col *ngIf="expensePieChartData.length<=0" col-12>
-      <h3 margin-left padding-left>Receita</h3>
-      <canvas baseChart
-      [data]="benefitPieChartData"
-      [labels]="benefitPirChartLabel"
-      [options]="lineChartOptions"
-      chartType="pie"></canvas>
-    </ion-col>
-    <ion-col *ngIf="benefitPieChartData.length<=0" col-12>
-      <h3 margin-left padding-left>Despesas</h3>
-      <canvas baseChart
-      [data]="expensePieChartData"
-      [labels]="expensePieChartLabels"
-      [options]="pieChartOptions"
-      [colors]="colors"
-      chartType="pie"></canvas>
-    </ion-col>
-  </div>
   <div class="horizontalLine">
     <h2>Talhões</h2>
   </div>
@@ -108,19 +69,19 @@
           <tr *ngFor="let iten of farm.inventory_itens" >
             <td>{{iten.name}}</td>
             <td>{{iten.depreciation_time}}</td>
-            <td>{{iten.price | currency:'BRL'}}</td>
-            <td>{{iten.depreciation_value | currency:'BRL'}}</td>
+            <td>{{iten.price | currency:iten.currency_id}}</td>
+            <td>{{iten.depreciation_value | currency:iten.currency_id}}</td>
           </tr>
           <tr>
             <td>Capital empatado em terra</td>
             <td> -- </td>
-            <td>{{farm.capital_tied | currency:'BRL'}}</td>
+            <td>{{farm.capital_tied | currency:farm.currency_id}}</td>
             <td> -- </td>
           </tr>
           <tr>
             <td>Remuneração ao mês</td>
             <td> -- </td>
-            <td>{{total_remunaration | currency:'BRL'}}</td>
+            <td>{{total_remunaration | currency:farm.currency_id}}</td>
             <td> -- </td>
           </tr>
           <tr>
