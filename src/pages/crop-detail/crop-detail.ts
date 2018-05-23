@@ -232,9 +232,15 @@ export class CropDetailPage extends BasePage{
     });
   }
 
+  formatDate(dateString){
+    let date = new Date(dateString);
+    return date.getDay()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
+  }
+
   saveSacks(){
     this.message.Wait();
-
+    this.crop.initial_date = this.formatDate(this.crop.initial_date);
+    this.crop.final_date = this.formatDate(this.crop.final_date);
     this.cropProvider.update(this.crop).subscribe((done)=>{
       this.message.SuccessAlert('Sacas registradas com sucesso!');
       this.sack_editing = !this.sack_editing;
@@ -340,8 +346,8 @@ export class CropDetailPage extends BasePage{
   }
 
   calculatePercentage(){
-    let initialTime = new Date(this.crop.initial_date).getTime();
-    let finalTime = new Date(this.crop.final_date).getTime();
+    let initialTime = new Date(<Date>this.crop.initial_date).getTime();
+    let finalTime = new Date(<Date>this.crop.final_date).getTime();
 
     let timeVariation = finalTime - initialTime;
 
