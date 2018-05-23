@@ -16,6 +16,7 @@ export interface FarmInterface{
   value_ha?:number;
   capital_tied?:number;
   remuneration?:number;
+  currency_id?:string
 }
 
 export class FarmModel{
@@ -35,7 +36,8 @@ export class FarmModel{
     public capital_tied:number,
     public remuneration:number,
     public created_at:string,
-    public updated_at:string
+    public updated_at:string,
+    currency_id:string
   ){}
 
 
