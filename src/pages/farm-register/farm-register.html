@@ -8,24 +8,28 @@
   <h1>Cadastrar Fazenda</h1>
   <form (ngSubmit)="Register()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
-      <ion-row>
-        <ion-col col-12 col-md-6>
+      <ion-row style="align-items: flex-end;">
+        <ion-col col-12 col-md-4>
           <ion-item no-padding>
             <ion-label no-margin floating>Nome</ion-label>
             <ion-input type="text" name="name" [(ngModel)]="farm.name" required value=""></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6>
-          <ion-row>
-            <ion-col col-12>
-              <ion-item no-padding>
-                <ion-label>Cliente*</ion-label>
-                <ion-select required [(ngModel)]="farm.client_id" name="client">
-                  <ion-option *ngFor="let client of clients " value="{{client.id}}">{{client.name}}</ion-option>
-                </ion-select>
-              </ion-item>
-            </ion-col>
-          </ion-row>
+        <ion-col col-12 col-md-4>
+          <ion-item no-padding>
+            <ion-label>Cliente*</ion-label>
+            <ion-select required [(ngModel)]="farm.client_id" name="client">
+              <ion-option *ngFor="let client of clients " value="{{client.id}}">{{client.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-4>
+          <ion-item no-padding>
+            <ion-label>Moeda*</ion-label>
+            <ion-select [(ngModel)]="farm.currency_id" required name="currency_id">
+              <ion-option *ngFor="let currency of currencies" value="{{currency.id}}">{{currency.name}}</ion-option>
+            </ion-select>
+          </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -38,31 +42,31 @@
         <ion-col col-12 col-md-6 col-lg-3>
           <ion-item no-padding>
             <ion-label no-margin floating>Valor do hectar*</ion-label>
-            <ion-input type="text" name="value_ha" (ngModelChange)="onHectarValueChange($event)" [(ngModel)]="value_ha" required value=""></ion-input>
+            <ion-input type="text" [(modelMask)]="farm.value_ha" (ionChange)="calculateValues()" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="value_ha"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-3>
           <ion-item no-padding>
             <ion-label no-margin floating>Capital empatado em terra*</ion-label>
-            <ion-input type="text" readonly="true" name="capital_tied" [(ngModel)]="capital_tied" required value=""></ion-input>
+            <ion-input type="text" readonly="true" [(modelMask)]="farm.capital_tied" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="capital_tied"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-3>
           <ion-item no-padding>
             <ion-label no-margin floating>Remuneração ao mês*</ion-label>
-            <ion-input type="text" readonly="true" name="remuneration" [(ngModel)]="remuneration" required value=""></ion-input>
+            <ion-input type="text" readonly="true" [(modelMask)]="farm.remuneration" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="remuneration"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-12 col-md-6>
-          <ion-item>
+          <ion-item no-padding>
             <ion-label floating>Lat</ion-label>
             <ion-input type="text" (change)="setMapUrl()" [(ngModel)]="farm.lat" name="lat" value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6>
-          <ion-item>
+          <ion-item no-padding>
             <ion-label floating>Lng</ion-label>
             <ion-input type="text" (change)="setMapUrl()" [(ngModel)]="farm.lng" name="lng" value=""></ion-input>
           </ion-item>

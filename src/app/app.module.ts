@@ -62,6 +62,7 @@ import { SelectSearchableModule } from 'ionic-select-searchable';
 import localePtBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { StockProvider } from '../providers/stock/stock';
+import { CurrenciesProvider } from '../providers/currencies/currencies';
 registerLocaleData(localePtBr);
 
 @NgModule({
@@ -130,7 +131,8 @@ registerLocaleData(localePtBr);
     FieldTypesProvider,
     UserRegisterProvider,
     RolesProvider,
-    StockProvider
+    StockProvider,
+    CurrenciesProvider
   ]
 })
 export class AppModule {}

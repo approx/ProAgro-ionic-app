@@ -6,6 +6,7 @@ import { MessagesProvider } from "../../providers/messages/messages";
 import { BasePage } from "../base/base";
 import { MyApp } from '../../app/app.component';
 import { CropListPage } from '../../pages/crop-list/crop-list';
+import { CurrenciesProvider } from '../../providers/currencies/currencies';
 /**
  * Generated class for the CropRegisterSackPage page.
  *
@@ -23,11 +24,12 @@ import { CropListPage } from '../../pages/crop-list/crop-list';
 export class CropRegisterSackPage extends BasePage{
 
   crop:CropModel;
-  registerSack:RegisterSack={};
+  registerSack:RegisterSack={currency_id:'BRL'};
   value:string;
-  total_value:string;
+  total_value;
+  currencies;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public cropProvider:CropProvider, public messenger:MessagesProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public cropProvider:CropProvider, public messenger:MessagesProvider,public currencyProvider:CurrenciesProvider) {
     super(navCtrl);
   }
 
@@ -40,7 +42,17 @@ export class CropRegisterSackPage extends BasePage{
       console.log('user passou: ' + MyApp.instance.user.role.id);
     }
   }
-  
+
+  getCurrencies(){
+    this.currencyProvider.getAll().subscribe(
+      (response)=>{
+        this.currencies = response;
+      },(err)=>{
+
+      }
+    );
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad CropRegisterSackPage');
     this.crop = this.navParams.get('crop');
@@ -50,12 +62,13 @@ export class CropRegisterSackPage extends BasePage{
         console.log(this.crop);
       });
     }
+    this.getCurrencies();
   }
 
   calculateTotalValue(){
     if(this.registerSack.quantity&&this.registerSack.value){
-      this.total_value = 'R$ '+this.registerSack.quantity * this.registerSack.value;
-      this.total_value = this.total_value.replace('.',',');
+      this.total_value = this.registerSack.quantity * this.registerSack.value;
+      // this.total_value = this.total_value.replace('.',',');
     }
   }
 

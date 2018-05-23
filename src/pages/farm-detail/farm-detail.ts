@@ -113,72 +113,72 @@ export class FarmDetailPage extends BasePage{
 
   }
 
-  calculateIncomeActivityForChart(){
-    let datas=[];
-    let labels=[];
-    loop1:
-    for (let i = 0; i < this.farm.income_histories.length; i++) {
-      if(this.farm.income_histories[i].activity!=null){
-        for (let j = 0; j < datas.length; j++) {
-          if(labels[j]==this.farm.income_histories[i].activity.activity_type.name){
-            datas[j]+=parseFloat(<any>this.farm.income_histories[i].value);
-            continue loop1;
-          }
-        }
-        datas.push(parseFloat(<any>this.farm.income_histories[i].value));
-        labels.push(this.farm.income_histories[i].activity.activity_type.name);
-      }
-    }
-    console.log(datas);
-    return {datas:datas,labels:labels}
-  }
+  // calculateIncomeActivityForChart(){
+  //   let datas=[];
+  //   let labels=[];
+  //   loop1:
+  //   for (let i = 0; i < this.farm.income_histories.length; i++) {
+  //     if(this.farm.income_histories[i].activity!=null){
+  //       for (let j = 0; j < datas.length; j++) {
+  //         if(labels[j]==this.farm.income_histories[i].activity.activity_type.name){
+  //           datas[j]+=parseFloat(<any>this.farm.income_histories[i].value);
+  //           continue loop1;
+  //         }
+  //       }
+  //       datas.push(parseFloat(<any>this.farm.income_histories[i].value));
+  //       labels.push(this.farm.income_histories[i].activity.activity_type.name);
+  //     }
+  //   }
+  //   console.log(datas);
+  //   return {datas:datas,labels:labels}
+  // }
 
-  calculateIncomeSackSoldsForChart(){
-    let datas=[];
-    let labels=[];
-    loop1:
-    for (let i = 0; i < this.farm.income_histories.length; i++) {
-      if(this.farm.income_histories[i].sack_sold!=null){
-        for (let j = 0; j < datas.length; j++) {
-          // console.log('test');
-          if(labels[j]==this.farm.income_histories[i].sack_sold.crop.name){
-            datas[j]+=parseFloat(<any>this.farm.income_histories[i].value);
-            continue loop1;
-          }
-        }
-        datas.push(parseFloat(<any>this.farm.income_histories[i].value));
-        labels.push(this.farm.income_histories[i].sack_sold.crop.name);
-      }
-    }
-    return {datas:datas,labels:labels}
-  }
-
-  calculateIncomeInventoriItensForChart(){
-    let datas=[];
-    let labels=[];
-    for (let i = 0; i < this.farm.income_histories.length; i++) {
-      if(this.farm.income_histories[i].inventory_iten!=null){
-        datas.push(parseFloat(<any>this.farm.income_histories[i].value));
-        labels.push(this.farm.income_histories[i].inventory_iten.name);
-      }
-    }
-    return {datas:datas,labels:labels}
-  }
-
-  calculateDataChart(){
-    let activity = this.calculateIncomeActivityForChart();
-    let sack_sold = this.calculateIncomeSackSoldsForChart();
-    let inventory = this.calculateIncomeInventoriItensForChart();
-    this.expensePieChartData = this.expensePieChartData.concat(activity.datas);
-    this.expensePieChartLabels = this.expensePieChartLabels.concat(activity.labels);
-    this.benefitPieChartData = this.benefitPieChartData.concat(sack_sold.datas);
-    this.benefitPirChartLabel = this.benefitPirChartLabel.concat(sack_sold.labels);
-    this.benefitPieChartData = this.benefitPieChartData.concat(inventory.datas);
-    this.benefitPirChartLabel = this.benefitPirChartLabel.concat(inventory.labels);
-    // console.log(this.benefitPirChartLabel);
-    // console.log(this.expensePieChartLabels);
-    this.drawCharts=true;
-  }
+  // calculateIncomeSackSoldsForChart(){
+  //   let datas=[];
+  //   let labels=[];
+  //   loop1:
+  //   for (let i = 0; i < this.farm.income_histories.length; i++) {
+  //     if(this.farm.income_histories[i].sack_sold!=null){
+  //       for (let j = 0; j < datas.length; j++) {
+  //         // console.log('test');
+  //         if(labels[j]==this.farm.income_histories[i].sack_sold.crop.name){
+  //           datas[j]+=parseFloat(<any>this.farm.income_histories[i].value);
+  //           continue loop1;
+  //         }
+  //       }
+  //       datas.push(parseFloat(<any>this.farm.income_histories[i].value));
+  //       labels.push(this.farm.income_histories[i].sack_sold.crop.name);
+  //     }
+  //   }
+  //   return {datas:datas,labels:labels}
+  // }
+  //
+  // calculateIncomeInventoriItensForChart(){
+  //   let datas=[];
+  //   let labels=[];
+  //   for (let i = 0; i < this.farm.income_histories.length; i++) {
+  //     if(this.farm.income_histories[i].inventory_iten!=null){
+  //       datas.push(parseFloat(<any>this.farm.income_histories[i].value));
+  //       labels.push(this.farm.income_histories[i].inventory_iten.name);
+  //     }
+  //   }
+  //   return {datas:datas,labels:labels}
+  // }
+  //
+  // calculateDataChart(){
+  //   let activity = this.calculateIncomeActivityForChart();
+  //   let sack_sold = this.calculateIncomeSackSoldsForChart();
+  //   let inventory = this.calculateIncomeInventoriItensForChart();
+  //   this.expensePieChartData = this.expensePieChartData.concat(activity.datas);
+  //   this.expensePieChartLabels = this.expensePieChartLabels.concat(activity.labels);
+  //   this.benefitPieChartData = this.benefitPieChartData.concat(sack_sold.datas);
+  //   this.benefitPirChartLabel = this.benefitPirChartLabel.concat(sack_sold.labels);
+  //   this.benefitPieChartData = this.benefitPieChartData.concat(inventory.datas);
+  //   this.benefitPirChartLabel = this.benefitPirChartLabel.concat(inventory.labels);
+  //   // console.log(this.benefitPirChartLabel);
+  //   // console.log(this.expensePieChartLabels);
+  //   this.drawCharts=true;
+  // }
 
   openFieldPage(field){
     this.navCtrl.push(FieldDetailPage.name,{field_id:field.id});
@@ -206,13 +206,13 @@ export class FarmDetailPage extends BasePage{
         console.log(this.farm);
         this.calculateTotal();
         this.setMapUrl();
-        this.calculateDataChart();
+        // this.calculateDataChart();
       });
     }
     else{
       this.setMapUrl();
       this.calculateTotal();
-      this.calculateDataChart();
+      // this.calculateDataChart();
     }
   }
 

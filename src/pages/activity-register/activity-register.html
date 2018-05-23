@@ -9,7 +9,7 @@
   <form (ngSubmit)="Register()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
       <ion-row style="align-items: flex-end;">
-        <ion-col col-12 col-md-4 col-lg-4>
+        <ion-col col-12 col-lg-3>
           <input type="hidden" required name="activityType" [(ngModel)]="activity.activity_type_id" [value]="activity_type">
           <ion-item>
             <select-searchable
@@ -25,15 +25,23 @@
             </select-searchable>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-4 col-lg-4>
+        <ion-col col-12 col-md-4 col-lg-3>
           <ion-item padding-top>
-            <ion-label>Unidade*</ion-label>
-            <ion-select [(ngModel)]="activity.unity_id" required name="unity">
+            <ion-label>Moeda*</ion-label>
+            <ion-select [(ngModel)]="activity.currency_id" required name="currency_id">
+              <ion-option *ngFor="let currency of currencies" value="{{currency.id}}">{{currency.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-4 col-lg-3>
+          <ion-item padding-top>
+            <ion-label>Unidade</ion-label>
+            <ion-select [(ngModel)]="activity.unity_id" name="unity">
               <ion-option *ngFor="let unity of unities" value="{{unity.id}}">{{unity.id}} - {{unity.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-4 col-lg-4>
+        <ion-col col-12 col-md-4 col-lg-3>
           <ion-item>
             <ion-label floating>Nome</ion-label>
             <ion-input type="text" [(ngModel)]="activity.product_name" name="product_name" ></ion-input>
@@ -42,7 +50,7 @@
         <ion-col col-12 col-md-4 col-lg-4>
           <ion-item>
             <ion-label floating>Valor unitario</ion-label>
-            <ion-input  type="text" (ionChange)="calculateTotal()" [(modelMask)]="activity.unity_value" mask="R$ 9" [form]="RegisterForm" currency="true" name="unity_value" ></ion-input>
+            <ion-input  type="text" (ionChange)="calculateTotal()" [(modelMask)]="activity.unity_value" [mask]="activity.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="unity_value" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4 col-lg-4>
@@ -60,7 +68,7 @@
         <ion-col col-12 col-md-4 col-lg-4>
           <ion-item>
             <ion-label floating>Valor Total*</ion-label>
-            <ion-input required type="text" [debug]="true" [(modelMask)]="activity.total_value" mask="R$ 9" [form]="RegisterForm" currency="true" name="total_value" ></ion-input>
+            <ion-input required type="text" [debug]="true" [(modelMask)]="activity.total_value" [mask]="activity.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="total_value" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4 col-lg-4>
