@@ -18,6 +18,7 @@ export interface RegisterSack{
   crop_id?:number;
   value?:number;
   quantity?:number;
+  currency_id?:string;
 }
 
 @Injectable()

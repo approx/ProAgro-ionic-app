@@ -24,7 +24,7 @@ import { CurrenciesProvider } from '../../providers/currencies/currencies';
 export class CropRegisterSackPage extends BasePage{
 
   crop:CropModel;
-  registerSack:RegisterSack={};
+  registerSack:RegisterSack={currency_id:'BRL'};
   value:string;
   total_value:string;
   currencies;
