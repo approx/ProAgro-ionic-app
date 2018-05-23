@@ -1,4 +1,4 @@
-import { Directive,Input,Output,OnChanges,SimpleChanges,ViewContainerRef,AfterViewInit,HostListener,EventEmitter } from '@angular/core';
+import { Directive,Input,Output,OnChanges,SimpleChanges,ViewContainerRef,AfterViewInit,HostListener,EventEmitter,ChangeDetectorRef  } from '@angular/core';
 import { NgForm,Validators,AbstractControl,FormControl,NgControl } from '@angular/forms';
 import { ViewController,TextInput } from 'ionic-angular';
 
@@ -16,7 +16,7 @@ function hasExclamationMark(input: FormControl) {
 @Directive({
   selector: '[modelMask]' // Attribute selector
 })
-export class ModelMaskDirective implements AfterViewInit {
+export class ModelMaskDirective {
   @Input() test:string;
   value:string='';
   pageComponenet:any;
@@ -53,16 +53,17 @@ export class ModelMaskDirective implements AfterViewInit {
     this.modelMaskChange.emit(this.modelValue);
   }
 
-  constructor(private viewContainerRef: ViewContainerRef) {
-
+  constructor(private viewContainerRef: ViewContainerRef,private cdRef:ChangeDetectorRef) {
+    console.log('constructor')
   }
 
-  ngAfterViewInit(){
+  ngOnInit(){
     if(!this.component){
       this.component = this.viewContainerRef[ '_data' ].componentView.component;
     }
     this.form.form.addControl(this.component._elementRef.nativeElement.getAttribute('name'),this._formControl);
-    // this.getModelValue();
+    this.cdRef.detectChanges();
+    console.log('ngAfterViewInit')
   }
 
   setFormControll(){
@@ -224,8 +225,6 @@ export class ModelMaskDirective implements AfterViewInit {
         this.modelMask = this.modelMask.substring(0,this.modelMask.length-1);
         this.modelMask=this.maskedValue(this.modelMask);
       }
-
-
     }
   }
 
@@ -397,6 +396,7 @@ export class ModelMaskDirective implements AfterViewInit {
       this.component.value = this.modelMask;
       this.component._native.nativeElement.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
       // this.setCursor();
+      // this.cdRef.detectChanges();
     }
   }
 
