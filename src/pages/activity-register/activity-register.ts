@@ -8,6 +8,7 @@ import { ActivityTypeProvider } from '../../providers/activity-type/activity-typ
 import { ActivityProvider } from '../../providers/activity/activity';
 import { UnityProvider } from '../../providers/unity/unity';
 import { MessagesProvider } from '../../providers/messages/messages';
+import { CurrenciesProvider } from '../../providers/currencies/currencies';
 
 /**
  * Generated class for the ActivityRegisterPage page.
@@ -24,10 +25,11 @@ import { MessagesProvider } from '../../providers/messages/messages';
 export class ActivityRegisterPage extends BasePage{
 
   crop:CropModel;
-  activity:any={};
+  activity:any={currency_id:'BRL'};
   activityTypeId;
   activityTypes;
   unities;
+  currencies;
 
   constructor(
     public navCtrl:NavController,
@@ -36,7 +38,8 @@ export class ActivityRegisterPage extends BasePage{
     private activityTypeProvider:ActivityTypeProvider,
     private activityProvider:ActivityProvider,
     private unityProvider:UnityProvider,
-    private message:MessagesProvider
+    private message:MessagesProvider,
+    private currenciesProvider:CurrenciesProvider
   ){
     super(navCtrl);
   }
@@ -48,6 +51,7 @@ export class ActivityRegisterPage extends BasePage{
     }
     this.getActivityTypes();
     this.getUnities();
+    this.getCurrencies();
   }
 
   selectedActivityType(activity){
@@ -87,6 +91,17 @@ export class ActivityRegisterPage extends BasePage{
     );
   }
 
+  getCurrencies(){
+    this.currenciesProvider.getAll().subscribe(
+      (response)=>{
+        this.currencies = response;
+        console.log(response);
+      },(err)=>{
+
+      }
+    );
+  }
+
   calculateTotal(){
     if( this.activity.unity_value && this.activity.dose ){
       this.activity.quantity = this.activity.dose * this.crop.field.area;
@@ -97,7 +112,7 @@ export class ActivityRegisterPage extends BasePage{
   getActivityTypes(){
     this.activityTypeProvider.getAll().subscribe(
       (response)=>{
-        this.activityTypes = response
+        this.activityTypes = response;
       },(err)=>{
         this.navCtrl.setRoot('LoginPage');
       }

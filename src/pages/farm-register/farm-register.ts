@@ -10,6 +10,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { BasePage } from "../base/base";
 import { MyApp } from '../../app/app.component';
 import { FarmListPage } from '../../pages/farm-list/farm-list';
+import { CurrenciesProvider } from '../../providers/currencies/currencies';
 
 /**
  * Generated class for the FarmRegisterPage page.
@@ -38,7 +39,8 @@ export class FarmRegisterPage extends BasePage{
   culturesSelected: Culture[] = [];
   @Input() farm:FarmInterface={
     name:'',
-    cultures:''
+    cultures:'',
+    currency_id:'BRL'
   };
   @Input() address:AddressInterface={
     CEP:'',
@@ -52,6 +54,7 @@ export class FarmRegisterPage extends BasePage{
   capital_tied;
   remuneration;
   mapUrl;
+  currencies;
 
   constructor(
     public navCtrl: NavController,
@@ -62,6 +65,7 @@ export class FarmRegisterPage extends BasePage{
     private loadingCtrl: LoadingController,
     private farmProvider:FarmProvider,
     private sanitizer:DomSanitizer,
+    private curreciesProvider:CurrenciesProvider
   ) {
     super(navCtrl);
   }
@@ -96,9 +100,9 @@ export class FarmRegisterPage extends BasePage{
   calculateValues(){
     if(this.farm.value_ha && this.farm.ha){
       this.farm.capital_tied = this.farm.ha * this.farm.value_ha;
-      this.capital_tied = 'R$ ' + this.farm.capital_tied;
+      // this.capital_tied = 'R$ ' + this.farm.capital_tied;
       this.farm.remuneration = (this.farm.capital_tied*.5)/100;
-      this.remuneration = 'R$ ' + this.farm.remuneration;
+      // this.remuneration = 'R$ ' + this.farm.remuneration;
     }
   }
 
@@ -107,6 +111,15 @@ export class FarmRegisterPage extends BasePage{
     this.getClients();
     this.getCultures();
     this.setParamsItens();
+    this.getCurrencies();
+  }
+
+  getCurrencies(){
+    this.curreciesProvider.getAll().subscribe(
+      (response)=>{
+        this.currencies = response;
+      },(err)=>{}
+    );
   }
 
   getClients() {

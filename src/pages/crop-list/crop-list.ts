@@ -64,7 +64,7 @@ export class CropListPage extends BasePage{
       if(crop.name.toLowerCase().indexOf(this.filterText.toLowerCase())!=-1||this.filterText==''){
         if(this.find(crop.culture.id,this.cultureFilter)||this.cultureFilter.length==0){
           if(this.find(crop.field.farm.id,this.farmFilter)||this.farmFilter.length==0){
-            let d = new Date(crop.final_date);
+            let d = new Date(<Date>crop.final_date);
             let now = new Date();
 
             if(this.find('Finalizado',this.state)&&(now.getTime()>d.getTime())){

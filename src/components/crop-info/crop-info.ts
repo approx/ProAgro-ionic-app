@@ -25,11 +25,11 @@ export class CropInfoComponent {
   }
 
   calculatePercentage(){
-    let initialTime = new Date(this.crop.initial_date).getTime();
-    let finalTime = new Date(this.crop.final_date).getTime();
+    let initialTime = new Date(<Date>this.crop.initial_date).getTime();
+    let finalTime = new Date(<Date>this.crop.final_date).getTime();
 
     let now = new Date();
-    let finatDate = new Date(this.crop.final_date)
+    let finatDate = new Date(<Date>this.crop.final_date)
     this.months = (finatDate.getFullYear() - now.getFullYear()) * 12;
     this.months -= now.getMonth() + 1;
     this.months += finatDate.getMonth() +1 ;

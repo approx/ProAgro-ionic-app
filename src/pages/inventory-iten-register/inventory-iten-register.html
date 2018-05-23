@@ -23,19 +23,27 @@
             <ion-input type="text" required maxlength="45" #name="ngModel" [(ngModel)]="iten.name" name="name" value=""></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-4>
-          <ion-item>
-            <ion-label floating>Valor total*</ion-label>
-            <ion-input type="text" required maxlength="45" #name="ngModel" (ionChange)="onPriceValueChange()" [(ngModel)]="price" name="price" value=""></ion-input>
+        <ion-col col-12 col-md-6 col-lg-3>
+          <ion-item padding-top>
+            <ion-label>Moeda*</ion-label>
+            <ion-select [(ngModel)]="iten.currency_id" required name="currency_id">
+              <ion-option *ngFor="let currency of currencies" value="{{currency.id}}">{{currency.name}}</ion-option>
+            </ion-select>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-4>
+        <ion-col col-12 col-md-6 col-lg-3>
+          <ion-item>
+            <ion-label floating>Valor total*</ion-label>
+            <ion-input type="text" required [(modelMask)]="iten.price" (ionChange)="depreciationMounth()" [mask]="iten.currency_id=='BRL' ? 'R$ 9':'$ 9'" [debug]="true" [form]="RegisterForm" currency="true" name="value"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 col-lg-3>
           <ion-item>
             <ion-label floating>Tempo de depreciação(meses)*</ion-label>
             <ion-input type="text" required maxlength="45" #name="ngModel" (ionChange)="depreciationMounth()" [(ngModel)]="iten.depreciation_time" name="depreciation_time" value=""></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-4>
+        <ion-col col-12 col-md-6 col-lg-3>
           <ion-item>
             <ion-label floating>Depreciação/mes*</ion-label>
             <ion-input type="text" readonly="true" required maxlength="45" #name="ngModel" [(ngModel)]="depreciation_value" name="depreciation_value" value=""></ion-input>
