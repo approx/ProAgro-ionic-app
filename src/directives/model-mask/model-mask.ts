@@ -31,6 +31,7 @@ export class ModelMaskDirective {
   ablleToAdd=true;
 
   @Input() mask:string;
+  @Input() readonly=false;
   @Input() maskPlaceHolder:string;
   @Input() currency:boolean = false;
   @Input() clean=true;
@@ -175,11 +176,13 @@ export class ModelMaskDirective {
     if(keyEvent.keyCode==9) return;
     keyEvent.preventDefault();
     if(this.modelMask==undefined) this.modelMask='';
-    if(!this.currency){
-      this.moveArrowKey(keyEvent);
-      this.addKeyToMask(keyEvent);
-    }else{
-      this.addKeyToCurrency(keyEvent);
+    if(!this.readonly){
+      if(!this.currency){
+        this.moveArrowKey(keyEvent);
+        this.addKeyToMask(keyEvent);
+      }else{
+        this.addKeyToCurrency(keyEvent);
+      }
     }
     this.component.value = this.modelMask;
     this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
