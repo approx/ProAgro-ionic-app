@@ -9,7 +9,7 @@ export interface ActivityTypeInterface{
 
 export class ActivityTypeModel{
   constructor(
-    public id:number,
+    public id:string,
     public name:string,
     public unity_id:number,
     public unity:UnityModel,

@@ -1,4 +1,35 @@
 page-crop-detail {
+  .archives{
+    h4{
+      background-color: #cec4b3;
+      border: #d5d3d3 1px solid;
+      padding: 5px 20px;
+      border-radius: 10px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      margin: 0;
+      display: inline-block;
+      margin-bottom: -2px;
+      cursor: pointer;
+    }
+    h4.active{
+      border-bottom-color: transparent;
+      background-color: #ebe0cd;
+      cursor: default;
+    }
+  }
+  .folder{
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background-color: #ebe0cd;
+    border: #d5d3d3 1px solid;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    h2{
+      background-color: #ebe0cd;
+    }
+  }
+
   h1{
     ion-icon{
       float: right;

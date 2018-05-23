@@ -29,6 +29,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class CropDetailPage extends BasePage{
 
+  indicators=false;
   crop:CropModel;
   crop_id:number;
   chartData:Array<any>=[];
@@ -133,6 +134,10 @@ export class CropDetailPage extends BasePage{
     this.crop.sack_produced = this.sack_produced;
   }
 
+  indicatorTab(value){
+    this.indicators=value;
+  }
+
   totalValue(activities){
     let total_value=0;
     for (let i = 0; i < activities.length; i++) {
@@ -150,22 +155,22 @@ export class CropDetailPage extends BasePage{
     return total_value_ha;
   }
 
-  ActivityPerTypeChartData(activities){
-    let data=[];
-    let labels=[];
-    loop1:
-    for (let i = 0; i < activities.length; i++) {
-      for (let j = 0; j < data.length; j++) {
-          if(labels[j]==activities[i].activity_type.name){
-            data[j]+=parseFloat(<any>activities[i].total_value);
-            continue loop1;
-          }
+ActivityPerTypeChartData(activities){
+  let data=[];
+  let labels=[];
+  loop1:
+  for (let i = 0; i < activities.length; i++) {
+    for (let j = 0; j < data.length; j++) {
+      if(labels[j]==activities[i].activity_type.name){
+        data[j]+=parseFloat(<any>activities[i].total_value);
+        continue loop1;
       }
-      data.push(parseFloat(<any>activities[i].total_value));
-      labels.push(activities[i].activity_type.name);
     }
-    return {data:data,labels:labels};
+    data.push(parseFloat(<any>activities[i].total_value));
+    labels.push(activities[i].activity_type.name);
   }
+  return {data:data,labels:labels};
+}
 
   ActivityPerMonthChartData(activities){
     let data=[];
