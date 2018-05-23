@@ -119,6 +119,8 @@ export class CropDetailPage extends BasePage{
   lineChartData = [];
   lineChartLabels = [];
 
+  activitiesPerCurrency=[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider,private message:MessagesProvider,private activityProvider:ActivityProvider,private currencyPipe:CurrencyPipe) {
 
     super(navCtrl);
@@ -129,6 +131,23 @@ export class CropDetailPage extends BasePage{
   editSack() {
     this.sack_editing = !this.sack_editing;
     this.crop.sack_produced = this.sack_produced;
+  }
+
+  separeteActivityPerCurrency(){
+    let activities = this.crop.activities;
+    loop1:
+    for (let i = 0; i < activities.length; i++) {
+        activities[i];
+        for (let j = 0; j < this.activitiesPerCurrency.length; j++) {
+            if(this.activitiesPerCurrency[j][0].currency_id==activities[i].currency_id){
+              this.activitiesPerCurrency[j].push(activities[i]);
+              continue loop1;
+            }
+        }
+        this.activitiesPerCurrency.push([activities[i]]);
+    }
+
+    console.log(this.activitiesPerCurrency);
   }
 
   calculatePieChartData(){
@@ -221,6 +240,7 @@ export class CropDetailPage extends BasePage{
       this.cropProvider.get(this.crop_id).subscribe((data:CropModel)=>{
         this.crop=data;
         console.log(this.crop);
+        this.separeteActivityPerCurrency();
         this.calculatePercentage();
         this.calculateTotal();
         this.calculateTotalInventario();
@@ -234,6 +254,7 @@ export class CropDetailPage extends BasePage{
       });
     }
     else{
+      this.separeteActivityPerCurrency();
       this.calculateTotal();
       this.calculatePercentage();
       this.calculateTotalInventario();
