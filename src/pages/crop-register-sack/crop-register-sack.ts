@@ -6,6 +6,7 @@ import { MessagesProvider } from "../../providers/messages/messages";
 import { BasePage } from "../base/base";
 import { MyApp } from '../../app/app.component';
 import { CropListPage } from '../../pages/crop-list/crop-list';
+import { CurrenciesProvider } from '../../providers/currencies/currencies';
 /**
  * Generated class for the CropRegisterSackPage page.
  *
@@ -26,8 +27,9 @@ export class CropRegisterSackPage extends BasePage{
   registerSack:RegisterSack={};
   value:string;
   total_value:string;
+  currencies;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public cropProvider:CropProvider, public messenger:MessagesProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public cropProvider:CropProvider, public messenger:MessagesProvider,public currencyProvider:CurrenciesProvider) {
     super(navCtrl);
   }
 
@@ -40,7 +42,17 @@ export class CropRegisterSackPage extends BasePage{
       console.log('user passou: ' + MyApp.instance.user.role.id);
     }
   }
-  
+
+  getCurrencies(){
+    this.currencyProvider.getAll().subscribe(
+      (response)=>{
+        this.currencies = response;
+      },(err)=>{
+
+      }
+    );
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad CropRegisterSackPage');
     this.crop = this.navParams.get('crop');
@@ -50,6 +62,7 @@ export class CropRegisterSackPage extends BasePage{
         console.log(this.crop);
       });
     }
+    this.getCurrencies();
   }
 
   calculateTotalValue(){
