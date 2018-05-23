@@ -26,7 +26,7 @@ export class CropRegisterSackPage extends BasePage{
   crop:CropModel;
   registerSack:RegisterSack={currency_id:'BRL'};
   value:string;
-  total_value:string;
+  total_value;
   currencies;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public cropProvider:CropProvider, public messenger:MessagesProvider,public currencyProvider:CurrenciesProvider) {
@@ -67,8 +67,8 @@ export class CropRegisterSackPage extends BasePage{
 
   calculateTotalValue(){
     if(this.registerSack.quantity&&this.registerSack.value){
-      this.total_value = 'R$ '+this.registerSack.quantity * this.registerSack.value;
-      this.total_value = this.total_value.replace('.',',');
+      this.total_value = this.registerSack.quantity * this.registerSack.value;
+      // this.total_value = this.total_value.replace('.',',');
     }
   }
 

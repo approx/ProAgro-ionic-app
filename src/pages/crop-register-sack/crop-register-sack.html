@@ -33,7 +33,7 @@
         <ion-col col-12 col-md-3>
           <ion-item>
             <ion-label floating>Valor total</ion-label>
-            <ion-input type="text" readonly="true" maxlength="45" #name="ngModel" [(ngModel)]="total_value" name="total_value" value=""></ion-input>
+            <ion-input type="text" readonly="true" [(modelMask)]="total_value" [mask]="registerSack.currency_id=='BRL' ? 'R$ 9':'$ 9'" [debug]="true" [form]="RegisterForm" currency="true" name="total_value"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
