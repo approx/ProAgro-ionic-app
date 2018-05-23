@@ -8,6 +8,7 @@ import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
 import { MyApp } from '../../app/app.component';
 import { FarmListPage } from '../../pages/farm-list/farm-list';
+import { CurrenciesProvider } from '../../providers/currencies/currencies';
 
 /**
  * Generated class for the InventoryItenRegisterPage page.
@@ -26,12 +27,14 @@ export class InventoryItenRegisterPage extends BasePage{
   price:string;
   depreciation_value:string;
   farms:FarmModel[];
+  currencies;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private farmProvider:FarmProvider,
     private itenProvider:InventoryItenProvider,
-    private messages:MessagesProvider
+    private messages:MessagesProvider,
+    private currencyProvider:CurrenciesProvider
   ) {
     super(navCtrl);
   }
@@ -52,6 +55,14 @@ export class InventoryItenRegisterPage extends BasePage{
     });
   }
 
+  getCurrencies(){
+    this.currencyProvider.getAll().subscribe(
+      (response)=>{
+        this.currencies = response;
+      },(err)=>{}
+    );
+  }
+
   setParams(){
     let farm = this.navParams.get('farm');
     if(farm){
@@ -62,7 +73,8 @@ export class InventoryItenRegisterPage extends BasePage{
   ionViewDidLoad() {
     console.log('ionViewDidLoad InventoryItenRegisterPage');
     this.getFarms();
-    this.setParams()
+    this.setParams();
+    this.getCurrencies();
   }
 
   depreciationMounth(){
