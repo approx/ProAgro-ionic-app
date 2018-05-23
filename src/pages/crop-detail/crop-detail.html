@@ -34,39 +34,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div *ngIf="drawCharts" margin-bottom class="horizontalLine">
-    <h2>Resumo</h2>
-  </div>
-  <div *ngIf="drawCharts" class="myRow">
-    <ion-col *ngIf="lineChartData.length>1" col-lg-6>
-      <h3 margin-left padding-left>Tipo de Atividade X Valor</h3>
-      <canvas baseChart
-      [colors]="colors"
-      [data]="pieChartData"
-      [labels]="pieChartLabels"
-      [options]="pieChartOptions"
-      chartType="pie"></canvas>
-    </ion-col>
-    <ion-col *ngIf="lineChartData.length>1" col-lg-6>
-      <h3 margin-left padding-left>Meses X Valor</h3>
-      <canvas baseChart
-      [colors]="linechartColors"
-      [data]="lineChartData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [colors]="colors"
-      chartType="line"></canvas>
-    </ion-col>
-    <ion-col *ngIf="lineChartData.length<=1" col-12>
-      <h3 margin-left padding-left>Tipo de Atividade X Valor</h3>
-      <canvas baseChart
-      [colors]="colors"
-      [data]="pieChartData"
-      [labels]="pieChartLabels"
-      [options]="pieChartOptions"
-      chartType="pie"></canvas>
-    </ion-col>
-  </div>
   <div margin-bottom class="horizontalLine">
     <h2>Inventario utilizado</h2>
   </div>
@@ -99,17 +66,49 @@
   <div margin-bottom class="horizontalLine">
     <h2>Atividades</h2>
   </div>
-  <ion-grid padding-left padding-right class="table">
-    <ion-row style="display:flex;align-items:center;background-color:white">
-      <ion-col col-11>
-        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-      </ion-col>
-      <ion-col col-1 >
-        <button *ngIf="!userClient" style="background-color:transparent"> <ion-icon name="person-add" style="font-size:30px;"></ion-icon></button>
-      </ion-col>
-    </ion-row>
-    <div *ngFor="let activities of activitiesPerCurrency">
-      <table *ngIf="activities.length>0" col-12>
+  <ion-grid padding-left padding-right>
+    <div *ngFor="let activities of activitiesPerCurrency; let i = index" padding-bottom>
+      <div *ngIf="drawCharts" class="myRow">
+        <ion-col *ngIf="lineChartData[i].data.length>1" col-lg-6>
+          <h3 margin-left padding-left>Tipo de Atividade X Valor</h3>
+          <canvas baseChart
+          *ngIf="pieChartData[i]"
+          [colors]="colors"
+          [data]="pieChartData[i].data"
+          [labels]="pieChartData[i].labels"
+          [options]="pieChartOptions"
+          chartType="pie"></canvas>
+        </ion-col>
+        <ion-col *ngIf="lineChartData[i].data.length>1" col-lg-6>
+          <h3 margin-left padding-left>Meses X Valor</h3>
+          <canvas baseChart
+          [colors]="linechartColors"
+          [data]="lineChartData[i].data"
+          [labels]="lineChartData[i].labels"
+          [options]="lineChartOptions"
+          [colors]="colors"
+          chartType="line"></canvas>
+        </ion-col>
+        <ion-col *ngIf="lineChartData[i].data.length<=1" col-12>
+          <h3 margin-left padding-left>Tipo de Atividade X Valor</h3>
+          <canvas baseChart
+          *ngIf="pieChartData[i]"
+          [colors]="colors"
+          [data]="pieChartData[i].data"
+          [labels]="pieChartData[i].labels"
+          [options]="pieChartOptions"
+          chartType="pie"></canvas>
+        </ion-col>
+      </div>
+      <!-- <ion-row style="display:flex;align-items:center;background-color:white">
+        <ion-col col-11>
+          <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+        </ion-col>
+        <ion-col col-1 >
+          <button *ngIf="!userClient" style="background-color:transparent"> <ion-icon name="person-add" style="font-size:30px;"></ion-icon></button>
+        </ion-col>
+      </ion-row> -->
+      <table class="table" *ngIf="activities.length>0" col-12>
         <tr>
           <th>Data operação</th>
           <th>Produto/Serviço</th>
@@ -136,8 +135,8 @@
           <th></th>
           <th class="hide-md"></th>
           <th class="hide-md"></th>
-          <th class="hide-md">R$ {{total_value_ha}}</th>
-          <th>{{total_value | currency:'BRL'}}</th>
+          <th class="hide-md">{{totalValueHa(activities) | currency:activities[0].currency_id}}</th>
+          <th>{{totalValue(activities) | currency:activities[0].currency_id}}</th>
           <th *ngIf="!userClient"></th>
         </tr>
       </table>

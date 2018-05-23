@@ -133,42 +133,44 @@ export class CropDetailPage extends BasePage{
     this.crop.sack_produced = this.sack_produced;
   }
 
-  separeteActivityPerCurrency(){
-    let activities = this.crop.activities;
-    loop1:
+  totalValue(activities){
+    let total_value=0;
     for (let i = 0; i < activities.length; i++) {
-        activities[i];
-        for (let j = 0; j < this.activitiesPerCurrency.length; j++) {
-            if(this.activitiesPerCurrency[j][0].currency_id==activities[i].currency_id){
-              this.activitiesPerCurrency[j].push(activities[i]);
-              continue loop1;
-            }
-        }
-        this.activitiesPerCurrency.push([activities[i]]);
+      total_value +=  activities[i].total_value == null ? 0 : parseFloat(activities[i].total_value.toString());
+      this.total_value_ha += this.crop.activities[i].value_per_ha == null ? 0 : parseFloat(this.crop.activities[i].value_per_ha.toString());
     }
-
-    console.log(this.activitiesPerCurrency);
+    return total_value;
   }
 
-  calculatePieChartData(){
-    let array=[];
+  totalValueHa(activities){
+    let total_value_ha=0;
+    for (let i = 0; i < activities.length; i++) {
+      total_value_ha += activities[i].value_per_ha == null ? 0 : parseFloat(activities[i].value_per_ha.toString());
+    }
+    return total_value_ha;
+  }
+
+  ActivityPerTypeChartData(activities){
+    let data=[];
+    let labels=[];
     loop1:
-    for (let i = 0; i < this.crop.activities.length; i++) {
-      for (let j = 0; j < this.pieChartData.length; j++) {
-          if(this.pieChartLabels[j]==this.crop.activities[i].activity_type.name){
-            this.pieChartData[j]+=parseFloat(<any>this.crop.activities[i].total_value);
+    for (let i = 0; i < activities.length; i++) {
+      for (let j = 0; j < data.length; j++) {
+          if(labels[j]==activities[i].activity_type.name){
+            data[j]+=parseFloat(<any>activities[i].total_value);
             continue loop1;
           }
       }
-      this.pieChartData.push(parseFloat(<any>this.crop.activities[i].total_value));
-      this.pieChartLabels.push(this.crop.activities[i].activity_type.name);
+      data.push(parseFloat(<any>activities[i].total_value));
+      labels.push(activities[i].activity_type.name);
     }
-    // console.log(this.pieChartData);
-    // console.log(this.pieChartLabels)
+    return {data:data,labels:labels};
   }
 
-  calculateLineChart(){
-    let orderedActivities = this.crop.activities.sort((a,b)=>{
+  ActivityPerMonthChartData(activities){
+    let data=[];
+    let labels=[];
+    let orderedActivities = activities.sort((a,b)=>{
       let dateA = new Date(<string>a.operation_date);
       let dateB = new Date(<string>b.operation_date);
       if(dateA.getTime()<dateB.getTime()){
@@ -188,19 +190,46 @@ export class CropDetailPage extends BasePage{
       let date = new Date(<string>orderedActivities[i].operation_date);
       console.log(i)
       let label = this.months[date.getMonth()]+'/'+date.getFullYear();
-      for (let j = 0; j < this.lineChartLabels.length; j++) {
-          if(this.lineChartLabels[j]==label){
-            this.lineChartData[j]+=parseFloat(<any>orderedActivities[i].total_value);
-            console.log(this.lineChartData[j]);
+      for (let j = 0; j < labels.length; j++) {
+          if(labels[j]==label){
+            data[j]+=parseFloat(<any>orderedActivities[i].total_value);
+            console.log(data[j]);
             continue loop1;
           }
       }
-      this.lineChartData.push(parseFloat(<any>orderedActivities[i].total_value));
-      this.lineChartLabels.push(label);
+      data.push(parseFloat(<any>orderedActivities[i].total_value));
+      labels.push(label);
     }
-    // this.lineChartData=[{data:this.lineChartData,label:''}]
-    console.log(this.lineChartData);
-    console.log(this.lineChartLabels);
+    return {data:data,labels:labels};
+  }
+
+  separeteActivityPerCurrency(){
+    let activities = this.crop.activities;
+    loop1:
+    for (let i = 0; i < activities.length; i++) {
+        activities[i];
+        for (let j = 0; j < this.activitiesPerCurrency.length; j++) {
+            if(this.activitiesPerCurrency[j][0].currency_id==activities[i].currency_id){
+              this.activitiesPerCurrency[j].push(activities[i]);
+              continue loop1;
+            }
+        }
+        this.activitiesPerCurrency.push([activities[i]]);
+    }
+
+    console.log(this.activitiesPerCurrency);
+  }
+
+  calculatePieChartData(){
+    this.activitiesPerCurrency.forEach((element,index)=>{
+      this.pieChartData.push(this.ActivityPerTypeChartData(element));
+    });
+  }
+
+  calculateLineChart(){
+    this.activitiesPerCurrency.forEach((element,index)=>{
+      this.lineChartData.push(this.ActivityPerMonthChartData(element));
+    });
   }
 
   saveSacks(){
