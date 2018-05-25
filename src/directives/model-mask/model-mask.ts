@@ -37,6 +37,8 @@ export class ModelMaskDirective {
   @Input() clean=true;
   @Input() form:NgForm;
   @Input() debug=false;
+  @Input() name;
+  @Input() disabled;
   _formControl:FormControl;
 
   @Input()
@@ -62,7 +64,7 @@ export class ModelMaskDirective {
     if(!this.component){
       this.component = this.viewContainerRef[ '_data' ].componentView.component;
     }
-    this.form.form.addControl(this.component._elementRef.nativeElement.getAttribute('name'),this._formControl);
+    this.form.form.addControl(this.name,this._formControl);
     this.cdRef.detectChanges();
     console.log('ngAfterViewInit')
   }
@@ -368,18 +370,20 @@ export class ModelMaskDirective {
   @HostListener('focus',['$event'])
   @HostListener('click',['$event'])
   focus(event){
-    this.component._item._elementRef.nativeElement.classList.add('ng-touched');
-    this.target = event.target;
-    console.log('focus/click');
-    if(this.modelMask==undefined){
-      this.target.value = this.getMask();
-    }
-    else{
-      this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
+    if(!this.disabled){
+      this.component._item._elementRef.nativeElement.classList.add('ng-touched');
+      this.target = event.target;
+      console.log('focus/click');
+      if(this.modelMask==undefined){
+        this.target.value = this.getMask();
+      }
+      else{
+        this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
+        this.setCursor();
+      }
       this.setCursor();
+      this.setPlaceHolder();
     }
-    this.setCursor();
-    this.setPlaceHolder();
   }
 
   setValue(val){
