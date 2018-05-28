@@ -122,7 +122,16 @@ export class CropDetailPage extends BasePage{
 
   activitiesPerCurrency=[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private cropProvider:CropProvider,private message:MessagesProvider,private activityProvider:ActivityProvider,private currencyPipe:CurrencyPipe) {
+  grossIncome;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private cropProvider:CropProvider,
+    private message:MessagesProvider,
+    private activityProvider:ActivityProvider,
+    private currencyPipe:CurrencyPipe
+  ) {
 
     super(navCtrl);
     MyApp.instance.user;
@@ -133,6 +142,13 @@ export class CropDetailPage extends BasePage{
     this.sack_editing = !this.sack_editing;
     this.crop.sack_produced = this.sack_produced;
   }
+
+  // calculateGrossIncome(){
+  //   this.grossIncome=0;
+  //   this.crop.sack_solds.forEach((element,index)=>{
+  //     this.grossIncome+=element.quantity*element.value;
+  //   });
+  // }
 
   indicatorTab(value){
     this.indicators=value;

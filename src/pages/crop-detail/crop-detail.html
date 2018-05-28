@@ -35,6 +35,29 @@
     </ion-row>
   </ion-grid>
   <div margin-bottom class="horizontalLine">
+    <h2>Renda Bruta</h2>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col padding-left padding-right col-12>
+        <table *ngIf="crop" margin-top col-12>
+          <tr>
+            <th>Descrição</th>
+            <th>Valor </th>
+          </tr>
+          <tr *ngFor="let iten of crop.gross_income.history" >
+            <td>{{iten.description}}</td>
+            <td>{{iten.total | currency:iten.currency_id}}</td>
+          </tr>
+          <tr>
+            <th>Total</th>
+            <th>{{crop.gross_income.total | currency:crop.sack_solds[0] ? crop.sack_solds[0].currency_id:'BRL'}}</th>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div margin-bottom class="horizontalLine">
     <h2>Inventario utilizado</h2>
   </div>
   <ion-grid>
