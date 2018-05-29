@@ -65,8 +65,14 @@ export class FarmDetailPage extends BasePage{
     label:'Ratear Atividade',
     down:()=>{
       this.navCtrl.push(PropagateActivityPage.name,{farm:this.farm,farm_id:this.farm.id});
-    },
-  }];
+    }
+  },{
+    label:'Indicadores',
+    down:()=>{
+      this.navCtrl.push('FarmIndicatorsPage',{farm:this.farm,farm_id:this.farm.id});
+    }
+  }
+];
 
   total_value:number;
   total_depreciation_value:number;

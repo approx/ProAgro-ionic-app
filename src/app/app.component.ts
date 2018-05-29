@@ -229,6 +229,9 @@ export class MyApp {
 
   static instance:MyApp;
 
+  mapLoaded:boolean=false;
+  mapCallback:()=>void;
+
   constructor(
     platform: Platform,
     statusBar: StatusBar,
@@ -245,8 +248,16 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
     MyApp.instance=this;
 
+    (<any>window).mapCallback = ()=>{
+      this.mapLoaded = true;
+      if(this.mapCallback){
+        this.mapCallback();
+      }
+      console.log('map loaded');
+    }
   }
 
   ngOnInit(){
