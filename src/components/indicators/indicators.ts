@@ -275,7 +275,7 @@ export class IndicatorsComponent {
     this.coe = 0;
     this.crop.activities.forEach((element,index)=>{
       if(element.activity_type.id!='MOF01'){
-        this.coe += element.total_value;
+        this.coe += parseFloat(<any>element.total_value);
       }
     });
   }
@@ -284,18 +284,18 @@ export class IndicatorsComponent {
     this.cot = this.coe;
     this.crop.activities.forEach((element,index)=>{
       if(element.activity_type.id=='MOF01'){
-        this.cot += element.total_value;
+        this.cot += parseFloat(<any>element.total_value);
       }
     });
     this.crop.inventory_itens.forEach((element,index)=>{
-      this.cot += element.depreciation_value * this.monthsSinceCropStart();
+      this.cot += parseFloat(<any>element.depreciation_value) * this.monthsSinceCropStart();
     });
   }
 
   calculateTotalInventario(){
     this.itens_total_value = 0;
     for (let i = 0; i < this.crop.inventory_itens.length; i++) {
-        this.itens_total_value+=this.crop.inventory_itens[i].price;
+        this.itens_total_value+=parseFloat(<any>this.crop.inventory_itens[i].price);
     }
   }
 

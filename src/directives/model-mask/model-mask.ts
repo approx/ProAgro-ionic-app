@@ -323,7 +323,7 @@ export class ModelMaskDirective {
       if(value==''){
         masked=this.mask.replace(/9|A/g,'0,00');
       }else{
-        let string = value.toFixed(2).toString();
+        let string = parseFloat(value).toFixed(2).toString();
         string =  string.replace('.',',');
         let splited = string.split(',');
         splited[0] = this.stringPutDotsInNumbersToBig(splited[0]);
