@@ -19,6 +19,11 @@ interface SackSold{
   quantity:number;
 }
 
+interface GrossIncome{
+  history:{description:string,total:number},
+  total:number
+}
+
 export class CropModel{
   constructor(
     public id:number,
@@ -31,6 +36,9 @@ export class CropModel{
     public inventory_itens:InventoryItenModel[],
     public sack_solds:SackSold[],
     public sack_expected:number,
-    public sack_produced?:number
+    public gross_income:GrossIncome,
+    public interest_tax:number,
+    public sack_value:number,
+    public sack_produced?:number,
   ){}
 }

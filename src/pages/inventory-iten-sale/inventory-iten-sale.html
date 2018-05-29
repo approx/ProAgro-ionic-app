@@ -8,24 +8,74 @@
   <h1>Registrar venda em {{farm.name}}</h1>
   <ion-grid  class="formContent">
     <form (ngSubmit)="Register()" #RegisterForm="ngForm">
+      <ion-row>
+        <ion-col col-12 col-md-6>
+          <ion-item >
+            <ion-label>Ratear Atividade com base na produção </ion-label>
+            <ion-checkbox [(ngModel)]="propagateByProduction" name="propagateByProduction"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item >
+            <ion-label>Usar Safras Atuais</ion-label>
+            <ion-checkbox [(ngModel)]="useActualCrops" (ionChange)="useActualCropsChange()" name="useActualCrops"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!useActualCrops">
+        <ion-col col-12>
+          <div class="Iten" margin-left>
+            <div>Safras selecionadas</div>
+            <div ><span *ngFor="let crop of crops; let i = index"><span *ngIf="crop.selected"><span *ngIf="i>0">,</span> {{crop.name}}</span></span></div>
+          </div>
+        </ion-col>
+        <ion-col margin-top col-12>
+          <ion-row padding-top padding-bottom class="address">
+            <label>Safras</label>
+            <ion-col col-12>
+              <ion-row>
+                <ion-col col-12>
+                  <ion-item>
+                    <ion-label>Selecionar todas as safras</ion-label>
+                    <ion-checkbox [(ngModel)]="selectedAll" name="selectedAll" (ionChange)="selectAll()"></ion-checkbox>
+                  </ion-item>
+                </ion-col>
+                <ion-col col-12>
+                  <ion-searchbar
+                  [(ngModel)]="cropSearch" (ionInput)="onSearch()" name="cropSearch"></ion-searchbar>
+                </ion-col>
+              </ion-row>
+              <!-- <hr> -->
+            </ion-col>
+            <ion-col col-12 col-md-3 *ngFor="let crop of filteredCrops">
+              <ion-item>
+                <ion-label>{{crop.field.name}} - {{crop.name}}</ion-label>
+                <ion-checkbox [(ngModel)]="crop.selected" name="{{crop.id}}-checkbox"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
       <div *ngFor="let iten of farm.inventory_itens">
         <ion-row padding flex-end-align>
           <ion-col col-12 col-md-6>
             <ion-item >
-              <ion-label>{{iten.name}} {{iten.selected}}</ion-label>
+              <ion-label>{{iten.name}}</ion-label>
               <ion-checkbox [(ngModel)]="iten.selected" name="checkBox-{{iten.id}}"></ion-checkbox>
             </ion-item>
           </ion-col>
           <ion-col col-12 col-md-3>
             <ion-item>
               <ion-label floating>Preço</ion-label>
-              <ion-input type="text" [disabled]="!iten.selected" [required]="iten.selected" [(ngModel)]="iten.sold_price" name="sold_price-{{iten.id}}" value=""></ion-input>
+              <ion-input required type="text" [disabled]="!iten.selected" [(modelMask)]="iten.sold_price" mask="R$ 9" [form]="RegisterForm" currency="true" name="sold_price-{{iten.id}}" ></ion-input>
             </ion-item>
           </ion-col>
           <ion-col col-12 col-md-3>
             <ion-item>
-              <ion-label>Data*</ion-label>
-              <ion-datetime displayFormat="DD/MM/YYYY" [disabled]="!iten.selected" [required]="iten.selected" max="{{maxDate}}" pickerFormat="DD MM YYYY" name="sold_date-{{iten.id}}" [(ngModel)]="iten.sold_date"></ion-datetime>
+              <ion-label floating>Data*</ion-label>
+              <ion-input  required [disabled]="!iten.selected"  [(modelMask)]="iten.sold_date" [form]="RegisterForm" [clean]="false" mask="99/99/9999" maskPlaceHolder="_" name="sold_date-{{iten.id}}"></ion-input>
+
+              <!-- <ion-datetime displayFormat="DD/MM/YYYY" [disabled]="!iten.selected" [required]="iten.selected" max="{{maxDate}}" pickerFormat="DD MM YYYY" name="sold_date-{{iten.id}}" [(ngModel)]="iten.sold_date"></ion-datetime> -->
             </ion-item>
           </ion-col>
         </ion-row>

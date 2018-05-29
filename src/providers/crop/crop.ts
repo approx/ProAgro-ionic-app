@@ -44,6 +44,10 @@ export class CropProvider {
     return this.http.post(endPoint+'api/crop/'+id,{_method:'DELETE'},{responseType:'text'});
   }
 
+  update_values(id,sack_value,interest_tax){
+    return this.http.post(endPoint+'api/crop/'+id+'/update_values',{sack_value:sack_value,interest_tax:interest_tax});
+  }
+
   update(crop:CropInterfaceWithMethod):Observable<any>{
     crop._method="PUT";
     return this.http.post(endPoint+'api/crop/'+crop.id,crop);

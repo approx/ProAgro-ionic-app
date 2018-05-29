@@ -333,7 +333,7 @@ export class ActivityEditPage extends BasePage {
     this.message.Done();
   }
 
-  getItenInArray(id:any,array:Array<{id:number}>){
+  getItenInArray(id:any,array:any){
     for (let i = 0; i < array.length; i++) {
         if(array[i].id==id){
           return array[i];

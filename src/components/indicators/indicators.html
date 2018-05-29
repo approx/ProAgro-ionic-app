@@ -1,9 +1,213 @@
 <!-- Generated template for the IndicatorsComponent component -->
 <div>
-  <canvas baseChart
-  [colors]="colors"
-  [data]="coeCotData"
-  [labels]="coeCotLabels"
-  [options]="coeCotOptions"
-  chartType="bar"></canvas>
+  <ion-grid>
+    <ion-row margin-bottom>
+      <ion-col col-12 col-md-4 col-lg-3>
+        <ion-item >
+          <ion-label floating>Valor da saca</ion-label>
+          <ion-input type="text" (ionBlur)="update_values()" (ionChange)="ngOnInit()" [(modelMask)]="crop.sack_value" [mask]="currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="sack_value" ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12 col-md-4 col-lg-3>
+        <ion-item >
+          <ion-label floating>Taxa de juros</ion-label>
+          <ion-input type="text" (ionBlur)="update_values()" (ionChange)="ngOnInit()" [(modelMask)]="crop.interest_tax" mask="9%" [form]="RegisterForm" currency="true" name="interest_tax" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <div margin-bottom class="horizontalLine">
+      <h2>Especificações</h2>
+    </div>
+    <ion-row>
+      <ion-col margin-bottom col-12 col-md-12 col-lg-6 col-xl-4>
+        <canvas baseChart
+        [colors]="colors"
+        [datasets]="produced"
+        [options]="coeCotOptions"
+        chartType="horizontalBar"></canvas>
+      </ion-col>
+      <ion-col margin-bottom col-12 col-md-12 col-lg-6 col-xl-4>
+        <canvas baseChart
+        [colors]="colors"
+        [datasets]="coeCotData"
+        [options]="coeCotOptions"
+        chartType="bar"></canvas>
+      </ion-col>
+      <ion-col margin-bottom col-12 col-md-12 col-lg-6 col-xl-4>
+        <canvas baseChart
+        [colors]="colors"
+        [datasets]="cashPerYear"
+        [options]="coeCotOptions"
+        chartType="bar"></canvas>
+      </ion-col>
+      <ion-col margin-bottom col-12 col-md-12 col-lg-6 col-xl-4>
+        <canvas baseChart
+        [colors]="colors"
+        [datasets]="cashPerSack"
+        [options]="coeCotOptions"
+        chartType="bar"></canvas>
+      </ion-col>
+      <ion-col margin-bottom col-12 col-md-12 col-lg-6 col-xl-4>
+        <canvas baseChart
+        [colors]="colors"
+        [datasets]="cashPerArea"
+        [options]="coeCotOptions"
+        chartType="bar"></canvas>
+      </ion-col>
+      <ion-col margin-bottom col-12 col-md-12 col-lg-6 col-xl-4>
+        <canvas baseChart
+        [colors]="colors"
+        [datasets]="coeCotCtPerSack"
+        [options]="coeCotOptions"
+        chartType="bar"></canvas>
+      </ion-col>
+      <ion-col margin-bottom col-12 col-md-12 col-lg-6 col-xl-4>
+        <canvas baseChart
+        [colors]="colors"
+        [datasets]="coeCotCtPerArea"
+        [options]="coeCotOptions"
+        chartType="bar"></canvas>
+      </ion-col>
+      <ion-col margin-bottom col-12 col-md-12 col-lg-6 col-xl-4>
+        <canvas baseChart
+        [colors]="colors"
+        [datasets]="percentageValues"
+        [options]="percentageOption"
+        chartType="bar"></canvas>
+      </ion-col>
+      <ion-col margin-bottom col-12 col-md-12 col-lg-6 col-xl-4>
+        <canvas baseChart
+        [colors]="colors"
+        [datasets]="pnPcotPctData"
+        [options]="pnPcotPctOption"
+        chartType="bar"></canvas>
+      </ion-col>
+    </ion-row>
+    <ion-row style="justify-content: center;">
+      <ion-col padding-left padding-right col-12 col-lg-8>
+        <table *ngIf="crop" margin-top col-12>
+          <tr>
+            <td>Renda Bruta</td>
+            <td>{{crop.gross_income.total | currency:'BRL'}}</td>
+          </tr>
+          <tr>
+            <td>Custo Operacional Efetivo (COE)</td>
+            <td>{{coe | especifications:'R$':'/ano'}}</td>
+          </tr>
+          <tr>
+            <td>Custo Operacional Total (COT)</td>
+            <td>{{cot | especifications:'R$':'/ano'}}</td>
+          </tr>
+          <tr>
+            <td>Custo Total (CT)</td>
+            <td>{{ct | especifications:'R$':'/ano'}}</td>
+          </tr>
+          <tr>
+            <td>Produção</td>
+            <td>{{crop.sack_produced | especifications:'':' sc'}}</td>
+          </tr>
+          <tr>
+            <td>Area plantada</td>
+            <td>{{crop.field.area | especifications:'':' ha'}}</td>
+          </tr>
+          <tr>
+            <td>Produção por area plantada</td>
+            <td>{{crop.field.area/crop.sack_produced | especifications:'':' sc/ha'}}</td>
+          </tr>
+          <tr>
+            <td>Margem Bruta</td>
+            <td>{{grossMargin | especifications:'R$':'/ano'}}</td>
+          </tr>
+          <tr>
+            <td>Margem Bruta por saca</td>
+            <td>{{grossMarginPerSack | especifications:'R$':'/sc'}}</td>
+          </tr>
+          <tr>
+            <td>Margem Bruta por área plantada</td>
+            <td>{{grossMarginPerArea | especifications:'R$':'/ha'}}</td>
+          </tr>
+          <tr>
+            <td>Margem Liquida</td>
+            <td>{{liquidMargin | especifications:'R$':'/ano'}}</td>
+          </tr>
+          <tr>
+            <td>Margem Liquida por saca</td>
+            <td>{{liquidMarginPerSack | especifications:'R$':'/sc'}}</td>
+          </tr>
+          <tr>
+            <td>Margem Liquida por área plantada</td>
+            <td>{{liquidMarginPerArea | especifications:'R$':'/ha'}}</td>
+          </tr>
+          <tr>
+            <td>Lucro</td>
+            <td>{{profit | especifications:'R$':'/ano'}}</td>
+          </tr>
+          <tr>
+            <td>Lucro por saca</td>
+            <td>{{profitPerSack | especifications:'R$':'/sc'}}</td>
+          </tr>
+          <tr>
+            <td>Lucro por área plantada</td>
+            <td>{{profitPerArea | especifications:'R$':'/ha'}}</td>
+          </tr>
+          <tr>
+            <td>COE por saca</td>
+            <td>{{coePerSack | especifications:'R$':'/sc'}}</td>
+          </tr>
+          <tr>
+            <td>COE por área plantada</td>
+            <td>{{coePerArea | especifications:'R$':'/ha'}}</td>
+          </tr>
+          <tr>
+            <td>COT por saca</td>
+            <td>{{cotPerSack | especifications:'R$':'/sc'}}</td>
+          </tr>
+          <tr>
+            <td>COT por área plantada</td>
+            <td>{{cotPerArea | especifications:'R$':'/ha'}}</td>
+          </tr>
+          <tr>
+            <td>CT por saca</td>
+            <td>{{ctPerSack | especifications:'R$':'/sc'}}</td>
+          </tr>
+          <tr>
+            <td>CT por área plantada</td>
+            <td>{{ctPerArea | especifications:'R$':'/ha'}}</td>
+          </tr>
+          <tr>
+            <td>Taxa de Remuneração do Capital sem Terra</td>
+            <td>{{trcWithoutField | especifications:'':'%'}}</td>
+          </tr>
+          <tr>
+            <td>Taxa de Remuneração do Capital com Terra</td>
+            <td>{{trcWithField | especifications:'':'%'}}</td>
+          </tr>
+          <tr>
+            <td>Lucratividade</td>
+            <td>{{lucrativity | especifications:'':'%'}}</td>
+          </tr>
+          <tr>
+            <td>Rentabilidade</td>
+            <td>{{rentability | especifications:'':'%'}}</td>
+          </tr>
+          <tr>
+            <td>PN</td>
+            <td>{{pn | especifications:'':' sc'}}</td>
+          </tr>
+          <tr>
+            <td>PCOT</td>
+            <td>{{pcot | especifications:'':' sc'}}</td>
+          </tr>
+          <tr>
+            <td>PCT</td>
+            <td>{{pct | especifications:'':' sc'}}</td>
+          </tr>
+          <tr>
+            <td>Relação custo benefício</td>
+            <td>{{(crop.gross_income.total/ct).toFixed('2') }}</td>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </div>

@@ -37,6 +37,8 @@ export class ModelMaskDirective {
   @Input() clean=true;
   @Input() form:NgForm;
   @Input() debug=false;
+  @Input() name;
+  @Input() disabled;
   _formControl:FormControl;
 
   @Input()
@@ -62,7 +64,15 @@ export class ModelMaskDirective {
     if(!this.component){
       this.component = this.viewContainerRef[ '_data' ].componentView.component;
     }
-    this.form.form.addControl(this.component._elementRef.nativeElement.getAttribute('name'),this._formControl);
+    if(this.form){
+      this.form.form.addControl(this.name,this._formControl);
+    }
+    if(this.modelMask){
+      this.component.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask;
+      this.component.getNativeElement().value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
+      this.checkValid();
+      // console.log(this.component.getElementRef())
+    }
     this.cdRef.detectChanges();
     console.log('ngAfterViewInit')
   }
@@ -286,9 +296,10 @@ export class ModelMaskDirective {
     if(!this.currency){
       mask = this.mask.replace(/9|A/g,this.maskPlaceHolder);
     }else{
+      let index = this.mask.indexOf('9');
       mask = this.mask.replace(/9|A/g,'');
       if(this.modelMask==undefined){
-        mask+='0,00';
+        mask = this.mask.replace(/9|A/g,'0,00');
       }
     }
     return mask;
@@ -301,21 +312,22 @@ export class ModelMaskDirective {
 
   maskedValue(value):string{
     if(value==undefined) value='';
-    let masked = this.getMask();
+    let masked = this.mask;
     if(!this.currency){
+      masked = masked.replace(/9|A/g,this.maskPlaceHolder);
       for (let i = 0; i < value.length; i++) {
         masked = masked.replace(this.maskPlaceHolder,value[i]);
       }
     }else{
 
       if(value==''){
-        masked+='0,00';
+        masked=this.mask.replace(/9|A/g,'0,00');
       }else{
         let string = value.toFixed(2).toString();
         string =  string.replace('.',',');
         let splited = string.split(',');
         splited[0] = this.stringPutDotsInNumbersToBig(splited[0]);
-        masked+= splited[0]+','+splited[1];
+        masked=this.mask.replace(/9|A/g,splited[0]+','+splited[1]);
       }
     }
     return masked;
@@ -368,18 +380,20 @@ export class ModelMaskDirective {
   @HostListener('focus',['$event'])
   @HostListener('click',['$event'])
   focus(event){
-    this.component._item._elementRef.nativeElement.classList.add('ng-touched');
-    this.target = event.target;
-    console.log('focus/click');
-    if(this.modelMask==undefined){
-      this.target.value = this.getMask();
-    }
-    else{
-      this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
+    if(!this.disabled){
+      this.component._item._elementRef.nativeElement.classList.add('ng-touched');
+      this.target = event.target;
+      console.log('focus/click');
+      if(this.modelMask==undefined){
+        this.target.value = this.getMask();
+      }
+      else{
+        this.target.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
+        this.setCursor();
+      }
       this.setCursor();
+      this.setPlaceHolder();
     }
-    this.setCursor();
-    this.setPlaceHolder();
   }
 
   setValue(val){
@@ -398,6 +412,8 @@ export class ModelMaskDirective {
       }
       this.component.value = this.modelMask;
       this.component._native.nativeElement.value = this.clean ? this.maskedValue(this.modelMask) : this.modelMask ;
+      this.component._item._elementRef.nativeElement.classList.add('input-has-value');
+      this.component._item._elementRef.nativeElement.classList.add('item-input-has-value');
       // this.setCursor();
       // this.cdRef.detectChanges();
     }
