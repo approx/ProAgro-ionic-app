@@ -16,7 +16,7 @@ import { UnityModel } from '../../model/unity.model';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { BasePage } from "../base/base";
 // import { ActivityIten } from '../activity-register/activity-register';
-import { SelectSearchable } from 'ionic-select-searchable';
+import { SelectSearchableComponent } from 'ionic-select-searchable';
 import { MyApp } from '../../app/app.component';
 import { ActivityListPage } from '../../pages/activity-list/activity-list';
 
@@ -85,7 +85,7 @@ export class ActivityEditPage extends BasePage {
     MyApp.instance.user;
   }
 
-  portChange(event: { component: SelectSearchable, value: any }) {
+  portChange(event: { component: SelectSearchableComponent, value: any }) {
     if (event.value != null) {
       this.activity_type = event.value;
       this.selectActivity(event.value);

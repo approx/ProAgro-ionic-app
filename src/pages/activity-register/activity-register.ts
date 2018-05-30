@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SelectSearchable } from 'ionic-select-searchable';
+import { SelectSearchableComponent } from 'ionic-select-searchable';
 import { BasePage } from "../base/base";
 import { CropModel } from '../../model/crop.model';
 import { CropProvider } from '../../providers/crop/crop';
@@ -30,6 +30,7 @@ export class ActivityRegisterPage extends BasePage{
   activityTypes;
   unities;
   currencies;
+  ports;
 
   constructor(
     public navCtrl:NavController,
@@ -58,6 +59,19 @@ export class ActivityRegisterPage extends BasePage{
     if(activity.value){
       this.activity.activity_type_id = activity.value.id;
     }else this.activity.activity_type_id = null;
+  }
+
+  searchActivities(event: {
+    component: SelectSearchableComponent,
+    text: string
+  }){
+    let text = (event.text || '').trim().toLowerCase();
+    
+    event.component.isSearching = true;
+    event.component.items = this.activityTypes.filter(item=>{
+      return item.name.toLowerCase().indexOf(text) !== -1 || item.group_id.toLowerCase().indexOf(text) !== -1;
+    });
+    event.component.isSearching = false;
   }
 
   getCrop(){
@@ -112,7 +126,9 @@ export class ActivityRegisterPage extends BasePage{
   getActivityTypes(){
     this.activityTypeProvider.getAll().subscribe(
       (response)=>{
+        console.log(response);
         this.activityTypes = response;
+        this.ports = response;
       },(err)=>{
         this.navCtrl.setRoot('LoginPage');
       }

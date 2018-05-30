@@ -46,6 +46,12 @@
                 itemTextField="name"
                 [canSearch]="true"
                 (onChange)="portChange($event)">
+                <ng-template selectSearchableLabelTemplate>
+                  Atividade*
+                </ng-template>
+                <ng-template selectSearchableItemTemplate let-port="item">
+                  {{port.group_id}} - {{port.name}}
+                </ng-template>
             </select-searchable>
           </ion-item>
         </ion-col>
