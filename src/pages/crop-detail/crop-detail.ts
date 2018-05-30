@@ -60,13 +60,18 @@ export class CropDetailPage extends BasePage{
     tooltips: {
       callbacks: {
         label: (tooltipItem, data)=> {
-          var label = data.labels[tooltipItem.index] || '';
+          let label = data.labels[tooltipItem.index] || '';
+          let total=0;
+
+          for (let i = 0; i < data.datasets[0].data.length; i++) {
+              total+=data.datasets[0].data[i];
+          }
 
           if (label) {
             label += ': ';
           }
           label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
-          return label;
+          return label+' '+((data.datasets[0].data[tooltipItem.index]/total)*100).toFixed(2)+'%';
         }
       }
     },
@@ -177,13 +182,13 @@ ActivityPerTypeChartData(activities){
   loop1:
   for (let i = 0; i < activities.length; i++) {
     for (let j = 0; j < data.length; j++) {
-      if(labels[j]==activities[i].activity_type.name){
+      if(labels[j]==activities[i].activity_type.group.name){
         data[j]+=parseFloat(<any>activities[i].total_value);
         continue loop1;
       }
     }
     data.push(parseFloat(<any>activities[i].total_value));
-    labels.push(activities[i].activity_type.name);
+    labels.push(activities[i].activity_type.group.name);
   }
   return {data:data,labels:labels};
 }

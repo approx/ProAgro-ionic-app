@@ -7,6 +7,7 @@ import { ActivityTypeProvider } from '../../providers/activity-type/activity-typ
 import { ActivityProvider } from '../../providers/activity/activity';
 import { CropModel } from '../../model/crop.model';
 import { MessagesProvider } from '../../providers/messages/messages'
+import { SelectSearchableComponent } from 'ionic-select-searchable';
 
 /**
  * Generated class for the PropagateActivityPage page.
@@ -52,6 +53,19 @@ export class PropagateActivityPage extends BasePage{
     this.getCrops();
     this.getActivitiesType();
     this.getUnities();
+  }
+
+  searchActivities(event: {
+    component: SelectSearchableComponent,
+    text: string
+  }){
+    let text = (event.text || '').trim().toLowerCase();
+
+    event.component.isSearching = true;
+    event.component.items = this.activityTypes.filter(item=>{
+      return item.name.toLowerCase().indexOf(text) !== -1 || item.group_id.toLowerCase().indexOf(text) !== -1;
+    });
+    event.component.isSearching = false;
   }
 
   getFarm(){

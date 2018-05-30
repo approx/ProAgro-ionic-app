@@ -13,6 +13,7 @@ export class ActivityTypeModel{
     public name:string,
     public unity_id:number,
     public unity:UnityModel,
+    public group_id,
     public activities:ActivityModel[]
   ){}
 }

@@ -5,7 +5,7 @@ import { FarmProvider } from '../../providers/farm/farm';
 import { StockInterface } from '../../model/Stock.model';
 import { ActivityTypeProvider } from '../../providers/activity-type/activity-type';
 import { ActivityTypeModel } from '../../model/activityType.model';
-import { SelectSearchable } from 'ionic-select-searchable';
+import { SelectSearchableComponent } from 'ionic-select-searchable';
 import { CurrencyPipe } from '@angular/common';
 import { MessagesProvider } from '../../providers/messages/messages';
 
@@ -68,7 +68,7 @@ export class StocksPage {
     })
   }
 
-  portChange(event: { component: SelectSearchable, value: any }) {
+  portChange(event: { component: SelectSearchableComponent, value: any }) {
     if (event.value != null) {
       this.stock.activity_type_id = event.value.id;
     } else {
