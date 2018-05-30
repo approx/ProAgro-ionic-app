@@ -58,6 +58,9 @@ export class IndicatorsComponent {
 
   itens_total_value=0;
 
+  remunaration=0;
+  totalRemunaration=0;
+
   @Input() crop:CropModel;
   coeCotData=[];
   cashPerYear=[];
@@ -300,8 +303,9 @@ export class IndicatorsComponent {
   }
 
   calculateCt(){
-    this.ct = this.cot;
-    this.ct += ((this.crop.field.farm.capital_tied*this.crop.interest_tax)/100) * this.monthsSinceCropStart();
+    this.remunaration = ((this.crop.field.farm.capital_tied*this.crop.interest_tax)/100);
+    this.totalRemunaration = this.remunaration * this.monthsSinceCropStart();
+    this.ct = this.cot + this.totalRemunaration;
   }
 
   calculateCashPerYear(){
