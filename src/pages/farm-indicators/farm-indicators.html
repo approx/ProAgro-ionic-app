@@ -6,8 +6,13 @@
 -->
 <ion-content padding>
   <div class="indicatorsContent">
-    <h1>Fazenda</h1>
-    <div #map style="height: 100%"></div>
+    <h1 *ngIf="farm">{{farm.name}}</h1>
+    <div style="display:flex;height:100%">
+      <div #map style="width: 50%"></div>
+      <ion-row>
+
+      </ion-row>
+    </div>
   </div>
 
 </ion-content>

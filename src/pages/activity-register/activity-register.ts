@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SelectSearchable } from 'ionic-select-searchable';
+import { SelectSearchableComponent } from 'ionic-select-searchable';
 import { BasePage } from "../base/base";
 import { CropModel } from '../../model/crop.model';
 import { CropProvider } from '../../providers/crop/crop';
