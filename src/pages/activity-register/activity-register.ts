@@ -66,10 +66,13 @@ export class ActivityRegisterPage extends BasePage{
     text: string
   }){
     let text = (event.text || '').trim().toLowerCase();
-    
+
     event.component.isSearching = true;
     event.component.items = this.activityTypes.filter(item=>{
-      return item.name.toLowerCase().indexOf(text) !== -1 || item.group_id.toLowerCase().indexOf(text) !== -1;
+      if(item.name&&item.group_id){
+        return item.name.toLowerCase().indexOf(text.toLowerCase()) !== -1 || item.group_id.toLowerCase().indexOf(text.toLowerCase()) !== -1;
+      }
+      return false;
     });
     event.component.isSearching = false;
   }

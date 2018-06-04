@@ -108,7 +108,7 @@ export class CropDetailPage extends BasePage{
 
   colors=[
     { // grey
-      backgroundColor: ["#4a883f","#4A442D","#58B09C","#3D3522","#CAF7E2","#D5DFE5","#B49594","#C9B1BD","#7F9172","#4E3D42","#9F9F92","#C9D5B5","#E3DBDB","#32021F","#4B2E39","#6F7D8C","#77A0A9","#CACFD6","#D6E5E3","#9FD8CB","#2D3319"]
+      backgroundColor: ["#4a883f","#4A442D","#58B09C","#EFDD8D","#CAF7E2","#D5DFE5","#B49594","#C9B1BD","#7F9172","#4E3D42","#9F9F92","#C9D5B5","#E3DBDB","#32021F","#4B2E39","#6F7D8C","#77A0A9","#CACFD6","#D6E5E3","#9FD8CB","#2D3319"]
     }
   ];
 
@@ -163,7 +163,7 @@ export class CropDetailPage extends BasePage{
     let total_value=0;
     for (let i = 0; i < activities.length; i++) {
       total_value +=  activities[i].total_value == null ? 0 : parseFloat(activities[i].total_value.toString());
-      this.total_value_ha += this.crop.activities[i].value_per_ha == null ? 0 : parseFloat(this.crop.activities[i].value_per_ha.toString());
+      this.total_value_ha += activities[i].value_per_ha == null ? 0 : parseFloat(activities[i].value_per_ha.toString());
     }
     return total_value;
   }
@@ -292,27 +292,31 @@ ActivityPerTypeChartData(activities){
     this.navCtrl.push(ActivityDetailPage.name,{activity_id:activity.id});
   }
 
+  loadFromService(){
+    this.cropProvider.get(this.crop_id).subscribe((data:CropModel)=>{
+      this.crop=data;
+      console.log(this.crop);
+      this.separeteActivityPerCurrency();
+      this.calculatePercentage();
+      this.calculateTotal();
+      this.calculateTotalInventario();
+      this.calculatePieChartData();
+      this.calculateLineChart();
+      this.drawCharts=true;
+      if (this.crop.sack_produced == null) {
+        this.crop.sack_produced = 0;
+      }
+      this.sack_produced = this.crop.sack_produced;
+    });
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad CropDetailPage');
     this.crop_id = this.navParams.get('crop_id');
     this.crop = this.navParams.get('crop');
     console.log(this.crop)
     if(!this.crop&&this.crop_id){
-      this.cropProvider.get(this.crop_id).subscribe((data:CropModel)=>{
-        this.crop=data;
-        console.log(this.crop);
-        this.separeteActivityPerCurrency();
-        this.calculatePercentage();
-        this.calculateTotal();
-        this.calculateTotalInventario();
-        this.calculatePieChartData();
-        this.calculateLineChart();
-        this.drawCharts=true;
-        if (this.crop.sack_produced == null) {
-          this.crop.sack_produced = 0;
-        }
-        this.sack_produced = this.crop.sack_produced;
-      });
+      this.loadFromService()
     }
     else{
       this.separeteActivityPerCurrency();
@@ -346,7 +350,7 @@ ActivityPerTypeChartData(activities){
       this.message.Wait();
       this.activityProvider.delete(activity.id).subscribe((response)=>{
         this.message.SuccessAlert('Atividade deletada com sucesso!');
-        this.ionViewDidLoad();
+        this.navCtrl.push(CropDetailPage.name,{crop_id:this.crop.id});
       },(err)=>{
         this.message.ErrorAlert();
       })

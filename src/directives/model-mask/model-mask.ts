@@ -183,7 +183,7 @@ export class ModelMaskDirective {
   @HostListener('keydown',['$event'])
   getValue(keyEvent){
     console.log('keydown');
-    if(keyEvent.keyCode==9) return;
+    if(!this.checkKey(keyEvent)) return;
     keyEvent.preventDefault();
     if(this.modelMask==undefined) this.modelMask='';
     if(!this.readonly){
@@ -214,6 +214,10 @@ export class ModelMaskDirective {
       this.target.selectionEnd-=1;
       this.setCursor();
     }
+  }
+
+  checkKey(keyEvent){
+    return ((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105))&&this.canPutNumber() || keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90&&this.canPutLeter();
   }
 
   addKeyToMask(keyEvent){
