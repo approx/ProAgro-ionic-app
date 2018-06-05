@@ -217,7 +217,7 @@ export class ModelMaskDirective {
   }
 
   checkKey(keyEvent){
-    return ((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105))&&this.canPutNumber() || keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90&&this.canPutLeter();
+    return (((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105))&&this.canPutNumber()) || (keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90&&this.canPutLeter()) || keyEvent.keyCode == 8;
   }
 
   addKeyToMask(keyEvent){
