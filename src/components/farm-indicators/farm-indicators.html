@@ -1,0 +1,10 @@
+<!-- Generated template for the FarmIndicatorsComponent component -->
+<ion-row *ngIf="showGraphs">
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="coeCotData"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+</ion-row>

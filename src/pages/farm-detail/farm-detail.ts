@@ -243,7 +243,7 @@ export class FarmDetailPage extends BasePage{
 
   setMapUrl(){
     if(this.farm.lat&&this.farm.lng){
-      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.farm.lat+","+this.farm.lng;
+      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.farm.lat+","+this.farm.lng+"&maptype=satellite";
       this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapUrl);
     }
     console.log('changed')

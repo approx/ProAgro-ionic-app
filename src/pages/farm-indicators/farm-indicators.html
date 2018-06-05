@@ -8,9 +8,21 @@
   <div class="indicatorsContent">
     <h1 *ngIf="farm">{{farm.name}}</h1>
     <div style="display:flex;height:100%">
-      <div #map style="width: 50%"></div>
-      <ion-row>
-
+      <div style="width: 50%">
+        <ion-row style="height:auto">
+          <ion-col col-12 no-padding>
+            <ion-item >
+              <ion-label>Safras em</ion-label>
+              <ion-datetime displayFormat="DD/MM/YYYY" (ionChange)="mapUpdate()" [(ngModel)]="myDate">
+              </ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <div #map style="width: 100%;height:93%">
+      </div>
+      </div>
+      <ion-row *ngIf="farm" style="width: 50%">
+        <farm-indicators style="width:100%" [fields]="farm.fields"></farm-indicators>
       </ion-row>
     </div>
   </div>

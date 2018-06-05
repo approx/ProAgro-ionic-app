@@ -33,28 +33,22 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-12 col-md-6 col-lg-3>
+        <ion-col col-12 col-md-6 col-lg-4>
           <ion-item no-padding>
             <ion-label no-margin floating>Hectares*</ion-label>
             <ion-input type="text" name="ha" (ionChange)="calculateValues()" [(ngModel)]="farm.ha" required value=""></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6 col-lg-3>
+        <ion-col col-12 col-md-6 col-lg-4>
           <ion-item no-padding>
             <ion-label no-margin floating>Valor do hectar*</ion-label>
             <ion-input type="text" [(modelMask)]="farm.value_ha" (ionChange)="calculateValues()" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="value_ha"></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col col-12 col-md-6 col-lg-3>
+        <ion-col col-12 col-md-6 col-lg-4>
           <ion-item no-padding>
             <ion-label no-margin floating>Capital empatado em terra*</ion-label>
             <ion-input type="text" readonly="true" [(modelMask)]="farm.capital_tied" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="capital_tied"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col col-12 col-md-6 col-lg-3>
-          <ion-item no-padding>
-            <ion-label no-margin floating>Remuneração ao mês*</ion-label>
-            <ion-input type="text" readonly="true" [(modelMask)]="farm.remuneration" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="remuneration"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>

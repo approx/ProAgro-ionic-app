@@ -101,7 +101,7 @@ export class FarmRegisterPage extends BasePage{
     if(this.farm.value_ha && this.farm.ha){
       this.farm.capital_tied = this.farm.ha * this.farm.value_ha;
       // this.capital_tied = 'R$ ' + this.farm.capital_tied;
-      this.farm.remuneration = (this.farm.capital_tied*.5)/100;
+      // this.farm.remuneration = (this.farm.capital_tied*.5)/100;
       // this.remuneration = 'R$ ' + this.farm.remuneration;
     }
   }
@@ -179,7 +179,7 @@ export class FarmRegisterPage extends BasePage{
 
   setMapUrl(){
     if(this.farm.lat&&this.farm.lng){
-      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.farm.lat+","+this.farm.lng;
+      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.farm.lat+","+this.farm.lng+"&maptype=satellite";
       this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapUrl);
     }
     console.log('changed')
