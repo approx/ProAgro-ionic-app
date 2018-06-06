@@ -89,7 +89,7 @@ export class FieldDetailPage extends BasePage{
 
   setMapUrl(){
     if(this.field.lat&&this.field.lng){
-      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.field.lat+","+this.field.lng;
+      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.field.lat+","+this.field.lng+"&maptype=satellite";
       this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapUrl);
     }
   }

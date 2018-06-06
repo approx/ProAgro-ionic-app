@@ -1,10 +1,59 @@
 <!-- Generated template for the FarmIndicatorsComponent component -->
-<ion-row *ngIf="showGraphs">
+<ion-row *ngIf="showGraphs" style="overflow-y:auto">
   <ion-col margin-bottom col-12>
     <canvas baseChart
     [colors]="colors"
     [datasets]="coeCotData"
     [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="cashPerYear"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="cashPerSack"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="cashPerArea"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="coeCotCtPerSack"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="coeCotCtPerArea"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="percentageValues"
+    [options]="percentageOption"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="sackValues"
+    [options]="pnPcotPctOption"
     chartType="bar"></canvas>
   </ion-col>
 </ion-row>

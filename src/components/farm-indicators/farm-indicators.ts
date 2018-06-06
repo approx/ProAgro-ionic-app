@@ -18,6 +18,13 @@ export class FarmIndicatorsComponent {
   @Input() fields;
 
   coeCotData;
+  cashPerYear;
+  cashPerSack;
+  cashPerArea;
+  coeCotCtPerSack;
+  coeCotCtPerArea;
+  percentageValues;
+  sackValues;
   showGraphs=false;
   interest_rate=0.05;
 
@@ -34,6 +41,76 @@ export class FarmIndicatorsComponent {
       backgroundColor: ["#C69C72","#4a883f"]
     }
   ];
+
+  percentageOption={
+    scales:{
+      yAxes:[{
+        ticks:{
+          beginAtZero: true,
+          callback:(value,index)=>{
+            return value+'%';
+          }
+        }
+      }],
+      xAxes: [{
+          ticks: {
+              beginAtZero: true
+          }
+      }]
+    },
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data)=> {
+          var label = data.labels[tooltipItem.index] || '';
+          console.log(tooltipItem);
+          if (label) {
+            label += ': ';
+          }
+          label +=data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]+'%';
+          return label;
+        }
+      }
+    },
+    legend: {
+      display: true,
+      position: 'left'
+    }
+  };
+
+  pnPcotPctOption={
+    scales:{
+      yAxes:[{
+        ticks:{
+          beginAtZero: true,
+          callback:(value,index)=>{
+            return value+' sc';
+          }
+        }
+      }],
+      xAxes: [{
+          ticks: {
+              beginAtZero: true
+          }
+      }]
+    },
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data)=> {
+          var label = data.labels[tooltipItem.index] || '';
+          console.log(tooltipItem);
+          if (label) {
+            label += ': ';
+          }
+          label +=data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]+' sc';
+          return label;
+        }
+      }
+    },
+    legend: {
+      display: true,
+      position: 'left'
+    }
+  };
 
   coeCotOptions={
     scales:{
@@ -88,6 +165,13 @@ export class FarmIndicatorsComponent {
     this.indicatorsProvider.getIdicators(ids,this.interest_rate).then((indicators:IndicatorsData)=>{
       this.showGraphs=true;
       this.coeCotData = [{data:[indicators.coe.toFixed(2)],label:'COE'},{data:[indicators.cot.toFixed(2)],label:'COT'},{data:[indicators.ct.toFixed(2)],label:'CT'}];
+      this.cashPerYear = [{data:[indicators.grossMargin.toFixed(2)],label:'Margem Bruta'},{data:[indicators.liquidMargin.toFixed(2)],label:'Margem Liquida'},{data:[indicators.profit.toFixed(2)],label:'Lucro'}]
+      this.cashPerSack = [{data:[indicators.grossMarginPerSack.toFixed(2)],label:'Margem Bruta/sc'},{data:[indicators.liquidMarginPerSack.toFixed(2)],label:'Margem Liquida/sc'},{data:[indicators.profitPerSack.toFixed(2)],label:'Lucro/sc'}]
+      this.cashPerArea = [{data:[indicators.grossMarginPerArea.toFixed(2)],label:'Margem Bruta/área'},{data:[indicators.liquidMarginPerArea.toFixed(2)],label:'Margem Liquida/área'},{data:[indicators.profitPerArea.toFixed(2)],label:'Lucro/área'}]
+      this.coeCotCtPerSack = [{data:[indicators.coePerSack.toFixed(2)],label:'COE/sc'},{data:[indicators.cotPerSack.toFixed(2)],label:'COT/sc'},{data:[indicators.ctPerSack.toFixed(2)],label:'CT/sc'}];
+      this.coeCotCtPerArea = [{data:[indicators.coePerArea.toFixed(2)],label:'COE/área'},{data:[indicators.cotPerArea.toFixed(2)],label:'COT/área'},{data:[indicators.ctPerArea.toFixed(2)],label:'CT/área'}];
+      this.percentageValues = [{data:[indicators.trcWithoutField.toFixed(2)],label:'TRC sem terra'},{data:[indicators.trcWithField.toFixed(2)],label:'TRC com Terra'},{data:[indicators.lucrativity.toFixed(2)],label:'Lucratividade'},{data:[indicators.rentability.toFixed(2)],label:'Rentabilidade'}];
+      this.sackValues = [{data:[indicators.pn.toFixed(2)],label:'PN'},{data:[indicators.pcot.toFixed(2)],label:'pcot'},{data:[indicators.pct.toFixed(2)],label:'PCT'}];
     });
   }
 
