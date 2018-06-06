@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input,IterableDiffer } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { IndicatorsProvider,IndicatorsData } from '../../providers/indicators/indicators';
 
@@ -12,10 +12,11 @@ import { IndicatorsProvider,IndicatorsData } from '../../providers/indicators/in
   selector: 'farm-indicators',
   templateUrl: 'farm-indicators.html'
 })
-export class FarmIndicatorsComponent {
+export class FarmIndicatorsComponent  {
 
   text: string;
   @Input() fields;
+  @Input() reload;
 
   coeCotData;
   cashPerYear;
@@ -25,6 +26,7 @@ export class FarmIndicatorsComponent {
   coeCotCtPerArea;
   percentageValues;
   sackValues;
+  indicators;
   showGraphs=false;
   interest_rate=0.05;
 
@@ -153,7 +155,13 @@ export class FarmIndicatorsComponent {
   }
 
   ngOnInit(){
-    console.log(this.fields);
+    this.getIndicators();
+  }
+
+  getIndicators(fields?:any){
+    if(fields){
+      this.fields = fields;
+    }
     let ids='';
     this.fields.forEach(field=>{
       if(field.selected){
@@ -163,6 +171,7 @@ export class FarmIndicatorsComponent {
     ids = ids.slice(0, -1);
     console.log(ids);
     this.indicatorsProvider.getIdicators(ids,this.interest_rate).then((indicators:IndicatorsData)=>{
+      this.indicators = indicators;
       this.showGraphs=true;
       this.coeCotData = [{data:[indicators.coe.toFixed(2)],label:'COE'},{data:[indicators.cot.toFixed(2)],label:'COT'},{data:[indicators.ct.toFixed(2)],label:'CT'}];
       this.cashPerYear = [{data:[indicators.grossMargin.toFixed(2)],label:'Margem Bruta'},{data:[indicators.liquidMargin.toFixed(2)],label:'Margem Liquida'},{data:[indicators.profit.toFixed(2)],label:'Lucro'}]

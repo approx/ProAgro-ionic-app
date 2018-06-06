@@ -4,6 +4,7 @@ import { BasePage } from "../base/base";
 import { MyApp } from '../../app/app.component';
 import { FarmProvider } from '../../providers/farm/farm';
 import { CurrencyPipe } from '@angular/common';
+import { FarmIndicatorsComponent } from '../../components/farm-indicators/farm-indicators';
 
 declare var google: any;
 
@@ -31,6 +32,7 @@ export class FarmIndicatorsPage extends BasePage {
   }
 
   myDate;
+  @ViewChild(FarmIndicatorsComponent) farmIndicators:FarmIndicatorsComponent;
 
   @ViewChild('map') mapElement;
 
@@ -100,6 +102,9 @@ export class FarmIndicatorsPage extends BasePage {
           }else{
             marker.setIcon('http://localhost:8100/assets/imgs/leaf-unselected.png');
           }
+          if(this.farmIndicators){
+            this.farmIndicators.getIndicators();
+          }
         }
       }));
     }
@@ -115,6 +120,12 @@ export class FarmIndicatorsPage extends BasePage {
   mapUpdate(){
     this.mapFields();
     this.getMap();
+    console.log(this.farm.fields)
+    if(this.farmIndicators){
+      this.farmIndicators.getIndicators(this.farm.fields);
+    }
+    // this.mapFields();
+    // console.log(this.farm.fields)
   }
 
   mapFields(){
