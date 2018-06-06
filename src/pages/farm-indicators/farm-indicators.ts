@@ -31,6 +31,12 @@ export class FarmIndicatorsPage extends BasePage {
     mapTypeId: 'satellite'
   }
 
+  mapSelected=false;
+  mapSeted=false;
+  sack_value=30;
+  interest_rate=0.5;
+  markers=[];
+
   myDate;
   @ViewChild(FarmIndicatorsComponent) farmIndicators:FarmIndicatorsComponent;
 
@@ -58,12 +64,28 @@ export class FarmIndicatorsPage extends BasePage {
       console.log('not calbacked')
       this.initMap();
       this.setMarkers();
+      this.mapFitBounds();
     }else{
       MyApp.instance.mapCallback= ()=>{
         console.log('calbacked')
         this.initMap()
         this.setMarkers();
+        this.mapFitBounds();
       };
+    }
+  }
+
+  selectMap(){
+    this.mapSelected = true;
+    if(!this.mapSeted){
+      // this.mapFields();
+      this.mapSeted=true;
+      this.getMap();
+      // console.log('seted')
+    }else{
+      // console.log('cleared')
+      this.setMarkers()
+
     }
   }
 
@@ -80,49 +102,63 @@ export class FarmIndicatorsPage extends BasePage {
     return  (degre+(((minute*60)+(secont))/3600))*direction;
   }
 
+  mapFitBounds(){
+    let bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < this.markers.length; i++) {
+      bounds.extend(this.markers[i].getPosition());
+    }
+    if(this.map){
+      this.map.fitBounds(bounds);
+    }
+  }
 
+  clearMarkers(){
+    for (let i = 0; i < this.markers.length; i++) {
+        this.markers[i].setMap(null);
+    }
+    this.markers.length=0;
+  }
 
   setMarkers(){
-    let markers = [];//some array
+    this.clearMarkers();
     for (let i = 0; i < this.farm.fields.length; i++) {
-      let position = new google.maps.LatLng(this.dmsToNumber(this.farm.fields[i].lat),this.dmsToNumber(this.farm.fields[i].lng));
-      let icon=this.farm.fields[i].selected ? 'http://localhost:8100/assets/imgs/leaf.png':'http://localhost:8100/assets/imgs/leaf-unselected.png';
-      let marker = new google.maps.Marker({
-        position:position,
-        map:this.map,
-        title:this.farm.fields[i].name,
-        icon:this.farm.fields[i].selectedCrop ? icon : 'http://localhost:8100/assets/imgs/leaf-no-crop.png'
-      });
-      markers.push(marker);
-      google.maps.event.addListener(marker,'click',()=>this.zone.run(()=>{
-        if(this.farm.fields[i].selectedCrop){
-          this.farm.fields[i].selected = !this.farm.fields[i].selected;
-          if(this.farm.fields[i].selected){
-            marker.setIcon('http://localhost:8100/assets/imgs/leaf.png');
-          }else{
-            marker.setIcon('http://localhost:8100/assets/imgs/leaf-unselected.png');
+      if(this.farm.fields[i].lat&&this.farm.fields[i].lng){
+        let position = new google.maps.LatLng(this.dmsToNumber(this.farm.fields[i].lat),this.dmsToNumber(this.farm.fields[i].lng));
+        let icon=this.farm.fields[i].selected ? 'http://localhost:8100/assets/imgs/leaf.png':'http://localhost:8100/assets/imgs/leaf-unselected.png';
+        let marker = new google.maps.Marker({
+          position:position,
+          map:this.map,
+          title:this.farm.fields[i].name,
+          icon:this.farm.fields[i].selectedCrop ? icon : 'http://localhost:8100/assets/imgs/leaf-no-crop.png'
+        });
+        this.markers.push(marker);
+        google.maps.event.addListener(marker,'click',()=>this.zone.run(()=>{
+          if(this.farm.fields[i].selectedCrop){
+            this.farm.fields[i].selected = !this.farm.fields[i].selected;
+            if(this.farm.fields[i].selected){
+              marker.setIcon('http://localhost:8100/assets/imgs/leaf.png');
+            }else{
+              marker.setIcon('http://localhost:8100/assets/imgs/leaf-unselected.png');
+            }
+            if(this.farmIndicators){
+              this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields);
+            }
           }
-          if(this.farmIndicators){
-            this.farmIndicators.getIndicators();
-          }
-        }
-      }));
+        }));
+      }
     }
-    console.log(markers[0].getPosition().lat());
-    let bounds = new google.maps.LatLngBounds();
-    for (var i = 0; i < markers.length; i++) {
-      bounds.extend(markers[i].getPosition());
-    }
-
-    this.map.fitBounds(bounds);
+    setTimeout(()=>{
+      this.mapFitBounds();
+    },10)
+    // console.log(markers[0].getPosition().lat());
   }
 
   mapUpdate(){
     this.mapFields();
-    this.getMap();
+    this.setMarkers()
     console.log(this.farm.fields)
     if(this.farmIndicators){
-      this.farmIndicators.getIndicators(this.farm.fields);
+      this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields);
     }
     // this.mapFields();
     // console.log(this.farm.fields)
@@ -150,6 +186,12 @@ export class FarmIndicatorsPage extends BasePage {
     return str.length < max ? this.pad("0"+str,max) : str;
   }
 
+  updateGraph(){
+    if(this.farmIndicators){
+      this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields);
+    }
+  }
+
   ionViewDidLoad() {
     let date = new Date();
     this.myDate=date.getFullYear()+'-'+this.pad((date.getMonth()+1),2)+'-'+this.pad(date.getDate(),2);
@@ -160,12 +202,22 @@ export class FarmIndicatorsPage extends BasePage {
         (response)=>{
           this.farm = response;
           this.mapFields();
-          this.getMap();
+          setTimeout(()=>{
+            if(this.farmIndicators){
+              this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields);
+            }
+          },10);
+          // this.getMap();
         }
       );
     }else {
       this.mapFields();
-      this.getMap();
+      setTimeout(()=>{
+        if(this.farmIndicators){
+          this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields);
+        }
+      },10);
+      // this.getMap();
     }
     console.log('ionViewDidLoad FarmIndicatorsPage');
 

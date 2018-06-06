@@ -9,7 +9,7 @@
     <h1 *ngIf="farm">{{farm.name}}</h1>
     <div style="display:flex;height:100%">
       <div style="width: 50%">
-        <ion-row style="height:auto">
+        <ion-row style="align-items:flex-end;height:auto;background-color:white;border-radius:5px;padding:5px;">
           <ion-col col-12 no-padding>
             <ion-item >
               <ion-label>Safras em</ion-label>
@@ -17,9 +17,33 @@
               </ion-datetime>
             </ion-item>
           </ion-col>
+          <ion-col >
+            <ion-item>
+              <ion-label floating>Valor da saca</ion-label>
+              <ion-input type="text" (ionChange)="updateGraph()" [(modelMask)]="sack_value" mask="R$ 9" [form]="RegisterForm" currency="true" name="sack_value" ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col >
+            <ion-item >
+              <ion-label floating>Taxa de juros</ion-label>
+              <ion-input type="text" (ionChange)="updateGraph()" [(modelMask)]="interest_rate" mask="9%" [form]="RegisterForm" currency="true" name="interest_rate" ></ion-input>
+            </ion-item>
+          </ion-col>
         </ion-row>
-        <div #map style="width: 100%;height:93%">
-      </div>
+
+        <button ion-button (click)="selectMap()" [color]="mapSelected ? 'primary':'light'">mapa</button>
+        <button ion-button (click)="mapSelected=false" [color]="mapSelected ? 'light':'primary'">lista</button>
+        <div [ngStyle]="{'display': mapSelected ? 'block':'none'}" #map style="width: 100%;height:78%"></div>
+        <div *ngIf="farm" [ngStyle]="{'display': mapSelected ? 'none':'block','marginTop':'10px','height':'78%','overflowX':'auto'}" class="">
+          <ion-list>
+            <div *ngFor="let field of farm.fields">
+              <ion-item *ngIf="field.selectedCrop">
+                <ion-label>{{field.name}} - {{field.selectedCrop.name}}</ion-label>
+                <ion-checkbox (ionChange)="updateGraph()" [(ngModel)]="field.selected"></ion-checkbox>
+              </ion-item>
+            </div>
+          </ion-list>
+        </div>
       </div>
       <ion-row *ngIf="farm" style="width: 50%">
         <farm-indicators  style="width:100%" [(fields)]="farm.fields"></farm-indicators>

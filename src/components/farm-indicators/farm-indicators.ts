@@ -155,10 +155,10 @@ export class FarmIndicatorsComponent  {
   }
 
   ngOnInit(){
-    this.getIndicators();
+    // this.getIndicators();
   }
 
-  getIndicators(fields?:any){
+  getIndicators(interest_rate,sack_value,fields?:any){
     if(fields){
       this.fields = fields;
     }
@@ -170,7 +170,7 @@ export class FarmIndicatorsComponent  {
     });
     ids = ids.slice(0, -1);
     console.log(ids);
-    this.indicatorsProvider.getIdicators(ids,this.interest_rate).then((indicators:IndicatorsData)=>{
+    this.indicatorsProvider.getIdicators(ids,interest_rate,sack_value).then((indicators:IndicatorsData)=>{
       this.indicators = indicators;
       this.showGraphs=true;
       this.coeCotData = [{data:[indicators.coe.toFixed(2)],label:'COE'},{data:[indicators.cot.toFixed(2)],label:'COT'},{data:[indicators.ct.toFixed(2)],label:'CT'}];

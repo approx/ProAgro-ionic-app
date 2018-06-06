@@ -84,12 +84,12 @@ export class IndicatorsProvider {
 
   }
 
-  public getIdicators(cropsIds,interest_rate):Promise<IndicatorsData>{
+  public getIdicators(cropsIds,interest_rate,sack_value):Promise<IndicatorsData>{
     return new Promise((resolve,reject)=>{
       this.http.post(endPoint+'api/sum_crops',{cropsIds:cropsIds,interest_rate:interest_rate}).subscribe(
         (response:any)=>{
           console.log(response)
-          resolve(new IndicatorsData(response.area,response.production,response.grossIncome,response.activitiesTotal,response.depreciation,response.inventoryTotal,response.capital_tied,response.capital_tied_remunaration,30));
+          resolve(new IndicatorsData(response.area,response.production,response.grossIncome,response.activitiesTotal,response.depreciation,response.inventoryTotal,response.capital_tied,response.capital_tied_remunaration,sack_value));
         },(err)=>{
           reject();
         }
