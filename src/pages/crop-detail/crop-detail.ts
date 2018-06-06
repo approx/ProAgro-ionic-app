@@ -361,8 +361,8 @@ ActivityPerTypeChartData(activities){
     this.itens_total_value = 0;
     this.itens_depreciation_value = 0;
     for (let i = 0; i < this.crop.inventory_itens.length; i++) {
-        this.itens_total_value+=this.crop.inventory_itens[i].price;
-        this.itens_depreciation_value+=this.crop.inventory_itens[i].depreciation_value;
+        this.itens_total_value+=parseFloat(<any>this.crop.inventory_itens[i].price);
+        this.itens_depreciation_value+=parseFloat(<any>this.crop.inventory_itens[i].depreciation_value);
     }
   }
 
