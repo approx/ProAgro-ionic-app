@@ -91,6 +91,14 @@
             <td>{{crop.gross_income.total | currency:'BRL'}}</td>
           </tr>
           <tr>
+            <td>Capital Empatado</td>
+            <td>{{crop.field.farm.capital_tied | currency:'BRL'}}</td>
+          </tr>
+          <tr>
+            <td>Remuneração de Capital Empatado</td>
+            <td>{{(crop.field.farm.capital_tied*crop.interest_tax)/100 | currency:'BRL'}}</td>
+          </tr>
+          <tr>
             <td>Custo Operacional Efetivo (COE)</td>
             <td>{{coe | especifications:'R$':'/ano'}}</td>
           </tr>

@@ -2,6 +2,15 @@
 <ion-row *ngIf="showGraphs" style="overflow-y:auto">
   <ion-col margin-bottom col-12>
     <canvas baseChart
+    *ngIf="showPieChart"
+    [colors]="pieColors"
+    [data]="pieChartData.data.length>0 ? pieChartData.data : [0]"
+    [labels]="pieChartData.labels.length>0 ? pieChartData.labels : ['none']"
+    [options]="pieChartOptions"
+    chartType="pie"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
     [colors]="colors"
     [datasets]="coeCotData"
     [options]="coeCotOptions"
@@ -61,6 +70,14 @@
       <tr>
         <td>Renda Bruta</td>
         <td>{{indicators.grossIncome | currency:'BRL'}}</td>
+      </tr>
+      <tr>
+        <td>Capital Empatado</td>
+        <td>{{indicators.capital_tied | currency:'BRL'}}</td>
+      </tr>
+      <tr>
+        <td>Remuneração de Capital Empatado</td>
+        <td>{{indicators.capital_tied_remunaration | currency:'BRL'}}</td>
       </tr>
       <tr>
         <td>Custo Operacional Efetivo (COE)</td>

@@ -1,6 +1,7 @@
-import { Component,Input,IterableDiffer } from '@angular/core';
+import { Component,Input,IterableDiffer,ViewChild,QueryList } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { IndicatorsProvider,IndicatorsData } from '../../providers/indicators/indicators';
+import { BaseChartDirective } from 'ng2-charts';
 
 /**
  * Generated class for the FarmIndicatorsComponent component.
@@ -27,8 +28,11 @@ export class FarmIndicatorsComponent  {
   percentageValues;
   sackValues;
   indicators;
+  pieChartData={data:[],labels:[]};
   showGraphs=false;
   interest_rate=0.05;
+  showPieChart=true;
+  // @ViewChild(BaseChartDirective) _chart;
 
   colors=[
     { // grey
@@ -149,6 +153,32 @@ export class FarmIndicatorsComponent  {
     }
   };
 
+  pieChartOptions = {
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data)=> {
+          var label = data.labels[tooltipItem.index] || '';
+
+          if (label) {
+            label += ': ';
+          }
+          label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
+          return label;
+        }
+      }
+    },
+    legend: {
+      display: true,
+      position: 'left'
+    }
+  };
+
+  pieColors=[
+    { // grey
+      backgroundColor: ["#4a883f","#4A442D","#58B09C","#3D3522","#CAF7E2","#D5DFE5","#B49594","#C9B1BD","#7F9172","#4E3D42","#9F9F92","#C9D5B5","#E3DBDB","#32021F","#4B2E39","#6F7D8C","#77A0A9","#CACFD6","#D6E5E3","#9FD8CB","#2D3319"]
+    }
+  ];
+
   constructor(private currencyPipe:CurrencyPipe,private indicatorsProvider:IndicatorsProvider) {
     console.log('Hello FarmIndicatorsComponent Component');
     this.text = 'Hello World';
@@ -181,6 +211,15 @@ export class FarmIndicatorsComponent  {
       this.coeCotCtPerArea = [{data:[indicators.coePerArea.toFixed(2)],label:'COE/área'},{data:[indicators.cotPerArea.toFixed(2)],label:'COT/área'},{data:[indicators.ctPerArea.toFixed(2)],label:'CT/área'}];
       this.percentageValues = [{data:[indicators.trcWithoutField.toFixed(2)],label:'TRC sem terra'},{data:[indicators.trcWithField.toFixed(2)],label:'TRC com Terra'},{data:[indicators.lucrativity.toFixed(2)],label:'Lucratividade'},{data:[indicators.rentability.toFixed(2)],label:'Rentabilidade'}];
       this.sackValues = [{data:[indicators.pn.toFixed(2)],label:'PN'},{data:[indicators.pcot.toFixed(2)],label:'pcot'},{data:[indicators.pct.toFixed(2)],label:'PCT'}];
+      this.pieChartData={data:[],labels:[]};
+      indicators.activitiesValues.map(item=>{
+        this.pieChartData.labels.push(item.name);
+        this.pieChartData.data.push(item.value);
+      });
+      this.showPieChart=false;
+      setTimeout(()=>{
+        this.showPieChart=true;
+      },10);
     });
   }
 

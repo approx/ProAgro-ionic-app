@@ -12,6 +12,8 @@ import { endPoint } from "../../Env";
 
 export class IndicatorsData{
 
+  capital_tied:number;
+  capital_tied_remunaration:number;
   grossIncome:number;
   coe:number;
   cot:number;
@@ -41,8 +43,12 @@ export class IndicatorsData{
   pn:number;
   pcot:number;
   pct:number;
+  activitiesValues:{name:string,value:number}[];
 
-  constructor(area,production,grossIncome,activitiesTotal,depreciation,inventoryTotal,capital_tied,capital_tied_remunaration,sack_value){
+  constructor(area,production,grossIncome,activitiesTotal,depreciation,inventoryTotal,capital_tied,capital_tied_remunaration,sack_value,activitiesValues){
+    this.activitiesValues = activitiesValues;
+    this.capital_tied =capital_tied;
+    this.capital_tied_remunaration = capital_tied_remunaration;
     this.grossIncome = grossIncome;
     this.plantedArea = area;
     this.production = production;
@@ -89,7 +95,7 @@ export class IndicatorsProvider {
       this.http.post(endPoint+'api/sum_crops',{cropsIds:cropsIds,interest_rate:interest_rate}).subscribe(
         (response:any)=>{
           console.log(response)
-          resolve(new IndicatorsData(response.area,response.production,response.grossIncome,response.activitiesTotal,response.depreciation,response.inventoryTotal,response.capital_tied,response.capital_tied_remunaration,sack_value));
+          resolve(new IndicatorsData(response.area,response.production,response.grossIncome,response.activitiesTotal,response.depreciation,response.inventoryTotal,response.capital_tied,response.capital_tied_remunaration,sack_value,response.activitiesTypes));
         },(err)=>{
           reject();
         }
