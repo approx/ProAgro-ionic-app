@@ -13,6 +13,7 @@ import { FilterComponent } from './filter/filter';
 import { IndicatorsComponent } from './indicators/indicators';
 import { ChartsModule } from 'ng2-charts';
 import { DirectivesModule } from '../directives/directives.module';
+import { FarmIndicatorsComponent } from './farm-indicators/farm-indicators';
 
 // @NgModule({
 // 	declarations: [NavBarComponent,
@@ -37,7 +38,8 @@ import { DirectivesModule } from '../directives/directives.module';
     CropInfoComponent,
 		FarmInfoComponent,
     FilterComponent,
-    IndicatorsComponent
+    IndicatorsComponent,
+    FarmIndicatorsComponent
 	],
 	imports: [CommonModule,IonicModule,PipesModule,ChartsModule,DirectivesModule],
 	exports: [
@@ -49,7 +51,8 @@ import { DirectivesModule } from '../directives/directives.module';
     CropInfoComponent,
 		FarmInfoComponent,
     FilterComponent,
-    IndicatorsComponent
+    IndicatorsComponent,
+    FarmIndicatorsComponent
 	]
 })
 export class ComponentsModule {}

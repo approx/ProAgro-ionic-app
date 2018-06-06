@@ -64,6 +64,7 @@ export class StocksPage {
         this.getTypes();
       });
     },(err)=>{
+      
       this.message.ErrorAlert();
     })
   }

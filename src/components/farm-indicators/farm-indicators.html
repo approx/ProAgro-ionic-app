@@ -1,0 +1,200 @@
+<!-- Generated template for the FarmIndicatorsComponent component -->
+<ion-row *ngIf="showGraphs" style="overflow-y:auto">
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    *ngIf="showPieChart"
+    [colors]="pieColors"
+    [data]="pieChartData.data.length>0 ? pieChartData.data : [0]"
+    [labels]="pieChartData.labels.length>0 ? pieChartData.labels : ['none']"
+    [options]="pieChartOptions"
+    chartType="pie"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="coeCotData"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="cashPerYear"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="cashPerSack"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="cashPerArea"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="coeCotCtPerSack"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="coeCotCtPerArea"
+    [options]="coeCotOptions"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="percentageValues"
+    [options]="percentageOption"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col margin-bottom col-12>
+    <canvas baseChart
+    [colors]="colors"
+    [datasets]="sackValues"
+    [options]="pnPcotPctOption"
+    chartType="bar"></canvas>
+  </ion-col>
+  <ion-col padding-left padding-right col-12>
+    <table  margin-top col-12>
+      <tr>
+        <td>Renda Bruta</td>
+        <td>{{indicators.grossIncome | currency:'BRL'}}</td>
+      </tr>
+      <tr>
+        <td>Capital Empatado</td>
+        <td>{{indicators.capital_tied | currency:'BRL'}}</td>
+      </tr>
+      <tr>
+        <td>Remuneração de Capital Empatado</td>
+        <td>{{indicators.capital_tied_remunaration | currency:'BRL'}}</td>
+      </tr>
+      <tr>
+        <td>Custo Operacional Efetivo (COE)</td>
+        <td>{{indicators.coe | especifications:'R$':'/ano'}}</td>
+      </tr>
+      <tr>
+        <td>Custo Operacional Total (COT)</td>
+        <td>{{indicators.cot | especifications:'R$':'/ano'}}</td>
+      </tr>
+      <tr>
+        <td>Custo Total (CT)</td>
+        <td>{{indicators.ct | especifications:'R$':'/ano'}}</td>
+      </tr>
+      <tr>
+        <td>Produção</td>
+        <td>{{indicators.production | especifications:'':' sc'}}</td>
+      </tr>
+      <tr>
+        <td>Area plantada</td>
+        <td>{{indicators.plantedArea | especifications:'':'ha'}}</td>
+      </tr>
+      <tr>
+        <td>Produção por area plantada</td>
+        <td>{{indicators.plantedArea/indicators.production | especifications:'':' sc/ha'}}</td>
+      </tr>
+      <tr>
+        <td>Margem Bruta</td>
+        <td>{{indicators.grossMargin | especifications:'R$':'/ano'}}</td>
+      </tr>
+      <tr>
+        <td>Margem Bruta por saca</td>
+        <td>{{indicators.grossMarginPerSack | especifications:'R$':'/sc'}}</td>
+      </tr>
+      <tr>
+        <td>Margem Bruta por área plantada</td>
+        <td>{{indicators.grossMarginPerArea | especifications:'R$':'/ha'}}</td>
+      </tr>
+      <tr>
+        <td>Margem Liquida</td>
+        <td>{{indicators.liquidMargin | especifications:'R$':'/ano'}}</td>
+      </tr>
+      <tr>
+        <td>Margem Liquida por saca</td>
+        <td>{{indicators.liquidMarginPerSack | especifications:'R$':'/sc'}}</td>
+      </tr>
+      <tr>
+        <td>Margem Liquida por área plantada</td>
+        <td>{{indicators.liquidMarginPerArea | especifications:'R$':'/ha'}}</td>
+      </tr>
+      <tr>
+        <td>Lucro</td>
+        <td>{{indicators.profit | especifications:'R$':'/ano'}}</td>
+      </tr>
+      <tr>
+        <td>Lucro por saca</td>
+        <td>{{indicators.profitPerSack | especifications:'R$':'/sc'}}</td>
+      </tr>
+      <tr>
+        <td>Lucro por área plantada</td>
+        <td>{{indicators.profitPerArea | especifications:'R$':'/ha'}}</td>
+      </tr>
+      <tr>
+        <td>COE por saca</td>
+        <td>{{indicators.coePerSack | especifications:'R$':'/sc'}}</td>
+      </tr>
+      <tr>
+        <td>COE por área plantada</td>
+        <td>{{indicators.coePerArea | especifications:'R$':'/ha'}}</td>
+      </tr>
+      <tr>
+        <td>COT por saca</td>
+        <td>{{indicators.cotPerSack | especifications:'R$':'/sc'}}</td>
+      </tr>
+      <tr>
+        <td>COT por área plantada</td>
+        <td>{{indicators.cotPerArea | especifications:'R$':'/ha'}}</td>
+      </tr>
+      <tr>
+        <td>CT por saca</td>
+        <td>{{indicators.ctPerSack | especifications:'R$':'/sc'}}</td>
+      </tr>
+      <tr>
+        <td>CT por área plantada</td>
+        <td>{{indicators.ctPerArea | especifications:'R$':'/ha'}}</td>
+      </tr>
+      <tr>
+        <td>Taxa de Remuneração do Capital sem Terra</td>
+        <td>{{indicators.trcWithoutField | especifications:'':'%'}}</td>
+      </tr>
+      <tr>
+        <td>Taxa de Remuneração do Capital com Terra</td>
+        <td>{{indicators.trcWithField | especifications:'':'%'}}</td>
+      </tr>
+      <tr>
+        <td>Lucratividade</td>
+        <td>{{indicators.lucrativity | especifications:'':'%'}}</td>
+      </tr>
+      <tr>
+        <td>Rentabilidade</td>
+        <td>{{indicators.rentability | especifications:'':'%'}}</td>
+      </tr>
+      <tr>
+        <td>PN</td>
+        <td>{{indicators.pn | especifications:'':' sc'}}</td>
+      </tr>
+      <tr>
+        <td>PCOT</td>
+        <td>{{indicators.pcot | especifications:'':' sc'}}</td>
+      </tr>
+      <tr>
+        <td>PCT</td>
+        <td>{{indicators.pct | especifications:'':' sc'}}</td>
+      </tr>
+      <tr>
+        <td>Relação custo benefício</td>
+        <td>{{(indicators.grossIncome/indicators.ct).toFixed('2') }}</td>
+      </tr>
+    </table>
+  </ion-col>
+</ion-row>

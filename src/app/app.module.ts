@@ -63,6 +63,8 @@ import localePtBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { StockProvider } from '../providers/stock/stock';
 import { CurrenciesProvider } from '../providers/currencies/currencies';
+import { MapProvider } from '../providers/map/map';
+import { IndicatorsProvider } from '../providers/indicators/indicators';
 registerLocaleData(localePtBr);
 
 @NgModule({
@@ -132,7 +134,9 @@ registerLocaleData(localePtBr);
     UserRegisterProvider,
     RolesProvider,
     StockProvider,
-    CurrenciesProvider
+    CurrenciesProvider,
+    MapProvider,
+    IndicatorsProvider
   ]
 })
 export class AppModule {}

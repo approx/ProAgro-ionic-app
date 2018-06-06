@@ -65,8 +65,14 @@ export class FarmDetailPage extends BasePage{
     label:'Ratear Atividade',
     down:()=>{
       this.navCtrl.push(PropagateActivityPage.name,{farm:this.farm,farm_id:this.farm.id});
-    },
-  }];
+    }
+  },{
+    label:'Indicadores',
+    down:()=>{
+      this.navCtrl.push('FarmIndicatorsPage',{farm:this.farm,farm_id:this.farm.id});
+    }
+  }
+];
 
   total_value:number;
   total_depreciation_value:number;
@@ -237,7 +243,7 @@ export class FarmDetailPage extends BasePage{
 
   setMapUrl(){
     if(this.farm.lat&&this.farm.lng){
-      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.farm.lat+","+this.farm.lng;
+      this.mapUrl="https://www.google.com/maps/embed/v1/place?key=AIzaSyBocEdaAefVaBdvmzmN7yUudqb0l9yyQ-U&q="+this.farm.lat+","+this.farm.lng+"&maptype=satellite";
       this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapUrl);
     }
     console.log('changed')

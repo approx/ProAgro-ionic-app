@@ -1,0 +1,18 @@
+page-farm-indicators {
+  ion-grid{
+    // height: 100%;
+  }
+  #map{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .indicatorsContent{
+    height: 100%;
+    // width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+}

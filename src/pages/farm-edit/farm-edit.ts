@@ -137,8 +137,8 @@ export class FarmEditPage extends BasePage{
     if(this.farm.value_ha && this.farm.ha){
       this.farm.capital_tied = this.farm.ha * this.farm.value_ha;
       this.capital_tied = 'R$ ' + this.farm.capital_tied;
-      this.farm.remuneration = (this.farm.capital_tied*.5)/100;
-      this.remuneration = 'R$ ' + this.farm.remuneration;
+      // this.farm.remuneration = (this.farm.capital_tied*.5)/100;
+      // this.remuneration = 'R$ ' + this.farm.remuneration;
     }
   }
 
