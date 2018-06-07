@@ -7,7 +7,7 @@
 <ion-content *ngIf="farm" padding>
   <h1>Registrar venda em {{farm.name}}</h1>
   <ion-grid  class="formContent">
-    <form (ngSubmit)="Register()" #RegisterForm="ngForm">
+    <form  #RegisterForm="ngForm">
       <ion-row>
         <ion-col col-12 col-md-6>
           <ion-item >
@@ -61,13 +61,14 @@
           <ion-col col-12 col-md-6>
             <ion-item >
               <ion-label>{{iten.name}}</ion-label>
-              <ion-checkbox [(ngModel)]="iten.selected" name="checkBox-{{iten.id}}"></ion-checkbox>
+              <ion-checkbox  [(ngModel)]="iten.selected" name="checkBox-{{iten.id}}"></ion-checkbox>
             </ion-item>
           </ion-col>
           <ion-col col-12 col-md-3>
             <ion-item>
+
               <ion-label floating>Preço</ion-label>
-              <ion-input required type="text" [disabled]="!iten.selected" [(modelMask)]="iten.sold_price" mask="R$ 9" [form]="RegisterForm" currency="true" name="sold_price-{{iten.id}}" ></ion-input>
+              <ion-input required="iten.selected" type="text" [debug]="true" [disabled]="!iten.selected" [(modelMask)]="iten.sold_price" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="sold_price-{{iten.id}}" ></ion-input>
             </ion-item>
           </ion-col>
           <ion-col col-12 col-md-3>
@@ -83,6 +84,7 @@
       </div>
       <ion-row class="justifyCenter" margin-bottom margin-top>
         <button type="submit" [disabled]="!RegisterForm.form.valid" ion-button col-12 col-md-3>Registrar</button>
+        <button (click)="log(RegisterForm.form)" ion-button col-12 col-md-3>log</button>
       </ion-row>
     </form>
 
