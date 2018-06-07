@@ -47,11 +47,11 @@
           </tr>
           <tr *ngFor="let iten of crop.gross_income.history" >
             <td>{{iten.description}}</td>
-            <td>{{iten.total | currency:iten.currency_id}}</td>
+            <td>{{iten.total | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <th>Total</th>
-            <th>{{crop.gross_income.total | currency:crop.sack_solds[0] ? crop.sack_solds[0].currency_id:'BRL'}}</th>
+            <th>{{crop.gross_income.total | currency:crop.field.farm.currency_id}}</th>
           </tr>
         </table>
       </ion-col>
@@ -73,14 +73,14 @@
           <tr *ngFor="let iten of crop.inventory_itens" >
             <td>{{iten.name}}</td>
             <td>{{iten.depreciation_time}}</td>
-            <td>{{iten.price | currency:iten.currency_id}}</td>
-            <td>{{iten.depreciation_value | currency:iten.currency_id}}</td>
+            <td>{{iten.price | currency:crop.field.farm.currency_id}}</td>
+            <td>{{iten.depreciation_value | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <th>Total</th>
             <th></th>
-            <th>{{itens_total_value | currency:crop.inventory_itens[0] ? crop.inventory_itens[0].currency_id:'BRL'}}</th>
-            <th>{{itens_depreciation_value | currency:crop.inventory_itens[0] ? crop.inventory_itens[0].currency_id:'BRL'}}</th>
+            <th>{{itens_total_value | currency:crop.inventory_itens[0] ? crop.inventory_itens[0].currency_id:crop.field.farm.currency_id}}</th>
+            <th>{{itens_depreciation_value | currency:crop.inventory_itens[0] ? crop.inventory_itens[0].currency_id:crop.field.farm.currency_id}}</th>
           </tr>
         </table>
       </ion-col>
@@ -152,13 +152,13 @@
           <tr *ngFor="let activity of activities">
             <td>{{activity.operation_date | date: 'dd/MM/yyyy'}}</td>
             <td>{{activity.activity_type.id}} - <span *ngIf="activity.product_name">{{activity.product_name}}</span><span *ngIf="!activity.product_name">{{activity.activity_type.name}}</span></td>
-            <td class="hide-md" *ngIf="activity.dose">{{activity.dose}}{{activity.unity.id}}/ha</td>
+            <td class="hide-md" *ngIf="activity.dose">{{activity.dose}}<span *ngIf="activity.unity">{{activity.unity.id}}</span>/ha</td>
             <td class="hide-md" *ngIf="!activity.dose">--</td>
-            <td class="hide-lg" *ngIf="activity.quantity">{{activity.quantity}}{{activity.unity.id}}</td>
+            <td class="hide-lg" *ngIf="activity.quantity">{{activity.quantity}}<span *ngIf="activity.unity">{{activity.unity.id}}</span></td>
             <td class="hide-md" *ngIf="!activity.quantity">--</td>
-            <td class="hide-md" *ngIf="activity.value_per_ha">{{activity.value_per_ha | currency:activity.currency_id}}</td>
+            <td class="hide-md" *ngIf="activity.value_per_ha">{{activity.value_per_ha | currency:crop.field.farm.currency_id}}</td>
             <td class="hide-md" *ngIf="!activity.value_per_ha">--</td>
-            <td>{{activity.total_value | currency:activity.currency_id}}</td>
+            <td>{{activity.total_value | currency:crop.field.farm.currency_id}}</td>
             <td *ngIf="!userClient"><ion-icon class="Clickable" (click)="deleteActivity(activity)" name="trash"></ion-icon></td>
           </tr>
           <tr>
@@ -166,8 +166,8 @@
             <th></th>
             <th class="hide-md"></th>
             <th class="hide-md"></th>
-            <th class="hide-md">{{totalValueHa(activities) | currency:activities[0].currency_id}}</th>
-            <th>{{totalValue(activities) | currency:activities[0].currency_id}}</th>
+            <th class="hide-md">{{totalValueHa(activities) | currency:crop.field.farm.currency_id}}</th>
+            <th>{{totalValue(activities) | currency:crop.field.farm.currency_id}}</th>
             <th *ngIf="!userClient"></th>
           </tr>
         </table>

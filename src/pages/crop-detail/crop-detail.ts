@@ -75,7 +75,7 @@ export class CropDetailPage extends BasePage{
           if (label) {
             label += ': ';
           }
-          label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
+          label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],this.crop.field.farm.currency_id);
           return label+' '+((data.datasets[0].data[tooltipItem.index]/total)*100).toFixed(2)+'%';
         }
       }
@@ -101,7 +101,7 @@ export class CropDetailPage extends BasePage{
           if (label) {
             label += ': ';
           }
-          label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
+          label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],this.crop.field.farm.currency_id);
           return label;
         }
       }

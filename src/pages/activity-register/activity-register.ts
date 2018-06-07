@@ -25,7 +25,7 @@ import { CurrenciesProvider } from '../../providers/currencies/currencies';
 export class ActivityRegisterPage extends BasePage{
 
   crop:CropModel;
-  activity:any={currency_id:'BRL'};
+  activity:any={};
   activityTypeId;
   activityTypes;
   unities;
