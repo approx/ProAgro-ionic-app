@@ -44,8 +44,12 @@ export class CropProvider {
     return this.http.post(endPoint+'api/crop/'+id,{_method:'DELETE'},{responseType:'text'});
   }
 
-  update_values(id,sack_value,interest_tax){
+  update_values(id,sack_value,interest_tax):Observable<any>{
     return this.http.post(endPoint+'api/crop/'+id+'/update_values',{sack_value:sack_value,interest_tax:interest_tax});
+  }
+
+  update_inventory_itens(id,itemsIds):Observable<any>{
+    return this.http.post(endPoint+'api/crop/'+id+'/update_inventory_itens',{inventory_itens:itemsIds},{responseType:'text'});
   }
 
   update(crop:CropInterfaceWithMethod):Observable<any>{
