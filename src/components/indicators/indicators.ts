@@ -78,7 +78,7 @@ export class IndicatorsComponent {
         ticks:{
           beginAtZero: true,
           callback:(value,index)=>{
-            return this.currencyPipe.transform(value,'BRL');
+            return this.currencyPipe.transform(value,this.crop.field.farm.currency_id);
           }
         }
       }],
@@ -96,7 +96,7 @@ export class IndicatorsComponent {
           if (label) {
             label += ': ';
           }
-          label += this.currencyPipe.transform(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index],'BRL');
+          label += this.currencyPipe.transform(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index],this.crop.field.farm.currency_id);
           return label;
         }
       }

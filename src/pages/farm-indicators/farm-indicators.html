@@ -18,9 +18,9 @@
             </ion-item>
           </ion-col>
           <ion-col >
-            <ion-item>
+            <ion-item *ngIf="farm">
               <ion-label floating>Valor da saca</ion-label>
-              <ion-input type="text" (ionChange)="updateGraph()" [(modelMask)]="sack_value" mask="R$ 9" [form]="RegisterForm" currency="true" name="sack_value" ></ion-input>
+              <ion-input type="text" (ionChange)="updateGraph()" [(modelMask)]="sack_value" [mask]="farm.currency_id == 'BRL' ? 'R$ 9' : '$ 9'" [form]="RegisterForm" currency="true" name="sack_value" ></ion-input>
             </ion-item>
           </ion-col>
           <ion-col >

@@ -14,6 +14,7 @@ export class ActivityTypeModel{
     public unity_id:number,
     public unity:UnityModel,
     public group_id,
+    public group:{id:string,name:string},
     public activities:ActivityModel[]
   ){}
 }

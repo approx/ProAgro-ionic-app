@@ -5,7 +5,7 @@
       <ion-col col-12 col-md-4 col-lg-3>
         <ion-item >
           <ion-label floating>Valor da saca</ion-label>
-          <ion-input type="text" (ionBlur)="update_values()" (ionChange)="ngOnInit()" [(modelMask)]="crop.sack_value" [mask]="currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="sack_value" ></ion-input>
+          <ion-input type="text" (ionBlur)="update_values()" (ionChange)="ngOnInit()" [(modelMask)]="crop.sack_value" [mask]="crop.field.farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="sack_value" ></ion-input>
         </ion-item>
       </ion-col>
       <ion-col col-12 col-md-4 col-lg-3>
@@ -88,27 +88,27 @@
         <table *ngIf="crop" margin-top col-12>
           <tr>
             <td>Renda Bruta</td>
-            <td>{{crop.gross_income.total | currency:'BRL'}}</td>
+            <td>{{crop.gross_income.total | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <td>Capital Empatado</td>
-            <td>{{crop.field.farm.capital_tied | currency:'BRL'}}</td>
+            <td>{{crop.field.farm.capital_tied | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <td>Remuneração de Capital Empatado</td>
-            <td>{{(crop.field.farm.capital_tied*crop.interest_tax)/100 | currency:'BRL'}}</td>
+            <td>{{(crop.field.farm.capital_tied*crop.interest_tax)/100 | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <td>Custo Operacional Efetivo (COE)</td>
-            <td>{{coe | especifications:'R$':'/ano'}}</td>
+            <td>{{coe | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
           </tr>
           <tr>
             <td>Custo Operacional Total (COT)</td>
-            <td>{{cot | especifications:'R$':'/ano'}}</td>
+            <td>{{cot | especifications:crop.field.farm.currency_id:'/ano'}}</td>
           </tr>
           <tr>
             <td>Custo Total (CT)</td>
-            <td>{{ct | especifications:'R$':'/ano'}}</td>
+            <td>{{ct | especifications:crop.field.farm.currency_id:'/ano'}}</td>
           </tr>
           <tr>
             <td>Produção</td>
@@ -124,63 +124,63 @@
           </tr>
           <tr>
             <td>Margem Bruta</td>
-            <td>{{grossMargin | especifications:'R$':'/ano'}}</td>
+            <td>{{grossMargin | especifications:crop.field.farm.currency_id:'/ano'}}</td>
           </tr>
           <tr>
             <td>Margem Bruta por saca</td>
-            <td>{{grossMarginPerSack | especifications:'R$':'/sc'}}</td>
+            <td>{{grossMarginPerSack | especifications:crop.field.farm.currency_id:'/sc'}}</td>
           </tr>
           <tr>
             <td>Margem Bruta por área plantada</td>
-            <td>{{grossMarginPerArea | especifications:'R$':'/ha'}}</td>
+            <td>{{grossMarginPerArea | especifications:crop.field.farm.currency_id:'/ha'}}</td>
           </tr>
           <tr>
             <td>Margem Liquida</td>
-            <td>{{liquidMargin | especifications:'R$':'/ano'}}</td>
+            <td>{{liquidMargin | especifications:crop.field.farm.currency_id:'/ano'}}</td>
           </tr>
           <tr>
             <td>Margem Liquida por saca</td>
-            <td>{{liquidMarginPerSack | especifications:'R$':'/sc'}}</td>
+            <td>{{liquidMarginPerSack | especifications:crop.field.farm.currency_id:'/sc'}}</td>
           </tr>
           <tr>
             <td>Margem Liquida por área plantada</td>
-            <td>{{liquidMarginPerArea | especifications:'R$':'/ha'}}</td>
+            <td>{{liquidMarginPerArea | especifications:crop.field.farm.currency_id:'/ha'}}</td>
           </tr>
           <tr>
             <td>Lucro</td>
-            <td>{{profit | especifications:'R$':'/ano'}}</td>
+            <td>{{profit | especifications:crop.field.farm.currency_id:'/ano'}}</td>
           </tr>
           <tr>
             <td>Lucro por saca</td>
-            <td>{{profitPerSack | especifications:'R$':'/sc'}}</td>
+            <td>{{profitPerSack | especifications:crop.field.farm.currency_id:'/sc'}}</td>
           </tr>
           <tr>
             <td>Lucro por área plantada</td>
-            <td>{{profitPerArea | especifications:'R$':'/ha'}}</td>
+            <td>{{profitPerArea | especifications:crop.field.farm.currency_id:'/ha'}}</td>
           </tr>
           <tr>
             <td>COE por saca</td>
-            <td>{{coePerSack | especifications:'R$':'/sc'}}</td>
+            <td>{{coePerSack | especifications:crop.field.farm.currency_id:'/sc'}}</td>
           </tr>
           <tr>
             <td>COE por área plantada</td>
-            <td>{{coePerArea | especifications:'R$':'/ha'}}</td>
+            <td>{{coePerArea | especifications:crop.field.farm.currency_id:'/ha'}}</td>
           </tr>
           <tr>
             <td>COT por saca</td>
-            <td>{{cotPerSack | especifications:'R$':'/sc'}}</td>
+            <td>{{cotPerSack | especifications:crop.field.farm.currency_id:'/sc'}}</td>
           </tr>
           <tr>
             <td>COT por área plantada</td>
-            <td>{{cotPerArea | especifications:'R$':'/ha'}}</td>
+            <td>{{cotPerArea | especifications:crop.field.farm.currency_id:'/ha'}}</td>
           </tr>
           <tr>
             <td>CT por saca</td>
-            <td>{{ctPerSack | especifications:'R$':'/sc'}}</td>
+            <td>{{ctPerSack | especifications:crop.field.farm.currency_id:'/sc'}}</td>
           </tr>
           <tr>
             <td>CT por área plantada</td>
-            <td>{{ctPerArea | especifications:'R$':'/ha'}}</td>
+            <td>{{ctPerArea | especifications:crop.field.farm.currency_id:'/ha'}}</td>
           </tr>
           <tr>
             <td>Taxa de Remuneração do Capital sem Terra</td>

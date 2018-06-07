@@ -143,8 +143,12 @@ export class InventoryItenSalePage extends BasePage{
     })
   }
 
+  log(iten){
+    console.log(iten);
+  }
+
   getCrops(){
-    this.cropProvider.getAll().subscribe(
+    this.cropProvider.getAll(this.navParams.get('farm_id')).subscribe(
       (response)=>{
         this.crops = response.map((crop)=>{
           return {...crop,selected:false};

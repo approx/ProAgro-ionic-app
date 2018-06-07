@@ -28,7 +28,11 @@ export class CropProvider {
     console.log('Hello CropProvider Provider');
   }
 
-  getAll():Observable<any>{
+  getAll(farm_id?):Observable<any>{
+    if(farm_id){
+      console.log('get farm crops');
+        return this.http.get(endPoint+'api/farm/'+farm_id+'/crops');
+    }
     return this.http.get(endPoint+'api/crops');
   }
 

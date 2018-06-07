@@ -9,6 +9,7 @@ import { BasePage } from "../base/base";
 import { MyApp } from '../../app/app.component';
 import { FarmListPage } from '../../pages/farm-list/farm-list';
 import { CurrenciesProvider } from '../../providers/currencies/currencies';
+import { CurrencyPipe } from '@angular/common';
 
 /**
  * Generated class for the InventoryItenRegisterPage page.
@@ -21,6 +22,7 @@ import { CurrenciesProvider } from '../../providers/currencies/currencies';
 @Component({
   selector: 'page-inventory-iten-register',
   templateUrl: 'inventory-iten-register.html',
+  providers:[CurrencyPipe]
 })
 export class InventoryItenRegisterPage extends BasePage{
   @Input() iten:InventoryItenInterface={};
@@ -28,13 +30,15 @@ export class InventoryItenRegisterPage extends BasePage{
   depreciation_value:string;
   farms:FarmModel[];
   currencies;
+  currency_id='USD';
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private farmProvider:FarmProvider,
     private itenProvider:InventoryItenProvider,
     private messages:MessagesProvider,
-    private currencyProvider:CurrenciesProvider
+    private currencyProvider:CurrenciesProvider,
+    private currencyPipe:CurrencyPipe
   ) {
     super(navCtrl);
   }
@@ -63,10 +67,20 @@ export class InventoryItenRegisterPage extends BasePage{
     );
   }
 
+  selectFarm(farmId){
+    for (let i = 0; i < this.farms.length; i++) {
+        if(this.farms[i].id==farmId){
+          this.currency_id = this.farms[i].currency_id;
+          break;
+        }
+    }
+  }
+
   setParams(){
     let farm = this.navParams.get('farm');
     if(farm){
       this.iten.farm_id = farm.id;
+      this.currency_id = farm.currency_id;
     }
   }
 
@@ -80,7 +94,7 @@ export class InventoryItenRegisterPage extends BasePage{
   depreciationMounth(){
     if(this.iten.depreciation_time && this.iten.price){
       this.iten.depreciation_value = Math.round((this.iten.price / this.iten.depreciation_time)*100)/100;
-      this.depreciation_value = 'R$ '+this.iten.depreciation_value;
+      this.depreciation_value = this.currencyPipe.transform(this.iten.depreciation_value,this.currency_id);
       console.log(this.iten.depreciation_time);
     }
   }

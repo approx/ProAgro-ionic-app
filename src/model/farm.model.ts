@@ -37,7 +37,7 @@ export class FarmModel{
     public remuneration:number,
     public created_at:string,
     public updated_at:string,
-    currency_id:string
+    public currency_id:string
   ){}
 
 

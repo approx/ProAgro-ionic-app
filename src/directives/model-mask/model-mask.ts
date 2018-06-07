@@ -82,12 +82,14 @@ export class ModelMaskDirective {
       this.component = this.viewContainerRef[ '_data' ].componentView.component;
     }
     let validators:any = [(input: FormControl)=>{
+      // console.log(this.component._item._elementRef.nativeElement.getAttribute('disabled'));
+      // console.log(this.disabled);
+      // if(this.disabled) return null;
       if(!this.currency){
         if(this.modelMask){
           let value = input.value;
           for (let i = 0; i < this.modelMask.length; i++) {
             if(value[i]==this.maskPlaceHolder){
-
               return {maskComplete:false}
             }
           }
@@ -410,6 +412,15 @@ export class ModelMaskDirective {
     if(this.debug){
       console.log(changes);
     }
+
+    if(changes.disabled&&this._formControl){
+      if(changes.disabled.currentValue){
+        this._formControl.disable();
+      }else{
+        this._formControl.enable();
+      }
+    }
+
     if(changes.modelMask&&this.component&&this.component._native){
       if(this.debug){
         console.log(this.component._native);

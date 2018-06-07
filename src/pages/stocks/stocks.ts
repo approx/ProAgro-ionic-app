@@ -55,6 +55,22 @@ export class StocksPage {
     }
   }
 
+  searchActivities(event: {
+    component: SelectSearchableComponent,
+    text: string
+  }){
+    let text = (event.text || '').trim().toLowerCase();
+
+    event.component.isSearching = true;
+    event.component.items = this.activityTypes.filter(item=>{
+      if(item.name&&item.group_id){
+        return item.name.toLowerCase().indexOf(text.toLowerCase()) !== -1 || item.group_id.toLowerCase().indexOf(text.toLowerCase()) !== -1 || item.group.name.toLowerCase().indexOf(text.toLowerCase()) !==-1;
+      }
+      return false;
+    });
+    event.component.isSearching = false;
+  }
+
   Register(){
     this.message.Wait();
     this.farmProvider.createStock(this.farm.id,this.stock).subscribe((response)=>{
@@ -64,7 +80,7 @@ export class StocksPage {
         this.getTypes();
       });
     },(err)=>{
-      
+
       this.message.ErrorAlert();
     })
   }
@@ -80,7 +96,7 @@ export class StocksPage {
 
   calculateTotal(){
     if(this.stock.unity_value && this.stock.quantity){
-      this.total_value = this.currency.transform(this.stock.unity_value * this.stock.quantity,'BRL');
+      this.total_value = this.currency.transform(this.stock.unity_value * this.stock.quantity,this.farm.currency_id);
     }
   }
 
