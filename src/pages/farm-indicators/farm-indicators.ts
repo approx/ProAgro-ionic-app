@@ -141,7 +141,8 @@ export class FarmIndicatorsPage extends BasePage {
               marker.setIcon('http://localhost:8100/assets/imgs/leaf-unselected.png');
             }
             if(this.farmIndicators){
-              this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields);
+              console.log(this.farm.currency_id)
+              this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields,this.farm.currency_id);
             }
           }
         }));
@@ -156,9 +157,10 @@ export class FarmIndicatorsPage extends BasePage {
   mapUpdate(){
     this.mapFields();
     this.setMarkers()
-    console.log(this.farm.fields)
+    // console.log(this.farm.fields)
     if(this.farmIndicators){
-      this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields);
+      console.log(this.farm.currency_id)
+      this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields,this.farm.currency_id);
     }
     // this.mapFields();
     // console.log(this.farm.fields)
@@ -188,7 +190,7 @@ export class FarmIndicatorsPage extends BasePage {
 
   updateGraph(){
     if(this.farmIndicators){
-      this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields);
+      this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields,this.farm.currency_id);
     }
   }
 
@@ -204,7 +206,7 @@ export class FarmIndicatorsPage extends BasePage {
           this.mapFields();
           setTimeout(()=>{
             if(this.farmIndicators){
-              this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields);
+              this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields,this.farm.currency_id);
             }
           },10);
           // this.getMap();
@@ -214,7 +216,7 @@ export class FarmIndicatorsPage extends BasePage {
       this.mapFields();
       setTimeout(()=>{
         if(this.farmIndicators){
-          this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields);
+          this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields,this.farm.currency_id);
         }
       },10);
       // this.getMap();

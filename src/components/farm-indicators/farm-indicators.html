@@ -2,7 +2,6 @@
 <ion-row *ngIf="showGraphs" style="overflow-y:auto">
   <ion-col margin-bottom col-12>
     <canvas baseChart
-    *ngIf="showPieChart"
     [colors]="pieColors"
     [data]="pieChartData.data.length>0 ? pieChartData.data : [0]"
     [labels]="pieChartData.labels.length>0 ? pieChartData.labels : ['none']"

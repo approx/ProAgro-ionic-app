@@ -32,6 +32,7 @@ export class FarmIndicatorsComponent  {
   showGraphs=false;
   interest_rate=0.05;
   showPieChart=true;
+  currency_id;
   // @ViewChild(BaseChartDirective) _chart;
 
   colors=[
@@ -124,7 +125,8 @@ export class FarmIndicatorsComponent  {
         ticks:{
           beginAtZero: true,
           callback:(value,index)=>{
-            return this.currencyPipe.transform(value,'BRL');
+            // console.log(this.currency_id)
+            return this.currencyPipe.transform(value,this.currency_id ? this.currency_id :'USD');
           }
         }
       }],
@@ -142,7 +144,7 @@ export class FarmIndicatorsComponent  {
           if (label) {
             label += ': ';
           }
-          label += this.currencyPipe.transform(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index],'BRL');
+          label += this.currencyPipe.transform(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index],this.currency_id ? this.currency_id :'USD');
           return label;
         }
       }
@@ -162,7 +164,7 @@ export class FarmIndicatorsComponent  {
           if (label) {
             label += ': ';
           }
-          label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],'BRL');
+          label += this.currencyPipe.transform(data.datasets[0].data[tooltipItem.index],this.currency_id ? this.currency_id :'USD');
           return label;
         }
       }
@@ -188,7 +190,8 @@ export class FarmIndicatorsComponent  {
     // this.getIndicators();
   }
 
-  getIndicators(interest_rate,sack_value,fields?:any){
+  getIndicators(interest_rate,sack_value,fields?:any,currency_id?){
+    this.currency_id = currency_id;
     if(fields){
       this.fields = fields;
     }
@@ -202,7 +205,7 @@ export class FarmIndicatorsComponent  {
     console.log(ids);
     this.indicatorsProvider.getIdicators(ids,interest_rate,sack_value).then((indicators:IndicatorsData)=>{
       this.indicators = indicators;
-      this.showGraphs=true;
+      this.showGraphs=false;
       this.coeCotData = [{data:[indicators.coe.toFixed(2)],label:'COE'},{data:[indicators.cot.toFixed(2)],label:'COT'},{data:[indicators.ct.toFixed(2)],label:'CT'}];
       this.cashPerYear = [{data:[indicators.grossMargin.toFixed(2)],label:'Margem Bruta'},{data:[indicators.liquidMargin.toFixed(2)],label:'Margem Liquida'},{data:[indicators.profit.toFixed(2)],label:'Lucro'}]
       this.cashPerSack = [{data:[indicators.grossMarginPerSack.toFixed(2)],label:'Margem Bruta/sc'},{data:[indicators.liquidMarginPerSack.toFixed(2)],label:'Margem Liquida/sc'},{data:[indicators.profitPerSack.toFixed(2)],label:'Lucro/sc'}]
@@ -216,10 +219,10 @@ export class FarmIndicatorsComponent  {
         this.pieChartData.labels.push(item.name);
         this.pieChartData.data.push(item.value);
       });
-      this.showPieChart=false;
+      // this.showPieChart=false;
       setTimeout(()=>{
-        this.showPieChart=true;
-      },10);
+        this.showGraphs=true;
+      },1);
     });
   }
 
