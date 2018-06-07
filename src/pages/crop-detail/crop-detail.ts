@@ -51,6 +51,11 @@ export class CropDetailPage extends BasePage{
     down:()=>{
       this.navCtrl.push(CropRegisterSackPage.name,{crop:this.crop,crop_id:this.crop.id});
     }
+  },{
+    label:'Atualizar inventario',
+    down:()=>{
+      this.navCtrl.push('InventoryItenAddPage',{crop:this.crop,crop_id:this.crop.id});
+    }
   }];
 
   drawCharts=false;

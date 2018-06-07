@@ -70,7 +70,7 @@ export class ActivityRegisterPage extends BasePage{
     event.component.isSearching = true;
     event.component.items = this.activityTypes.filter(item=>{
       if(item.name&&item.group_id){
-        return item.name.toLowerCase().indexOf(text.toLowerCase()) !== -1 || item.group_id.toLowerCase().indexOf(text.toLowerCase()) !== -1;
+        return item.name.toLowerCase().indexOf(text.toLowerCase()) !== -1 || item.group_id.toLowerCase().indexOf(text.toLowerCase()) !== -1 || item.group.name.toLowerCase().indexOf(text.toLowerCase()) !==-1;
       }
       return false;
     });

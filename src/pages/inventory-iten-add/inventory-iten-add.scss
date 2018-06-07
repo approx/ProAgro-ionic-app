@@ -1,0 +1,17 @@
+page-inventory-iten-add {
+  ion-row.address{
+    position: relative;
+    border-radius: 5px;
+    border: solid 2px (map-get($colors, primary));
+  }
+
+  ion-row.address label{
+    position: absolute;
+    font-size: 20px;
+    line-height: 20px;
+    top:-12px;
+    left:10px;
+    background-color: white;
+    padding: 0px 5px;
+  }
+}

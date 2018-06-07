@@ -63,7 +63,7 @@ export class PropagateActivityPage extends BasePage{
 
     event.component.isSearching = true;
     event.component.items = this.activityTypes.filter(item=>{
-      return item.name.toLowerCase().indexOf(text) !== -1 || item.group_id.toLowerCase().indexOf(text) !== -1;
+      return item.name.toLowerCase().indexOf(text) !== -1 || item.group_id.toLowerCase().indexOf(text) !== -1 || item.group.name.toLowerCase().indexOf(text.toLowerCase()) !==-1;;
     });
     event.component.isSearching = false;
   }
