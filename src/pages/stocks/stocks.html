@@ -22,7 +22,14 @@
                 itemValueField="id"
                 itemTextField="name"
                 [canSearch]="true"
+                (onSearch)="searchActivities($event)"
                 (onChange)="portChange($event)">
+                <ng-template selectSearchableLabelTemplate>
+                  Atividade*
+                </ng-template>
+                <ng-template selectSearchableItemTemplate let-port="item">
+                  {{port.group.name}} - {{port.name}}
+                </ng-template>
             </select-searchable>
           </ion-item>
         </ion-col>
@@ -41,7 +48,7 @@
         <ion-col col-12 col-md-4>
           <ion-item>
             <ion-label floating>Valor unitario*</ion-label>
-            <ion-input type="text" required (ionChange)="calculateTotal()" [(modelMask)]="stock.unity_value" mask="R$ 9" currency="true" name="value" value=""></ion-input>
+            <ion-input type="text" required (ionChange)="calculateTotal()" [form]="RegisterForm" [(modelMask)]="stock.unity_value" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9' " currency="true" name="value" value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4>
@@ -69,8 +76,8 @@
             <tr *ngFor="let stock of farm.stocks">
               <td>{{stock.activity_type.id}} - {{stock.product_name}}</td>
               <td>{{stock.quantity}}</td>
-              <td>{{stock.unity_value | currency:'BRL'}}</td>
-              <td>{{stock.total_value | currency:'BRL'}}</td>
+              <td>{{stock.unity_value | currency:farm.currency_id}}</td>
+              <td>{{stock.total_value | currency:farm.currency_id}}</td>
             </tr>
           </table>
 

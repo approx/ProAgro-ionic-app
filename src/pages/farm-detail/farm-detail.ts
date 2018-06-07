@@ -59,7 +59,7 @@ export class FarmDetailPage extends BasePage{
   },{
     label:'Registrar Estoque',
     down:()=>{
-      this.navCtrl.push(StocksPage.name,{farm:this.farm});
+      this.navCtrl.push(StocksPage.name,{farm:this.farm,farm_id:this.farm.id});
     },
   },{
     label:'Ratear Atividade',
