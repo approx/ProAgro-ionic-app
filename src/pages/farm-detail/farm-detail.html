@@ -66,8 +66,8 @@
           <tr *ngFor="let iten of farm.inventory_itens" >
             <td>{{iten.name}}</td>
             <td>{{iten.depreciation_time}}</td>
-            <td>{{iten.price | currency:iten.currency_id}}</td>
-            <td>{{iten.depreciation_value | currency:iten.currency_id}}</td>
+            <td>{{iten.price | currency:farm.currency_id}}</td>
+            <td>{{iten.depreciation_value | currency:farm.currency_id}}</td>
           </tr>
           <tr>
             <td>Capital empatado em terra</td>
