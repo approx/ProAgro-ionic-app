@@ -95,6 +95,22 @@ export class ActivityEditPage extends BasePage {
     console.log('port:', event.value);
   }
 
+  searchActivities(event: {
+    component: SelectSearchableComponent,
+    text: string
+  }){
+    let text = (event.text || '').trim().toLowerCase();
+
+    event.component.isSearching = true;
+    event.component.items = this.activityTypes.filter(item=>{
+      if(item.name&&item.group_id){
+        return item.name.toLowerCase().indexOf(text.toLowerCase()) !== -1 || item.group_id.toLowerCase().indexOf(text.toLowerCase()) !== -1 || item.group.name.toLowerCase().indexOf(text.toLowerCase()) !==-1;
+      }
+      return false;
+    });
+    event.component.isSearching = false;
+  }
+
   selectActivity(activity:ActivityTypeModel){
     this.Calculate();
     console.log('foi');
@@ -286,21 +302,33 @@ export class ActivityEditPage extends BasePage {
     })
   }
 
-  getActivity(){
-    console.log('getActivity');
-    this.activity = this.navParams.get('activity');
-    if(!this.activity){
-      console.log('!activity');
-      this.activity={};
-      console.log('get acitivity por id');
-      this.activityProvider.get(this.navParams.get('activity_id')).subscribe((data)=>{
-        this.activity = data;
-        this.processActivity();
-      })
-    } else {
-      console.log('activity: ', this.activity);
-      this.processActivity();
+  formatNumber(number:string|number,zerosLeft:number){
+    if(number.toString().length>=zerosLeft){
+      return number;
     }
+    return this.formatNumber('0'+number,zerosLeft);
+  }
+
+  formatDate(dateString){
+    let date=new Date(dateString);
+    let payment_date = new Date(<string>this.activity.payment_date);
+
+    return this.formatNumber(date.getDate(),2)+'/'+this.formatNumber(date.getMonth()+1,2)+'/'+date.getFullYear();
+  }
+
+  getActivity(){
+    console.log('!activity');
+    this.activity={};
+    console.log('get acitivity por id');
+    this.activityProvider.get(this.navParams.get('activity_id')).subscribe((data)=>{
+      this.activity = data;
+      this.activity.operation_date = this.formatDate(this.activity.operation_date);
+      if(this.activity.quantity){
+        this.activity.unity_value = this.activity.total_value/this.activity.quantity;
+      }
+      this.activity.payment_date = this.formatDate(this.activity.payment_date);
+      this.processActivity();
+    })
   }
 
   processActivity() {
@@ -340,6 +368,13 @@ export class ActivityEditPage extends BasePage {
         }
     }
     return null;
+  }
+
+  calculateTotal(){
+    if( this.activity.unity_value && this.activity.dose ){
+      this.activity.quantity = this.activity.dose * this.crop.field.area;
+      this.activity.total_value = this.activity.unity_value*this.activity.quantity;
+    }
   }
 
   FarmSelected(){

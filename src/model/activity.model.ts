@@ -14,7 +14,8 @@ export interface ActivityInterface{
   dose?:number,
   crop_id?:number,
   product_name?:string,
-  currency_id?:string
+  currency_id?:string,
+  unity_value?:number
 }
 
 export class ActivityModel{
