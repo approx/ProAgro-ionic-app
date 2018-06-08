@@ -99,6 +99,7 @@ export class PropagateActivityPage extends BasePage{
   getActivitiesType(){
     this.activityTypeProvider.getAll().subscribe(
       (response)=>{
+        console.log(response)
         this.activityTypes = response;
       },(err)=>{
 
