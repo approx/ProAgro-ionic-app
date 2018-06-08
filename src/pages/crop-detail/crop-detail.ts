@@ -13,6 +13,8 @@ import { MessagesProvider } from '../../providers/messages/messages';
 import { CropListPage } from '../crop-list/crop-list';
 import { MyApp } from '../../app/app.component';
 import { CurrencyPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { endPoint } from "../../Env";
 
 /**
  * Generated class for the CropDetailPage page.
@@ -140,7 +142,8 @@ export class CropDetailPage extends BasePage{
     private cropProvider:CropProvider,
     private message:MessagesProvider,
     private activityProvider:ActivityProvider,
-    private currencyPipe:CurrencyPipe
+    private currencyPipe:CurrencyPipe,
+    public http: HttpClient
   ) {
 
     super(navCtrl);
@@ -295,6 +298,23 @@ ActivityPerTypeChartData(activities){
 
   openActivityPage(activity){
     this.navCtrl.push(ActivityDetailPage.name,{activity_id:activity.id});
+  }
+
+  openActivityEditPage(activity){
+    this.navCtrl.push('ActivityEditPage',{activity_id:activity.id,activity:activity});
+  }
+
+  deleteIncome(iten){
+    console.log(iten);
+    this.message.ShowConfirmMessage('Deletar renda','tem certeza que deseja deletar está renda?',()=>{
+      this.message.Wait();
+      this.http.post(endPoint+'api/'+iten.delete_url,{_method:'DELETE'},{responseType:'text'}).subscribe((response)=>{
+        this.message.SuccessAlert('Renda deletada com sucesso!');
+        this.navCtrl.push(CropDetailPage.name,{crop_id:this.crop.id});
+      },(err)=>{
+        this.message.ErrorAlert();
+      })
+    })
   }
 
   loadFromService(){
