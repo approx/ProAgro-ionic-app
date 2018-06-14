@@ -1,0 +1,13 @@
+<!-- Generated template for the FormModalComponent component -->
+<div *ngIf="showVariable" (click)="out()" class="modal">
+  <form (click)="$event.stopPropagation()" (ngSubmit)="submit()" col-12 col-md-8 col-lg-6 col-xl-4 #RegisterForm="ngForm">
+    <ion-grid>
+      <ng-content select="[title]"></ng-content>
+      <ng-content select="[sub-title]"></ng-content>
+      <ng-content select="[form-row]"></ng-content>
+      <ion-row class="justifyCenter" margin-bottom>
+        <button type="submit" [disabled]="!RegisterForm.form.valid" ion-button col-12 col-md-3>Confirmar</button>
+      </ion-row>
+    </ion-grid>
+  </form>
+</div>

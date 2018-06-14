@@ -32,6 +32,11 @@ export class FarmProvider {
   public post(farm:FarmInterface):Observable<any>{
     return this.http.post(endPoint+'/api/farms',farm);
   }
+  
+
+  public stocks(id:number):Observable<any>{
+    return this.http.get(endPoint+'/api/farm/'+id+'/stocks');
+  }
 
   public crops(id:number):Observable<any>{
     return this.http.get(endPoint+'/api/farm/'+id+'/crops');
