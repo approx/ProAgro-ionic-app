@@ -216,8 +216,10 @@ export class FarmIndicatorsComponent  {
       this.sackValues = [{data:[indicators.pn.toFixed(2)],label:'PN'},{data:[indicators.pcot.toFixed(2)],label:'pcot'},{data:[indicators.pct.toFixed(2)],label:'PCT'}];
       this.pieChartData={data:[],labels:[]};
       indicators.activitiesValues.map(item=>{
-        this.pieChartData.labels.push(item.name);
-        this.pieChartData.data.push(item.value);
+        if(item.name!='Mão de obra familiar'){
+          this.pieChartData.labels.push(item.name);
+          this.pieChartData.data.push(item.value);
+        }
       });
       // this.showPieChart=false;
       setTimeout(()=>{

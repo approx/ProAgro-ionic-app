@@ -223,19 +223,21 @@ export class CropDetailPage extends BasePage{
     return total_value_ha;
   }
 
-ActivityPerTypeChartData(activities){
+ActivityPerTypeChartData(activities:ActivityModel[]){
   let data=[];
   let labels=[];
   loop1:
   for (let i = 0; i < activities.length; i++) {
     for (let j = 0; j < data.length; j++) {
-      if(labels[j]==activities[i].activity_type.group.name){
+      if(labels[j]==activities[i].activity_type.group.name && activities[i].activity_type.id!='MOF01'){
         data[j]+=parseFloat(<any>activities[i].total_value);
         continue loop1;
       }
     }
-    data.push(parseFloat(<any>activities[i].total_value));
-    labels.push(activities[i].activity_type.group.name);
+    if(activities[i].activity_type.id!='MOF01'){
+      data.push(parseFloat(<any>activities[i].total_value));
+      labels.push(activities[i].activity_type.group.name);
+    }
   }
   return {data:data,labels:labels};
 }
