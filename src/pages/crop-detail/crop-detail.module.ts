@@ -4,6 +4,7 @@ import { CropDetailPage } from './crop-detail';
 import { PipesModule } from '../../pipes/pipes.module';
 import { ComponentsModule } from "../../components/components.module";
 import { ChartsModule } from "ng2-charts";
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { ChartsModule } from "ng2-charts";
     ComponentsModule,
     ChartsModule,
     IonicPageModule.forChild(CropDetailPage),
+    DirectivesModule
   ],
 })
 export class CropDetailPageModule {}

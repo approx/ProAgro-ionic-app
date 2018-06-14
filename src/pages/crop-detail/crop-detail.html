@@ -10,6 +10,37 @@
     <h3 margin-left>{{crop.initial_date | date:'dd/MM/yyyy'}} - {{crop.final_date | date:'dd/MM/yyyy'}}</h3>
     <div loader class=""><div [attr.loaded]="percentage"></div></div>
   </ion-col>
+  <form-modal [submit]="submitStock" [showVariable]="stockToBeUsed" (outEvent)="stockToBeUsed = $event">
+    <h2 *ngIf="stockToBeUsed" title>Usar estoque <br> <span *ngIf="stockToBeUsed.activity_type">{{stockToBeUsed.activity_type.group_id}} - {{stockToBeUsed.activity_type.name}}</span></h2>
+    <p *ngIf="stockToBeUsed" sub-title>Quantidade: {{stockToBeUsed.quantity}}</p>
+    <ion-row *ngIf="stockToBeUsed" form-row>
+      <ion-col col-12 col-md-12>
+        <ion-item>
+          <ion-label floating>Quantidade*</ion-label>
+          <ion-input type="text" (ionChange)="calculateTotalStock(stockToBeUsed)" [(ngModel)]="useQuantity" name="useQuantity" value=""></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12 col-md-12>
+        <ion-item>
+          <ion-label floating>Total*</ion-label>
+          <ion-input type="text" readonly [(ngModel)]="useStockTotal" name="total" value=""></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12>
+        <ion-item>
+          <ion-label floating>Data da operação*</ion-label>
+          <ion-input required [(modelMask)]="useOperationDate" [clean]="false" [form]="RegisterForm" mask="99/99/9999" maskPlaceHolder="_" name="useOperationDate" ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12>
+
+        <ion-item>
+          <ion-label floating>Data do pagamento*</ion-label>
+          <ion-input required [(modelMask)]="usePaymentDate" [clean]="false" [form]="RegisterForm" mask="99/99/9999" maskPlaceHolder="_" name="useOperationDate" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </form-modal>
   <ion-grid padding>
     <ion-row>
       <ion-col *ngIf="crop" col-12 col-md-6 style="line-height:25px;" class="vr-right">
@@ -84,6 +115,34 @@
             <th></th>
             <th>{{itens_total_value | currency:crop.inventory_itens[0] ? crop.inventory_itens[0].currency_id:crop.field.farm.currency_id}}</th>
             <th>{{itens_depreciation_value | currency:crop.inventory_itens[0] ? crop.inventory_itens[0].currency_id:crop.field.farm.currency_id}}</th>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div margin-bottom class="horizontalLine">
+    <h2>Estoque</h2>
+  </div>
+  {{useQuantity}}
+  <ion-grid>
+    <ion-row>
+      <ion-col padding-left padding-right col-12>
+        <table *ngIf="stocks" margin-top col-12>
+          <tr>
+            <th>Tipo</th>
+            <th>Nome</th>
+            <th>Quantidade</th>
+            <th>Valor unitario</th>
+            <th>Valor total</th>
+            <th>Ações</th>
+          </tr>
+          <tr *ngFor="let stock of stocks" >
+            <td>{{stock.activity_type.group_id}} - {{stock.activity_type.name}}</td>
+            <td>{{stock.name}}</td>
+            <td>{{stock.quantity}}</td>
+            <td>{{stock.unity_value | currency:crop.field.farm.currency_id}}</td>
+            <td>{{stock.total_value | currency:crop.field.farm.currency_id}}</td>
+            <td><button (click)="selectStock(stock)" ion-button>Usar</button></td>
           </tr>
         </table>
       </ion-col>

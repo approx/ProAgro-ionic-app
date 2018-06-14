@@ -15,6 +15,8 @@ import { MyApp } from '../../app/app.component';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { endPoint } from "../../Env";
+import { FarmProvider } from '../../providers/farm/farm';
+import { StockProvider } from '../../providers/stock/stock';
 
 /**
  * Generated class for the CropDetailPage page.
@@ -43,6 +45,9 @@ export class CropDetailPage extends BasePage{
   sack_editing:boolean=false;
   sack_produced:number;
   userClient:boolean;
+
+  stocks;
+
   actions=[{
     label:'Registrar Atividade',
     down:()=>{
@@ -135,6 +140,26 @@ export class CropDetailPage extends BasePage{
   activitiesPerCurrency=[];
 
   grossIncome;
+  name="test";
+
+  stockToBeUsed;
+  useQuantity;
+  useOperationDate;
+  usePaymentDate;
+  useStockTotal;
+
+  submitStock=()=>{
+    this.message.Wait();
+    let id = this.stockToBeUsed.id;
+    console.log(this.stockToBeUsed);
+    this.stockToBeUsed = undefined;
+    this.stockProvider.registerUse({crop_id:this.crop_id,quantity:this.useQuantity,operation_date:this.useOperationDate,payment_date:this.usePaymentDate},id).subscribe((response)=>{
+      this.message.SuccessAlert('Atividade cadastrada com sucesso!');
+      this.navCtrl.push(CropDetailPage.name,{crop_id:this.crop.id});
+    },(err)=>{
+      this.message.ErrorAlert();
+    });
+  }
 
   constructor(
     public navCtrl: NavController,
@@ -143,12 +168,22 @@ export class CropDetailPage extends BasePage{
     private message:MessagesProvider,
     private activityProvider:ActivityProvider,
     private currencyPipe:CurrencyPipe,
-    public http: HttpClient
+    public http: HttpClient,
+    private farmProvider:FarmProvider,
+    private stockProvider:StockProvider,
   ) {
 
     super(navCtrl);
     MyApp.instance.user;
     this.userClient = MyApp.instance.user.role.id == 3;
+  }
+
+  selectStock(stock){
+    this.stockToBeUsed = stock;
+  }
+
+  calculateTotalStock(stock){
+    this.useStockTotal = this.currencyPipe.transform(this.useQuantity*stock.unity_value,this.crop.field.farm.currency_id);
   }
 
   editSack() {
@@ -165,6 +200,10 @@ export class CropDetailPage extends BasePage{
 
   indicatorTab(value){
     this.indicators=value;
+  }
+
+  test(value){
+    console.log(value)
   }
 
   totalValue(activities){
@@ -284,6 +323,18 @@ ActivityPerTypeChartData(activities){
     })
   }
 
+  getStocks(){
+    this.farmProvider.stocks(this.crop.field.farm.id).subscribe(
+      (response)=>{
+        console.log(response);
+        this.stocks = response;
+
+      },err=>{
+
+      }
+    );
+  }
+
   openRegisterPage(event:MouseEvent){
     event.stopPropagation();
     event.preventDefault();
@@ -327,6 +378,7 @@ ActivityPerTypeChartData(activities){
       this.calculateTotalInventario();
       this.calculatePieChartData();
       this.calculateLineChart();
+      this.getStocks();
       this.drawCharts=true;
       if (this.crop.sack_produced == null) {
         this.crop.sack_produced = 0;
@@ -350,6 +402,7 @@ ActivityPerTypeChartData(activities){
       this.calculateTotalInventario();
       this.calculatePieChartData();
       this.calculateLineChart();
+      this.getStocks();
       this.drawCharts=true;
       if (this.crop.sack_produced == null) {
         this.crop.sack_produced = 0;
