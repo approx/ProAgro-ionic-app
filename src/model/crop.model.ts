@@ -40,5 +40,6 @@ export class CropModel{
     public interest_tax:number,
     public sack_value:number,
     public sack_produced?:number,
+    public description?:string
   ){}
 }

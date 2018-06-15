@@ -63,6 +63,11 @@ export class CropDetailPage extends BasePage{
     down:()=>{
       this.navCtrl.push('InventoryItenAddPage',{crop:this.crop,crop_id:this.crop.id});
     }
+  },{
+    label:'Editar Descrição',
+    down:()=>{
+      this.editDescription=true;
+    }
   }];
 
   drawCharts=false;
@@ -148,6 +153,8 @@ export class CropDetailPage extends BasePage{
   usePaymentDate;
   useStockTotal;
 
+  editDescription=false;
+
   submitStock=()=>{
     this.message.Wait();
     let id = this.stockToBeUsed.id;
@@ -159,6 +166,20 @@ export class CropDetailPage extends BasePage{
     },(err)=>{
       this.message.ErrorAlert();
     });
+  }
+
+  submitDescription=()=>{
+    this.message.Wait();
+    this.editDescription=false;
+    this.cropProvider.addedDescription(this.crop.id,this.crop.description).subscribe(
+      (response)=>{
+        this.message.SuccessAlert('Descrição cadastrada com sucesso!');
+        this.navCtrl.push(CropDetailPage.name,{crop_id:this.crop.id});
+      },(err)=>{
+        this.message.ErrorAlert();
+      }
+
+    );
   }
 
   constructor(

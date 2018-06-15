@@ -48,6 +48,10 @@ export class CropProvider {
     return this.http.post(endPoint+'api/crop/'+id,{_method:'DELETE'},{responseType:'text'});
   }
 
+  addedDescription(id:number,description:string):Observable<any>{
+    return this.http.post(endPoint+'api/crop/'+id+'/add_description',{description:description});
+  }
+
   update_values(id,sack_value,interest_tax):Observable<any>{
     return this.http.post(endPoint+'api/crop/'+id+'/update_values',{sack_value:sack_value,interest_tax:interest_tax});
   }

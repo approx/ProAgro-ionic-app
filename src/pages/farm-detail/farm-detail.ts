@@ -37,6 +37,12 @@ export class FarmDetailPage extends BasePage{
   farm:FarmModel;
   userClient:boolean;
   mapUrl;
+  userAction=[{
+    label:'Indicadores',
+    down:()=>{
+      this.navCtrl.push('FarmIndicatorsPage',{farm:this.farm,farm_id:this.farm.id});
+    }
+  }];
   actions=[
   {
     label:'Adicionar Talhão',

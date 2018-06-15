@@ -1,7 +1,8 @@
 import { Component,Input } from '@angular/core';
 import { CropModel } from '../../model/crop.model';
 import { CurrencyPipe } from '@angular/common';
-import { CropProvider } from '../../providers/crop/crop'
+import { CropProvider } from '../../providers/crop/crop';
+import { MyApp } from '../../app/app.component';
 
 /**
  * Generated class for the IndicatorsComponent component.
@@ -212,11 +213,13 @@ export class IndicatorsComponent {
     }
   ];
 
+  userClient;
+
 
 
   constructor(private currencyPipe:CurrencyPipe,private cropProvider:CropProvider) {
     console.log('Hello IndicatorsComponent Component');
-
+    this.userClient = MyApp.instance.user.role.id == 3;
   }
 
   ngOnInit(){

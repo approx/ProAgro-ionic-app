@@ -92,4 +92,5 @@
     </ion-row>
   </ion-grid>
   <actions *ngIf="!userClient" [actions]="actions"></actions>
+  <actions *ngIf="userClient" [actions]="userAction"></actions>
 </ion-content>

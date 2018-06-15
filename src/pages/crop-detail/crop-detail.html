@@ -41,6 +41,16 @@
       </ion-col>
     </ion-row>
   </form-modal>
+  <form-modal [submit]="submitDescription" [showVariable]="editDescription" (outEvent)="editDescription = false">
+    <h2 title>Adicionar descrição</h2>
+    <ion-row  form-row>
+      <ion-col col-12 col-md-12>
+        <ion-item>
+          <ion-textarea rows="10" maxlength="500" [(ngModel)]="crop.description" name="description" placeholder="Descrição"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </form-modal>
   <ion-grid padding>
     <ion-row>
       <ion-col *ngIf="crop" col-12 col-md-6 style="line-height:25px;" class="vr-right">
@@ -65,6 +75,15 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div *ngIf="crop.description">
+    <div margin-bottom class="horizontalLine">
+      <h2>Analise économica descritiva</h2>
+
+    </div>
+    <div margin-left padding-left margin-right padding-right class="">
+      {{crop.description}}
+    </div>
+  </div>
   <div margin-bottom class="horizontalLine">
     <h2>Renda Bruta</h2>
   </div>
@@ -120,11 +139,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div margin-bottom class="horizontalLine">
+  <div *ngIf="!userClient" margin-bottom class="horizontalLine">
     <h2>Estoque</h2>
   </div>
   {{useQuantity}}
-  <ion-grid>
+  <ion-grid *ngIf="!userClient">
     <ion-row>
       <ion-col padding-left padding-right col-12>
         <table *ngIf="stocks" margin-top col-12>

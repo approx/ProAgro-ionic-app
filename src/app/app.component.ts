@@ -55,7 +55,7 @@ export class MyApp {
         {
           name:'Listar',
           component:ClientListPage,
-          role:'master|employe|client',
+          role:'master|employe',
           render:false,
           itensToogle:false
         },
