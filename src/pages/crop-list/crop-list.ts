@@ -61,27 +61,47 @@ export class CropListPage extends BasePage{
 
   Filter(){
     this.filteredCrops = this.crops.filter((crop:CropModel)=>{
-      if(crop.name.toLowerCase().indexOf(this.filterText.toLowerCase())!=-1||this.filterText==''){
-        if(this.find(crop.culture.id,this.cultureFilter)||this.cultureFilter.length==0){
-          if(this.find(crop.field.farm.id,this.farmFilter)||this.farmFilter.length==0){
-            let d = new Date(<Date>crop.final_date);
-            let now = new Date();
-
-            if(this.find('Finalizado',this.state)&&(now.getTime()>d.getTime())){
-              return true;
-            }
-
-            if(this.find('Em Andamento',this.state)&&(now.getTime()<d.getTime())){
-              return true;
-            }
-
-            if(this.state.length==0){
-              return true;
-            }
-          }
-        }
+      if((crop.name+' - '+crop.field.name).toLowerCase().indexOf(this.filterText.toLowerCase())!=-1||this.filterText==''){
+        return true;
       }
       return false;
+    });
+    // console.log(this.state)
+    this.filteredCrops = this.filteredCrops.filter((crop:CropModel)=>{
+      if(this.state){
+        let d = new Date(<string>crop.final_date);
+        let now = new Date();
+        console.log()
+        if(this.find('Finalizado',this.state)&&now.getTime()>d.getTime()){
+          return true;
+        }
+        if(this.find('Em Andamento',this.state)&&now.getTime()<d.getTime()){
+          return true;
+        }
+        return false;
+      }
+      return true;
+    });
+    this.filteredCrops = this.filteredCrops.filter((crop:CropModel)=>{
+      if(this.cultureFilter.length>0){
+        if(this.find(crop.culture.name,this.cultureFilter)){
+          return true;
+        }
+        return false;
+      }
+      return true;
+    });
+    console.log(this.cultureFilter)
+    this.filteredCrops = this.filteredCrops.filter((crop:CropModel)=>{
+      console.log(crop.field.farm.id)
+      console.log(this.farmFilter)
+      if(this.farmFilter){
+        if(this.find(crop.field.farm.id,this.farmFilter)){
+          return true;
+        }
+        return false;
+      }
+      return true;
     });
   }
 

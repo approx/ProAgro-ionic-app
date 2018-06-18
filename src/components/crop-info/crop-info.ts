@@ -40,7 +40,7 @@ export class CropInfoComponent {
     let nowVariation = new Date().getTime() - initialTime ;
     // console.log(timeVariation)
     nowVariation = Math.max(0,nowVariation);
-    console.log(nowVariation)
+    // console.log(nowVariation)
 
     this.percentage = (100*nowVariation)/timeVariation;
     // console.log(this.percentage)

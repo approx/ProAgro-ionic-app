@@ -24,7 +24,7 @@
         <ion-item>
           <ion-label>Cultura</ion-label>
           <ion-select [(ngModel)]="cultureFilter" multiple="true" (ngModelChange)="Filter()" >
-            <ion-option *ngFor="let culture of cultures"  value="{{culture.id}}">{{culture.name}}</ion-option>
+            <ion-option *ngFor="let culture of cultures"  value="{{culture.name}}">{{culture.name}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
