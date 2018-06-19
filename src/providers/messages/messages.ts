@@ -52,6 +52,7 @@ export class MessagesProvider {
     if(!message){
       let alert = this.alertCtrl.create({
         title: 'Error!',
+        cssClass:'alertDanger',
         subTitle: 'Algum erro inesperdado ocorreu, tente novamente!',
         buttons: ['OK']
       });

@@ -61,6 +61,11 @@ export class ActivityRegisterPage extends BasePage{
     }else this.activity.activity_type_id = null;
   }
 
+  showError(){
+    this.message.Wait();
+    this.message.ErrorAlert();
+  }
+
   searchActivities(event: {
     component: SelectSearchableComponent,
     text: string
