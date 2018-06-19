@@ -66,12 +66,10 @@ export class CropListPage extends BasePage{
       }
       return false;
     });
-    // console.log(this.state)
     this.filteredCrops = this.filteredCrops.filter((crop:CropModel)=>{
       if(this.state){
         let d = new Date(<string>crop.final_date);
         let now = new Date();
-        console.log()
         if(this.find('Finalizado',this.state)&&now.getTime()>d.getTime()){
           return true;
         }
@@ -91,11 +89,8 @@ export class CropListPage extends BasePage{
       }
       return true;
     });
-    console.log(this.cultureFilter)
     this.filteredCrops = this.filteredCrops.filter((crop:CropModel)=>{
-      console.log(crop.field.farm.id)
-      console.log(this.farmFilter)
-      if(this.farmFilter){
+      if(this.farmFilter.length>0){
         if(this.find(crop.field.farm.id,this.farmFilter)){
           return true;
         }
