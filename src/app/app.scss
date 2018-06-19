@@ -18,6 +18,18 @@
 .scroll-content{
   overflow: auto;
 }
+
+.alertDanger{
+  div{
+    background-color: #e60a0ac4;
+    color: white;
+
+  }
+  .alert-button-group button{
+    color: white;
+  }
+    // color: red;
+}
 .myRow{
   display: flex;
   flex-wrap: wrap;
