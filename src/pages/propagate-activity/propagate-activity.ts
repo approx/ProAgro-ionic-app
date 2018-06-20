@@ -173,7 +173,9 @@ export class PropagateActivityPage extends BasePage{
       if(index>0)maped+=';';
       maped+=element.id;
     });
-    let activityToSend = {...this.activity,crops:maped};
+    let activityToSend = {...this.activity,crops:maped,farm_id:this.navParams.get('farm_id')};
+    console.log(activityToSend);
+    
     this.message.Wait();
     if(this.perPercentage){
       this.activityProvider.savePercentageSizeMultiple(activityToSend).subscribe(

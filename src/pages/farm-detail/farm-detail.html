@@ -87,8 +87,29 @@
           <tr>
             <th>Total</th>
             <th></th>
-            <th>{{total_value | currency:'BRL'}}</th>
-            <th>{{total_depreciation_value | currency:'BRL'}}</th>
+            <th>{{total_value |  currency:farm.currency_id}}</th>
+            <th>{{total_depreciation_value |  currency:farm.currency_id}}</th>
+          </tr>
+        </table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div *ngIf="!userClient" class="horizontalLine">
+    <h2>Atividades rateadas</h2>
+  </div>
+  <ion-grid *ngIf="!userClient">
+    <ion-row>
+      <ion-col padding-left padding-right col-12>
+        <table *ngIf="farm" margin-top col-12>
+          <tr>
+            <th>Data do rateio</th>
+            <th>Valor total</th>
+            <th>Ações</th>
+          </tr>
+          <tr *ngFor="let propagate of farm.propagate_activities" >
+            <td>{{propagate.created_at | date:'dd/MM/yyyy hh:mm'}}</td>
+            <td>{{propagate.total_value |  currency:farm.currency_id}}</td>
+            <td *ngIf="!userClient"><ion-icon class="Clickable" (click)="deletePropagated(propagate.id)" name="trash"></ion-icon></td>
           </tr>
         </table>
       </ion-col>

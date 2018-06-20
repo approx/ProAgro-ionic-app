@@ -32,7 +32,7 @@ export class FarmProvider {
   public post(farm:FarmInterface):Observable<any>{
     return this.http.post(endPoint+'/api/farms',farm);
   }
-  
+
 
   public stocks(id:number):Observable<any>{
     return this.http.get(endPoint+'/api/farm/'+id+'/stocks');
@@ -40,6 +40,10 @@ export class FarmProvider {
 
   public crops(id:number):Observable<any>{
     return this.http.get(endPoint+'/api/farm/'+id+'/crops');
+  }
+
+  public deletePropagated(propageteId:number):Observable<any>{
+    return this.http.post(endPoint+'api/propagate/'+propageteId,{_method:'DELETE'},{responseType:'text'});
   }
 
   public createStock(id:number,stock):Observable<any>{

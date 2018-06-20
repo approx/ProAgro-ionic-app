@@ -228,6 +228,18 @@ export class FarmDetailPage extends BasePage{
     }
   }
 
+  deletePropagated(id){
+    this.message.ShowConfirmMessage('Deletar Atividades rateadas',"tem certeza que deseja deletar estas atividade?",()=>{
+      this.message.Wait();
+      this.farmProvider.deletePropagated(id).subscribe((response)=>{
+        this.message.SuccessAlert('Atividades rateadas deletadas com suscesso');
+        this.navCtrl.push('FarmDetailPage',{farm_id:this.farm.id});
+      },(err)=>{
+        this.message.ErrorAlert();
+      })
+    });
+  }
+
   delete(){
     this.message.ShowConfirmMessage('Deletar Fazenda',"tem certeza que deseja deletar esta fazenda? todas as atividades,safras e talhões relacionadas a ela também serão deletados",()=>{
       this.message.Wait();
