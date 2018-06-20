@@ -9,6 +9,7 @@ export interface FieldInterface{
   lat?:number;
   lng?:number;
   farm_id?:number;
+  farm?:FarmModel;
 }
 
 export class FieldModel{

@@ -144,6 +144,7 @@ export class FieldEditPage extends BasePage{
   }
 
   Update(){
+    delete this.field.farm;
     this.message.Wait();
     this.fieldProvider.update(this.field).subscribe((data)=>{
       this.message.SuccessAlert('Talhão editado com suscesso!');
