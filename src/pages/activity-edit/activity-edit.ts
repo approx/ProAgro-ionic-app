@@ -164,6 +164,7 @@ export class ActivityEditPage extends BasePage {
     this.message.Wait();
     this.activityProvider.update(this.activityUpdate).subscribe((data)=>{
       this.message.SuccessAlert('Sucesso, atividade alterada!');
+      this.navCtrl.push('CropDetailPage',{crop_id:this.activity.crop_id})
     },(err)=>{
       this.message.ErrorAlert();
     })
