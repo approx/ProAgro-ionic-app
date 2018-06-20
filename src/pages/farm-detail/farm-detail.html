@@ -9,13 +9,16 @@
   <p *ngIf="farm">    </p>
   <ion-grid>
     <ion-row *ngIf="farm">
-      <ion-col col-12 col-md-6 col-lg-4>
+      <ion-col col-12 col-md-6 col-lg-3>
         <h5>Tamanho:<br>&nbsp;&nbsp;&nbsp;{{farm.ha}}ha</h5>
       </ion-col>
-      <ion-col col-12 col-md-6 col-lg-4>
+      <ion-col col-12 col-md-6 col-lg-3>
+        <h5>Area Plantada:<br>&nbsp;&nbsp;&nbsp;{{farm.area_planted.toFixed(2)}}ha</h5>
+      </ion-col>
+      <ion-col col-12 col-md-6 col-lg-3>
         <h5>Valor por ha:<br>&nbsp;&nbsp;&nbsp;{{farm.value_ha | currency:farm.currency_id}}/ha</h5>
       </ion-col>
-      <ion-col col-12 col-md-6 col-lg-4>
+      <ion-col col-12 col-md-6 col-lg-3>
         <h5>Capital empatado em terra:<br>&nbsp;&nbsp;&nbsp;{{farm.capital_tied | currency:farm.currency_id}}</h5>
       </ion-col>
     </ion-row>
