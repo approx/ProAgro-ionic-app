@@ -38,13 +38,15 @@
         <ion-col col-12 col-md-6 col-lg-4>
           <ion-item no-padding>
             <ion-label no-margin floating>Valor do hectar*</ion-label>
-            <ion-input disabled="{{!loaded}}" type="text" name="value_ha" (ngModelChange)="onHectarValueChange($event)" [(ngModel)]="value_ha" required value=""></ion-input>
+            <ion-input type="text" [(modelMask)]="farm.value_ha" (ionChange)="calculateValues()" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="value_ha"></ion-input>
+            <!-- <ion-input disabled="{{!loaded}}" type="text" name="value_ha" (ngModelChange)="onHectarValueChange($event)" [(ngModel)]="value_ha" required value=""></ion-input> -->
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-4>
           <ion-item no-padding>
             <ion-label no-margin floating>Capital empatado*</ion-label>
-            <ion-input disabled="{{!loaded}}" type="text" readonly="true" name="capital_tied" [(ngModel)]="capital_tied" required value=""></ion-input>
+            <ion-input type="text" readonly="true" [(modelMask)]="farm.capital_tied" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="capital_tied"></ion-input>
+            <!-- <ion-input disabled="{{!loaded}}" type="text" readonly="true" name="capital_tied" [(ngModel)]="capital_tied" required value=""></ion-input> -->
           </ion-item>
         </ion-col>
       </ion-row>

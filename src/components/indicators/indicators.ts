@@ -380,7 +380,7 @@ export class IndicatorsComponent {
       this.trcWithoutField = (this.liquidMargin/this.itens_total_value)*100;
     }
     this.trcWithField = (this.liquidMargin/(this.crop.field.farm.capital_tied+this.itens_total_value))*100;
-    this.lucrativity = this.liquidMargin/this.crop.gross_income.total;
+    this.lucrativity = (this.liquidMargin/this.crop.gross_income.total)*100;
     this.rentability = (this.liquidMargin/(this.crop.field.farm.capital_tied+this.itens_total_value))*100;
     this.percentageValues = [
       {data:[this.trcWithoutField.toFixed(2)],label:'TRC sem terra'},

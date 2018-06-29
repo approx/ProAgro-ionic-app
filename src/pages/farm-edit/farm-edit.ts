@@ -8,6 +8,7 @@ import { FarmProvider } from '../../providers/farm/farm';
 import { BasePage } from "../base/base";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MyApp } from '../../app/app.component';
+import { CurrencyPipe } from '@angular/common';
 import { FarmListPage } from '../../pages/farm-list/farm-list';
 
 /**
@@ -29,6 +30,7 @@ import { FarmListPage } from '../../pages/farm-list/farm-list';
 @Component({
   selector: 'page-farm-edit',
   templateUrl: 'farm-edit.html',
+  providers:[CurrencyPipe]
 })
 export class FarmEditPage extends BasePage{
 
@@ -63,6 +65,7 @@ export class FarmEditPage extends BasePage{
     private loadingCtrl: LoadingController,
     private farmProvider:FarmProvider,
     private sanitizer:DomSanitizer,
+    private currencyPipe:CurrencyPipe
   ) {
     super(navCtrl);
   }
@@ -82,6 +85,7 @@ export class FarmEditPage extends BasePage{
     if(!farm){
       this.farmProvider.get(this.navParams.get('farm_id')).subscribe((data:FarmModel)=>{
         this.setFarm(data);
+        console.log(data);
       })
     }
     else{
@@ -97,7 +101,8 @@ export class FarmEditPage extends BasePage{
     this.farm.ha = farm.ha;
     this.farm.lat = farm.lat;
     this.farm.lng = farm.lng;
-    this.onHectarValueChange(farm.value_ha.toString());
+    this.farm.value_ha = farm.value_ha;
+    // this.onHectarValueChange(farm.value_ha.toString());
     this.getedCultures = farm.cultures;
     this.findInCultures();
     this.loaded = true;
@@ -134,12 +139,12 @@ export class FarmEditPage extends BasePage{
   }
 
   calculateValues(){
-    if(this.farm.value_ha && this.farm.ha){
-      this.farm.capital_tied = this.farm.ha * this.farm.value_ha;
-      this.capital_tied = 'R$ ' + this.farm.capital_tied;
-      // this.farm.remuneration = (this.farm.capital_tied*.5)/100;
-      // this.remuneration = 'R$ ' + this.farm.remuneration;
-    }
+      if(this.farm.value_ha && this.farm.ha){
+        this.farm.capital_tied = this.farm.ha * this.farm.value_ha;
+        // this.capital_tied = 'R$ ' + this.farm.capital_tied;
+        // this.farm.remuneration = (this.farm.capital_tied*.5)/100;
+        // this.remuneration = 'R$ ' + this.farm.remuneration;
+      }
   }
 
   ionViewDidLoad() {
