@@ -337,7 +337,13 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
     this.message.Wait();
     this.crop.initial_date = this.formatDate(this.crop.initial_date);
     this.crop.final_date = this.formatDate(this.crop.final_date);
-    this.cropProvider.update(this.crop).subscribe((done)=>{
+    let crop = {...this.crop};
+    delete crop.activities;
+    delete crop.culture;
+    delete crop.field;
+    delete crop.gross_income;
+    delete crop.sack_solds;
+    this.cropProvider.update(<any>crop).subscribe((done)=>{
       this.message.SuccessAlert('Sacas registradas com sucesso!');
       this.sack_editing = !this.sack_editing;
       this.sack_produced = this.crop.sack_produced;
