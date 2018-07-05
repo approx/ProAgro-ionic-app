@@ -66,6 +66,7 @@ import { CurrenciesProvider } from '../providers/currencies/currencies';
 import { MapProvider } from '../providers/map/map';
 import { IndicatorsProvider } from '../providers/indicators/indicators';
 import { SackSoldProvider } from '../providers/sack-sold/sack-sold';
+import { HelperProvider } from '../providers/helper/helper';
 registerLocaleData(localePtBr);
 
 @NgModule({
@@ -139,7 +140,8 @@ registerLocaleData(localePtBr);
     MapProvider,
     IndicatorsProvider,
     SackSoldProvider,
-    SackSoldProvider
+    SackSoldProvider,
+    HelperProvider
   ]
 })
 export class AppModule {}

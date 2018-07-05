@@ -244,8 +244,8 @@ export class IndicatorsComponent {
 
   calculatePnPcotPct(){
     this.pn = (this.ct - this.coe)/this.grossMarginPerSack;
-    this.pcot = this.cot/this.crop.sack_value;
-    this.pct = this.ct/this.crop.sack_value;
+    this.pcot = this.crop.sack_value!= 0 ? this.cot/this.crop.sack_value : 0;
+    this.pct = this.crop.sack_value!= 0 ? this.ct/this.crop.sack_value: 0;
     this.pnPcotPctData=[
       {data:[this.pn.toFixed(2)],label:'PN'},
       {data:[this.pcot.toFixed(2)],label:'PCOT'},
@@ -307,6 +307,8 @@ export class IndicatorsComponent {
 
   calculateCt(){
     this.remunaration = ((this.crop.field.farm.capital_tied*this.crop.interest_tax)/100);
+    console.log(this.crop.field.farm.ha + ' ' + this.crop.field.area + ' ' + this.remunaration);
+    this.remunaration = this.remunaration*(this.crop.field.area/this.crop.field.farm.ha);
     this.totalRemunaration = this.remunaration * this.monthsSinceCropStart();
     this.ct = this.cot + this.totalRemunaration;
   }

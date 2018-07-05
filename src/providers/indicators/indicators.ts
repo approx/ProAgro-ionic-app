@@ -71,9 +71,9 @@ export class IndicatorsData{
     this.cotPerArea = this.cot / this.plantedArea;
     this.ctPerSack = this.ct / this.production;
     this.ctPerArea = this.ct / this.plantedArea;
-    this.trcWithoutField = (this.liquidMargin/inventoryTotal)*100;
+    this.trcWithoutField = inventoryTotal!=0 ? (this.liquidMargin/inventoryTotal)*100 : 0;
     this.trcWithField = (this.liquidMargin/(inventoryTotal+capital_tied))*100;
-    this.lucrativity = this.liquidMargin / this.grossIncome;
+    this.lucrativity = (this.liquidMargin / this.grossIncome)*100;
     this.rentability = (this.liquidMargin /(inventoryTotal+capital_tied))*100;
     this.pn = (this.ct-this.coe)/this.grossMarginPerSack;
     this.pcot = this.cot/sack_value;
