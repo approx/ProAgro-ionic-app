@@ -95,8 +95,12 @@
             <td>{{crop.field.farm.capital_tied | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
+            <td>Remuneração de Capital Empatado por mês</td>
+            <td>{{remunaration | currency:crop.field.farm.currency_id}}</td>
+          </tr>
+          <tr>
             <td>Remuneração de Capital Empatado</td>
-            <td>{{(crop.field.farm.capital_tied*crop.interest_tax)/100 | currency:crop.field.farm.currency_id}}</td>
+            <td>{{totalRemunaration | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <td>Custo Operacional Efetivo (COE)</td>

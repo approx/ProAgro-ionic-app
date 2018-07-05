@@ -5,6 +5,7 @@ import { MyApp } from '../../app/app.component';
 import { FarmProvider } from '../../providers/farm/farm';
 import { CurrencyPipe } from '@angular/common';
 import { FarmIndicatorsComponent } from '../../components/farm-indicators/farm-indicators';
+import { HelperProvider } from '../../providers/helper/helper';
 
 declare var google: any;
 
@@ -36,6 +37,7 @@ export class FarmIndicatorsPage extends BasePage {
   sack_value=30;
   interest_rate=0.5;
   markers=[];
+  timeout;
 
   myDate;
   @ViewChild(FarmIndicatorsComponent) farmIndicators:FarmIndicatorsComponent;
@@ -46,7 +48,8 @@ export class FarmIndicatorsPage extends BasePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public famrProvider:FarmProvider,
-    private zone:NgZone
+    private zone:NgZone,
+    private helper:HelperProvider
   ) {
     super(navCtrl);
   }
@@ -189,9 +192,12 @@ export class FarmIndicatorsPage extends BasePage {
   }
 
   updateGraph(){
-    if(this.farmIndicators){
-      this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields,this.farm.currency_id);
-    }
+      this.helper.debounce(()=>{
+          console.log('update');
+          if(this.farmIndicators){
+              this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields,this.farm.currency_id);
+          }
+      },700);
   }
 
   ionViewDidLoad() {
