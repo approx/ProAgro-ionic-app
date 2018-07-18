@@ -16,6 +16,7 @@ import { FarmListPage } from '../farm-list/farm-list';
 import { StocksPage } from '../stocks/stocks';
 import { CurrencyPipe } from '@angular/common';
 import { PropagateActivityPage } from '../propagate-activity/propagate-activity';
+import { InventoryItenProvider } from '../../providers/inventory-iten/inventory-iten';
 
 /**
  * Generated class for the FarmDetailPage page.
@@ -115,7 +116,15 @@ export class FarmDetailPage extends BasePage{
     }
   ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private farmProvider:FarmProvider,private sanitizer:DomSanitizer,private message:MessagesProvider,private currencyPipe:CurrencyPipe) {
+  constructor(
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      private farmProvider:FarmProvider,
+      private sanitizer:DomSanitizer,
+      private message:MessagesProvider,
+      private currencyPipe:CurrencyPipe,
+      private inventoryItenProvider:InventoryItenProvider
+  ) {
     super(navCtrl);
     MyApp.instance.user;
     this.userClient = MyApp.instance.user.role.id == 3;
@@ -125,72 +134,9 @@ export class FarmDetailPage extends BasePage{
 
   }
 
-  // calculateIncomeActivityForChart(){
-  //   let datas=[];
-  //   let labels=[];
-  //   loop1:
-  //   for (let i = 0; i < this.farm.income_histories.length; i++) {
-  //     if(this.farm.income_histories[i].activity!=null){
-  //       for (let j = 0; j < datas.length; j++) {
-  //         if(labels[j]==this.farm.income_histories[i].activity.activity_type.name){
-  //           datas[j]+=parseFloat(<any>this.farm.income_histories[i].value);
-  //           continue loop1;
-  //         }
-  //       }
-  //       datas.push(parseFloat(<any>this.farm.income_histories[i].value));
-  //       labels.push(this.farm.income_histories[i].activity.activity_type.name);
-  //     }
-  //   }
-  //   console.log(datas);
-  //   return {datas:datas,labels:labels}
-  // }
-
-  // calculateIncomeSackSoldsForChart(){
-  //   let datas=[];
-  //   let labels=[];
-  //   loop1:
-  //   for (let i = 0; i < this.farm.income_histories.length; i++) {
-  //     if(this.farm.income_histories[i].sack_sold!=null){
-  //       for (let j = 0; j < datas.length; j++) {
-  //         // console.log('test');
-  //         if(labels[j]==this.farm.income_histories[i].sack_sold.crop.name){
-  //           datas[j]+=parseFloat(<any>this.farm.income_histories[i].value);
-  //           continue loop1;
-  //         }
-  //       }
-  //       datas.push(parseFloat(<any>this.farm.income_histories[i].value));
-  //       labels.push(this.farm.income_histories[i].sack_sold.crop.name);
-  //     }
-  //   }
-  //   return {datas:datas,labels:labels}
-  // }
-  //
-  // calculateIncomeInventoriItensForChart(){
-  //   let datas=[];
-  //   let labels=[];
-  //   for (let i = 0; i < this.farm.income_histories.length; i++) {
-  //     if(this.farm.income_histories[i].inventory_iten!=null){
-  //       datas.push(parseFloat(<any>this.farm.income_histories[i].value));
-  //       labels.push(this.farm.income_histories[i].inventory_iten.name);
-  //     }
-  //   }
-  //   return {datas:datas,labels:labels}
-  // }
-  //
-  // calculateDataChart(){
-  //   let activity = this.calculateIncomeActivityForChart();
-  //   let sack_sold = this.calculateIncomeSackSoldsForChart();
-  //   let inventory = this.calculateIncomeInventoriItensForChart();
-  //   this.expensePieChartData = this.expensePieChartData.concat(activity.datas);
-  //   this.expensePieChartLabels = this.expensePieChartLabels.concat(activity.labels);
-  //   this.benefitPieChartData = this.benefitPieChartData.concat(sack_sold.datas);
-  //   this.benefitPirChartLabel = this.benefitPirChartLabel.concat(sack_sold.labels);
-  //   this.benefitPieChartData = this.benefitPieChartData.concat(inventory.datas);
-  //   this.benefitPirChartLabel = this.benefitPirChartLabel.concat(inventory.labels);
-  //   // console.log(this.benefitPirChartLabel);
-  //   // console.log(this.expensePieChartLabels);
-  //   this.drawCharts=true;
-  // }
+  openInventoryEditPage(iten){
+      this.navCtrl.push('InventaryItenEditPage',{iten_id:iten.id});
+  }
 
   openFieldPage(field){
     this.navCtrl.push(FieldDetailPage.name,{field_id:field.id});
@@ -233,6 +179,18 @@ export class FarmDetailPage extends BasePage{
       this.message.Wait();
       this.farmProvider.deletePropagated(id).subscribe((response)=>{
         this.message.SuccessAlert('Atividades rateadas deletadas com suscesso');
+        this.navCtrl.push('FarmDetailPage',{farm_id:this.farm.id});
+      },(err)=>{
+        this.message.ErrorAlert();
+      })
+    });
+  }
+
+  deleteInventoryItem(item){
+    this.message.ShowConfirmMessage('Deletar item do inventorio',"tem certeza que deseja deletar esté item? depois não será possivel recuperar este item e suas ligações com as safras",()=>{
+      this.message.Wait();
+      this.inventoryItenProvider.delte(item.id).subscribe((response)=>{
+        this.message.SuccessAlert('Item deletado com suscesso');
         this.navCtrl.push('FarmDetailPage',{farm_id:this.farm.id});
       },(err)=>{
         this.message.ErrorAlert();

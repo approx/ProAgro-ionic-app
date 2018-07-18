@@ -1,0 +1,42 @@
+<!--
+  Generated template for the InventaryItenEditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+    <ion-grid padding class="formContent">
+        <form *ngIf="item" (ngSubmit)="onSubmit()" #RegisterForm="ngForm">
+            <ion-row>
+                <ion-col col-12 col-md-6>
+                  <ion-item no-padding>
+                    <ion-label  floating>Nome*</ion-label>
+                    <ion-input type="text" name="name" [(ngModel)]="item.name" required value=""></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col col-12 col-md-6>
+                    <ion-item>
+                        <ion-label floating>Valor total</ion-label>
+                        <ion-input  type="text" (ionChange)="calculateTotal()" [(modelMask)]="item.price" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="price" ></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-12 col-md-6>
+                  <ion-item no-padding>
+                    <ion-label  floating>Tempo de depreciação(meses)*</ion-label>
+                    <ion-input type="text" name="depreciation_time" (ionChange)="calculateTotal()" [(ngModel)]="item.depreciation_time" required value=""></ion-input>
+                  </ion-item>
+                </ion-col>
+                
+                <ion-col col-12 col-md-6>
+                  <ion-item no-padding>
+                    <ion-label  floating>Depreciação/mes</ion-label>
+                    <ion-input type="text" readonly name="depreciation_value" [(modelMask)]="item.depreciation_value" [mask]="farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" required value=""></ion-input>
+                  </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row margin-top class="justifyCenter" margin-bottom>
+              <button type="submit" [disabled]="!RegisterForm.form.valid" ion-button col-12 col-md-3>Salvar Alterações</button>
+            </ion-row>
+        </form>
+    </ion-grid>
+</ion-content>

@@ -65,17 +65,20 @@
             <th>Tempo de depreciação</th>
             <th>Valor Total</th>
             <th>depreciação/mes</th>
+            <th>Ações</th>
           </tr>
           <tr *ngFor="let iten of farm.inventory_itens" >
             <td>{{iten.name}}</td>
             <td>{{iten.depreciation_time}}</td>
             <td>{{iten.price | currency:farm.currency_id}}</td>
             <td>{{iten.depreciation_value | currency:farm.currency_id}}</td>
+            <td><ion-icon padding-right class="Clickable" (click)="openInventoryEditPage(iten)" name="create"></ion-icon><ion-icon class="Clickable" (click)="deleteInventoryItem(iten)" name="trash"></ion-icon></td>
           </tr>
           <tr>
             <td>Capital empatado em terra</td>
             <td> -- </td>
             <td>{{farm.capital_tied | currency:farm.currency_id}}</td>
+            <td> -- </td>
             <td> -- </td>
           </tr>
           <tr>
@@ -83,12 +86,14 @@
             <td> -- </td>
             <td>{{total_remunaration | currency:farm.currency_id}}</td>
             <td> -- </td>
+            <td> -- </td>
           </tr>
           <tr>
             <th>Total</th>
             <th></th>
             <th>{{total_value |  currency:farm.currency_id}}</th>
             <th>{{total_depreciation_value |  currency:farm.currency_id}}</th>
+            <td> -- </td>
           </tr>
         </table>
       </ion-col>

@@ -323,6 +323,7 @@ export class ActivityEditPage extends BasePage {
     console.log('get acitivity por id');
     this.activityProvider.get(this.navParams.get('activity_id')).subscribe((data)=>{
       this.activity = data;
+      console.log(data);
       this.activity.operation_date = this.formatDate(this.activity.operation_date);
       if(this.activity.quantity){
         this.activity.unity_value = this.activity.total_value/this.activity.quantity;

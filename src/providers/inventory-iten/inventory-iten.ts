@@ -39,7 +39,7 @@ export class InventoryItenProvider {
   }
 
   delte(id):Observable<any>{
-    return this.http.post(endPoint+'api/inventory/'+id,{_method:'DELETE'});
+    return this.http.post(endPoint+'api/inventory/'+id,{_method:'DELETE'},{responseType: 'text'});
   }
 
   update(iten:InventoryItenWithMethod):Observable<any>{
