@@ -28,15 +28,18 @@ export class FarmInfoComponent implements OnInit{
   }
 
   calculateTotal(){
-    this.total_value = this.farm.capital_tied;
+    this.total_value = parseFloat(<any>this.farm.capital_tied);
     if(this.farm.inventory_itens){
       if(this.farm.inventory_itens.length>0){
         for (let i = 0; i < this.farm.inventory_itens.length; i++) {
-          this.total_value+=this.farm.inventory_itens[i].price;
+          this.total_value+=parseFloat(<any>this.farm.inventory_itens[i].price);
+          console.log(this.total_value)
         }
       }
     }
     this.total_value = Math.round(this.total_value*100)/100;
+    console.log(this.total_value);
+
   }
 
 }
