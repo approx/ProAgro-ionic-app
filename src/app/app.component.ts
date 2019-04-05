@@ -31,19 +31,12 @@ import { StockUsePage } from '../pages/stock-use/stock-use';
 export class MyApp {
   rootPage:any = ClientListPage.name;
 
-  version = '1.8.6';
+  version = '1.8.9';
 
   loged:boolean = false;
   user:UserModel;
 
   pages:NavBarPageInterface[] = [
-    // {
-    //   name:'DashBoard',
-    //   icon:'pie',
-    //   component:DashBoardPage,
-    //   itensToogle:false,
-    //   role:'master'
-    // },
     {
       name:'Clientes',
       icon:'people',

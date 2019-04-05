@@ -55,13 +55,13 @@
         <ion-col col-12 col-md-4>
           <ion-item>
             <ion-label floating>Dose</ion-label>
-            <ion-input type="text" (ionChange)="calculateTotal()" [(ngModel)]="activity.dose" name="dose" ></ion-input>
+            <ion-input type="text" (ionChange)="calculateTotal()" [(modelMask)]="activity.dose" [mask]="'9'" currency="true" name="dose" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4>
           <ion-item>
             <ion-label floating>Quantidade</ion-label>
-            <ion-input type="text" [(ngModel)]="activity.quantity" name="quantity" ></ion-input>
+            <ion-input type="text" [(modelMask)]="activity.quantity" name="quantity" [mask]="'9'" currency="true"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4>

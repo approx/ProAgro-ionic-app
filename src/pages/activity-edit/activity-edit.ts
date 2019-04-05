@@ -170,24 +170,34 @@ export class ActivityEditPage extends BasePage {
     })
   }
 
-  Calculate(){
-    console.log('calculate');
 
-    if(this.activity.activity_type_id && this.field){
-      this.activity.quantity = this.activity.dose * this.field.area;
-      console.log(this.field.area);
-      this.activity.total_value = (parseFloat(this.unity_value) * this.activity.quantity);
-      this.activity.value_per_ha = this.activity.total_value / this.field.area;
+    Calculate(){
+        console.log('calculate');
 
-      this.activity.quantity = parseFloat(this.activity.quantity.toFixed(2));
-      this.activity.total_value = parseFloat(this.activity.total_value.toFixed(2));
-      this.activity.value_per_ha = Math.round(this.activity.value_per_ha*1000)/1000;
-      this.activity.dose = Math.round(this.activity.dose*1000)/1000;
-    } else {
-      console.log('não calculou item')
+        if(this.activity.activity_type_id && this.field){
+            if (!isNaN(Number(this.activity.dose))
+                && this.activity.dose != null
+                && !isNaN(Number(this.field.area))
+                && this.field.area != null
+                && !isNaN(Number(this.unity_value))
+                && this.unity_value != null) {
+
+                this.activity.quantity = this.activity.dose * this.field.area;
+
+                this.activity.total_value = (parseFloat(this.unity_value) * this.activity.quantity);
+                this.activity.value_per_ha = this.activity.total_value / this.field.area;
+
+                this.activity.quantity = parseFloat(this.activity.quantity.toFixed(2));
+                this.activity.total_value = parseFloat(this.activity.total_value.toFixed(2));
+                this.activity.value_per_ha = Math.round(this.activity.value_per_ha*1000)/1000;
+                this.activity.dose = Math.round(this.activity.dose*1000)/1000;
+            } else {
+                console.log('Dados insuficientes para cálculo');
+            }
+        } else {
+            console.log('não calculou item')
+        }
     }
-  }
-
   cleanFields(){
     setTimeout(()=>{
       this.farm = null;

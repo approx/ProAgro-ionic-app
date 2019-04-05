@@ -289,7 +289,7 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
       for (let j = 0; j < labels.length; j++) {
           if(labels[j]==label){
             data[j]+=parseFloat(<any>orderedActivities[i].total_value);
-            console.log(data[j]);
+            //console.log(data[j]);
             continue loop1;
           }
       }

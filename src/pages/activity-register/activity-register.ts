@@ -28,6 +28,7 @@ export class ActivityRegisterPage extends BasePage{
   activity:any={};
   activityTypeId;
   activityTypes;
+  activityType;
   unities;
   currencies;
   ports;
@@ -96,11 +97,36 @@ export class ActivityRegisterPage extends BasePage{
     this.message.Wait();
     this.activityProvider.save({...this.activity,crop_id:this.crop.id}).subscribe(
       (response)=>{
-        this.message.SuccessAlert('Atividade Cadastrada com sucesso!');
+          try {
+              if (!isNaN(Number(response.id)) && response.id != null) {
+                  this.message.SuccessAlert('Atividade Cadastrada com sucesso!');
+                  this.clearForm();
+              } else {
+                  console.log('ELSE: ' + isNaN(Number(response.id)) + ' - ' + response.id);
+                  this.message.ErrorAlert();
+              }
+          } catch(err) {
+              console.log("Erro: " + err);
+              this.message.ErrorAlert();
+          }
       },(err)=>{
+          console.log("Err: " + err);
         this.message.ErrorAlert();
       }
     );
+  }
+
+  clearForm() {
+      this.activityType = null;
+      this.activity.activity_type_id = null;
+      this.activity.unity_id = null;
+      this.activity.product_name = null;
+      this.activity.unity_value = null;
+      this.activity.dose = null;
+      this.activity.quantity = null;
+      this.activity.total_value = null;
+      this.activity.operation_date = null;
+      this.activity.payment_date = null;
   }
 
   getUnities(){

@@ -24,8 +24,13 @@ export class CookieProvider {
   get(){
     if(document.cookie){
       let cookie = document.cookie.split('=')[1];
-      this.objs=JSON.parse(cookie);
-      console.log('geted cookies');
+      console.log('Cookies: ' + cookie);
+      try {
+          this.objs=JSON.parse(cookie);
+          console.log('geted cookies');
+      } catch(err) {
+          console.log("Erro Cookies: " + err);
+      }
     }
     else{
       this.objs={};

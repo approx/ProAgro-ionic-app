@@ -48,20 +48,20 @@
         </ion-col>
         <ion-col col-12 col-md-4>
           <ion-item>
-            <ion-label floating>Valor unitario</ion-label>
+            <ion-label floating>Valor unitário</ion-label>
             <ion-input  type="text" (ionChange)="calculateTotal()" [(modelMask)]="activity.unity_value" [mask]="activity.crop.field.farm.currency_id=='BRL' ? 'R$ 9':'$ 9'" [form]="RegisterForm" currency="true" name="unity_value" ></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4>
           <ion-item>
             <ion-label floating>Dose</ion-label>
-            <ion-input type="text" (ionChange)="calculateTotal()" [(ngModel)]="activity.dose" name="dose" ></ion-input>
+            <ion-input type="text" (ionChange)="calculateTotal()" [(modelMask)]="activity.dose" name="dose" [mask]="'9'" currency="true"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4>
           <ion-item>
             <ion-label floating>Quantidade</ion-label>
-            <ion-input type="text" [(ngModel)]="activity.quantity" name="quantity" ></ion-input>
+            <ion-input type="text" [(modelMask)]="activity.quantity" name="quantity" [mask]="'9'" currency="true"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-4 >
