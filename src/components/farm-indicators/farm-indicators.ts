@@ -1,7 +1,7 @@
-import { Component,Input,IterableDiffer,ViewChild,QueryList } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { IndicatorsProvider,IndicatorsData } from '../../providers/indicators/indicators';
-import { BaseChartDirective } from 'ng2-charts';
+//import { BaseChartDirective } from 'ng2-charts';
 
 /**
  * Generated class for the FarmIndicatorsComponent component.

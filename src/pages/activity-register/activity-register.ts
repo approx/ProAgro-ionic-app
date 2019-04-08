@@ -9,6 +9,7 @@ import { ActivityProvider } from '../../providers/activity/activity';
 import { UnityProvider } from '../../providers/unity/unity';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { CurrenciesProvider } from '../../providers/currencies/currencies';
+import { CropDetailPage } from '../../pages/crop-detail/crop-detail';
 
 /**
  * Generated class for the ActivityRegisterPage page.
@@ -100,7 +101,6 @@ export class ActivityRegisterPage extends BasePage{
           try {
               if (!isNaN(Number(response.id)) && response.id != null) {
                   this.message.SuccessAlert('Atividade Cadastrada com sucesso!');
-                  this.clearForm();
               } else {
                   console.log('ELSE: ' + isNaN(Number(response.id)) + ' - ' + response.id);
                   this.message.ErrorAlert();
@@ -116,7 +116,7 @@ export class ActivityRegisterPage extends BasePage{
     );
   }
 
-  clearForm() {
+  /*clearForm() {
       this.activityType = null;
       this.activity.activity_type_id = null;
       this.activity.unity_id = null;
@@ -127,7 +127,7 @@ export class ActivityRegisterPage extends BasePage{
       this.activity.total_value = null;
       this.activity.operation_date = null;
       this.activity.payment_date = null;
-  }
+  }*/
 
   getUnities(){
     this.unityProvider.getAll().subscribe(
@@ -167,6 +167,11 @@ export class ActivityRegisterPage extends BasePage{
         this.navCtrl.setRoot('LoginPage');
       }
     );
+  }
+
+  back(){
+    this.navCtrl.push(CropDetailPage.name,{crop_id:this.params.get('crop_id')});
+    //this.navCtrl.pop();
   }
 
 }

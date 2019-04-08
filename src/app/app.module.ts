@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MyApp } from './app.component';
 
 //Pipes
-import { FilterPipe } from '../pipes/filter/filter';
+//import { FilterPipe } from '../pipes/filter/filter';
 //Pages
 import { HomePage } from '../pages/home/home';
 import { DashBoardPage } from '../pages/dash-board/dash-board';

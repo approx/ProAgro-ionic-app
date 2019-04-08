@@ -1,11 +1,11 @@
-import { Directive,Input,Output,OnChanges,SimpleChanges,ViewContainerRef,AfterViewInit,HostListener,EventEmitter,ChangeDetectorRef  } from '@angular/core';
-import { NgForm,Validators,AbstractControl,FormControl,NgControl } from '@angular/forms';
-import { ViewController,TextInput } from 'ionic-angular';
+import { Directive,Input,Output,SimpleChanges,ViewContainerRef,HostListener,EventEmitter,ChangeDetectorRef  } from '@angular/core';
+import { NgForm,Validators,FormControl } from '@angular/forms';
+import { TextInput } from 'ionic-angular';
 
-function hasExclamationMark(input: FormControl) {
+/*function hasExclamationMark(input: FormControl) {
   const hasExclamation = input.value.indexOf('!') >= 0;
   return hasExclamation ? null : { needsExclamation: true };
-}
+}*/
 
 /**
  * Generated class for the ModelMaskDirective directive.
@@ -302,7 +302,7 @@ export class ModelMaskDirective {
     if(!this.currency){
       mask = this.mask.replace(/9|A/g,this.maskPlaceHolder);
     }else{
-      let index = this.mask.indexOf('9');
+      //let index = this.mask.indexOf('9');
       mask = this.mask.replace(/9|A/g,'');
       if(this.modelMask==undefined){
         mask = this.mask.replace(/9|A/g,'0,00');
@@ -340,7 +340,7 @@ export class ModelMaskDirective {
   }
 
   stringPutDotsInNumbersToBig(s:string):string{
-    let positionsToAddDot=[];
+    //let positionsToAddDot=[];
     let index=0;
     for (let i = s.length-1; i >=0 ; i--) {
         index++;
@@ -355,7 +355,7 @@ export class ModelMaskDirective {
 
   setCursor(){
     if(!this.currency){
-      let maskedValueWithoutPlaceHolder = this.target.value.replace(new RegExp(this.maskPlaceHolder,'g'),'');
+      //let maskedValueWithoutPlaceHolder = this.target.value.replace(new RegExp(this.maskPlaceHolder,'g'),'');
       let position = this.target.value.search(this.maskPlaceHolder);
       if(this.modelMask){
         this.target.selectionStart= position!=-1 ? position : this.target.value.length
@@ -372,8 +372,8 @@ export class ModelMaskDirective {
 
   unMask(value):string{
     let mask = this.getMask();
-    let positionsToRemove = [];
-    let ignoreNext=false;
+    //let positionsToRemove = [];
+    //let ignoreNext=false;
     let unmasked='';
     for (let i = 0; i < value.length; i++) {
         if(value[i]!=mask[i]){

@@ -322,7 +322,7 @@ export class ActivityEditPage extends BasePage {
 
   formatDate(dateString){
     let date=new Date(dateString);
-    let payment_date = new Date(<string>this.activity.payment_date);
+    //let payment_date = new Date(<string>this.activity.payment_date);
 
     return this.formatNumber(date.getDate(),2)+'/'+this.formatNumber(date.getMonth()+1,2)+'/'+date.getFullYear();
   }
@@ -415,6 +415,10 @@ export class ActivityEditPage extends BasePage {
 
   TypeSelected(){
     this.activity.activity_type_id = this.activity_type.id.toString();
+  }
+
+  back(){
+    this.navCtrl.pop();
   }
 
 }

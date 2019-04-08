@@ -85,6 +85,7 @@
       </ion-row>
       <ion-row margin-top class="justifyCenter" margin-bottom>
         <button type="submit" [disabled]="!RegisterForm.form.valid" ion-button col-12 col-md-3>Salvar Alterações</button>
+        <button type="button" ion-button col-12 col-md-3 (click)="back()">Voltar</button>
       </ion-row>
     </ion-grid>
   </form>

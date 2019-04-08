@@ -5,7 +5,6 @@ import { FieldProvider } from '../../providers/field/field';
 import { DomSanitizer} from '@angular/platform-browser';
 import { CropDetailPage } from '../../pages/crop-detail/crop-detail';
 import { CropRegisterPage } from '../../pages/crop-register/crop-register';
-import { ActivityRegisterPage } from '../../pages/activity-register/activity-register';
 import { FieldEditPage } from "../field-edit/field-edit";
 import { BasePage } from "../base/base";
 import { FieldListPage } from '../field-list/field-list';

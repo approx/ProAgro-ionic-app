@@ -254,8 +254,8 @@ export class IndicatorsComponent {
   }
 
   monthsSinceCropStart(){
-    let initialTime = new Date(<Date>this.crop.initial_date).getTime();
-    let finalTime = new Date(<Date>this.crop.final_date).getTime();
+    //let initialTime = new Date(<Date>this.crop.initial_date).getTime();
+    //let finalTime = new Date(<Date>this.crop.final_date).getTime();
     let monthsInitialNow;
 
     let initial = new Date(<Date>this.crop.initial_date);

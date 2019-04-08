@@ -17,13 +17,7 @@ import { FieldListPage } from '../pages/field-list/field-list';
 import { FieldRegisterPage } from '../pages/field-register/field-register';
 import { CropListPage } from '../pages/crop-list/crop-list';
 import { CropRegisterPage } from '../pages/crop-register/crop-register';
-import { ActivityListPage } from '../pages/activity-list/activity-list';
-import { ActivityRegisterPage } from '../pages/activity-register/activity-register';
-import { ActivityTypePage } from '../pages/activity-type/activity-type';
-import { UnityPage } from '../pages/unity/unity';
 import { UserRegisterPage } from "../pages/user-register/user-register";
-import { ActivityRegisterTotalPage } from '../pages/activity-register-total/activity-register-total';
-import { StockUsePage } from '../pages/stock-use/stock-use';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,7 +25,7 @@ import { StockUsePage } from '../pages/stock-use/stock-use';
 export class MyApp {
   rootPage:any = ClientListPage.name;
 
-  version = '1.8.9';
+  version = '1.8.10';
 
   loged:boolean = false;
   user:UserModel;

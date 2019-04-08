@@ -1,4 +1,3 @@
-import { CityModel } from './city.model';
 import { ClientModel } from './client.model';
 import { FarmModel } from './farm.model';
 

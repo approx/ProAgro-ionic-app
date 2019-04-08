@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { endPoint } from "../../Env";
-import { FarmInterface } from "../../model/farm.model";
 
 /*
   Generated class for the RolesProvider provider.

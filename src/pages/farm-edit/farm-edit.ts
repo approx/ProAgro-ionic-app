@@ -8,7 +8,6 @@ import { FarmProvider } from '../../providers/farm/farm';
 import { BasePage } from "../base/base";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MyApp } from '../../app/app.component';
-import { CurrencyPipe } from '@angular/common';
 import { FarmListPage } from '../../pages/farm-list/farm-list';
 
 /**
@@ -29,8 +28,7 @@ import { FarmListPage } from '../../pages/farm-list/farm-list';
 })
 @Component({
   selector: 'page-farm-edit',
-  templateUrl: 'farm-edit.html',
-  providers:[CurrencyPipe]
+  templateUrl: 'farm-edit.html'
 })
 export class FarmEditPage extends BasePage{
 
@@ -64,8 +62,7 @@ export class FarmEditPage extends BasePage{
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private farmProvider:FarmProvider,
-    private sanitizer:DomSanitizer,
-    private currencyPipe:CurrencyPipe
+    private sanitizer:DomSanitizer
   ) {
     super(navCtrl);
   }

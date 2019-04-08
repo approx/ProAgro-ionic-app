@@ -10,7 +10,6 @@ import { FarmModel } from '../../model/farm.model';
 import { StockProvider } from '../../providers/stock/stock';
 import { StockModel } from '../../model/Stock.model';
 import { CurrencyPipe } from '@angular/common';
-import { ActivityProvider } from '../../providers/activity/activity';
 import { MessagesProvider } from '../../providers/messages/messages';
 
 /**
@@ -59,7 +58,6 @@ export class StockUsePage {
     private cropProvider:CropProvider,
     private stockProvider:StockProvider,
     private currency:CurrencyPipe,
-    private activityProvider:ActivityProvider,
     private message:MessagesProvider
   ) {
   }

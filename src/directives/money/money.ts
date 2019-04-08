@@ -1,5 +1,5 @@
-import { Directive, HostListener,ViewChild,AfterViewInit } from '@angular/core';
-import {NG_VALUE_ACCESSOR,ControlValueAccessor,NgModel} from '@angular/forms';
+import { Directive, HostListener,AfterViewInit } from '@angular/core';
+import {NG_VALUE_ACCESSOR} from '@angular/forms';
 /**
  * Generated class for the MoneyDirective directive.
  *

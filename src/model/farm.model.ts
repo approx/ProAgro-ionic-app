@@ -1,4 +1,3 @@
-import { AddressModel } from './address.model';
 import { CultureModel } from './culture.model';
 import { ClientModel } from './client.model';
 import { FieldModel } from './field.model';

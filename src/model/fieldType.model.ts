@@ -1,5 +1,3 @@
-import { CropModel } from './crop.model';
-import { FarmModel } from './farm.model'
 
 export interface FieldTypeInterface{
   id?:number;
