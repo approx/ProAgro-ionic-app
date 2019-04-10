@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content padding>
-  <h1>Registrar novo iten</h1>
+  <h1>Registrar novo Iten</h1>
   <form (ngSubmit)="Register()" #RegisterForm="ngForm">
     <ion-grid padding class="formContent">
       <ion-row style="align-items: flex-end;">
@@ -31,14 +31,14 @@
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-4>
           <ion-item>
-            <ion-label floating>Tempo de depreciação(meses)*</ion-label>
-            <ion-input type="text" required maxlength="45" #name="ngModel" (ionChange)="depreciationMounth()" [(ngModel)]="iten.depreciation_time" name="depreciation_time" value=""></ion-input>
+            <ion-label floating>Tempo de depreciação(meses)</ion-label>
+            <ion-input type="text" maxlength="45" #name="ngModel" (ionChange)="depreciationMounth()" [(ngModel)]="iten.depreciation_time" name="depreciation_time" value=""></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 col-lg-4>
           <ion-item>
-            <ion-label floating>Depreciação/mes*</ion-label>
-            <ion-input type="text" readonly="true" required maxlength="45" #name="ngModel" [(ngModel)]="depreciation_value" name="depreciation_value" value=""></ion-input>
+            <ion-label floating>Depreciação/mes</ion-label>
+            <ion-input type="text" readonly="true" maxlength="45" #name="ngModel" [(ngModel)]="depreciation_value" name="depreciation_value" value=""></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
