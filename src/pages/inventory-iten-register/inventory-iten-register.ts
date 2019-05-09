@@ -120,8 +120,8 @@ export class InventoryItenRegisterPage extends BasePage{
 
   Register(){
     this.messages.Wait();
-    this.iten.depreciation_time = this.iten.depreciation_time === undefined ? 0 : this.iten.depreciation_time;
-    this.iten.depreciation_value = this.iten.depreciation_value === undefined ? 0 : this.iten.depreciation_value;
+    this.iten.depreciation_time = this.iten.depreciation_time === undefined || this.iten.depreciation_time == null ? 0 : this.iten.depreciation_time;
+    this.iten.depreciation_value = this.iten.depreciation_value === undefined || this.iten.depreciation_value == null ? 0 : this.iten.depreciation_value;
     this.itenProvider.save(this.iten).subscribe((data)=>{
       this.messages.SuccessAlert('Iten cadastrado com sucesso!',()=>{this.reset()});
     },()=>{
