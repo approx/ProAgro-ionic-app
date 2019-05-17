@@ -45,6 +45,7 @@ export class CropDetailPage extends BasePage{
   sack_editing:boolean=false;
   sack_produced:number;
   userClient:boolean;
+  percentage_area:number;
 
   stocks;
 
@@ -158,7 +159,7 @@ export class CropDetailPage extends BasePage{
   submitStock=()=>{
     this.message.Wait();
     let id = this.stockToBeUsed.id;
-    console.log(this.stockToBeUsed);
+
     this.stockToBeUsed = undefined;
     this.stockProvider.registerUse({crop_id:this.crop_id,quantity:this.useQuantity,operation_date:this.useOperationDate,payment_date:this.usePaymentDate},id).subscribe((response)=>{
       this.message.SuccessAlert('Atividade cadastrada com sucesso!');
@@ -282,14 +283,12 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
 
     loop1:
     for (let i = 0; i < orderedActivities.length; i++) {
-      // console.log(orderedActivities[i].operation_date);
+
       let date = new Date(<string>orderedActivities[i].operation_date);
-      console.log(i)
       let label = this.months[date.getMonth()]+'/'+date.getFullYear();
       for (let j = 0; j < labels.length; j++) {
           if(labels[j]==label){
             data[j]+=parseFloat(<any>orderedActivities[i].total_value);
-            //console.log(data[j]);
             continue loop1;
           }
       }
@@ -312,8 +311,6 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
         }
         this.activitiesPerCurrency.push([activities[i]]);
     }
-
-    console.log(this.activitiesPerCurrency);
   }
 
   calculatePieChartData(){
@@ -355,7 +352,6 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
   getStocks(){
     this.farmProvider.stocks(this.crop.field.farm.id).subscribe(
       (response)=>{
-        console.log(response);
         this.stocks = response;
 
       },err=>{
@@ -385,7 +381,6 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
   }
 
   deleteIncome(iten){
-    console.log(iten);
     this.message.ShowConfirmMessage('Deletar renda','tem certeza que deseja deletar está renda?',()=>{
       this.message.Wait();
       this.http.post(endPoint+'api/'+iten.delete_url,{_method:'DELETE'},{responseType:'text'}).subscribe((response)=>{
@@ -400,7 +395,6 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
   loadFromService(){
     this.cropProvider.get(this.crop_id).subscribe((data:CropModel)=>{
       this.crop=data;
-      console.log(this.crop);
       this.separeteActivityPerCurrency();
       this.calculatePercentage();
       this.calculateTotal();
@@ -420,7 +414,6 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
     console.log('ionViewDidLoad CropDetailPage');
     this.crop_id = this.navParams.get('crop_id');
     this.crop = this.navParams.get('crop');
-    console.log(this.crop)
     if(!this.crop&&this.crop_id){
       this.loadFromService()
     }
@@ -467,9 +460,11 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
   calculateTotalInventario(){
     this.itens_total_value = 0;
     this.itens_depreciation_value = 0;
+    this.percentage_area = this.crop.field.area * 100 / this.crop.field.farm.area_planted;
+
     for (let i = 0; i < this.crop.inventory_itens.length; i++) {
         this.itens_total_value+=parseFloat(<any>this.crop.inventory_itens[i].price);
-        this.itens_depreciation_value+=parseFloat(<any>this.crop.inventory_itens[i].depreciation_value);
+        this.itens_depreciation_value+=parseFloat((<any>this.crop.inventory_itens[i].depreciation_value / 100 * this.percentage_area).toString());
     }
   }
 
@@ -485,16 +480,13 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
   calculatePercentage(){
     let initialTime = new Date(<Date>this.crop.initial_date).getTime();
     let finalTime = new Date(<Date>this.crop.final_date).getTime();
-
     let timeVariation = finalTime - initialTime;
-
     let nowVariation = new Date().getTime() - initialTime ;
-    console.log(timeVariation)
+
     nowVariation = Math.max(0,nowVariation);
-    console.log(nowVariation)
 
     this.percentage = (100*nowVariation)/timeVariation;
-    console.log(this.percentage)
+
     this.percentage = Math.min(100,Math.round(this.percentage));
   }
 

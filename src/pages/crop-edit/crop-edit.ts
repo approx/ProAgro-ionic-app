@@ -75,7 +75,7 @@ export class CropEditPage extends BasePage{
     this.farmProvider.getAll().subscribe((data:FarmModel[])=>{
       this.farms = data;
       this.filteredFarms = data;
-      this.setParams();
+      this.getFields();
     });
   }
 
@@ -83,15 +83,22 @@ export class CropEditPage extends BasePage{
     this.fieldProvider.getAll().subscribe((data:FieldModel[])=>{
       this.fields = data;
       this.filteredFields = data;
-      this.setParams();
+      this.getCultures();
     });
   }
 
   getCultures(){
     this.culturesProvider.getAll().subscribe((data:CultureModel[])=>{
       this.cultures = data;
-      this.setParams();
+      this.getClient();
     });
+  }
+
+  getClient(){
+    this.clientProvider.getAll().subscribe((data:ClientModel[])=>{
+      this.clients = data;
+      this.setParams();
+    })
   }
 
   setParams(){
@@ -106,14 +113,17 @@ export class CropEditPage extends BasePage{
         console.log(this.crop);
         this.farm = this.findIdInArray(data.field.farm.id,this.farms);
         this.client = data.field.farm.client.id;
+        console.log('formatDate 1');
         this.formatDate(this.crop);
       });
     }
     else{
       this.farm = this.findIdInArray((<CropModel>this.crop).field.farm.id,this.farms);
       this.client = (<CropModel>this.crop).field.farm.client.id;
+      console.log('formatDate 2');
       this.formatDate(this.crop);
     }
+    this.message.Done();
   }
 
   formatDate(crop:CropInterface){
@@ -138,22 +148,16 @@ export class CropEditPage extends BasePage{
     return null;
   }
 
-  getClient(){
-    this.clientProvider.getAll().subscribe((data:ClientModel[])=>{
-      this.clients = data;
-      this.setParams();
-    })
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad CropRegisterPage');
+    this.message.Wait('Buscando dados...');
     let date = new Date();
     date.setFullYear(date.getFullYear()+10);
     this.maxDate = date.getFullYear()+'-12-31';
     this.getFarms();
-    this.getFields();
-    this.getCultures();
-    this.getClient();
+    //this.getFields();
+    //this.getCultures();
+    //this.getClient();
   }
 
   ClientSelected(){
@@ -225,8 +229,6 @@ export class CropEditPage extends BasePage{
 
   Register(){
     this.message.Wait();
-    console.log(this.crop.initial_date);
-    console.log(this.crop.final_date);
     this.cropProvider.save(this.crop).subscribe((data)=>{
       this.message.SuccessAlert('Safra registrada com sucesso!');
     },(err)=>{

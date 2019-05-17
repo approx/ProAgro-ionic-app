@@ -94,17 +94,17 @@
           <tr>
             <th>Descrição</th>
             <th>Valor </th>
-            <th *ngIf="!userClient">Ações</th>
+            <th class="text-center" *ngIf="!userClient">Ações</th>
           </tr>
           <tr *ngFor="let iten of crop.gross_income.history" >
             <td>{{iten.description}}</td>
-            <td>{{iten.total | currency:crop.field.farm.currency_id}}</td>
-            <th *ngIf="!userClient"><ion-icon *ngIf="iten.delete_url" class="Clickable" (click)="deleteIncome(iten)" name="trash"></ion-icon></th>
+            <td class="text-right">{{iten.total | currency:crop.field.farm.currency_id}}</td>
+            <th class="text-center" *ngIf="!userClient"><ion-icon *ngIf="iten.delete_url" class="Clickable" (click)="deleteIncome(iten)" name="trash"></ion-icon></th>
           </tr>
           <tr>
             <th>Total</th>
-            <th>{{crop.gross_income.total | currency:crop.field.farm.currency_id}}</th>
-            <th *ngIf="!userClient">--</th>
+            <th class="text-right">{{crop.gross_income.total | currency:crop.field.farm.currency_id}}</th>
+            <th class="text-center" *ngIf="!userClient">--</th>
           </tr>
         </table>
       </ion-col>
@@ -125,15 +125,15 @@
           </tr>
           <tr *ngFor="let iten of crop.inventory_itens" >
             <td>{{iten.name}}</td>
-            <td>{{iten.depreciation_time}}</td>
-            <td>{{iten.price | currency:crop.field.farm.currency_id}}</td>
-            <td>{{iten.depreciation_value | currency:crop.field.farm.currency_id}}</td>
+            <td class="text-right">{{iten.depreciation_time}}</td>
+            <td class="text-right">{{iten.price | currency:crop.field.farm.currency_id}}</td>
+            <td class="text-right">{{iten.depreciation_value / 100 * percentage_area | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <th>Total</th>
             <th></th>
-            <th>{{itens_total_value | currency:crop.inventory_itens[0] ? crop.inventory_itens[0].currency_id:crop.field.farm.currency_id}}</th>
-            <th>{{itens_depreciation_value | currency:crop.inventory_itens[0] ? crop.inventory_itens[0].currency_id:crop.field.farm.currency_id}}</th>
+            <th class="text-right">{{itens_total_value | currency:crop.field.farm.currency_id}}</th>
+            <th class="text-right">{{itens_depreciation_value | currency:crop.field.farm.currency_id}}</th>
           </tr>
         </table>
       </ion-col>

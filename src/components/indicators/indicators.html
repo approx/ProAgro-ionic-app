@@ -88,135 +88,135 @@
         <table *ngIf="crop" margin-top col-12>
           <tr>
             <td>Renda Bruta</td>
-            <td>{{crop.gross_income.total | currency:crop.field.farm.currency_id}}</td>
+            <td class="text-right">{{crop.gross_income.total | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <td>Capital Empatado em terra</td>
-            <td>{{crop.field.farm.capital_tied | currency:crop.field.farm.currency_id}}</td>
+            <td class="text-right">{{crop.field.farm.capital_tied | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <td>Remuneração de Capital Empatado por mês</td>
-            <td>{{remunaration | currency:crop.field.farm.currency_id}}</td>
+            <td class="text-right">{{remunaration | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <td>Remuneração de Capital Empatado</td>
-            <td>{{totalRemunaration | currency:crop.field.farm.currency_id}}</td>
+            <td class="text-right">{{totalRemunaration | currency:crop.field.farm.currency_id}}</td>
           </tr>
           <tr>
             <td>Custo Operacional Efetivo (COE)</td>
-            <td>{{coe | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
+            <td class="text-right">{{coe | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
           </tr>
           <tr>
             <td>Custo Operacional Total (COT)</td>
-            <td>{{cot | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
+            <td class="text-right">{{cot | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
           </tr>
           <tr>
             <td>Custo Total (CT)</td>
-            <td>{{ct | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
+            <td class="text-right">{{ct | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
           </tr>
           <tr>
             <td>Produção</td>
-            <td>{{crop.sack_produced | especifications:'':' sc'}}</td>
+            <td class="text-right">{{crop.sack_produced | especifications:'':' sc'}}</td>
           </tr>
           <tr>
             <td>Area plantada</td>
-            <td>{{crop.field.area | especifications:'':' ha'}}</td>
+            <td class="text-right">{{crop.field.area | especifications:'':' ha'}}</td>
           </tr>
           <tr>
             <td>Produção por area plantada</td>
-            <td>{{crop.sack_produced/crop.field.area | especifications:'':' sc/ha'}}</td>
+            <td class="text-right">{{crop.sack_produced/crop.field.area | especifications:'':' sc/ha'}}</td>
           </tr>
           <tr>
             <td>Margem Bruta</td>
-            <td>{{grossMargin | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
+            <td class="text-right">{{grossMargin | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
           </tr>
           <tr>
             <td>Margem Bruta por saca</td>
-            <td>{{grossMarginPerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
+            <td class="text-right">{{grossMarginPerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
           </tr>
           <tr>
             <td>Margem Bruta por área plantada</td>
-            <td>{{grossMarginPerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
+            <td class="text-right">{{grossMarginPerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
           </tr>
           <tr>
             <td>Margem Liquida</td>
-            <td>{{liquidMargin | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
+            <td class="text-right">{{liquidMargin | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
           </tr>
           <tr>
             <td>Margem Liquida por saca</td>
-            <td>{{liquidMarginPerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
+            <td class="text-right">{{liquidMarginPerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
           </tr>
           <tr>
             <td>Margem Liquida por área plantada</td>
-            <td>{{liquidMarginPerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
+            <td class="text-right">{{liquidMarginPerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
           </tr>
           <tr>
             <td>Lucro</td>
-            <td>{{profit | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
+            <td class="text-right">{{profit | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ano'}}</td>
           </tr>
           <tr>
             <td>Lucro por saca</td>
-            <td>{{profitPerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
+            <td class="text-right">{{profitPerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
           </tr>
           <tr>
             <td>Lucro por área plantada</td>
-            <td>{{profitPerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
+            <td class="text-right">{{profitPerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
           </tr>
           <tr>
             <td>COE por saca</td>
-            <td>{{coePerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
+            <td class="text-right">{{coePerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
           </tr>
           <tr>
             <td>COE por área plantada</td>
-            <td>{{coePerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
+            <td class="text-right">{{coePerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
           </tr>
           <tr>
             <td>COT por saca</td>
-            <td>{{cotPerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
+            <td class="text-right">{{cotPerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
           </tr>
           <tr>
             <td>COT por área plantada</td>
-            <td>{{cotPerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
+            <td class="text-right">{{cotPerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
           </tr>
           <tr>
             <td>CT por saca</td>
-            <td>{{ctPerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
+            <td class="text-right">{{ctPerSack | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/sc'}}</td>
           </tr>
           <tr>
             <td>CT por área plantada</td>
-            <td>{{ctPerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
+            <td class="text-right">{{ctPerArea | especifications:crop.field.farm.currency_id=='BRL' ? 'R$':'$':'/ha'}}</td>
           </tr>
           <tr>
             <td>Taxa de Remuneração do Capital sem Terra</td>
-            <td>{{trcWithoutField | especifications:'':'%'}}</td>
+            <td class="text-right">{{trcWithoutField | especifications:'':'%'}}</td>
           </tr>
           <tr>
             <td>Taxa de Remuneração do Capital com Terra</td>
-            <td>{{trcWithField | especifications:'':'%'}}</td>
+            <td class="text-right">{{trcWithField | especifications:'':'%'}}</td>
           </tr>
           <tr>
             <td>Lucratividade</td>
-            <td>{{lucrativity | especifications:'':'%'}}</td>
+            <td class="text-right">{{lucrativity | especifications:'':'%'}}</td>
           </tr>
           <tr>
             <td>Rentabilidade</td>
-            <td>{{rentability | especifications:'':'%'}}</td>
+            <td class="text-right">{{rentability | especifications:'':'%'}}</td>
           </tr>
           <tr>
             <td>PN</td>
-            <td>{{pn | especifications:'':' sc'}}</td>
+            <td class="text-right">{{pn | especifications:'':' sc'}}</td>
           </tr>
           <tr>
             <td>PCOT</td>
-            <td>{{pcot | especifications:'':' sc'}}</td>
+            <td class="text-right">{{pcot | especifications:'':' sc'}}</td>
           </tr>
           <tr>
             <td>PCT</td>
-            <td>{{pct | especifications:'':' sc'}}</td>
+            <td class="text-right">{{pct | especifications:'':' sc'}}</td>
           </tr>
           <tr>
             <td>Relação custo benefício</td>
-            <td>{{(crop.gross_income.total/ct).toFixed('2') }}</td>
+            <td class="text-right">{{(crop.gross_income.total/ct).toFixed('2') }}</td>
           </tr>
         </table>
       </ion-col>

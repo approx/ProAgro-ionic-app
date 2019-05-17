@@ -93,7 +93,6 @@ export class IndicatorsComponent {
       callbacks: {
         label: (tooltipItem, data)=> {
           var label = data.labels[tooltipItem.index] || '';
-          console.log(tooltipItem);
           if (label) {
             label += ': ';
           }
@@ -128,7 +127,6 @@ export class IndicatorsComponent {
       callbacks: {
         label: (tooltipItem, data)=> {
           var label = data.labels[tooltipItem.index] || '';
-          console.log(tooltipItem);
           if (label) {
             label += ': ';
           }
@@ -163,7 +161,6 @@ export class IndicatorsComponent {
       callbacks: {
         label: (tooltipItem, data)=> {
           var label = data.labels[tooltipItem.index] || '';
-          console.log(tooltipItem);
           if (label) {
             label += ': ';
           }
@@ -215,14 +212,13 @@ export class IndicatorsComponent {
 
   userClient;
 
-
-
   constructor(private currencyPipe:CurrencyPipe,private cropProvider:CropProvider) {
-    console.log('Hello IndicatorsComponent Component');
+    console.log('Hello IndicatorsComponent Components');
     this.userClient = MyApp.instance.user.role.id == 3;
   }
 
   ngOnInit(){
+      console.log('ngOnInit Indicators.ts');
     this.produced=[{data:[this.crop.sack_expected],label:'Expectativa de sacas'},{data:[this.crop.sack_produced],label:'Sacas produzidas'}]
     this.calculateCoeCotCt();
     this.coeCotData = [{data:[this.coe.toFixed(2)],label:'COE'},{data:[this.cot.toFixed(2)],label:'COT'},{data:[this.ct.toFixed(2)],label:'CT'}];
@@ -253,7 +249,7 @@ export class IndicatorsComponent {
     ]
   }
 
-  monthsSinceCropStart(){
+  monthsSinceCropStart_DEPRECATED(){
     //let initialTime = new Date(<Date>this.crop.initial_date).getTime();
     //let finalTime = new Date(<Date>this.crop.final_date).getTime();
     let monthsInitialNow;
@@ -277,6 +273,17 @@ export class IndicatorsComponent {
 
   }
 
+  monthsSinceCropStart(){
+    let initial = new Date(<Date>this.crop.initial_date);
+    let finatDate = new Date(<Date>this.crop.final_date);
+
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    const utc1 = Date.UTC(initial.getFullYear(), initial.getMonth(), initial.getDate());
+    const utc2 = Date.UTC(finatDate.getFullYear(), finatDate.getMonth(), finatDate.getDate());
+
+    return Math.floor((utc2 - utc1) / _MS_PER_DAY / 30);
+  }
+
   calculateCoe(){
     this.coe = 0;
     this.crop.activities.forEach((element,index)=>{
@@ -287,14 +294,17 @@ export class IndicatorsComponent {
   }
 
   calculateCot(){
+      var percentage_area = this.crop.field.area * 100 / this.crop.field.farm.area_planted;
     this.cot = this.coe;
+
     this.crop.activities.forEach((element,index)=>{
       if(element.activity_type.id=='MOF01'){
         this.cot += parseFloat(<any>element.total_value);
       }
     });
+
     this.crop.inventory_itens.forEach((element,index)=>{
-      this.cot += parseFloat(<any>element.depreciation_value) * this.monthsSinceCropStart();
+      this.cot += parseFloat((<any>element.depreciation_value  / 100 * percentage_area).toString()) * this.monthsSinceCropStart();
     });
   }
 
@@ -306,11 +316,21 @@ export class IndicatorsComponent {
   }
 
   calculateCt(){
+
     this.remunaration = ((this.crop.field.farm.capital_tied*this.crop.interest_tax)/100);
-    console.log(this.crop.field.farm.ha + ' ' + this.crop.field.area + ' ' + this.remunaration);
     this.remunaration = this.remunaration*(this.crop.field.area/this.crop.field.farm.ha);
     this.totalRemunaration = this.remunaration * this.monthsSinceCropStart();
-    this.ct = this.cot + this.totalRemunaration;
+
+    var percentage_area = this.crop.field.area * 100 / this.crop.field.farm.area_planted;
+    var total_depreciation_value = 0;
+    this.crop.inventory_itens.forEach((element,index)=>{
+        total_depreciation_value += parseFloat(<any>element.depreciation_value);
+    });
+console.log('dados gráfico: ', this.crop.field.farm.capital_tied, total_depreciation_value, this.crop.interest_tax, this.monthsSinceCropStart(), percentage_area);
+    this.remunaration = this.crop.field.farm.capital_tied + total_depreciation_value;
+    this.remunaration = (this.remunaration / 100 * percentage_area) * this.monthsSinceCropStart();
+    this.remunaration = (this.remunaration / 100 * this.crop.interest_tax) + this.remunaration;
+    this.ct = this.cot + this.remunaration;
   }
 
   calculateCashPerYear(){
@@ -318,7 +338,6 @@ export class IndicatorsComponent {
     this.liquidMargin = this.crop.gross_income.total - this.cot;
     this.profit = this.crop.gross_income.total - this.ct;
     this.cashPerYear = [{data:[this.grossMargin.toFixed(2)],label:'Margem Bruta'},{data:[this.liquidMargin.toFixed(2)],label:'Margem Liquida'},{data:[this.profit.toFixed(2)],label:'Lucro'}];
-    console.log(this.cashPerYear)
     // this.grossMargin =
   }
 
@@ -332,7 +351,6 @@ export class IndicatorsComponent {
         {data:[this.liquidMarginPerSack.toFixed(2)],label:'Margem Liquida/sc'},
         {data:[this.profitPerSack.toFixed(2)],label:'Lucro/sc'}
       ]
-      console.log(this.cashPerSack);
 
     }else{
       this.cashPerSack=[
@@ -390,7 +408,6 @@ export class IndicatorsComponent {
       {data:[this.lucrativity.toFixed(2)],label:'Lucratividade'},
       {data:[this.rentability.toFixed(2)],label:'Rentabilidade'}
     ]
-    console.log(this.percentageValues);
   }
 
   calculateCoeCotCt(){
