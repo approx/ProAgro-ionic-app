@@ -25,7 +25,7 @@ import { UserRegisterPage } from "../pages/user-register/user-register";
 export class MyApp {
   rootPage:any = ClientListPage.name;
 
-  version = '1.8.13';
+  version = '1.8.14';
 
   loged:boolean = false;
   user:UserModel;

@@ -7,7 +7,7 @@
 <ion-content padding *ngIf="crop">
   <h1>{{crop.name}}<ion-icon *ngIf="!userClient" class="Clickable" (click)="delete()" name="trash"></ion-icon><ion-icon *ngIf="!userClient" (click)="openEditPage($event)" name="create"></ion-icon></h1>
   <ion-col col-12>
-    <h3 margin-left>{{crop.initial_date | date:'dd/MM/yyyy'}} - {{crop.final_date | date:'dd/MM/yyyy'}}</h3>
+    <h3 margin-left>{{crop.initial_date}} - {{crop.final_date}}</h3>
     <div loader class=""><div [attr.loaded]="percentage"></div></div>
   </ion-col>
   <form-modal [submit]="submitStock" [showVariable]="stockToBeUsed" (outEvent)="stockToBeUsed = $event">

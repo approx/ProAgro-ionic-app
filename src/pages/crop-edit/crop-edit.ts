@@ -102,35 +102,26 @@ export class CropEditPage extends BasePage{
   }
 
   setParams(){
-    this.crop = this.navParams.get('crop');
-    if(!this.crop){
-      this.crop={
-        name:'',
-      }
-
       this.cropProvider.get(this.navParams.get('crop_id')).subscribe((data:CropModel)=>{
         this.crop = data;
-        console.log(this.crop);
+        console.log('Crop: ', this.crop);
         this.farm = this.findIdInArray(data.field.farm.id,this.farms);
         this.client = data.field.farm.client.id;
         console.log('formatDate 1');
         this.formatDate(this.crop);
       });
-    }
-    else{
-      this.farm = this.findIdInArray((<CropModel>this.crop).field.farm.id,this.farms);
-      this.client = (<CropModel>this.crop).field.farm.client.id;
-      console.log('formatDate 2');
-      this.formatDate(this.crop);
-    }
     this.message.Done();
   }
 
   formatDate(crop:CropInterface){
     let initial_date = new Date(<string>crop.initial_date);
     let final_date = new Date(<string>crop.final_date);
+    console.log('initial_date: ', initial_date);
+    console.log('final_date: ', final_date);
     crop.initial_date = this.pad(initial_date.getUTCDate())+'/'+(this.pad(initial_date.getUTCMonth()+1))+'/'+initial_date.getFullYear();
     crop.final_date = this.pad(final_date.getUTCDate())+'/'+(this.pad(final_date.getUTCMonth()+1))+'/'+final_date.getFullYear();
+    console.log('initial_date: ', crop.initial_date);
+    console.log('final_date: ', crop.final_date);
   }
 
   pad(d) {

@@ -173,7 +173,7 @@ export class ModelMaskDirective {
       return this.target.value.length<=20;
     }else{
       let position = this.target.value.search(this.maskPlaceHolder);
-      return this.mask[position]=="9"||this.mask[position]==this.maskPlaceHolder;
+      return this.mask[position]=="9"||this.mask[position]==this.maskPlaceHolder || (this.mask[position] == undefined && this.maskPlaceHolder != '' && this.maskPlaceHolder != undefined);
     }
   }
 
@@ -184,7 +184,6 @@ export class ModelMaskDirective {
 
   @HostListener('keydown',['$event'])
   getValue(keyEvent){
-    console.log('keydown');
     if(!this.checkKey(keyEvent)) return;
     keyEvent.preventDefault();
     if(this.modelMask==undefined) this.modelMask='';
@@ -219,7 +218,7 @@ export class ModelMaskDirective {
   }
 
   checkKey(keyEvent){
-    return (((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105))&&this.canPutNumber()) || (keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90&&this.canPutLeter()) || keyEvent.keyCode == 8;
+    return (((keyEvent.keyCode >= 48 && keyEvent.keyCode <= 57) || (keyEvent.keyCode >= 96 && keyEvent.keyCode <= 105))&&this.canPutNumber()) || (keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90&&this.canPutLeter()) || keyEvent.keyCode == 8 || keyEvent.keyCode == 46;
   }
 
   addKeyToMask(keyEvent){
@@ -277,14 +276,11 @@ export class ModelMaskDirective {
 
   @HostListener('blur',['$event'])
   blur(event){
-    console.log('blur');
-    console.log(this.modelMask);
     if(this.modelMask==undefined||this.modelMask==''){
       this.target.value = '';
       this.component._item._elementRef.nativeElement.classList.remove('input-has-value');
       this.component._item._elementRef.nativeElement.classList.remove('item-input-has-value');
     }else if(!this.clean&&this.modelMask==this.getMask()){
-      console.log('clean and equal mask');
       this.target.value = '';
       this.component._item._elementRef.nativeElement.classList.remove('input-has-value');
       this.component._item._elementRef.nativeElement.classList.remove('item-input-has-value');
@@ -389,7 +385,6 @@ export class ModelMaskDirective {
     if(!this.disabled){
       this.component._item._elementRef.nativeElement.classList.add('ng-touched');
       this.target = event.target;
-      console.log('focus/click');
       if(this.modelMask==undefined){
         this.target.value = this.getMask();
       }

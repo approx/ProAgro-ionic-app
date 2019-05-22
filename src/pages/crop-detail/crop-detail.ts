@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CropModel } from '../../model/crop.model';
+import { CropInterface, CropModel } from '../../model/crop.model';
 import { CropProvider } from '../../providers/crop/crop';
 import { ActivityRegisterPage } from '../../pages/activity-register/activity-register';
 import { ActivityModel } from '../../model/activity.model';
@@ -325,15 +325,31 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
     });
   }
 
-  formatDate(dateString){
-    let date = new Date(dateString);
-    return date.getDay()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
+  formatDate(crop:CropInterface){
+    let initial_date = new Date(<string>crop.initial_date);
+    let final_date = new Date(<string>crop.final_date);
+    crop.initial_date = this.pad(initial_date.getUTCDate())+'/'+(this.pad(initial_date.getUTCMonth()+1))+'/'+initial_date.getFullYear();
+    crop.final_date = this.pad(final_date.getUTCDate())+'/'+(this.pad(final_date.getUTCMonth()+1))+'/'+final_date.getFullYear();
+  }
+
+  pad(d) {
+    return (d < 10) ? '0' + d.toString() : d.toString();
+  }
+
+  setDate(){
+    if(typeof this.crop.initial_date == 'string'){
+      this.crop.initial_date = this.crop.initial_date.split('T')[0];
+    }
+    if(typeof this.crop.final_date == 'string'){
+      this.crop.final_date = this.crop.final_date.split('T')[0];
+    }
   }
 
   saveSacks(){
     this.message.Wait();
-    this.crop.initial_date = this.formatDate(this.crop.initial_date);
-    this.crop.final_date = this.formatDate(this.crop.final_date);
+    //this.crop.initial_date = this.formatDate(this.crop.initial_date);
+    //this.crop.final_date = this.formatDate(this.crop.final_date);
+    this.setDate();
     let crop = {...this.crop};
     delete crop.activities;
     delete crop.culture;
@@ -395,6 +411,7 @@ ActivityPerTypeChartData(activities:ActivityModel[]){
   loadFromService(){
     this.cropProvider.get(this.crop_id).subscribe((data:CropModel)=>{
       this.crop=data;
+      this.formatDate(this.crop);
       this.separeteActivityPerCurrency();
       this.calculatePercentage();
       this.calculateTotal();
