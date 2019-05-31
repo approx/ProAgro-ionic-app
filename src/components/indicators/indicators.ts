@@ -61,6 +61,7 @@ export class IndicatorsComponent {
 
   remunaration=0;
   totalRemunaration=0;
+  capital_tied_area=0;
 
   @Input() crop:CropModel;
   coeCotData=[];
@@ -274,8 +275,10 @@ export class IndicatorsComponent {
   }
 
   monthsSinceCropStart(){
-    let initial = new Date(<Date>this.crop.initial_date);
-    let finatDate = new Date(<Date>this.crop.final_date);
+      var date1 = this.crop.initial_date.toString().split('/')[2] + '-' + this.crop.initial_date.toString().split('/')[1] + '-' + this.crop.initial_date.toString().split('/')[0];
+      var date2 = this.crop.final_date.toString().split('/')[2] + '-' + this.crop.final_date.toString().split('/')[1] + '-' + this.crop.final_date.toString().split('/')[0];
+    let initial = new Date(<string>date1);
+    let finatDate = new Date(<string>date2);
 
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
     const utc1 = Date.UTC(initial.getFullYear(), initial.getMonth(), initial.getDate());
@@ -317,20 +320,23 @@ export class IndicatorsComponent {
 
   calculateCt(){
 
-    this.remunaration = ((this.crop.field.farm.capital_tied*this.crop.interest_tax)/100);
+    /*this.remunaration = ((this.crop.field.farm.capital_tied*this.crop.interest_tax)/100);
     this.remunaration = this.remunaration*(this.crop.field.area/this.crop.field.farm.ha);
-    this.totalRemunaration = this.remunaration * this.monthsSinceCropStart();
+    this.totalRemunaration = this.remunaration * this.monthsSinceCropStart();*/
 
     var percentage_area = this.crop.field.area * 100 / this.crop.field.farm.area_planted;
-    var total_depreciation_value = 0;
+    /*var total_depreciation_value = 0;
     this.crop.inventory_itens.forEach((element,index)=>{
         total_depreciation_value += parseFloat(<any>element.depreciation_value);
-    });
-console.log('dados gráfico: ', this.crop.field.farm.capital_tied, total_depreciation_value, this.crop.interest_tax, this.monthsSinceCropStart(), percentage_area);
-    this.remunaration = this.crop.field.farm.capital_tied + total_depreciation_value;
+    });*/
+
+    /*this.remunaration = this.crop.field.farm.capital_tied + total_depreciation_value;
     this.remunaration = (this.remunaration / 100 * percentage_area) * this.monthsSinceCropStart();
-    this.remunaration = (this.remunaration / 100 * this.crop.interest_tax) + this.remunaration;
-    this.ct = this.cot + this.remunaration;
+    this.remunaration = (this.remunaration / 100 * this.crop.interest_tax) + this.remunaration;*/
+    this.capital_tied_area = this.crop.field.farm.capital_tied  / 100 * percentage_area;
+    this.remunaration = this.capital_tied_area / 100 * this.crop.interest_tax;
+    this.totalRemunaration = this.remunaration * this.monthsSinceCropStart();
+    this.ct = this.cot + this.totalRemunaration;
   }
 
   calculateCashPerYear(){
