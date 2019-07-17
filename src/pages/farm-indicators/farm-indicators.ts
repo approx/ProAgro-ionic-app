@@ -6,6 +6,7 @@ import { FarmProvider } from '../../providers/farm/farm';
 import { CurrencyPipe } from '@angular/common';
 import { FarmIndicatorsComponent } from '../../components/farm-indicators/farm-indicators';
 import { HelperProvider } from '../../providers/helper/helper';
+import { MessagesProvider } from '../../providers/messages/messages';
 
 declare var google: any;
 
@@ -38,6 +39,8 @@ export class FarmIndicatorsPage extends BasePage {
   interest_rate=0.5;
   markers=[];
   timeout;
+  haveCrop = false;
+  masterCheck = true;
 
   myDate;
   @ViewChild(FarmIndicatorsComponent) farmIndicators:FarmIndicatorsComponent;
@@ -49,7 +52,8 @@ export class FarmIndicatorsPage extends BasePage {
     public navParams: NavParams,
     public famrProvider:FarmProvider,
     private zone:NgZone,
-    private helper:HelperProvider
+    private helper:HelperProvider,
+    private message:MessagesProvider
   ) {
     super(navCtrl);
   }
@@ -162,7 +166,7 @@ export class FarmIndicatorsPage extends BasePage {
     this.setMarkers()
     // console.log(this.farm.fields)
     if(this.farmIndicators){
-      console.log(this.farm.currency_id)
+      console.log('Currency farm: ', this.farm.currency_id)
       this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields,this.farm.currency_id);
     }
     // this.mapFields();
@@ -172,12 +176,14 @@ export class FarmIndicatorsPage extends BasePage {
   mapFields(){
     this.farm.fields = this.farm.fields.map(iten=>{
       let date = new Date(this.myDate);
+      this.haveCrop = false;
       for (let i = 0; i < iten.crops.length; i++) {
         let cropFinalDate = new Date(iten.crops[i].final_date);
         let cropInitalDate =  new Date(iten.crops[i].initial_date);
           if(date.getTime()<cropFinalDate.getTime() && date.getTime()>cropInitalDate.getTime()){
             console.log(this.myDate)
             console.log(cropFinalDate)
+            this.haveCrop = true;
             return {...iten,selected:true,selectedCrop:iten.crops[i]}
           }
       }
@@ -192,12 +198,22 @@ export class FarmIndicatorsPage extends BasePage {
   }
 
   updateGraph(){
+      this.message.Wait('Atualizando Dados...');
       this.helper.debounce(()=>{
           console.log('update');
           if(this.farmIndicators){
               this.farmIndicators.getIndicators(this.interest_rate,this.sack_value,this.farm.fields,this.farm.currency_id);
           }
       },700);
+      this.message.Done();
+  }
+
+  checkAll(): void {
+      this.farm.fields.forEach(field=>{
+          if (field.selectedCrop) {
+              field.selected = this.masterCheck;
+          }
+    });
   }
 
   ionViewDidLoad() {

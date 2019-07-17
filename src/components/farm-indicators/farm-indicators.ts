@@ -203,29 +203,33 @@ export class FarmIndicatorsComponent  {
     });
     ids = ids.slice(0, -1);
     console.log(ids);
-    this.indicatorsProvider.getIdicators(ids,interest_rate,sack_value).then((indicators:IndicatorsData)=>{
-      this.indicators = indicators;
-      this.showGraphs=false;
-      this.coeCotData = [{data:[indicators.coe.toFixed(2)],label:'COE'},{data:[indicators.cot.toFixed(2)],label:'COT'},{data:[indicators.ct.toFixed(2)],label:'CT'}];
-      this.cashPerYear = [{data:[indicators.grossMargin.toFixed(2)],label:'Margem Bruta'},{data:[indicators.liquidMargin.toFixed(2)],label:'Margem Liquida'},{data:[indicators.profit.toFixed(2)],label:'Lucro'}]
-      this.cashPerSack = [{data:[indicators.grossMarginPerSack.toFixed(2)],label:'Margem Bruta/sc'},{data:[indicators.liquidMarginPerSack.toFixed(2)],label:'Margem Liquida/sc'},{data:[indicators.profitPerSack.toFixed(2)],label:'Lucro/sc'}]
-      this.cashPerArea = [{data:[indicators.grossMarginPerArea.toFixed(2)],label:'Margem Bruta/área'},{data:[indicators.liquidMarginPerArea.toFixed(2)],label:'Margem Liquida/área'},{data:[indicators.profitPerArea.toFixed(2)],label:'Lucro/área'}]
-      this.coeCotCtPerSack = [{data:[indicators.coePerSack.toFixed(2)],label:'COE/sc'},{data:[indicators.cotPerSack.toFixed(2)],label:'COT/sc'},{data:[indicators.ctPerSack.toFixed(2)],label:'CT/sc'}];
-      this.coeCotCtPerArea = [{data:[indicators.coePerArea.toFixed(2)],label:'COE/área'},{data:[indicators.cotPerArea.toFixed(2)],label:'COT/área'},{data:[indicators.ctPerArea.toFixed(2)],label:'CT/área'}];
-      this.percentageValues = [{data:[indicators.trcWithoutField.toFixed(2)],label:'TRC sem terra'},{data:[indicators.trcWithField.toFixed(2)],label:'TRC com Terra'},{data:[indicators.lucrativity.toFixed(2)],label:'Lucratividade'},{data:[indicators.rentability.toFixed(2)],label:'Rentabilidade'}];
-      this.sackValues = [{data:[indicators.pn.toFixed(2)],label:'PN'},{data:[indicators.pcot.toFixed(2)],label:'pcot'},{data:[indicators.pct.toFixed(2)],label:'PCT'}];
-      this.pieChartData={data:[],labels:[]};
-      indicators.activitiesValues.map(item=>{
-        if(item.name!='Mão de obra familiar'){
-          this.pieChartData.labels.push(item.name);
-          this.pieChartData.data.push(item.value);
-        }
-      });
-      // this.showPieChart=false;
-      setTimeout(()=>{
-        this.showGraphs=true;
-      },1);
-    });
+    if (ids != '') {
+        this.indicatorsProvider.getIdicators(ids,interest_rate,sack_value).then((indicators:IndicatorsData)=>{
+          this.indicators = indicators;
+          this.showGraphs=false;
+          this.coeCotData = [{data:[indicators.coe.toFixed(2)],label:'COE'},{data:[indicators.cot.toFixed(2)],label:'COT'},{data:[indicators.ct.toFixed(2)],label:'CT'}];
+          this.cashPerYear = [{data:[indicators.grossMargin.toFixed(2)],label:'Margem Bruta'},{data:[indicators.liquidMargin.toFixed(2)],label:'Margem Liquida'},{data:[indicators.profit.toFixed(2)],label:'Lucro'}]
+          this.cashPerSack = [{data:[indicators.grossMarginPerSack.toFixed(2)],label:'Margem Bruta/sc'},{data:[indicators.liquidMarginPerSack.toFixed(2)],label:'Margem Liquida/sc'},{data:[indicators.profitPerSack.toFixed(2)],label:'Lucro/sc'}]
+          this.cashPerArea = [{data:[indicators.grossMarginPerArea.toFixed(2)],label:'Margem Bruta/área'},{data:[indicators.liquidMarginPerArea.toFixed(2)],label:'Margem Liquida/área'},{data:[indicators.profitPerArea.toFixed(2)],label:'Lucro/área'}]
+          this.coeCotCtPerSack = [{data:[indicators.coePerSack.toFixed(2)],label:'COE/sc'},{data:[indicators.cotPerSack.toFixed(2)],label:'COT/sc'},{data:[indicators.ctPerSack.toFixed(2)],label:'CT/sc'}];
+          this.coeCotCtPerArea = [{data:[indicators.coePerArea.toFixed(2)],label:'COE/área'},{data:[indicators.cotPerArea.toFixed(2)],label:'COT/área'},{data:[indicators.ctPerArea.toFixed(2)],label:'CT/área'}];
+          this.percentageValues = [{data:[indicators.trcWithoutField.toFixed(2)],label:'TRC sem terra'},{data:[indicators.trcWithField.toFixed(2)],label:'TRC com Terra'},{data:[indicators.lucrativity.toFixed(2)],label:'Lucratividade'},{data:[indicators.rentability.toFixed(2)],label:'Rentabilidade'}];
+          this.sackValues = [{data:[indicators.pn.toFixed(2)],label:'PN'},{data:[indicators.pcot.toFixed(2)],label:'pcot'},{data:[indicators.pct.toFixed(2)],label:'PCT'}];
+          this.pieChartData={data:[],labels:[]};
+          indicators.activitiesValues.map(item=>{
+            if(item.name!='Mão de obra familiar'){
+              this.pieChartData.labels.push(item.name);
+              this.pieChartData.data.push(item.value);
+            }
+          });
+          // this.showPieChart=false;
+          setTimeout(()=>{
+            this.showGraphs=true;
+          },1);
+        });
+    } else {
+        this.showGraphs=false;
+    }
   }
 
 }
